@@ -50,6 +50,7 @@
 
     <!-- Navigation Tabs -->
     <nav class="nav-links" id="main-nav-links">
+      <button class="nav-btn" data-tab="battles" id="nav-btn-battles">⚔️ BATTLE LOG <span class="hot-tag">AI COACH</span></button>
       <button class="nav-btn" data-tab="heroes">⚡ HEROES 2026 <span class="hot-tag">SEASON 87</span></button>
       <button class="nav-btn" data-tab="radar">⚡ 2V2 RADAR <span class="hot-tag">TOP 10K</span></button>
       <button class="nav-btn" data-tab="recall">🧠 DECK RECALL</button>
@@ -343,16 +344,171 @@
 
       <!-- Live Recent Battle History Section -->
       <div class="section-panel">
-        <div class="section-head">
+        <div class="section-head" style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 0.75rem;">
           <div>
             <h2 class="section-title">Recent Battle Log Stream (1v1 & 2v2)</h2>
             <div class="section-subtitle">Real match telemetry, crowns, deck matchups, and copy options</div>
           </div>
+          <button type="button" class="btn-secondary" id="btn-goto-full-battles" style="font-size: 0.78rem; font-weight: 800; border-color: var(--cyan); color: var(--cyan); padding: 0.45rem 0.85rem;">
+            ⚔️ Open Full Battle Log & AI Coach →
+          </button>
         </div>
 
         <div class="battles-feed" id="profile-battles-feed">
           <!-- Populated from Live API -->
         </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 2.5 BATTLE LOG & AI MATCH ANALYZER (DECK AI ENGINE)       -->
+    <!-- ======================================================== -->
+    <section id="view-battles" style="display: none;">
+      
+      <!-- Deck AI Hero Header -->
+      <div class="heroes-banner" style="background: linear-gradient(135deg, rgba(13, 18, 31, 0.95) 0%, rgba(8, 10, 16, 0.98) 100%); border: 1px solid rgba(38, 236, 232, 0.35); margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.25rem;">
+          <div>
+            <div class="hero-pill-badge" style="margin-bottom: 0.75rem; background: rgba(38, 236, 232, 0.12); color: var(--cyan); border-color: rgba(38, 236, 232, 0.4);">
+              ⚡ Deck AI Telemetry Engine • Season 87
+            </div>
+            <h2 style="font-size: 2rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem; letter-spacing: 0.04em;">
+              BATTLE LOG & AI MATCH ANALYZER
+            </h2>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); max-width: 680px; line-height: 1.5; margin: 0;">
+              Inspired by Deck AI: Real-time telemetry, expected matchup odds, algorithmic outcome analysis, and 1-click counter-deck generation.
+            </p>
+          </div>
+
+          <!-- Overall Performance KPI Card -->
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <div style="background: rgba(8, 10, 16, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.75rem 1rem; text-align: center; min-width: 95px;">
+              <div style="font-size: 0.68rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase;">Win Rate</div>
+              <div style="font-size: 1.35rem; font-weight: 900; color: var(--win); font-family: var(--font-mono);" id="battles-kpi-winrate">71.4%</div>
+              <div style="font-size: 0.65rem; color: var(--text-muted);">5W - 2L</div>
+            </div>
+            <div style="background: rgba(8, 10, 16, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.75rem 1rem; text-align: center; min-width: 95px;">
+              <div style="font-size: 0.68rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase;">AI Score</div>
+              <div style="font-size: 1.35rem; font-weight: 900; color: var(--gold); font-family: var(--font-mono);">0.88</div>
+              <div style="font-size: 0.65rem; color: var(--cyan);">God Tier</div>
+            </div>
+            <div style="background: rgba(8, 10, 16, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.75rem 1rem; text-align: center; min-width: 95px;">
+              <div style="font-size: 0.68rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase;">Avg Elixir</div>
+              <div style="font-size: 1.35rem; font-weight: 900; color: var(--cyan); font-family: var(--font-mono);">3.4</div>
+              <div style="font-size: 0.65rem; color: var(--text-muted);">9s Fast Cycle</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deck AI 8-Metric Diagnostic Matrix (Signature Deck AI Feature) -->
+        <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+          <div style="font-size: 0.78rem; font-weight: 800; color: var(--gold); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; gap: 0.4rem;">
+            <span>🧠 DECK AI DIAGNOSTIC MATRIX</span>
+            <span style="font-size: 0.68rem; color: var(--text-muted); font-weight: normal;">(Evaluated on Muk's 14,000 🏆 Active Battle Deck)</span>
+          </div>
+
+          <div class="deckai-metrics-grid">
+            <div class="deckai-metric-item">
+              <div class="deckai-metric-label"><span>Win Rate Expected</span><strong>71.4%</strong></div>
+              <div class="deckai-metric-bar"><div class="fill-win" style="width: 71.4%;"></div></div>
+            </div>
+            <div class="deckai-metric-item">
+              <div class="deckai-metric-label"><span>Synergy Score</span><strong>0.88</strong></div>
+              <div class="deckai-metric-bar"><div class="fill-gold" style="width: 88%;"></div></div>
+            </div>
+            <div class="deckai-metric-item">
+              <div class="deckai-metric-label"><span>Elixir Average</span><strong>3.4</strong></div>
+              <div class="deckai-metric-bar"><div class="fill-cyan" style="width: 68%;"></div></div>
+            </div>
+            <div class="deckai-metric-item">
+              <div class="deckai-metric-label"><span>4-Card Fast Cycle</span><strong>9 Elixir</strong></div>
+              <div class="deckai-metric-bar"><div class="fill-cyan" style="width: 75%;"></div></div>
+            </div>
+            <div class="deckai-metric-item">
+              <div class="deckai-metric-label"><span>Consistency Index</span><strong>0.85</strong></div>
+              <div class="deckai-metric-bar"><div class="fill-gold" style="width: 85%;"></div></div>
+            </div>
+            <div class="deckai-metric-item">
+              <div class="deckai-metric-label"><span>Confidence Rating</span><strong>84%</strong></div>
+              <div class="deckai-metric-bar"><div class="fill-win" style="width: 84%;"></div></div>
+            </div>
+            <div class="deckai-metric-item">
+              <div class="deckai-metric-label"><span>F2P Friendliness</span><strong>0.78</strong></div>
+              <div class="deckai-metric-bar"><div class="fill-purple" style="width: 78%;"></div></div>
+            </div>
+            <div class="deckai-metric-item">
+              <div class="deckai-metric-label"><span>Atk / Def Balance</span><strong>52% / 48%</strong></div>
+              <div class="deckai-metric-bar"><div class="fill-cyan" style="width: 52%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deck AI Card Swap Suggestions (AI Coach Recommendations) -->
+        <div style="margin-top: 1.25rem; background: rgba(8, 10, 16, 0.6); border: 1px solid rgba(216, 184, 120, 0.25); border-radius: var(--radius-md); padding: 1rem 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div style="font-size: 0.75rem; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em;">
+              💡 AI COACH CARD SWAP RECOMMENDATIONS
+            </div>
+            <span style="font-size: 0.7rem; color: var(--text-muted);">Trained on 1.2M CRL Battles</span>
+          </div>
+
+          <div class="deckai-swaps-row">
+            <div class="deckai-swap-item">
+              <div class="deckai-swap-cards">
+                <span class="swap-out">Zap</span>
+                <span class="swap-arrow">➔</span>
+                <span class="swap-in">The Log</span>
+              </div>
+              <div class="deckai-swap-meta">
+                <span class="swap-impact">+3.8% Win Rate</span>
+                <span class="swap-reason">Neutralizes Goblin Barrel & Princess chip</span>
+              </div>
+            </div>
+            <div class="deckai-swap-item">
+              <div class="deckai-swap-cards">
+                <span class="swap-out">Fireball</span>
+                <span class="swap-arrow">➔</span>
+                <span class="swap-in">Poison</span>
+              </div>
+              <div class="deckai-swap-meta">
+                <span class="swap-impact">+4.2% Control</span>
+                <span class="swap-reason">Denies Graveyard, Drill & swarm pushes</span>
+              </div>
+            </div>
+            <div class="deckai-swap-item">
+              <div class="deckai-swap-cards">
+                <span class="swap-out">Minion Horde</span>
+                <span class="swap-arrow">➔</span>
+                <span class="swap-in">Mega Minion</span>
+              </div>
+              <div class="deckai-swap-meta">
+                <span class="swap-impact">-0.5 Elixir Cycle</span>
+                <span class="swap-reason">Spell-proof defense vs Arrows & Fireball</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Filter Controls Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 1.5rem 0 1rem; flex-wrap: wrap; gap: 0.75rem;">
+        <div class="hero-filter-tabs" id="battle-filters">
+          <button type="button" class="filter-btn-hero active" data-battle-filter="all">All Battles (7)</button>
+          <button type="button" class="filter-btn-hero" data-battle-filter="win">👑 Victories (5)</button>
+          <button type="button" class="filter-btn-hero" data-battle-filter="loss">⚠️ Defeats (2)</button>
+          <button type="button" class="filter-btn-hero" data-battle-filter="1v1">🏆 Ranked 1v1</button>
+          <button type="button" class="filter-btn-hero" data-battle-filter="2v2">⚡ 2v2 League</button>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">
+          Auto-Synced with Live Supercell Gateway
+        </div>
+      </div>
+
+      <!-- Battle Cards Stream -->
+      <div class="battles-feed deckai-battles-stream" id="battles-stream-container">
+        <!-- Rendered via App.renderBattleStream() -->
       </div>
 
     </section>
@@ -792,14 +948,14 @@
       <span class="dock-label">Profile</span>
       <span class="dock-pip"></span>
     </button>
+    <button type="button" class="nav-btn dock-btn" data-tab="battles" id="dock-btn-battles">
+      <span class="dock-icon">⚔️</span>
+      <span class="dock-label">Battles</span>
+      <span class="dock-pip"></span>
+    </button>
     <button type="button" class="nav-btn dock-btn" data-tab="radar" id="dock-btn-radar">
       <span class="dock-icon">⚡</span>
       <span class="dock-label">2v2 Radar</span>
-      <span class="dock-pip"></span>
-    </button>
-    <button type="button" class="nav-btn dock-btn" data-tab="recall" id="dock-btn-recall">
-      <span class="dock-icon">🧠</span>
-      <span class="dock-label">Recall</span>
       <span class="dock-pip"></span>
     </button>
     <button type="button" class="nav-btn dock-btn" data-tab="heroes" id="dock-btn-heroes">
@@ -808,7 +964,7 @@
       <span class="dock-pip"></span>
     </button>
     <button type="button" class="nav-btn dock-btn" data-tab="studio" id="dock-btn-studio">
-      <span class="dock-icon">⚔️</span>
+      <span class="dock-icon">🛠️</span>
       <span class="dock-label">Studio</span>
       <span class="dock-pip"></span>
     </button>

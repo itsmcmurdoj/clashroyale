@@ -1041,6 +1041,351 @@ body {
   object-fit: contain;
 }
 
+/* ======================================================== */
+/* 4.5 DECK AI BATTLE LOG & DIAGNOSTIC MATRIX STYLING       */
+/* ======================================================== */
+
+.deckai-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .deckai-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.deckai-metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.deckai-metric-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.deckai-metric-label strong {
+  font-family: var(--font-mono);
+  color: #fff;
+  font-size: 0.82rem;
+}
+
+.deckai-metric-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.deckai-metric-bar .fill-win {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+  border-radius: 999px;
+}
+
+.deckai-metric-bar .fill-gold {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold) 0%, #fef08a 100%);
+  border-radius: 999px;
+}
+
+.deckai-metric-bar .fill-cyan {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan) 0%, #67e8f9 100%);
+  border-radius: 999px;
+}
+
+.deckai-metric-bar .fill-purple {
+  height: 100%;
+  background: linear-gradient(90deg, #a855f7 0%, #c084fc 100%);
+  border-radius: 999px;
+}
+
+.deckai-swaps-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 850px) {
+  .deckai-swaps-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.deckai-swap-item {
+  background: rgba(13, 18, 31, 0.75);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.deckai-swap-cards {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.swap-out {
+  color: #ef4444;
+  text-decoration: line-through;
+  background: rgba(239, 68, 68, 0.12);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.swap-arrow {
+  color: var(--text-muted);
+}
+
+.swap-in {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.deckai-swap-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.swap-impact {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.swap-reason {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+/* Deck AI Battle Card */
+.deckai-battle-card {
+  background: linear-gradient(180deg, #0d121f 0%, #080a10 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.deckai-battle-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(38, 236, 232, 0.4);
+}
+
+.deckai-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.deckai-result-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.deckai-crowns-badge {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+.deckai-mode-badge {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.deckai-odds-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.deckai-odds-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.deckai-odds-track {
+  width: 140px;
+  height: 6px;
+  background: rgba(239, 68, 68, 0.4);
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+}
+
+.deckai-odds-fill {
+  height: 100%;
+  background: var(--win);
+  border-radius: 999px 0 0 999px;
+}
+
+.deckai-combatants-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+@media (max-width: 800px) {
+  .deckai-combatants-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.deckai-combatant-side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.deckai-side-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.deckai-cards-strip {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+}
+
+.deckai-card-slot {
+  position: relative;
+  aspect-ratio: 3/4;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+.deckai-card-slot:hover {
+  transform: scale(1.08);
+  border-color: var(--cyan);
+  z-index: 2;
+}
+
+.deckai-card-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.deckai-card-lvl {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.85);
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: var(--gold);
+  text-align: center;
+  line-height: 1.1;
+  padding: 1px 0;
+}
+
+.deckai-vs-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.deckai-vs-badge {
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.deckai-elixir-diff {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--cyan);
+  background: rgba(38, 236, 232, 0.1);
+  padding: 1px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.deckai-coach-box {
+  background: rgba(8, 10, 16, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.deckai-coach-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.deckai-coach-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.deckai-actions-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 /* =================================================== */
 /* 5. 2026 HEROES & ABILITIES SYSTEM                   */
 /* =================================================== */

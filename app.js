@@ -530,6 +530,28 @@ const App = {
         this.runSimulation();
       });
     }
+
+    // 12.5 Deck AI Battle Log Navigation & Filters
+    const gotoBattlesBtn = document.getElementById("btn-goto-full-battles");
+    if (gotoBattlesBtn) {
+      gotoBattlesBtn.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        this.showView("battles");
+        this.updateNavButtons("battles");
+      });
+    }
+
+    const battleFilterContainer = document.getElementById("battle-filters");
+    if (battleFilterContainer) {
+      battleFilterContainer.querySelectorAll(".filter-btn-hero").forEach(btn => {
+        btn.addEventListener("click", () => {
+          WebAudioFX.playClick();
+          battleFilterContainer.querySelectorAll(".filter-btn-hero").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          this.renderBattleStream(btn.getAttribute("data-battle-filter"));
+        });
+      });
+    }
   },
 
   updateNavButtons: function(activeTab) {
@@ -669,11 +691,14 @@ const App = {
   },
 
   showView: function(viewId) {
-    const views = ["gateway", "account", "heroes", "radar", "recall", "studio", "simulator", "meta"];
+    const views = ["gateway", "account", "battles", "heroes", "radar", "recall", "studio", "simulator", "meta"];
     views.forEach(v => {
       const el = document.getElementById(`view-${v}`);
       if (el) el.style.display = (v === viewId) ? "block" : "none";
     });
+    if (viewId === "battles") {
+      this.renderBattleStream("all");
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   },
 
@@ -1124,22 +1149,183 @@ const App = {
       { name: "Giant Chest" }
     ];
 
+    const myDeck = this.activePlayer.currentDeck || [];
+    
+    // Opponent Decks
+    const mohamedDeck = [
+      { name: "Ice Wizard", id: 26000023, elixirCost: 3, level: 15, isHero: true },
+      { name: "P.E.K.K.A", id: 26000004, elixirCost: 7, level: 15, isEvo: true },
+      { name: "Knight", id: 26000000, elixirCost: 3, level: 15 },
+      { name: "Zap", id: 28000008, elixirCost: 2, level: 15 },
+      { name: "Poison", id: 28000009, elixirCost: 4, level: 15 },
+      { name: "Electro Spirit", id: 26000084, elixirCost: 1, level: 15 },
+      { name: "Bandit", id: 26000046, elixirCost: 3, level: 15 },
+      { name: "Baby Dragon", id: 26000015, elixirCost: 4, level: 15 }
+    ];
+
+    const ryleyDeck = [
+      { name: "Knight", id: 26000000, elixirCost: 3, level: 15, isHero: true },
+      { name: "Goblin Barrel", id: 28000004, elixirCost: 3, level: 15, isEvo: true },
+      { name: "Valkyrie", id: 26000011, elixirCost: 4, level: 15 },
+      { name: "Princess", id: 26000026, elixirCost: 3, level: 15 },
+      { name: "The Log", id: 28000011, elixirCost: 2, level: 15 },
+      { name: "Rocket", id: 28000003, elixirCost: 6, level: 15 },
+      { name: "Ice Spirit", id: 26000030, elixirCost: 1, level: 15 },
+      { name: "Goblin Gang", id: 26000041, elixirCost: 3, level: 15 }
+    ];
+
+    const surgicalViperDeck = [
+      { name: "Lava Hound", id: 26000029, elixirCost: 7, level: 15 },
+      { name: "Balloon", id: 26000006, elixirCost: 5, level: 15 },
+      { name: "Mega Minion", id: 26000039, elixirCost: 3, level: 15 },
+      { name: "Guards", id: 26000025, elixirCost: 3, level: 15 },
+      { name: "Tombstone", id: 27000009, elixirCost: 3, level: 15 },
+      { name: "Zap", id: 28000008, elixirCost: 2, level: 15 },
+      { name: "Fireball", id: 28000000, elixirCost: 4, level: 15 },
+      { name: "Arrows", id: 28000001, elixirCost: 3, level: 15 }
+    ];
+
+    const ianDeck = [
+      { name: "Hog Rider", id: 26000021, elixirCost: 4, level: 15 },
+      { name: "Earthquake", id: 28000014, elixirCost: 3, level: 15 },
+      { name: "Firecracker", id: 26000064, elixirCost: 3, level: 15, isEvo: true },
+      { name: "Ice Spirit", id: 26000030, elixirCost: 1, level: 15 },
+      { name: "Cannon", id: 27000000, elixirCost: 3, level: 15 },
+      { name: "The Log", id: 28000011, elixirCost: 2, level: 15 },
+      { name: "Skeletons", id: 26000010, elixirCost: 1, level: 15 },
+      { name: "Knight", id: 26000000, elixirCost: 3, level: 15 }
+    ];
+
+    const mortenDeck = [
+      { name: "Miner", id: 26000032, elixirCost: 3, level: 15 },
+      { name: "Poison", id: 28000009, elixirCost: 4, level: 15 },
+      { name: "The Log", id: 28000011, elixirCost: 2, level: 15 },
+      { name: "Knight", id: 26000000, elixirCost: 3, level: 15 },
+      { name: "Bats", id: 26000049, elixirCost: 2, level: 15 },
+      { name: "Musketeer", id: 26000014, elixirCost: 4, level: 15 },
+      { name: "Ice Spirit", id: 26000030, elixirCost: 1, level: 15 },
+      { name: "Bomb Tower", id: 27000004, elixirCost: 4, level: 15 }
+    ];
+
+    const lightKingDeck = [
+      { name: "Royal Giant", id: 26000024, elixirCost: 6, level: 15, isEvo: true },
+      { name: "Fisherman", id: 26000061, elixirCost: 3, level: 15 },
+      { name: "Monk", id: 26000077, elixirCost: 5, level: 15 },
+      { name: "Phoenix", id: 26000087, elixirCost: 4, level: 15 },
+      { name: "Mother Witch", id: 26000083, elixirCost: 4, level: 15 },
+      { name: "The Log", id: 28000011, elixirCost: 2, level: 15 },
+      { name: "Fireball", id: 28000000, elixirCost: 4, level: 15 },
+      { name: "Electro Spirit", id: 26000084, elixirCost: 1, level: 15 }
+    ];
+
+    const oyassuuDeck = [
+      { name: "Hog Rider", id: 26000021, elixirCost: 4, level: 15 },
+      { name: "Musketeer", id: 26000014, elixirCost: 4, level: 15 },
+      { name: "Cannon", id: 27000000, elixirCost: 3, level: 15 },
+      { name: "Ice Golem", id: 26000038, elixirCost: 2, level: 15 },
+      { name: "Ice Spirit", id: 26000030, elixirCost: 1, level: 15 },
+      { name: "Skeletons", id: 26000010, elixirCost: 1, level: 15 },
+      { name: "Fireball", id: 28000000, elixirCost: 4, level: 15 },
+      { name: "The Log", id: 28000011, elixirCost: 2, level: 15 }
+    ];
+
     this.activeBattles = [
       {
+        id: "battle_1",
         type: "Ranked 1v1 Ultimate Champion",
-        team: [{ name: this.activePlayer.name, crowns: 3, cards: this.activePlayer.currentDeck }],
-        opponent: [{ name: "Ryley", clan: { name: "SK Gaming" }, crowns: 1, cards: this.activePlayer.currentDeck.slice().reverse() }]
+        timeAgo: "5m ago",
+        odds: { userWinProb: 68, oppWinProb: 32, label: "Favorable Matchup" },
+        outcomeAnalysis: {
+          interaction: "Hero Ice Wizard Frost Surge + Minion Horde melted Evo PEKKA at the bridge before it touched the crown tower.",
+          elixirAdvantage: "Maintained +0.4 elixir advantage in triple elixir by punishing Mohamed's early Poison cycles.",
+          coachTip: "Flawless swarm bait execution. Opponent lacked sufficient splash reset spells."
+        },
+        team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 3, cards: myDeck }],
+        opponent: [{ name: "Mohamed Light", tag: "#Y82VPR9", clan: { name: "SK Gaming" }, crowns: 2, cards: mohamedDeck }]
       },
       {
+        id: "battle_2",
+        type: "Ranked Path of Legends",
+        timeAgo: "38m ago",
+        odds: { userWinProb: 64, oppWinProb: 36, label: "Favorable Matchup" },
+        outcomeAnalysis: {
+          interaction: "Zap + Ice Golem kiting cleanly absorbed Goblin Gang pushes, neutralizing Ryley's fast-cycle barrel attempts.",
+          elixirAdvantage: "Ryley overcommitted 6 elixir on an offensive Rocket, allowing an immediate 3-crown counter-push.",
+          coachTip: "High-discipline defense. Zero spell damage leakage."
+        },
+        team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 2, cards: myDeck }],
+        opponent: [{ name: "Ryley", tag: "#29UJQLP", clan: { name: "SK Gaming" }, crowns: 1, cards: ryleyDeck }]
+      },
+      {
+        id: "battle_3",
         type: "2v2 League 2026",
+        timeAgo: "2h ago",
+        odds: { userWinProb: 70, oppWinProb: 30, label: "Massive Advantage" },
+        outcomeAnalysis: {
+          interaction: "Double Hero deployment: Muk's Hero Ice Wizard Frost Surge synchronized with Morten's Miner to overwhelm their dual-lane defenses.",
+          elixirAdvantage: "Punished 7-elixir Lava Hound deployments with opposite lane Hog Rider pressure.",
+          coachTip: "Unmatched 2v2 synergy. Dominated both lanes seamlessly."
+        },
         team: [
-          { name: this.activePlayer.name, crowns: 2, cards: this.activePlayer.currentDeck.slice(0, 4) },
-          { name: "Morten", crowns: 2, cards: this.activePlayer.currentDeck.slice(4, 8) }
+          { name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 3, cards: myDeck },
+          { name: "Morten", tag: "#8GJL90", clan: { name: "SK Gaming" }, crowns: 3, cards: mortenDeck }
         ],
         opponent: [
-          { name: "Surgical Goblin", clan: { name: "Team Queso" }, crowns: 1, cards: this.activePlayer.currentDeck.slice(0, 4) },
-          { name: "Viper", clan: { name: "Tribe Gaming" }, crowns: 1, cards: this.activePlayer.currentDeck.slice(4, 8) }
+          { name: "Surgical Goblin", tag: "#2U8J8L", clan: { name: "Team Queso" }, crowns: 1, cards: surgicalViperDeck },
+          { name: "Viper", tag: "#9PJ28C", clan: { name: "Tribe Gaming" }, crowns: 1, cards: surgicalViperDeck }
         ]
+      },
+      {
+        id: "battle_4",
+        type: "Ranked 1v1 Ultimate Champion",
+        timeAgo: "5h ago",
+        odds: { userWinProb: 44, oppWinProb: 56, label: "Unfavorable Cycle" },
+        outcomeAnalysis: {
+          interaction: "Ian77's Earthquake consistently predicted defensive placements while Evolved Firecracker pierced through swarms.",
+          elixirAdvantage: "Ian held a -0.6 elixir cycle speed advantage, out-cycling your Ice Wizard.",
+          coachTip: "Spread defense wide and avoid placing troops directly adjacent to princess towers against EQ."
+        },
+        team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 1, cards: myDeck }],
+        opponent: [{ name: "Ian77", tag: "#8UYLP20", clan: { name: "Nova Esports" }, crowns: 2, cards: ianDeck }]
+      },
+      {
+        id: "battle_5",
+        type: "Grand Challenge 12-Win",
+        timeAgo: "8h ago",
+        odds: { userWinProb: 61, oppWinProb: 39, label: "Favorable Control" },
+        outcomeAnalysis: {
+          interaction: "Knight and Ice Golem caught every Miner placement, keeping chip damage under 400 total HP across the entire match.",
+          elixirAdvantage: "Controlled tempo throughout single and double elixir.",
+          coachTip: "Top-tier defensive positioning on Miner prediction."
+        },
+        team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 2, cards: myDeck }],
+        opponent: [{ name: "Morten", tag: "#8GJL90", clan: { name: "SK Gaming" }, crowns: 0, cards: mortenDeck }]
+      },
+      {
+        id: "battle_6",
+        type: "Ranked 1v1 Ultimate Champion",
+        timeAgo: "1d ago",
+        odds: { userWinProb: 55, oppWinProb: 45, label: "Even Matchup" },
+        outcomeAnalysis: {
+          interaction: "Minion Horde cleanly melted Royal Giant before Monk's Pensive Protection could be activated.",
+          elixirAdvantage: "Forced negative trades on Fisherman pulls.",
+          coachTip: "Great timing on air swarms against ground beatdown."
+        },
+        team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 1, cards: myDeck }],
+        opponent: [{ name: "LightKing", tag: "#4902LKP", clan: { name: "Tribe Gaming" }, crowns: 0, cards: lightKingDeck }]
+      },
+      {
+        id: "battle_7",
+        type: "Ranked Path of Legends",
+        timeAgo: "1d ago",
+        odds: { userWinProb: 48, oppWinProb: 52, label: "Tight Cycle Match" },
+        outcomeAnalysis: {
+          interaction: "Oyassuu's 2.6 cycle was 0.8s faster than yours, cycling Cannon before your second Hog could break through.",
+          elixirAdvantage: "Even trades, but Cannon positioning denied tower contact.",
+          coachTip: "Counter-deck recommendation: Swap Zap for The Log or Tornado to activate King Tower early and shut down Hog."
+        },
+        team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 0, cards: myDeck }],
+        opponent: [{ name: "Oyassuu", tag: "#9L208UP", clan: { name: "FA Gaming" }, crowns: 1, cards: oyassuuDeck }]
       }
     ];
 
@@ -1302,106 +1488,279 @@ const App = {
     });
   },
 
+  // --- 7.5 DECK AI BATTLE LOG & MATCH ANALYSIS SUITE ---
+  getCardDisplayInfo: function(card) {
+    if (!card) return { name: "Knight", icon: "https://cdn.royaleapi.com/static/img/cards-150/knight.png", elixir: 3, lvl: "Lvl 15", isEvo: false, isHero: false };
+    const cName = card.name || "";
+    const match = CLASH_CARDS.find(c => c.name.toLowerCase() === cName.toLowerCase() || c.id === card.id || c.key === card.key);
+    let icon = "";
+    if (card.iconUrls) {
+      icon = card.iconUrls.evolutionMedium || card.iconUrls.heroMedium || card.iconUrls.medium || "";
+    }
+    if (!icon && match) {
+      icon = match.icon;
+    }
+    if (!icon) {
+      icon = "https://cdn.royaleapi.com/static/img/cards-150/knight.png";
+    }
+    const elixir = (match && match.elixir) ? match.elixir : (card.elixirCost || 3);
+    const isHero = card.isHero || (match && match.hasHero && cName.toLowerCase().includes("hero"));
+    const isEvo = card.isEvo || card.evolutionLevel > 0 || (card.iconUrls && card.iconUrls.evolutionMedium) || (match && match.hasEvolution && cName.toLowerCase().includes("evo"));
+    return {
+      id: (match && match.id) ? match.id : (card.id || 26000000),
+      name: match ? match.name : cName,
+      icon: icon,
+      elixir: elixir,
+      lvl: card.level ? `Lvl ${card.level}` : "Lvl 15",
+      isEvo: !!isEvo,
+      isHero: !!isHero
+    };
+  },
+
+  generateHardCounter: function(oppCards, oppName = "Opponent") {
+    WebAudioFX.playHeroAura();
+    const oppNames = (oppCards || []).map(c => (c.name || "").toLowerCase());
+
+    // Algorithmic Counter Archetype Matching
+    let counterKeys = [];
+    if (oppNames.some(n => n.includes("lava") || n.includes("balloon"))) {
+      // Counter: Heavy Air Denial / Executioner Tornado Control
+      counterKeys = ["executioner", "tornado", "electro-dragon", "inferno-dragon", "mega-minion", "poison", "zap", "miner"];
+    } else if (oppNames.some(n => n.includes("pekka") || n.includes("golem") || n.includes("royal giant"))) {
+      // Counter: Swarm & Tank Shredder Control
+      counterKeys = ["inferno-tower", "guards", "ice-wizard", "knight", "firecracker", "poison", "the-log", "hog-rider"];
+    } else if (oppNames.some(n => n.includes("barrel") || n.includes("princess") || n.includes("gang"))) {
+      // Counter: Triple Spell Anti-Bait
+      counterKeys = ["the-log", "valkyrie", "arrows", "bowler", "electro-spirit", "poison", "goblin-drill", "knight"];
+    } else if (oppNames.some(n => n.includes("hog") || n.includes("earthquake"))) {
+      // Counter: Anti-Hog Tornado Defense
+      counterKeys = ["tornado", "cannon", "hunter", "knight", "the-log", "fireball", "ice-spirit", "graveyard"];
+    } else {
+      // Counter: World Championship Season 87 Hero Ice Wizard PEKKA Control
+      counterKeys = ["ice-wizard", "pekka", "knight", "zap", "poison", "electro-spirit", "bandit", "baby-dragon"];
+    }
+
+    this.studioDeck = counterKeys.map(k => {
+      const match = CLASH_CARDS.find(c => c.key === k || c.name.toLowerCase() === k.replace("-", " "));
+      return match || { id: 26000000, name: k, elixir: 3, icon: "" };
+    });
+
+    this.renderStudioDeck();
+    this.showView("studio");
+    this.updateNavButtons("studio");
+    this.showToast(`🎯 Built Hard-Counter Deck vs ${oppName}! Loaded into Studio.`);
+  },
+
+  buildDeckAIBattleCard: function(b) {
+    const teamPlayer1 = (b.team && b.team[0]) ? b.team[0] : {};
+    const oppPlayer1 = (b.opponent && b.opponent[0]) ? b.opponent[0] : {};
+
+    const is2v2 = (b.team && b.team.length > 1) || (b.type && b.type.toLowerCase().includes("2v2"));
+    const myCrowns = teamPlayer1.crowns !== undefined ? teamPlayer1.crowns : 0;
+    const oppCrowns = oppPlayer1.crowns !== undefined ? oppPlayer1.crowns : 0;
+    const isWin = myCrowns > oppCrowns;
+
+    const myRawCards = teamPlayer1.cards || (this.activePlayer ? this.activePlayer.currentDeck : []) || [];
+    const oppRawCards = oppPlayer1.cards || [];
+
+    const myCards = myRawCards.slice(0, 8).map(c => this.getCardDisplayInfo(c));
+    const oppCards = oppRawCards.slice(0, 8).map(c => this.getCardDisplayInfo(c));
+
+    const myAvg = myCards.length > 0 ? (myCards.reduce((acc, c) => acc + c.elixir, 0) / myCards.length).toFixed(1) : "3.4";
+    const oppAvg = oppCards.length > 0 ? (oppCards.reduce((acc, c) => acc + c.elixir, 0) / oppCards.length).toFixed(1) : "3.8";
+
+    const elixirDiff = (parseFloat(oppAvg) - parseFloat(myAvg)).toFixed(1);
+    const elixirAdvLabel = parseFloat(elixirDiff) > 0 ? `+${elixirDiff} cycle adv` : `${elixirDiff} cycle`;
+
+    const odds = b.odds || { userWinProb: isWin ? 64 : 45, oppWinProb: isWin ? 36 : 55, label: isWin ? "Favorable Matchup" : "Challenging Matchup" };
+    const analysis = b.outcomeAnalysis || {
+      interaction: "Clean defensive positioning and elixir management decided the match outcome.",
+      elixirAdvantage: "Controlled positive trades during high-density pushes.",
+      coachTip: "Capitalize on opponent spell commitments with opposite lane counter-attacks."
+    };
+
+    const cardEl = document.createElement("div");
+    cardEl.className = "deckai-battle-card";
+    cardEl.innerHTML = `
+      <!-- Header Bar: Result, Mode, Time, Odds Track -->
+      <div class="deckai-card-header">
+        <div class="deckai-result-group">
+          <span class="status-indicator ${isWin ? "win" : "loss"}">${isWin ? "VICTORY" : "DEFEAT"}</span>
+          <span class="deckai-crowns-badge">👑 ${myCrowns} - ${oppCrowns}</span>
+          <span class="deckai-mode-badge">${is2v2 ? "⚡ 2v2 League" : (b.type || "Ranked 1v1")}</span>
+          <span style="font-size: 0.72rem; color: var(--text-muted);">${b.timeAgo || "Recent"}</span>
+        </div>
+
+        <div class="deckai-odds-box">
+          <div class="deckai-odds-label">${odds.userWinProb}% Win Odds • ${odds.label}</div>
+          <div class="deckai-odds-track" title="Deck AI Win Probability: ${odds.userWinProb}% vs ${odds.oppWinProb}%">
+            <div class="deckai-odds-fill" style="width: ${odds.userWinProb}%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Combatants Deck Display: You vs Opponent -->
+      <div class="deckai-combatants-grid">
+        <!-- You -->
+        <div class="deckai-combatant-side">
+          <div class="deckai-side-meta">
+            <span style="color: var(--cyan); font-weight: 800;">You ${is2v2 && b.team[1] ? `+ ${b.team[1].name}` : ""}</span>
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">${myAvg} Avg Elixir</span>
+          </div>
+          <div class="deckai-cards-strip">
+            ${myCards.map(c => `
+              <div class="deckai-card-slot ${c.isEvo ? "evo-glow" : ""} ${c.isHero ? "hero-glow" : ""}" title="${c.name} (${c.elixir}💧)">
+                <img src="${c.icon}" alt="${c.name}" onerror="this.src='https://cdn.royaleapi.com/static/img/cards-150/knight.png'">
+                <div class="deckai-card-lvl">${c.lvl}</div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+
+        <!-- Center VS & Elixir Badge -->
+        <div class="deckai-vs-col">
+          <div class="deckai-vs-badge">VS</div>
+          <div class="deckai-elixir-diff">${elixirAdvLabel}</div>
+        </div>
+
+        <!-- Opponent -->
+        <div class="deckai-combatant-side">
+          <div class="deckai-side-meta">
+            <span style="color: #fff; font-weight: 800;">${oppPlayer1.name || "Opponent"} ${oppPlayer1.clan ? `<span style="font-size:0.68rem; color:var(--text-muted); font-weight:normal;">(${oppPlayer1.clan.name})</span>` : ""}</span>
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">${oppAvg} Avg Elixir</span>
+          </div>
+          <div class="deckai-cards-strip">
+            ${oppCards.map(c => `
+              <div class="deckai-card-slot ${c.isEvo ? "evo-glow" : ""} ${c.isHero ? "hero-glow" : ""}" title="${c.name} (${c.elixir}💧)">
+                <img src="${c.icon}" alt="${c.name}" onerror="this.src='https://cdn.royaleapi.com/static/img/cards-150/knight.png'">
+                <div class="deckai-card-lvl">${c.lvl}</div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      </div>
+
+      <!-- Deck AI Post-Match Outcome Analysis Box -->
+      <div class="deckai-coach-box">
+        <div class="deckai-coach-item">
+          <span class="deckai-coach-icon">🎯</span>
+          <div><strong style="color: var(--cyan);">Key Interaction:</strong> ${analysis.interaction}</div>
+        </div>
+        <div class="deckai-coach-item">
+          <span class="deckai-coach-icon">⚡</span>
+          <div><strong style="color: var(--gold);">Elixir Efficiency:</strong> ${analysis.elixirAdvantage}</div>
+        </div>
+        <div class="deckai-coach-item">
+          <span class="deckai-coach-icon">💡</span>
+          <div><strong style="color: #34d399;">AI Coach Tip:</strong> ${analysis.coachTip}</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Row -->
+      <div class="deckai-actions-row">
+        <button type="button" class="btn-primary-action btn-copy-opp-deck" style="font-size: 0.76rem; padding: 0.45rem 0.85rem; background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%); color: #080a10; font-weight: 800;">
+          ⚔️ Copy Deck
+        </button>
+
+        <button type="button" class="btn-secondary btn-counter-opp-deck" style="font-size: 0.76rem; padding: 0.45rem 0.85rem; border-color: rgba(239, 68, 68, 0.4); color: #f87171; font-weight: 700;">
+          🎯 Generate Hard Counter
+        </button>
+
+        <button type="button" class="btn-secondary btn-studio-opp-deck" style="font-size: 0.76rem; padding: 0.45rem 0.75rem;">
+          Studio →
+        </button>
+      </div>
+    `;
+
+    // Wire Copy Button
+    const copyBtn = cardEl.querySelector(".btn-copy-opp-deck");
+    if (copyBtn) {
+      copyBtn.addEventListener("click", () => {
+        if (oppRawCards && oppRawCards.length > 0) {
+          this.handleCopyDeck(oppRawCards, `${oppPlayer1.name || "Opponent"}'s Deck`);
+        } else {
+          this.showToast("No opponent cards available to copy.");
+        }
+      });
+    }
+
+    // Wire Counter Button
+    const counterBtn = cardEl.querySelector(".btn-counter-opp-deck");
+    if (counterBtn) {
+      counterBtn.addEventListener("click", () => {
+        this.generateHardCounter(oppRawCards, oppPlayer1.name || "Opponent");
+      });
+    }
+
+    // Wire Studio Button
+    const studioBtn = cardEl.querySelector(".btn-studio-opp-deck");
+    if (studioBtn) {
+      studioBtn.addEventListener("click", () => {
+        WebAudioFX.playCardLock();
+        if (oppRawCards && oppRawCards.length > 0) {
+          this.studioDeck = oppRawCards.map(c => {
+            const match = CLASH_CARDS.find(x => x.name.toLowerCase() === (c.name || "").toLowerCase() || x.id === c.id);
+            return match || {
+              id: c.id,
+              name: c.name,
+              elixir: c.elixirCost || 3,
+              icon: c.iconUrls ? (c.iconUrls.medium || c.iconUrls.evolutionMedium) : ""
+            };
+          });
+          this.renderStudioDeck();
+          this.showView("studio");
+          this.updateNavButtons("studio");
+          this.showToast(`Loaded ${oppPlayer1.name || "Opponent"}'s deck into Tactical Studio!`);
+        }
+      });
+    }
+
+    return cardEl;
+  },
+
+  renderBattleStream: function(filter = "all") {
+    const container = document.getElementById("battles-stream-container");
+    if (!container) return;
+    container.innerHTML = "";
+
+    const battles = this.activeBattles || [];
+    const filtered = battles.filter(b => {
+      const myCrowns = (b.team && b.team[0] && b.team[0].crowns !== undefined) ? b.team[0].crowns : 0;
+      const oppCrowns = (b.opponent && b.opponent[0] && b.opponent[0].crowns !== undefined) ? b.opponent[0].crowns : 0;
+      const isWin = myCrowns > oppCrowns;
+      const is2v2 = (b.team && b.team.length > 1) || (b.type && b.type.toLowerCase().includes("2v2"));
+
+      if (filter === "all") return true;
+      if (filter === "win") return isWin;
+      if (filter === "loss") return !isWin;
+      if (filter === "1v1") return !is2v2;
+      if (filter === "2v2") return is2v2;
+      return true;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = `<div style="color: var(--text-muted); font-size: 0.85rem; padding: 2rem; text-align: center;">No matches match the selected filter.</div>`;
+      return;
+    }
+
+    filtered.forEach(b => {
+      container.appendChild(this.buildDeckAIBattleCard(b));
+    });
+  },
+
   renderLiveBattles: function() {
     const container = document.getElementById("profile-battles-feed");
     if (!container) return;
     container.innerHTML = "";
 
-    if (this.activeBattles.length === 0) {
+    if (!this.activeBattles || this.activeBattles.length === 0) {
       container.innerHTML = `<div style="color: var(--text-muted); font-size: 0.85rem;">No recent battles recorded in battle log.</div>`;
       return;
     }
 
-    this.activeBattles.slice(0, 8).forEach(b => {
-      // Support 1v1 and 2v2 League matches safely
-      const teamPlayer1 = (b.team && b.team[0]) ? b.team[0] : {};
-      const oppPlayer1 = (b.opponent && b.opponent[0]) ? b.opponent[0] : {};
-
-      const is2v2 = (b.team && b.team.length > 1) || (b.type && b.type.toLowerCase().includes("2v2"));
-
-      const myCrowns = teamPlayer1.crowns !== undefined ? teamPlayer1.crowns : 0;
-      const oppCrowns = oppPlayer1.crowns !== undefined ? oppPlayer1.crowns : 0;
-      const isWin = myCrowns > oppCrowns;
-
-      const myCards = teamPlayer1.cards || [];
-      const oppCards = oppPlayer1.cards || [];
-
-      const row = document.createElement("div");
-      row.className = "battle-row";
-      row.innerHTML = `
-        <div class="battle-status-block">
-          <span class="status-indicator ${isWin ? "win" : "loss"}">${isWin ? "VICTORY" : "DEFEAT"}</span>
-          <div class="crown-tally">${myCrowns} - ${oppCrowns}</div>
-          <div class="battle-game-type">${is2v2 ? "⚡ 2v2 League" : (b.type || "Ranked 1v1").replace(/([A-Z])/g, " $1")}</div>
-        </div>
-
-        <div class="battle-decks-matchup">
-          <div class="combatant-deck">
-            <div class="combatant-header">
-              <span>You ${is2v2 && b.team[1] ? `+ ${b.team[1].name}` : ""}</span>
-            </div>
-            <div class="mini-cards-line">
-              ${myCards.map(c => `<img src="${c.iconUrls ? (c.iconUrls.medium || c.iconUrls.evolutionMedium) : ""}" class="mini-card-thumb" onerror="this.style.opacity=0.3">`).join("")}
-            </div>
-          </div>
-
-          <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); align-self: center;">VS</div>
-
-          <div class="combatant-deck">
-            <div class="combatant-header">
-              <span style="color: var(--text-secondary);">${oppPlayer1.name || "Opponent"} ${is2v2 && b.opponent[1] ? `+ ${b.opponent[1].name}` : ""}</span>
-              <span style="font-size: 0.7rem; color: var(--text-muted);">${oppPlayer1.clan ? oppPlayer1.clan.name : ""}</span>
-            </div>
-            <div class="mini-cards-line">
-              ${oppCards.map(c => `<img src="${c.iconUrls ? (c.iconUrls.medium || c.iconUrls.evolutionMedium) : ""}" class="mini-card-thumb" onerror="this.style.opacity=0.3">`).join("")}
-            </div>
-          </div>
-        </div>
-
-        <div class="battle-actions-col" style="display: flex; flex-direction: column; gap: 0.35rem;">
-          <button type="button" class="btn-primary-action btn-copy-opp-deck" style="width: 100%; font-size: 0.72rem; padding: 0.4rem 0.5rem; background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%); color: #080a10; font-weight: 800;">
-            ⚔️ Copy Deck
-          </button>
-          <button type="button" class="btn-secondary btn-studio-opp-deck" style="width: 100%; font-size: 0.68rem; padding: 0.3rem 0.5rem;">
-            Studio →
-          </button>
-        </div>
-      `;
-
-      const copyBtn = row.querySelector(".btn-copy-opp-deck");
-      if (copyBtn) {
-        copyBtn.addEventListener("click", () => {
-          if (oppCards && oppCards.length > 0) {
-            this.handleCopyDeck(oppCards, `${oppPlayer1.name || "Opponent"}'s Deck`);
-          } else {
-            this.showToast("No opponent cards available to copy.");
-          }
-        });
-      }
-
-      const studioBtn = row.querySelector(".btn-studio-opp-deck");
-      if (studioBtn) {
-        studioBtn.addEventListener("click", () => {
-          WebAudioFX.playCardLock();
-          if (oppCards && oppCards.length > 0) {
-            this.studioDeck = oppCards.map(c => {
-              const match = CLASH_CARDS.find(x => x.name.toLowerCase() === c.name.toLowerCase() || x.id === c.id);
-              return match || {
-                id: c.id,
-                name: c.name,
-                elixir: c.elixirCost || 3,
-                icon: c.iconUrls ? (c.iconUrls.medium || c.iconUrls.evolutionMedium) : ""
-              };
-            });
-            this.renderStudioDeck();
-            this.showView("studio");
-            this.updateNavButtons("studio");
-            this.showToast(`Loaded ${oppPlayer1.name || "Opponent"}'s deck into Tactical Studio!`);
-          }
-        });
-      }
-
-      container.appendChild(row);
+    // Render top 4 matches in profile feed
+    this.activeBattles.slice(0, 4).forEach(b => {
+      container.appendChild(this.buildDeckAIBattleCard(b));
     });
   },
 
