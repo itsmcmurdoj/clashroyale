@@ -102,7 +102,7 @@
           <div class="hero-pill-badge">⚡ OFFICIALLY LAUNCHED • Supercell Telemetry Gateway Live</div>
           <h1 class="hero-title">SYNC YOUR ROYALE IDENTITY.</h1>
           <p class="hero-sub">
-            Direct real-time telemetry link into Supercell live servers. Inspect your actual career records, 2026 Hero & Evolution slots, active battle deck, real-time upcoming chest sequence, and match history.
+            Direct real-time telemetry link into Supercell live servers. Inspect your actual career records, 2026 Hero & Evolution slots, active battle deck, 2v2 League ratings, and match history.
           </p>
 
           <!-- VIP Instant 1-Click Login -->
@@ -328,17 +328,20 @@
         </div>
       </div>
 
-      <!-- Upcoming Chest Timeline Section -->
+      <!-- Modern Lucky Drop & Mystery Box Intelligence Section (Replacing Legacy Chests) -->
       <div class="section-panel">
-        <div class="section-head">
+        <div class="section-head" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
           <div>
-            <h2 class="section-title">Live Upcoming Chest Drop Sequence</h2>
-            <div class="section-subtitle">Official drop order generated directly from Supercell server</div>
+            <h2 class="section-title">Daily Lucky Drop & Mystery Box Tiers</h2>
+            <div class="section-subtitle">Supercell's modern reward system: Tap progression, upgrade odds & jackpot probabilities</div>
           </div>
+          <span style="font-size: 0.72rem; font-weight: 800; color: var(--gold); background: rgba(216,184,120,0.12); border: 1px solid rgba(216,184,120,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">
+            UPDATED 2026 PROGRESSION
+          </span>
         </div>
 
-        <div class="chests-track" id="profile-chests-track">
-          <!-- Populated from Live API -->
+        <div class="lucky-drops-grid" id="profile-lucky-drops-grid">
+          <!-- Populated by App.renderLuckyDrops() -->
         </div>
       </div>
 

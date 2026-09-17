@@ -904,49 +904,27 @@ body {
   margin-top: 0.15rem;
 }
 
-/* Upcoming Chests Sequence */
-.chests-track {
+/* Daily Lucky Drop & Mystery Box Tiers (Modern Progression) */
+.lucky-drops-grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 0.75rem;
 }
 
 @media (max-width: 950px) {
-  .chests-track { grid-template-columns: repeat(4, 1fr); }
+  .lucky-drops-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-.chest-node {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 0.85rem 0.5rem;
-  text-align: center;
-  position: relative;
-  transition: all 0.15s ease;
+@media (max-width: 600px) {
+  .lucky-drops-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-.chest-node.highlight {
-  border-color: var(--gold);
-  background: linear-gradient(180deg, rgba(229, 169, 60, 0.1) 0%, var(--bg-card) 100%);
-  box-shadow: 0 0 16px var(--gold-glow);
+.lucky-drop-card {
+  transition: transform 0.15s ease, border-color 0.15s ease;
 }
 
-.chest-index-badge {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: var(--gold);
-  letter-spacing: 0.05em;
-}
-
-.chest-title {
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: #fff;
-  margin-top: 0.35rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.lucky-drop-card:hover {
+  transform: translateY(-2px);
 }
 
 /* Recent Battle Feed */
@@ -3006,24 +2984,10 @@ html, body {
     left: -4px;
   }
 
-  /* 6. Upcoming Chests Horizontal Touch Slider */
-  .chests-track {
-    display: flex;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  /* 6. Daily Lucky Drops Mobile Grid */
+  .lucky-drops-grid {
+    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-
-  .chests-track::-webkit-scrollbar {
-    display: none;
-  }
-
-  .chest-node {
-    min-width: 88px;
-    flex-shrink: 0;
-    padding: 0.65rem 0.35rem;
   }
 
   /* 7. Battles Feed */

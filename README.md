@@ -17,8 +17,8 @@
   - Top 1,000 Path of Legends and Grand Challenge tier lists (S+, S, A) with 1-click import into Studio.
 - **👑 World Top 100 Pro Ladder**:
   - Profiles for Mohamed Light, Ian77, Morten, Ryley, and PedroTM with win streaks and signature deck copy.
-- **🔍 Player & Chest Cycle Inspector**:
-  - Search any player tag (e.g. `#2PP`) to view trophies, rank, and the upcoming chest sequence (Mega Lightning, Giant, Royal Wild Chest).
+- **🔍 Player & 2v2 Live Telemetry Inspector**:
+  - Search any player tag (e.g. `#Y0JJY80`) to view seasonal trophies, 2v2 League rating, 2026 Hero & Evolution slots, and live battle logs.
 - **📲 Direct In-Game Export**:
   - Instant `clashroyale://copyDeck?deck=...` deep links to launch the mobile game directly.
 - **🔊 Zero-Dependency Web Audio Synth**:

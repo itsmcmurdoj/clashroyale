@@ -147,7 +147,6 @@ const WebAudioFX = {
 const App = {
   activeTag: localStorage.getItem("linked_player_tag") || "",
   activePlayer: null,
-  activeChests: [],
   activeBattles: [],
   studioDeck: [],
   catalogCategory: "all",
@@ -1208,16 +1207,9 @@ const App = {
         this.activeTag = rawTag;
         localStorage.setItem("linked_player_tag", this.activeTag);
 
-        // Fetch chests & battles asynchronously
+        // Fetch battles asynchronously
         try {
-          const [chestsRes, battlesRes] = await Promise.all([
-            fetch(`/api/clashroyale/players/${cleanTag}/upcomingchests`),
-            fetch(`/api/clashroyale/players/${cleanTag}/battlelog`)
-          ]);
-          if (chestsRes && chestsRes.ok) {
-            const chestsData = await chestsRes.json();
-            this.activeChests = chestsData.items || [];
-          }
+          const battlesRes = await fetch(`/api/clashroyale/players/${cleanTag}/battlelog`);
           if (battlesRes && battlesRes.ok) {
             const battlesData = await battlesRes.json();
             this.activeBattles = battlesData || [];
@@ -1334,15 +1326,6 @@ const App = {
     }
 
     localStorage.setItem("linked_player_tag", this.activeTag);
-
-    this.activeChests = [
-      { name: "Mega Lightning Chest" },
-      { name: "Hero Royal Chest" },
-      { name: "Magical Chest" },
-      { name: "Gold Chest" },
-      { name: "Silver Chest" },
-      { name: "Giant Chest" }
-    ];
 
     const myDeck = this.activePlayer.currentDeck || [];
     
@@ -1605,7 +1588,7 @@ const App = {
     }
 
     this.renderLiveDeck(fullDeck);
-    this.renderLiveChests();
+    this.renderLuckyDrops();
     this.renderLiveBattles();
   },
 
@@ -1676,27 +1659,74 @@ const App = {
     this.renderStudioCatalog();
   },
 
-  renderLiveChests: function() {
-    const container = document.getElementById("profile-chests-track");
+  renderLuckyDrops: function() {
+    const container = document.getElementById("profile-lucky-drops-grid");
     if (!container) return;
-    container.innerHTML = "";
 
-    if (this.activeChests.length === 0) {
-      container.innerHTML = `<div style="color: var(--text-muted); font-size: 0.85rem;">Upcoming chests synced on next battle refresh.</div>`;
-      return;
-    }
+    const luckyTiers = [
+      {
+        tier: "COMMON",
+        odds: "51.2%",
+        color: "#94a3b8",
+        bg: "rgba(148, 163, 184, 0.08)",
+        border: "rgba(148, 163, 184, 0.25)",
+        icon: "⚪",
+        drops: "Gold (1.5k), Common Wild Cards (200), Banner Tokens"
+      },
+      {
+        tier: "RARE",
+        odds: "28.0%",
+        color: "#f59e0b",
+        bg: "rgba(245, 158, 11, 0.08)",
+        border: "rgba(245, 158, 11, 0.3)",
+        icon: "🟠",
+        drops: "Gold (8k), Rare Wild Cards (50), Rare Book of Cards"
+      },
+      {
+        tier: "EPIC",
+        odds: "15.0%",
+        color: "#c084fc",
+        bg: "rgba(192, 132, 252, 0.08)",
+        border: "rgba(192, 132, 252, 0.35)",
+        icon: "🟣",
+        drops: "Epic Wild Cards (20), 10,000 Elite Wild Cards, Epic Book"
+      },
+      {
+        tier: "LEGENDARY",
+        odds: "4.3%",
+        color: "#38bdf8",
+        bg: "rgba(56, 189, 248, 0.08)",
+        border: "rgba(56, 189, 248, 0.4)",
+        icon: "💠",
+        drops: "Legendary Wild Card, Legendary Book of Cards, Wild Shards"
+      },
+      {
+        tier: "CHAMPION",
+        odds: "1.5%",
+        color: "#f43f5e",
+        bg: "rgba(244, 63, 94, 0.12)",
+        border: "rgba(244, 63, 94, 0.5)",
+        icon: "👑",
+        drops: "Book of Books (Jackpot), 50,000 Elite Wild Cards, Champion Card"
+      }
+    ];
 
-    this.activeChests.slice(0, 8).forEach((chest, idx) => {
-      const isSpecial = chest.name.includes("Lightning") || chest.name.includes("Wild") || chest.name.includes("Magical") || chest.name.includes("Hero");
-      const node = document.createElement("div");
-      node.className = `chest-node ${isSpecial ? "highlight" : ""}`;
-      node.innerHTML = `
-        <div class="chest-index-badge">${idx === 0 ? "NEXT" : `+${idx}`}</div>
-        <div style="font-size: 1.6rem; margin: 0.15rem 0;">📦</div>
-        <div class="chest-title">${chest.name.replace(" Chest", "")}</div>
-      `;
-      container.appendChild(node);
-    });
+    container.innerHTML = luckyTiers.map(t => `
+      <div class="lucky-drop-card" style="background: ${t.bg}; border: 1px solid ${t.border}; border-radius: var(--radius-md); padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.35rem;">
+            <span style="font-size: 1.1rem;">${t.icon}</span>
+            <strong style="color: ${t.color}; font-size: 0.82rem; letter-spacing: 0.04em;">${t.tier}</strong>
+          </div>
+          <span style="font-size: 0.78rem; font-weight: 800; color: #fff; background: rgba(0,0,0,0.4); padding: 0.15rem 0.45rem; border-radius: 4px;">
+            ${t.odds}
+          </span>
+        </div>
+        <div style="font-size: 0.73rem; color: var(--text-secondary); line-height: 1.35;">
+          ${t.drops}
+        </div>
+      </div>
+    `).join('');
   },
 
   // --- 7.5 DECK AI BATTLE LOG & MATCH ANALYSIS SUITE ---
