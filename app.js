@@ -987,7 +987,7 @@ const App = {
   // --- 6. SUPERCELL API FETCH & ROBUST DATA INGESTION ---
   fetchPlayerData: async function(tag) {
     const rawTag = (tag || "Y0JJY80").replace(/^#/, "").trim().toUpperCase();
-    const cleanTag = encodeURIComponent(rawTag);
+    const cleanTag = encodeURIComponent(`#${rawTag}`);
     const errorBox = document.getElementById("search-error");
     const syncBtn = document.getElementById("btn-sync");
     const syncText = document.getElementById("btn-sync-text");
@@ -1002,9 +1002,9 @@ const App = {
     }
 
     try {
-      // 1. Attempt live proxy fetch with 2s timeout for instant responsiveness
+      // 1. Attempt live proxy fetch with 2.5s timeout for instant responsiveness
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 2000);
+      const timeoutId = setTimeout(() => controller.abort(), 2500);
 
       const profileRes = await fetch(`/api/clashroyale/players/${cleanTag}`, {
         signal: controller.signal
@@ -1078,29 +1078,33 @@ const App = {
         name: "Muk",
         tag: "#Y0JJY80",
         expLevel: 81,
-        trophies: 14000,
-        bestTrophies: 14000,
-        wins: 17056,
-        losses: 14796,
-        threeCrownWins: 4834,
+        trophies: 14030,
+        bestTrophies: 14060,
+        wins: 17057,
+        losses: 14798,
+        threeCrownWins: 5916,
         clan: { name: "The Darkness", badgeId: 16000000 },
-        arena: { name: "Spirit Square" },
-        currentFavouriteCard: { name: "Minion Horde" },
+        arena: { name: "Seasonal Arena I" },
+        currentFavouriteCard: { name: "Minion Giant" },
         tournamentCardsWon: 18420,
         challengeMaxWins: 12,
         challengeCardsWon: 12000,
+        progress: {
+          "2v2League_202609": { "trophies": 2216, "bestTrophies": 2303 },
+          "seasonal-trophy-road-202609": { "trophies": 14030, "bestTrophies": 14060 }
+        },
         currentDeck: [
-          { id: 26000022, name: "Minion Horde", elixirCost: 5, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/yHGpoEnmUWPGsqtruitxnagQU3a9bWtrNcznESnhhf8.png" } },
-          { id: 26000023, name: "Ice Wizard", elixirCost: 3, level: 16, iconUrls: { heroMedium: "https://api-assets.clashroyale.com/cardheroes/300/W3dkw0HTw9n1jB-zbknY2w3wHuyuLxSRIAV5fUT1SEY.png" } },
-          { id: 26000000, name: "Knight", elixirCost: 3, level: 16, iconUrls: { evolutionMedium: "https://api-assets.clashroyale.com/cardevolutions/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png" } },
-          { id: 28000008, name: "Zap", elixirCost: 2, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/7dxh2232Ncgu03xM5uvZ-jp444U1KEOo_P1k821Wn40.png" } },
-          { id: 28000000, name: "Fireball", elixirCost: 4, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/lZD9vfHrNaegeABImplement.png" } },
-          { id: 26000021, name: "Hog Rider", elixirCost: 4, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/Ubu0oUl8tZlvafSlMoZ2HOG.png" } },
-          { id: 26000039, name: "Mega Minion", elixirCost: 3, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/eJYnkVoDgZ13_RjWl13_fS.png" } },
-          { id: 26000038, name: "Ice Golem", elixirCost: 2, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/r05cmpWfdEHcwxZYdanxDMBtGitfvPBbG279ghJUC38.png" } }
+          { id: 26000045, name: "Executioner", elixirCost: 5, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/9XL5BP2mqzV8kza6KF8rOxrpCZTyuGLp2l413DTjEoM.png", evolutionMedium: "https://api-assets.clashroyale.com/cardevolutions/300/9XL5BP2mqzV8kza6KF8rOxrpCZTyuGLp2l413DTjEoM.png" } },
+          { id: 26000103, name: "Boss Bandit", elixirCost: 6, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/nuceG9o7rAyvyc7D3sp2QSiRYtSOEgraq0NJkDf729s.png" } },
+          { id: 26000022, name: "Minion Horde", elixirCost: 5, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/Wyjq5l0IXHTkX9Rmpap6HaH08MvjbxFp1xBO9a47YSI.png", evolutionMedium: "https://api-assets.clashroyale.com/cardevolutions/300/Wyjq5l0IXHTkX9Rmpap6HaH08MvjbxFp1xBO9a47YSI.png" } },
+          { id: 26000021, name: "Hog Rider", elixirCost: 4, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/Ubu0oUl8tZkusnkZf8Xv9Vno5IO29Y-jbZ4fhoNJ5oc.png" } },
+          { id: 26000043, name: "Elite Barbarians", elixirCost: 6, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/C88C5JH_F3lLZj6K-tLcMo5DPjrFmvzIb1R2M6xCfTE.png", evolutionMedium: "https://api-assets.clashroyale.com/cardevolutions/300/C88C5JH_F3lLZj6K-tLcMo5DPjrFmvzIb1R2M6xCfTE.png" } },
+          { id: 26000025, name: "Guards", elixirCost: 3, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/1ArKfLJxYo6_NU_S9cAeIrfbXqWH0oULVJXedxBXQlU.png" } },
+          { id: 28000005, name: "Freeze", elixirCost: 4, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/I1M20_Zs_p_BS1NaNIVQjuMJkYI_1-ePtwYZahn0JXQ.png" } },
+          { id: 28000008, name: "Zap", elixirCost: 2, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/7dxh2-yCBy1x44GrBaL29vjqnEEeJXHEAlsi5g6D1eY.png", evolutionMedium: "https://api-assets.clashroyale.com/cardevolutions/300/7dxh2-yCBy1x44GrBaL29vjqnEEeJXHEAlsi5g6D1eY.png" } }
         ],
         currentDeckSupportCards: [
-          { id: 26000095, name: "Tower Princess", elixirCost: 0, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/tower_princess.png" } }
+          { id: 159000000, name: "Tower Princess", elixirCost: 0, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/Nzo5Gjbh7NG6O3Hyu7ev54Pu5zK7vDMR2fbpGdVsS64.png" } }
         ]
       };
       this.activeTag = "Y0JJY80";
@@ -1364,8 +1368,24 @@ const App = {
     if (levelEl) levelEl.textContent = `LEVEL ${p.expLevel || 15}`;
     if (arenaEl) arenaEl.textContent = p.arena ? p.arena.name : "Arena 24";
 
-    if (trophiesEl) trophiesEl.textContent = (p.trophies || 0).toLocaleString();
-    if (bestTrophiesEl) bestTrophiesEl.textContent = (p.bestTrophies || p.trophies || 0).toLocaleString();
+    let displayTrophies = p.trophies || 0;
+    let displayBestTrophies = p.bestTrophies || displayTrophies;
+
+    // Supercell modern 2025/2026 telemetry: Seasonal Trophy Road & 2v2 League are stored under p.progress
+    if (p.progress) {
+      for (const k in p.progress) {
+        const prog = p.progress[k];
+        if (prog && typeof prog.trophies === "number" && prog.trophies > displayTrophies) {
+          displayTrophies = prog.trophies;
+        }
+        if (prog && typeof prog.bestTrophies === "number" && prog.bestTrophies > displayBestTrophies) {
+          displayBestTrophies = prog.bestTrophies;
+        }
+      }
+    }
+
+    if (trophiesEl) trophiesEl.textContent = displayTrophies.toLocaleString();
+    if (bestTrophiesEl) bestTrophiesEl.textContent = displayBestTrophies.toLocaleString();
 
     const wins = p.wins || 0;
     const losses = p.losses || 0;

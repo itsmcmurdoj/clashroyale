@@ -35,6 +35,18 @@ class NexusHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path.startswith('/api/clashroyale/'):
             target_subpath = self.path[len('/api/clashroyale/'):]
+            
+            # Ensure player tags have %23 prepended for Supercell API
+            if target_subpath.startswith('players/') and not target_subpath.startswith('players/%23') and not target_subpath.startswith('players/#'):
+                parts = target_subpath.split('/', 1)
+                sub_parts = parts[1].split('/', 1)
+                clean_tag = sub_parts[0].replace('#', '').replace('%23', '')
+                encoded_tag = f"%23{clean_tag}"
+                if len(sub_parts) > 1:
+                    target_subpath = f"players/{encoded_tag}/{sub_parts[1]}"
+                else:
+                    target_subpath = f"players/{encoded_tag}"
+
             cr_api_url = f'https://api.clashroyale.com/v1/{target_subpath}'
             
             auth_header = self.headers.get('Authorization')
