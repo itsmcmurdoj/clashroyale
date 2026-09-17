@@ -227,6 +227,8 @@ const App = {
     this.setupDefaultStudioDeck();
     this.setupMatchupArena();
     this.startCeoTelemetryClock();
+    this.setup2v2Radar();
+    this.setupDeckRecallMinigame();
 
     if (this.activeTag) {
       this.fetchPlayerData(this.activeTag);
@@ -447,7 +449,7 @@ const App = {
   },
 
   showView: function(viewId) {
-    const views = ["gateway", "account", "heroes", "studio", "simulator", "meta", "aiops"];
+    const views = ["gateway", "account", "heroes", "radar", "recall", "studio", "simulator", "meta", "aiops"];
     views.forEach(v => {
       const el = document.getElementById(`view-${v}`);
       if (el) el.style.display = (v === viewId) ? "block" : "none";
@@ -1337,6 +1339,274 @@ const App = {
 
       container.appendChild(card);
     });
+  },
+
+  // --- 12. 2V2 COMPETITIVE LEAGUE GLOBAL RANK PREDICTOR ---
+  setup2v2Radar: function() {
+    const input = document.getElementById("radar-trophies-input");
+    const slider = document.getElementById("radar-trophies-slider");
+    const loadMyTagBtn = document.getElementById("btn-radar-load-my-tag");
+    const presetBtns = document.querySelectorAll(".radar-preset-btn");
+
+    const updateRadar = (trophies) => {
+      trophies = parseInt(trophies, 10);
+      if (isNaN(trophies)) trophies = 2273;
+      if (input && input.value != trophies) input.value = trophies;
+      if (slider && slider.value != trophies) slider.value = Math.min(3200, Math.max(1800, trophies));
+
+      const rankEl = document.getElementById("radar-out-rank");
+      const tierEl = document.getElementById("radar-out-tier");
+      const neededEl = document.getElementById("radar-out-needed");
+      const winsEl = document.getElementById("radar-out-wins");
+      const badgeEl = document.getElementById("radar-out-safety-badge");
+      const subEl = document.getElementById("radar-out-safety-sub");
+      const barFill = document.getElementById("radar-out-bar-fill");
+      const pctText = document.getElementById("radar-out-pct-text");
+
+      const cutoff = 2450;
+      let rank = 14200;
+      let tier = "Grand Master II";
+
+      if (trophies >= 3000) tier = "Ultimate Champion";
+      else if (trophies >= 2800) tier = "Royal Champion";
+      else if (trophies >= 2600) tier = "Grand Champion";
+      else if (trophies >= 2450) tier = "Champion";
+      else if (trophies >= 2200) tier = "Grand Master II";
+      else if (trophies >= 2000) tier = "Master I";
+      else tier = "Challenger";
+
+      if (trophies >= cutoff) {
+        rank = Math.max(1, Math.round(10000 * Math.pow(Math.E, -(trophies - cutoff) / 185)));
+        if (neededEl) {
+          neededEl.style.color = "var(--win)";
+          neededEl.textContent = `+${trophies - cutoff} Buffer`;
+        }
+        if (winsEl) winsEl.textContent = "🏆 Inside Top 10,000 (Safe Finish)";
+        if (badgeEl) {
+          badgeEl.innerHTML = (rank <= 1000)
+            ? `<span class="radar-zone-pill radar-zone-elite">🟣 ELITE TOP 1,000 (Rank #${rank.toLocaleString()})</span>`
+            : `<span class="radar-zone-pill radar-zone-safe">🟢 SAFE IN TOP 10,000 (Rank #${rank.toLocaleString()})</span>`;
+        }
+        if (subEl) subEl.textContent = `Top 10k Finish Badge Secured!`;
+      } else {
+        const needed = cutoff - trophies;
+        rank = Math.round(10000 + (needed * 42));
+        const wins = Math.ceil(needed / 30);
+        if (neededEl) {
+          neededEl.style.color = "var(--gold)";
+          neededEl.textContent = `+${needed} 🏆`;
+        }
+        if (winsEl) winsEl.textContent = `~${wins} Straight Wins Required (+30🏆/win)`;
+        if (badgeEl) {
+          if (needed <= 100) {
+            badgeEl.innerHTML = `<span class="radar-zone-pill radar-zone-bubble">🟡 BUBBLE ZONE (Rank #${rank.toLocaleString()})</span>`;
+            if (subEl) subEl.textContent = "Striking distance to Top 10k badge!";
+          } else {
+            badgeEl.innerHTML = `<span class="radar-zone-pill radar-zone-danger">🔴 CLIMBING (Rank #${rank.toLocaleString()})</span>`;
+            if (subEl) subEl.textContent = `Needs ${needed} more trophies to qualify`;
+          }
+        }
+      }
+
+      if (rankEl) rankEl.textContent = `#${rank.toLocaleString()}`;
+      if (tierEl) tierEl.textContent = tier;
+
+      const pct = Math.min(100, Math.max(10, ((trophies - 1800) / (3000 - 1800)) * 100));
+      if (barFill) barFill.style.width = `${pct.toFixed(1)}%`;
+      if (pctText) pctText.textContent = `${((trophies / cutoff) * 100).toFixed(1)}% of Top 10k Threshold`;
+    };
+
+    if (input) {
+      input.addEventListener("input", (e) => updateRadar(e.target.value));
+    }
+    if (slider) {
+      slider.addEventListener("input", (e) => updateRadar(e.target.value));
+    }
+    presetBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        presetBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        updateRadar(btn.getAttribute("data-val"));
+      });
+    });
+    if (loadMyTagBtn) {
+      loadMyTagBtn.addEventListener("click", () => {
+        WebAudioFX.playSuccess();
+        updateRadar(2273);
+        this.showToast("Loaded Muk's Live 2v2 Rating: 2,273 🏆");
+      });
+    }
+
+    updateRadar(2273);
+  },
+
+  // --- 13. DECK RECALL MINIGAME CONTROLLER ---
+  setupDeckRecallMinigame: function() {
+    let recallSeconds = 5;
+    let recallTargetDeck = [];
+    let recallPicked = [];
+    let recallTimer = null;
+    let recallStartTime = null;
+
+    const diffBtns = document.querySelectorAll(".recall-diff-btn");
+    diffBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        diffBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        recallSeconds = parseInt(btn.getAttribute("data-sec"), 10) || 5;
+      });
+    });
+
+    const startBtn = document.getElementById("btn-start-recall");
+    const statusBanner = document.getElementById("recall-status-banner");
+    const timerWrap = document.getElementById("recall-timer-bar-wrap");
+    const timerNum = document.getElementById("recall-timer-num");
+    const timerProgress = document.getElementById("recall-timer-progress");
+    const slotsGrid = document.getElementById("recall-slots-grid");
+    const pickerContainer = document.getElementById("recall-picker-container");
+    const trayGrid = document.getElementById("recall-card-tray");
+    const scoreCounter = document.getElementById("recall-score-counter");
+    const resultsBox = document.getElementById("recall-results-box");
+    const replayBtn = document.getElementById("btn-replay-recall");
+
+    const renderEmptySlots = () => {
+      if (!slotsGrid) return;
+      slotsGrid.innerHTML = "";
+      for (let i = 0; i < 8; i++) {
+        const slot = document.createElement("div");
+        slot.className = "recall-slot";
+        slot.innerHTML = `<span>?</span>`;
+        slotsGrid.appendChild(slot);
+      }
+    };
+    renderEmptySlots();
+
+    const startChallenge = () => {
+      clearInterval(recallTimer);
+      recallPicked = [];
+      if (resultsBox) resultsBox.style.display = "none";
+      if (pickerContainer) pickerContainer.style.display = "none";
+      WebAudioFX.playCardLock();
+
+      const cardsPool = (typeof CLASH_CARDS !== "undefined" ? CLASH_CARDS : []).filter(c => c.type !== "tower-troop");
+      const shuffled = [...cardsPool].sort(() => 0.5 - Math.random());
+      recallTargetDeck = shuffled.slice(0, 8);
+
+      if (slotsGrid) {
+        slotsGrid.innerHTML = "";
+        recallTargetDeck.forEach(c => {
+          const slot = document.createElement("div");
+          slot.className = "recall-slot filled";
+          slot.innerHTML = `
+            <img src="${c.icon}" alt="${c.name}">
+            <div style="position: absolute; bottom: 2px; left: 0; right: 0; font-size: 0.6rem; font-weight: 800; background: rgba(0,0,0,0.7); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 1px 2px;">${c.name}</div>
+          `;
+          slotsGrid.appendChild(slot);
+        });
+      }
+
+      if (statusBanner) {
+        statusBanner.textContent = `MEMORIZE THESE 8 CARDS! (${recallSeconds}s remaining)`;
+        statusBanner.style.color = "var(--gold)";
+      }
+
+      if (timerWrap) timerWrap.style.display = "block";
+      if (timerNum) timerNum.textContent = `${recallSeconds}s`;
+      if (timerProgress) {
+        timerProgress.style.width = "100%";
+        timerProgress.style.transition = `width ${recallSeconds}s linear`;
+        setTimeout(() => { timerProgress.style.width = "0%"; }, 50);
+      }
+
+      let timeLeft = recallSeconds;
+      recallTimer = setInterval(() => {
+        timeLeft--;
+        if (timerNum) timerNum.textContent = `${timeLeft}s`;
+        WebAudioFX.playTone(600, "sine", 0.04, 0.05);
+
+        if (timeLeft <= 0) {
+          clearInterval(recallTimer);
+          hideAndStartPicking();
+        }
+      }, 1000);
+    };
+
+    const hideAndStartPicking = () => {
+      WebAudioFX.playHeroAura();
+      if (timerWrap) timerWrap.style.display = "none";
+      if (statusBanner) {
+        statusBanner.textContent = "REBUILD THE DECK FROM MEMORY!";
+        statusBanner.style.color = "var(--cyan)";
+      }
+
+      renderEmptySlots();
+      if (pickerContainer) pickerContainer.style.display = "block";
+      if (scoreCounter) scoreCounter.textContent = `0 / 8 Picked`;
+      recallStartTime = Date.now();
+
+      const cardsPool = (typeof CLASH_CARDS !== "undefined" ? CLASH_CARDS : []).filter(c => c.type !== "tower-troop");
+      const decoys = [...cardsPool].filter(c => !recallTargetDeck.some(t => t.id === c.id)).sort(() => 0.5 - Math.random()).slice(0, 16);
+      const trayCards = [...recallTargetDeck, ...decoys].sort(() => 0.5 - Math.random());
+
+      if (trayGrid) {
+        trayGrid.innerHTML = "";
+        trayCards.forEach(c => {
+          const cardEl = document.createElement("div");
+          cardEl.className = "recall-tray-card";
+          cardEl.innerHTML = `
+            <img src="${c.icon}" style="width: 100%; aspect-ratio: 3/4; object-fit: contain;">
+            <div style="font-size: 0.62rem; color: #fff; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${c.name}</div>
+          `;
+
+          cardEl.addEventListener("click", () => {
+            if (cardEl.classList.contains("picked")) return;
+
+            const isCorrect = recallTargetDeck.some(t => t.id === c.id);
+            if (isCorrect) {
+              WebAudioFX.playClick();
+              cardEl.classList.add("picked");
+              recallPicked.push(c);
+
+              const slotIdx = recallPicked.length - 1;
+              if (slotsGrid && slotsGrid.children[slotIdx]) {
+                const s = slotsGrid.children[slotIdx];
+                s.className = "recall-slot filled";
+                s.innerHTML = `
+                  <img src="${c.icon}" alt="${c.name}">
+                  <div style="position: absolute; bottom: 2px; left: 0; right: 0; font-size: 0.6rem; font-weight: 800; background: rgba(0,0,0,0.7); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${c.name}</div>
+                `;
+              }
+
+              if (scoreCounter) scoreCounter.textContent = `${recallPicked.length} / 8 Picked`;
+
+              if (recallPicked.length === 8) {
+                const elapsed = ((Date.now() - recallStartTime) / 1000).toFixed(1);
+                WebAudioFX.playSuccess();
+                if (statusBanner) statusBanner.textContent = "🏆 ALL 8 CARDS RECALLED PERFECTLY!";
+                if (resultsBox) {
+                  resultsBox.style.display = "block";
+                  const title = document.getElementById("recall-res-title");
+                  const desc = document.getElementById("recall-res-desc");
+                  if (title) title.textContent = "🏆 PERFECT 8/8 RECALL!";
+                  if (desc) desc.textContent = `You recalled the complete 8-card competitive deck in ${elapsed} seconds on ${recallSeconds}s difficulty!`;
+                }
+              }
+            } else {
+              WebAudioFX.playTone(180, "sawtooth", 0.15, 0.08);
+              cardEl.style.borderColor = "var(--loss)";
+              setTimeout(() => { cardEl.style.borderColor = "var(--border-subtle)"; }, 400);
+            }
+          });
+
+          trayGrid.appendChild(cardEl);
+        });
+      }
+    };
+
+    if (startBtn) startBtn.addEventListener("click", startChallenge);
+    if (replayBtn) replayBtn.addEventListener("click", startChallenge);
   }
 };
 

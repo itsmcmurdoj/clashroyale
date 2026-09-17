@@ -1465,3 +1465,177 @@ body {
   z-index: 1000;
   display: none;
 }
+
+/* =================================================== */
+/* 2V2 LEAGUE RADAR & DECK RECALL MINIGAME STYLES     */
+/* =================================================== */
+.radar-interactive-box {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(13, 15, 22, 0.95) 100%);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.radar-input-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0;
+}
+
+.radar-number-input {
+  background: var(--bg-surface-elevated);
+  border: 2px solid var(--cyan);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 900;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  width: 160px;
+  text-align: center;
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.2);
+}
+
+.radar-range-slider {
+  flex: 1;
+  min-width: 240px;
+  height: 10px;
+  -webkit-appearance: none;
+  background: var(--bg-surface-elevated);
+  border-radius: 999px;
+  outline: none;
+  border: 1px solid var(--border-subtle);
+}
+
+.radar-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--cyan);
+  cursor: pointer;
+  box-shadow: 0 0 12px var(--cyan);
+}
+
+.radar-zone-pill {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.radar-zone-danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--loss);
+  border: 1px solid var(--loss);
+}
+
+.radar-zone-bubble {
+  background: rgba(234, 179, 8, 0.15);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+
+.radar-zone-safe {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--win);
+  border: 1px solid var(--win);
+}
+
+.radar-zone-elite {
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--purple);
+  border: 1px solid var(--purple);
+}
+
+/* Deck Recall Minigame */
+.recall-stage {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.recall-countdown-overlay {
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--gold);
+  font-family: var(--font-mono);
+  text-shadow: 0 0 24px rgba(229, 169, 60, 0.6);
+  margin-bottom: 1rem;
+}
+
+.recall-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+  margin: 1.5rem 0;
+}
+
+.recall-slot {
+  background: var(--bg-surface-elevated);
+  border: 2px dashed var(--border-subtle);
+  border-radius: var(--radius-md);
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.recall-slot.filled {
+  border-style: solid;
+  border-color: var(--cyan);
+}
+
+.recall-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.recall-tray-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 0.75rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.recall-tray-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.recall-tray-card:hover {
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+.recall-tray-card.picked {
+  opacity: 0.3;
+  pointer-events: none;
+}
