@@ -312,9 +312,14 @@
             <h2 class="section-title">Current Active Battle Deck</h2>
             <div class="section-subtitle" id="deck-stats-line">Average Elixir: 4.1 • 2026 Special Slots Aligned</div>
           </div>
-          <button class="btn-primary-action" id="btn-edit-deck" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
-            Open in Deck Studio →
-          </button>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn-primary-action" id="btn-copy-active-deck" style="padding: 0.5rem 1rem; font-size: 0.8rem; background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%); color: #080a10; font-weight: 800;">
+              ⚔️ Copy to Clash Royale
+            </button>
+            <button type="button" class="btn-secondary" id="btn-edit-deck" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
+              Edit in Studio →
+            </button>
+          </div>
         </div>
 
         <div class="deck-eight-grid" id="profile-deck-grid">
@@ -461,9 +466,11 @@
           <h2 class="section-title">Tactical Deck Studio (2026 Slot Alignment)</h2>
           <div class="section-subtitle">Build and test 8-card decks aligned with the 3 Special Slots architecture.</div>
         </div>
-        <div style="display: flex; gap: 0.5rem;">
-          <button class="btn-secondary" id="btn-clear-active-deck" style="background: var(--bg-card); border: 1px solid var(--border-subtle); color: #fff; padding: 0.5rem 1rem; border-radius: var(--radius-sm); cursor: pointer;">Clear</button>
-          <button class="btn-primary-action" id="btn-export-link" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Copy In-Game Link</button>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn-secondary" id="btn-clear-active-deck" style="background: var(--bg-card); border: 1px solid var(--border-subtle); color: #fff; padding: 0.5rem 0.85rem; border-radius: var(--radius-sm); cursor: pointer;">Clear</button>
+          <button type="button" class="btn-primary-action" id="btn-export-link" style="padding: 0.5rem 1rem; font-size: 0.8rem; background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%); color: #080a10; font-weight: 800;">
+            ⚔️ Copy to Clash Royale
+          </button>
         </div>
       </div>
 
@@ -850,6 +857,54 @@
         <button type="button" class="btn-primary-action" id="btn-pwa-modal-done" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
           Got It, Let's Clash!
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clash Royale Official Deck Export Modal -->
+  <div class="modal-overlay" id="deck-copy-modal" style="display: none;">
+    <div class="modal-card deck-copy-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.6rem;">⚔️</span>
+          <div>
+            <h3 class="pwa-modal-title" id="deck-modal-title">COPY TO CLASH ROYALE</h3>
+            <p class="pwa-modal-sub" id="deck-modal-subtitle">Official In-Game Supercell Link</p>
+          </div>
+        </div>
+        <button type="button" class="btn-modal-close" id="btn-close-deck-modal">✕</button>
+      </div>
+
+      <div class="pwa-modal-body">
+        <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+          8 Battle Cards:
+        </div>
+        <!-- 8 Mini Cards Preview Grid -->
+        <div class="deck-modal-cards-preview" id="deck-modal-cards-grid">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="deck-modal-actions-list" style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1.2rem;">
+          <!-- 1. Direct App Launcher -->
+          <a id="deck-modal-open-btn" href="#" target="_blank" class="btn-primary-action" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem; font-size: 0.95rem; font-weight: 900; background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%); color: #080a10; text-decoration: none; border-radius: var(--radius-sm); box-shadow: 0 0 20px rgba(38, 236, 232, 0.4);">
+            ⚔️ Open in Clash Royale App
+          </a>
+
+          <!-- 2. Copy Link to Clipboard -->
+          <button type="button" class="btn-secondary" id="deck-modal-copy-btn" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; font-size: 0.85rem; font-weight: 800; background: var(--bg-surface-elevated); border: 1px solid var(--border-hover); color: #fff;">
+            📋 Copy Shareable Link
+          </button>
+        </div>
+
+        <!-- Raw Link Display with Select -->
+        <div style="margin-top: 0.85rem; background: rgba(8, 10, 16, 0.9); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.45rem 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+          <input type="text" id="deck-modal-url-input" readonly style="flex: 1; min-width: 0; background: transparent; border: none; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); outline: none;">
+          <button type="button" id="deck-modal-quick-copy-btn" class="btn-copy-code" style="padding: 0.2rem 0.6rem; font-size: 0.68rem; flex-shrink: 0;">COPY</button>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding: 0.75rem 1.25rem; display: flex; justify-content: flex-end;">
+        <button type="button" class="btn-secondary" id="btn-done-deck-modal" style="font-size: 0.8rem; padding: 0.4rem 1rem;">Done</button>
       </div>
     </div>
   </div>

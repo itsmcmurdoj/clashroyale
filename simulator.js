@@ -231,13 +231,77 @@ const SimulatorEngine = {
     };
   },
 
-  // Deep Link Builder for In-Game Copy
+  // Deep Link Builder for Official In-Game Copy (link.clashroyale.com)
   generateCopyLinks: function(cards) {
-    if (!cards || cards.length === 0) return { deepLink: "#", webLink: "#" };
-    const ids = cards.map(c => c.id).join(";");
+    if (!cards || !Array.isArray(cards) || cards.length === 0) {
+      return { deepLink: "#", webLink: "#", ids: "", count: 0, cards: [] };
+    }
+
+    const cardsDb = (typeof CLASH_CARDS !== "undefined") ? CLASH_CARDS : [];
+    const resolved = [];
+
+    cards.forEach(c => {
+      if (!c) return;
+      let match = null;
+
+      // 1. String key or name
+      if (typeof c === "string") {
+        const clean = c.toLowerCase().trim().replace(/[\s\.\-_]/g, "");
+        match = cardsDb.find(x => 
+          x.key.replace(/[\s\.\-_]/g, "") === clean || 
+          x.name.toLowerCase().replace(/[\s\.\-_]/g, "") === clean
+        );
+      } else if (typeof c === "object") {
+        // 2. Object with name
+        if (c.name) {
+          const cleanName = c.name.toLowerCase().trim().replace(/[\s\.\-_]/g, "");
+          match = cardsDb.find(x => 
+            x.name.toLowerCase().replace(/[\s\.\-_]/g, "") === cleanName ||
+            x.key.replace(/[\s\.\-_]/g, "") === cleanName
+          );
+        }
+        // 3. Object with key
+        if (!match && c.key) {
+          const cleanKey = c.key.toLowerCase().trim().replace(/[\s\.\-_]/g, "");
+          match = cardsDb.find(x => x.key.replace(/[\s\.\-_]/g, "") === cleanKey);
+        }
+        // 4. Object with numeric ID
+        if (!match && c.id && typeof c.id === "number") {
+          match = cardsDb.find(x => x.id === c.id);
+        }
+      }
+
+      if (match) {
+        // Filter out tower troops (they cannot be passed in the 8-card battle deck URL)
+        const nm = match.name.toLowerCase();
+        if (nm.includes("tower") || nm.includes("cannoneer") || nm.includes("duchess")) return;
+
+        if (!resolved.some(r => r.id === match.id)) {
+          resolved.push(match);
+        }
+      } else if (c && typeof c === "object" && typeof c.id === "number" && c.id >= 26000000 && c.id < 29000000) {
+        const nm = (c.name || "").toLowerCase();
+        if (!nm.includes("tower") && !nm.includes("cannoneer") && !nm.includes("duchess")) {
+          if (!resolved.some(r => r.id === c.id)) {
+            resolved.push({ 
+              id: c.id, 
+              name: c.name || "Card", 
+              icon: (c.iconUrls && (c.iconUrls.medium || c.iconUrls.evolutionMedium || c.iconUrls.heroMedium)) || ""
+            });
+          }
+        }
+      }
+    });
+
+    const finalDeck = resolved.slice(0, 8);
+    const ids = finalDeck.map(c => c.id).join(";");
+
     return {
       deepLink: `clashroyale://copyDeck?deck=${ids}`,
-      webLink: `https://link.clashroyale.com/deck/en?deck=${ids}`
+      webLink: `https://link.clashroyale.com/deck/en?deck=${ids}`,
+      ids: ids,
+      count: finalDeck.length,
+      cards: finalDeck
     };
   }
 };

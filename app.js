@@ -408,17 +408,22 @@ const App = {
     const exportLinkBtn = document.getElementById("btn-export-link");
     if (exportLinkBtn) {
       exportLinkBtn.addEventListener("click", () => {
-        if (this.studioDeck.length === 0) {
+        if (!this.studioDeck || this.studioDeck.length === 0) {
           this.showToast("Add cards to your deck first!");
           return;
         }
-        const links = SimulatorEngine.generateCopyLinks(this.studioDeck);
-        navigator.clipboard.writeText(links.webLink).then(() => {
-          WebAudioFX.playSuccess();
-          this.showToast("In-game deck link copied to clipboard!");
-        }).catch(() => {
-          this.showToast(links.webLink);
-        });
+        this.handleCopyDeck(this.studioDeck, "Tactical Studio Deck");
+      });
+    }
+
+    const copyActiveDeckBtn = document.getElementById("btn-copy-active-deck");
+    if (copyActiveDeckBtn) {
+      copyActiveDeckBtn.addEventListener("click", () => {
+        const pName = this.activePlayer ? this.activePlayer.name : "Muk";
+        const deckToCopy = (this.activePlayer && this.activePlayer.currentDeck && this.activePlayer.currentDeck.length > 0)
+          ? this.activePlayer.currentDeck
+          : this.studioDeck;
+        this.handleCopyDeck(deckToCopy, `${pName}'s Active Deck`);
       });
     }
 
@@ -615,6 +620,142 @@ const App = {
     setTimeout(() => {
       toast.classList.remove("show");
     }, 3200);
+  },
+
+  // Robust Clipboard Copy with Executive Fallback
+  copyToClipboard: function(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).catch(() => {
+        return this.fallbackCopy(text);
+      });
+    }
+    return this.fallbackCopy(text);
+  },
+
+  fallbackCopy: function(text) {
+    return new Promise((resolve) => {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand("copy");
+      } catch (err) {
+        console.warn("Fallback copy error:", err);
+      }
+      document.body.removeChild(textArea);
+      resolve();
+    });
+  },
+
+  // Interactive In-Game Deck Copy Modal & Launcher
+  showDeckCopyModal: function(links, deckName = "Deck") {
+    const modal = document.getElementById("deck-copy-modal");
+    if (!modal) {
+      window.open(links.webLink, "_blank");
+      return;
+    }
+
+    const titleEl = document.getElementById("deck-modal-title");
+    const subEl = document.getElementById("deck-modal-subtitle");
+    const gridEl = document.getElementById("deck-modal-cards-grid");
+    const openBtn = document.getElementById("deck-modal-open-btn");
+    const copyBtn = document.getElementById("deck-modal-copy-btn");
+    const urlInput = document.getElementById("deck-modal-url-input");
+
+    if (titleEl) titleEl.textContent = deckName.toUpperCase();
+    if (subEl) subEl.textContent = `Official Clash Royale Link (${links.count}/8 Cards)`;
+
+    if (gridEl) {
+      gridEl.innerHTML = "";
+      (links.cards || []).forEach(c => {
+        const item = document.createElement("div");
+        item.className = "deck-modal-card-item";
+        item.innerHTML = `
+          <img src="${c.icon || (c.iconUrls && c.iconUrls.medium) || 'https://api-assets.clashroyale.com/cards/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png'}" alt="${c.name}">
+          <span class="mini-caption">${c.name}</span>
+        `;
+        gridEl.appendChild(item);
+      });
+    }
+
+    if (openBtn) {
+      openBtn.href = links.webLink;
+      openBtn.onclick = (e) => {
+        WebAudioFX.playClick();
+        if (/iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase())) {
+          window.location.href = links.deepLink;
+          setTimeout(() => {
+            window.open(links.webLink, "_blank");
+          }, 400);
+          e.preventDefault();
+        }
+      };
+    }
+
+    if (urlInput) {
+      urlInput.value = links.webLink;
+    }
+
+    if (copyBtn) {
+      copyBtn.innerHTML = "📋 Copy Shareable Link to Clipboard";
+      copyBtn.onclick = () => {
+        WebAudioFX.playSuccess();
+        this.copyToClipboard(links.webLink).then(() => {
+          copyBtn.innerHTML = "✅ Copied to Clipboard!";
+          this.showToast("In-game deck link copied to clipboard!");
+          setTimeout(() => {
+            copyBtn.innerHTML = "📋 Copy Shareable Link to Clipboard";
+          }, 2500);
+        });
+      };
+    }
+
+    const quickCopyBtn = document.getElementById("deck-modal-quick-copy-btn");
+    if (quickCopyBtn) {
+      quickCopyBtn.onclick = () => {
+        WebAudioFX.playSuccess();
+        this.copyToClipboard(links.webLink).then(() => {
+          this.showToast("Deck link copied!");
+        });
+      };
+    }
+
+    const closeBtn = document.getElementById("btn-close-deck-modal");
+    if (closeBtn) closeBtn.onclick = () => { modal.style.display = "none"; };
+
+    const doneBtn = document.getElementById("btn-done-deck-modal");
+    if (doneBtn) doneBtn.onclick = () => { modal.style.display = "none"; };
+
+    modal.onclick = (e) => {
+      if (e.target === modal) modal.style.display = "none";
+    };
+
+    modal.style.display = "flex";
+    WebAudioFX.playSuccess();
+  },
+
+  handleCopyDeck: function(cards, deckName = "Deck") {
+    WebAudioFX.playClick();
+    if (navigator.vibrate) {
+      try { navigator.vibrate([15, 30, 15]); } catch(e) {}
+    }
+
+    const links = SimulatorEngine.generateCopyLinks(cards);
+    if (!links || !links.ids || links.count === 0) {
+      this.showToast("⚠️ Could not generate deck link - check card list.");
+      return;
+    }
+
+    // Automatically copy to clipboard immediately
+    this.copyToClipboard(links.webLink);
+
+    // Show interactive export sheet with direct app launcher
+    this.showDeckCopyModal(links, deckName);
   },
 
   // --- 3. 3D CARD STAGE MOUSE & TOUCH TILT PHYSICS ---
@@ -864,8 +1005,8 @@ const App = {
           { id: 26000000, name: "Knight", elixirCost: 3, level: 16, iconUrls: { evolutionMedium: "https://api-assets.clashroyale.com/cardevolutions/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png" } },
           { id: 28000008, name: "Zap", elixirCost: 2, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/7dxh2232Ncgu03xM5uvZ-jp444U1KEOo_P1k821Wn40.png" } },
           { id: 28000000, name: "Fireball", elixirCost: 4, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/lZD9vfHrNaegeABImplement.png" } },
-          { id: 26000010, name: "Hog Rider", elixirCost: 4, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/Ubu0oUl8tZlvafSlMoZ2HOG.png" } },
-          { id: 26000030, name: "Mega Minion", elixirCost: 3, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/eJYnkVoDgZ13_RjWl13_fS.png" } },
+          { id: 26000021, name: "Hog Rider", elixirCost: 4, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/Ubu0oUl8tZlvafSlMoZ2HOG.png" } },
+          { id: 26000039, name: "Mega Minion", elixirCost: 3, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/eJYnkVoDgZ13_RjWl13_fS.png" } },
           { id: 26000038, name: "Ice Golem", elixirCost: 2, level: 16, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/r05cmpWfdEHcwxZYdanxDMBtGitfvPBbG279ghJUC38.png" } }
         ],
         currentDeckSupportCards: [
@@ -897,7 +1038,7 @@ const App = {
           { id: 28000008, name: "Zap", elixirCost: 2, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/7dxh2232Ncgu03xM5uvZ-jp444U1KEOo_P1k821Wn40.png" } },
           { id: 28000009, name: "Poison", elixirCost: 4, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/98HDkG2189yACULBKGugstbfObOTVXiRpcYsUKmJhfA.png" } },
           { id: 26000084, name: "Electro Spirit", elixirCost: 1, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/WKtwc24479zV5Zymr-kdRcLs4880k9h3O0hZ1I0vB_o.png" } },
-          { id: 26000042, name: "Bandit", elixirCost: 3, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/QWD6st8q-Yoa9z9b9f7a5y04Yk2vLqK0jH9A3Xg8G0U.png" } },
+          { id: 26000046, name: "Bandit", elixirCost: 3, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/QWD6st8q-Yoa9z9b9f7a5y04Yk2vLqK0jH9A3Xg8G0U.png" } },
           { id: 26000015, name: "Baby Dragon", elixirCost: 4, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/cjC9n4AvEZJ3urkVh-rwBkJ-aRSsydIMqSAV48hAih0.png" } }
         ],
         currentDeckSupportCards: [
@@ -1152,16 +1293,32 @@ const App = {
           </div>
         </div>
 
-        <div class="battle-actions-col">
-          <button class="btn-secondary btn-copy-opp-deck" style="width: 100%; font-size: 0.72rem; padding: 0.4rem 0.6rem;">Copy Opponent</button>
+        <div class="battle-actions-col" style="display: flex; flex-direction: column; gap: 0.35rem;">
+          <button type="button" class="btn-primary-action btn-copy-opp-deck" style="width: 100%; font-size: 0.72rem; padding: 0.4rem 0.5rem; background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%); color: #080a10; font-weight: 800;">
+            ⚔️ Copy Deck
+          </button>
+          <button type="button" class="btn-secondary btn-studio-opp-deck" style="width: 100%; font-size: 0.68rem; padding: 0.3rem 0.5rem;">
+            Studio →
+          </button>
         </div>
       `;
 
       const copyBtn = row.querySelector(".btn-copy-opp-deck");
       if (copyBtn) {
         copyBtn.addEventListener("click", () => {
+          if (oppCards && oppCards.length > 0) {
+            this.handleCopyDeck(oppCards, `${oppPlayer1.name || "Opponent"}'s Deck`);
+          } else {
+            this.showToast("No opponent cards available to copy.");
+          }
+        });
+      }
+
+      const studioBtn = row.querySelector(".btn-studio-opp-deck");
+      if (studioBtn) {
+        studioBtn.addEventListener("click", () => {
           WebAudioFX.playCardLock();
-          if (oppCards.length > 0) {
+          if (oppCards && oppCards.length > 0) {
             this.studioDeck = oppCards.map(c => {
               const match = CLASH_CARDS.find(x => x.name.toLowerCase() === c.name.toLowerCase() || x.id === c.id);
               return match || {
@@ -1482,7 +1639,35 @@ const App = {
             `;
           }).join("")}
         </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid var(--border-subtle); flex-wrap: wrap;">
+          <button type="button" class="btn-secondary btn-meta-studio" style="font-size: 0.75rem; padding: 0.4rem 0.75rem;">
+            🛠️ Open in Studio
+          </button>
+          <button type="button" class="btn-primary-action btn-meta-copy" style="font-size: 0.75rem; padding: 0.4rem 0.9rem; background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%); color: #080a10; font-weight: 800;">
+            ⚔️ Copy to Clash Royale
+          </button>
+        </div>
       `;
+
+      const metaCopyBtn = card.querySelector(".btn-meta-copy");
+      if (metaCopyBtn) {
+        metaCopyBtn.addEventListener("click", () => {
+          this.handleCopyDeck(deck.cards, deck.name);
+        });
+      }
+
+      const metaStudioBtn = card.querySelector(".btn-meta-studio");
+      if (metaStudioBtn) {
+        metaStudioBtn.addEventListener("click", () => {
+          WebAudioFX.playCardLock();
+          this.studioDeck = deck.cards.map(k => CLASH_CARDS.find(c => c.key === k)).filter(Boolean);
+          this.renderStudioDeck();
+          this.showView("studio");
+          this.updateNavButtons("studio");
+          this.showToast(`Loaded ${deck.name} into Tactical Studio!`);
+        });
+      }
 
       container.appendChild(card);
     });

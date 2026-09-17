@@ -2005,6 +2005,62 @@ html, body {
   box-shadow: 0 0 15px rgba(38, 236, 232, 0.4);
 }
 
+/* Official Clash Royale Deck Export Modal */
+.deck-copy-card {
+  max-width: 460px;
+  width: 92%;
+  background: linear-gradient(180deg, #0d121f 0%, #080a10 100%);
+  border: 1px solid rgba(216, 184, 120, 0.45);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(216, 184, 120, 0.25);
+  overflow: hidden;
+  animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.deck-modal-cards-preview {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.45rem;
+  background: rgba(13, 18, 31, 0.75);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+}
+
+.deck-modal-card-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: rgba(8, 10, 16, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.2rem;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.deck-modal-card-item:hover {
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+.deck-modal-card-item img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: contain;
+  max-height: 56px;
+}
+
+.deck-modal-card-item .mini-caption {
+  font-size: 0.62rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-top: 2px;
+}
+
 @media (max-width: 900px) {
   /* 1. Header & Mobile App Top Bar */
   .creator-code-bar {
