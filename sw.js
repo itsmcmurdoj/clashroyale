@@ -33,8 +33,8 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // If fetching clash royale API or external proxy, always do network-first
-  if (url.pathname.includes('/api/') || url.hostname.includes('clashroyale')) {
+  // If fetching clash royale API, external proxy, or live news, always do network-first
+  if (url.pathname.includes('/api/') || url.hostname.includes('clashroyale') || url.pathname.includes('official_news.json')) {
     event.respondWith(
       fetch(event.request).catch(() => caches.match(event.request))
     );

@@ -1,0 +1,39 @@
+name: Supercell Live Blog & Balance Sync
+
+on:
+  schedule:
+    # Run every 6 hours automatically (00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows 1-click manual trigger from GitHub Actions UI
+
+permissions:
+  contents: write
+
+jobs:
+  sync-supercell:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Supercell Live Watcher
+        run: |
+          python3 scripts/supercell_watcher.py
+
+      - name: Commit and Push if New Update Found
+        run: |
+          git config --global user.name "Nexus Royale Sync Bot"
+          git config --global user.email "bot@nexusroyale.online"
+          if [[ -n "$(git status --porcelain official_news.json)" ]]; then
+            echo "New Supercell update detected! Committing changes..."
+            git add official_news.json
+            git commit -m "chore(sync): update official supercell news & balance telemetry [skip ci]"
+            git push origin main
+          else
+            echo "No new updates from Supercell blog. Repository is up to date."
+          fi

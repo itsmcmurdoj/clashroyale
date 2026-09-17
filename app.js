@@ -2212,7 +2212,52 @@ const App = {
   },
 
   // --- 11. META RANKINGS & SPECIAL SLOTS ---
+  renderSupercellLiveNews: async function() {
+    const banner = document.getElementById("supercell-live-news-banner");
+    if (!banner) return;
+
+    try {
+      const res = await fetch("./official_news.json");
+      if (!res.ok) throw new Error("Could not load official_news.json");
+      const data = await res.json();
+      const articles = data.articles || [];
+      if (!articles.length) return;
+
+      const balArticle = articles.find(a => a.title.toLowerCase().includes("september balance")) || articles[0];
+
+      banner.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.85rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            <span style="background: var(--cyan); color: #080a10; font-size: 0.7rem; font-weight: 900; padding: 0.2rem 0.5rem; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase;">
+              ⚡ Official Supercell Telemetry
+            </span>
+            <strong style="color: #fff; font-size: 0.95rem;">${balArticle.title}</strong>
+          </div>
+          <a href="${balArticle.url}" target="_blank" rel="noopener" style="font-size: 0.75rem; color: var(--cyan); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.25rem;">
+            Read Patch Notes on Supercell.com ↗
+          </a>
+        </div>
+        <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.85rem;">
+          Published by Supercell on <strong>${balArticle.publishDate ? balArticle.publishDate.substring(0, 10) : "Recent"}</strong>. Live balance adjustments directly synced into Nexus Royale ladder analytics.
+        </div>
+        ${balArticle.highlights && balArticle.highlights.length ? `
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.5rem;">
+            ${balArticle.highlights.filter(h => h.title || h.text).slice(0, 4).map(h => `
+              <div style="background: rgba(17, 24, 39, 0.65); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 0.55rem 0.75rem; font-size: 0.75rem;">
+                ${h.title ? `<strong style="color: var(--gold); display: block; margin-bottom: 2px;">${h.title}</strong>` : ''}
+                <div style="color: var(--text-secondary); line-height: 1.4;">${h.text}</div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+      `;
+    } catch (e) {
+      console.warn("Supercell news load note:", e);
+    }
+  },
+
   renderMetaRankings: function() {
+    this.renderSupercellLiveNews();
     const container = document.getElementById("meta-tier-container");
     if (!container) return;
     container.innerHTML = "";
