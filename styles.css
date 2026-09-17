@@ -2293,18 +2293,96 @@ html, body {
   margin-top: 2px;
 }
 
+/* PWA Platform Segmented Tabs */
+.pwa-platform-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.pwa-platform-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.pwa-tab-btn {
+  flex: 1 0 auto;
+  background: rgba(17, 24, 39, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.65rem;
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.pwa-tab-btn:hover {
+  border-color: rgba(38, 236, 232, 0.4);
+  color: #fff;
+  background: rgba(26, 35, 55, 0.8);
+}
+
+.pwa-tab-btn.active {
+  background: linear-gradient(135deg, rgba(38, 236, 232, 0.15) 0%, rgba(216, 184, 120, 0.12) 100%);
+  border-color: var(--cyan);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(38, 236, 232, 0.25);
+}
+
+.pwa-detected-tag {
+  font-size: 0.55rem;
+  font-weight: 900;
+  background: var(--cyan);
+  color: #080a10;
+  padding: 1px 4px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-left: 2px;
+  box-shadow: 0 0 6px rgba(38, 236, 232, 0.6);
+}
+
 .pwa-instructions-box {
-  background: rgba(8, 10, 16, 0.9);
+  background: rgba(8, 10, 16, 0.95);
   border: 1px solid rgba(216, 184, 120, 0.35);
   border-radius: var(--radius-md);
   padding: 1rem;
+  min-height: 210px;
 }
+
+.pwa-guide-header {
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pwa-guide-header.cyan { color: var(--cyan); }
+.pwa-guide-header.gold { color: var(--gold); }
 
 .pwa-step-card {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
   margin-bottom: 0.75rem;
+  background: rgba(17, 24, 39, 0.4);
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .pwa-step-card:last-child {
@@ -2315,7 +2393,7 @@ html, body {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: var(--gold);
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%);
   color: #080a10;
   font-weight: 900;
   font-size: 0.75rem;
@@ -2323,21 +2401,44 @@ html, body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .pwa-step-text {
   font-size: 0.82rem;
   color: var(--text-secondary);
-  line-height: 1.45;
+  line-height: 1.5;
+  flex: 1;
 }
 
 .pwa-step-text strong {
   color: #fff;
+  font-weight: 700;
+}
+
+.pwa-inline-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(38, 236, 232, 0.15);
+  border: 1px solid rgba(38, 236, 232, 0.35);
+  color: var(--cyan);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.pwa-inline-chip.gold {
+  background: rgba(216, 184, 120, 0.15);
+  border-color: rgba(216, 184, 120, 0.35);
+  color: var(--gold);
 }
 
 .pwa-btn-install-direct {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.8rem;
   background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%);
   color: #080a10;
   border: none;
@@ -2346,8 +2447,134 @@ html, body {
   font-size: 0.9rem;
   cursor: pointer;
   letter-spacing: 0.04em;
-  margin-top: 0.5rem;
-  box-shadow: 0 0 15px rgba(38, 236, 232, 0.4);
+  margin-bottom: 0.85rem;
+  box-shadow: 0 0 20px rgba(38, 236, 232, 0.45);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.pwa-btn-install-direct:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 25px rgba(38, 236, 232, 0.65);
+}
+
+.pwa-btn-install-direct:active {
+  transform: scale(0.98);
+}
+
+/* Footer App Link Button */
+.footer-app-btn {
+  background: rgba(38, 236, 232, 0.08);
+  border: 1px dashed rgba(38, 236, 232, 0.45);
+  color: var(--cyan);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.footer-app-btn:hover {
+  background: rgba(38, 236, 232, 0.18);
+  border-color: var(--cyan);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(38, 236, 232, 0.3);
+}
+
+/* iOS Safari Floating Pointer Indicator */
+.ios-safari-pointer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  width: 90%;
+  max-width: 360px;
+  animation: pointerPulse 2s infinite ease-in-out;
+}
+
+.ios-pointer-bubble {
+  background: linear-gradient(135deg, #0f172a 0%, #080a10 100%);
+  border: 2px solid var(--cyan);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 25px rgba(38, 236, 232, 0.5);
+  color: #fff;
+}
+
+.ios-pointer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.ios-pointer-title {
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: var(--cyan);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.ios-pointer-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.ios-pointer-close:hover {
+  color: #fff;
+}
+
+.ios-pointer-body {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.ios-share-inline-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--cyan);
+  vertical-align: middle;
+  padding: 0 2px;
+}
+
+.ios-pointer-arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--cyan);
+  margin: 0 auto;
+}
+
+@keyframes pointerPulse {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(6px);
+  }
+}
+
+/* Standalone installed state for header button */
+.btn-install-app.installed {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgba(34, 197, 94, 0.5);
+  color: #4ade80;
 }
 
 /* Creator Code Milestone & Deep Link Modal */

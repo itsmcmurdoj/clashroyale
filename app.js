@@ -577,95 +577,277 @@ const App = {
       });
     }
 
-    // 2. Android BeforeInstallPrompt
+    // 2. Client Environment & Platform Detection
     let deferredPrompt = null;
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      const installBtn = document.getElementById("btn-install-pwa");
-      if (installBtn) installBtn.style.display = "inline-flex";
-    });
+    const ua = window.navigator.userAgent.toLowerCase();
+    const isIos = /iphone|ipad|ipod/.test(ua);
+    const isChromeIos = isIos && /crios/.test(ua);
+    const isSafariIos = isIos && !isChromeIos;
+    const isAndroid = /android/.test(ua);
+    const isDesktop = !isIos && !isAndroid;
 
-    const isIos = () => {
-      const ua = window.navigator.userAgent.toLowerCase();
-      return /iphone|ipad|ipod/.test(ua);
+    const detectPlatform = () => {
+      if (isSafariIos) return "ios-safari";
+      if (isChromeIos) return "chrome-ios";
+      if (isAndroid) return "chrome-android";
+      return "desktop";
     };
 
     const isStandalone = () => {
       return (window.matchMedia("(display-mode: standalone)").matches) || (window.navigator.standalone === true);
     };
 
-    if (isStandalone()) {
-      const installBtn = document.getElementById("btn-install-pwa");
-      if (installBtn) installBtn.style.display = "none";
+    const installBtn = document.getElementById("btn-install-pwa");
+    if (installBtn) {
+      if (isStandalone()) {
+        installBtn.classList.add("installed");
+        installBtn.innerHTML = `<span class="install-icon">✓</span> <span class="install-txt">INSTALLED</span>`;
+        installBtn.title = "Nexus Royale is installed in standalone app mode";
+      } else {
+        installBtn.style.display = "inline-flex";
+      }
     }
 
-    // 3. Open PWA modal
-    const openPwaModal = () => {
-      const modal = document.getElementById("pwa-install-modal");
-      const box = document.getElementById("pwa-instructions-box");
-      if (!modal || !box) return;
+    // Capture Chromium / Android BeforeInstallPrompt
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBtn && !isStandalone()) {
+        installBtn.style.display = "inline-flex";
+      }
+    });
 
-      if (isIos()) {
-        box.innerHTML = `
-          <div style="font-size:0.75rem; font-weight:800; color:var(--cyan); margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.05em;">
-            🍎 iPhone / iPad (Safari) 2-Step Setup:
+    // Content templates for each platform
+    const getPlatformInstructions = (platform) => {
+      if (platform === "ios-safari") {
+        return `
+          <div class="pwa-guide-header cyan">
+            <span>🍏 Safari on iPhone / iPad (2-Step Setup)</span>
+            <span class="pwa-inline-chip">Official iOS PWA</span>
           </div>
           <div class="pwa-step-card">
             <div class="pwa-step-num">1</div>
-            <div class="pwa-step-text">Tap the <strong>Share button</strong> <span style="font-size:1.1rem; color:var(--cyan);">⎋</span> in the bottom toolbar of Safari.</div>
+            <div class="pwa-step-text">
+              Tap the <strong>Share button</strong> <span class="pwa-inline-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> Share</span> in the bottom toolbar of Safari.
+            </div>
           </div>
           <div class="pwa-step-card">
             <div class="pwa-step-num">2</div>
-            <div class="pwa-step-text">Scroll down and tap <strong>"Add to Home Screen"</strong> <span style="font-size:1rem; color:var(--gold);">⊞</span>.</div>
+            <div class="pwa-step-text">
+              Scroll down the menu and tap <strong>"Add to Home Screen"</strong> <span class="pwa-inline-chip gold"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Add</span>.
+            </div>
           </div>
           <div class="pwa-step-card">
             <div class="pwa-step-num">3</div>
-            <div class="pwa-step-text">Tap <strong>"Add"</strong> in the top-right corner. Nexus Royale launches in full-screen standalone mode without any browser bars!</div>
+            <div class="pwa-step-text">
+              Tap <strong>"Add"</strong> in the top-right corner. Nexus Royale will appear on your Home Screen with zero browser bars and high-speed offline caching!
+            </div>
+          </div>
+        `;
+      } else if (platform === "chrome-android") {
+        const hasPrompt = !!deferredPrompt;
+        return `
+          <div class="pwa-guide-header gold">
+            <span>🤖 Android & Chrome 1-Tap Install</span>
+            <span class="pwa-inline-chip gold">Native Web App</span>
+          </div>
+          <button type="button" class="pwa-btn-install-direct" id="btn-trigger-native-install">
+            📲 ${hasPrompt ? "Tap to Install Nexus Royale Now" : "Launch Chrome App Install"}
+          </button>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">1</div>
+            <div class="pwa-step-text">
+              Tap the <strong>Install button</strong> above to trigger the 1-tap browser prompt.
+            </div>
+          </div>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">2</div>
+            <div class="pwa-step-text">
+              If the prompt doesn't appear, tap Chrome's menu <span class="pwa-inline-chip">⋮ Three Dots</span> in the top-right corner.
+            </div>
+          </div>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">3</div>
+            <div class="pwa-step-text">
+              Select <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong> and tap Confirm.
+            </div>
+          </div>
+        `;
+      } else if (platform === "chrome-ios") {
+        return `
+          <div class="pwa-guide-header cyan">
+            <span>🍎 Google Chrome on iPhone / iPad</span>
+            <span class="pwa-inline-chip">iOS Chrome</span>
+          </div>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">1</div>
+            <div class="pwa-step-text">
+              In Chrome for iOS, tap the <strong>Share icon</strong> <span class="pwa-inline-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> Share</span> next to the URL bar, or tap the <span class="pwa-inline-chip">⋯ More</span> menu in the bottom-right corner.
+            </div>
+          </div>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">2</div>
+            <div class="pwa-step-text">
+              Scroll down and tap <strong>"Add to Home Screen"</strong> <span class="pwa-inline-chip gold">⊞</span>.
+            </div>
+          </div>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">3</div>
+            <div class="pwa-step-text">
+              Tap <strong>"Add"</strong> in the top-right corner to place Nexus Royale right next to your Clash Royale app!
+            </div>
           </div>
         `;
       } else {
-        box.innerHTML = `
-          <div style="font-size:0.75rem; font-weight:800; color:var(--gold); margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.05em;">
-            ⚡ Android / Chrome Quick Install:
+        // Desktop
+        return `
+          <div class="pwa-guide-header cyan">
+            <span>💻 Desktop (Chrome, Edge & Brave on Mac/PC)</span>
+            <span class="pwa-inline-chip">Desktop App</span>
           </div>
-          <button type="button" class="pwa-btn-install-direct" id="btn-trigger-native-install">
-            📲 Tap to Install Nexus Royale App Now
-          </button>
-          <div style="margin-top:0.75rem; font-size:0.75rem; color:var(--text-muted); text-align:center;">
-            Or tap Chrome menu (<strong>⋮</strong>) → <strong>"Install app"</strong> / <strong>"Add to Home screen"</strong>.
+          ${deferredPrompt ? `
+            <button type="button" class="pwa-btn-install-direct" id="btn-trigger-native-install">
+              🖥️ Install Nexus Royale Desktop Window
+            </button>
+          ` : ''}
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">1</div>
+            <div class="pwa-step-text">
+              Look at the <strong>right side of your browser's address bar</strong> at the top of your screen.
+            </div>
+          </div>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">2</div>
+            <div class="pwa-step-text">
+              Click the <strong>Install icon</strong> <span class="pwa-inline-chip">🖥️⬇️ Install</span>, OR open browser menu <span class="pwa-inline-chip">⋮</span> → <strong>"Save and share"</strong> → <strong>"Install Nexus Royale..."</strong>.
+            </div>
+          </div>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">3</div>
+            <div class="pwa-step-text">
+              Click <strong>"Install"</strong> to launch Nexus Royale in its own native, borderless desktop window with instant multi-tasking shortcuts.
+            </div>
           </div>
         `;
+      }
+    };
 
-        setTimeout(() => {
-          const directBtn = document.getElementById("btn-trigger-native-install");
-          if (directBtn) {
-            directBtn.addEventListener("click", async () => {
-              if (deferredPrompt) {
+    let currentPwaTab = detectPlatform();
+
+    const switchPwaTab = (platform) => {
+      currentPwaTab = platform;
+      const box = document.getElementById("pwa-instructions-box");
+      if (box) {
+        box.innerHTML = getPlatformInstructions(platform);
+      }
+
+      // Update tab active classes
+      document.querySelectorAll(".pwa-tab-btn").forEach(btn => {
+        if (btn.getAttribute("data-pwa-tab") === platform) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+
+      // Hook direct install button if rendered
+      setTimeout(() => {
+        const directBtn = document.getElementById("btn-trigger-native-install");
+        if (directBtn) {
+          directBtn.addEventListener("click", async () => {
+            if (deferredPrompt) {
+              try {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === "accepted") {
                   this.showToast("🎉 Nexus Royale installed to your Home Screen!");
-                  modal.style.display = "none";
+                  WebAudioFX.playSuccess();
+                  const modal = document.getElementById("pwa-install-modal");
+                  if (modal) modal.style.display = "none";
                 }
                 deferredPrompt = null;
-              } else {
-                this.showToast("Tap browser menu (⋮) and select 'Install app'");
+              } catch (err) {
+                console.warn("Install prompt error:", err);
               }
-            });
-          }
-        }, 50);
-      }
-
-      modal.style.display = "flex";
-      WebAudioFX.playSuccess();
+            } else {
+              this.showToast("Tap browser menu (⋮) and select 'Install app' or 'Add to Home screen'");
+            }
+          });
+        }
+      }, 50);
     };
 
-    const installBtn = document.getElementById("btn-install-pwa");
+    // Open PWA modal
+    const openPwaModal = (targetPlatform) => {
+      const modal = document.getElementById("pwa-install-modal");
+      if (!modal) return;
+
+      const userPlatform = detectPlatform();
+      const activePlatform = targetPlatform || userPlatform;
+
+      // Show detected tag on user's device tab
+      const detectedTag = document.getElementById(`tag-detected-${userPlatform}`);
+      if (detectedTag) detectedTag.style.display = "inline-block";
+
+      switchPwaTab(activePlatform);
+      modal.style.display = "flex";
+      WebAudioFX.playSuccess();
+
+      // Show animated bottom pointer if on iPhone Safari
+      if (isSafariIos && window.innerWidth <= 768) {
+        const pointer = document.getElementById("ios-safari-pointer");
+        if (pointer) pointer.style.display = "block";
+      }
+    };
+
+    // 3. Smart Install Button Click Handler
+    const handleInstallClick = async () => {
+      if (isStandalone()) {
+        this.showToast("⚡ Nexus Royale is already installed and running in fullscreen app mode!");
+        WebAudioFX.playClick();
+        return;
+      }
+
+      // If browser has native 1-tap install ready, trigger it immediately!
+      if (deferredPrompt) {
+        try {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === "accepted") {
+            this.showToast("🎉 Nexus Royale added to your Home Screen!");
+            WebAudioFX.playSuccess();
+            deferredPrompt = null;
+            return;
+          }
+          deferredPrompt = null;
+        } catch (err) {
+          console.warn("Deferred prompt error:", err);
+        }
+      }
+
+      // Otherwise (or if declined / on iOS), open the interactive guide
+      openPwaModal();
+    };
+
     if (installBtn) {
-      installBtn.addEventListener("click", openPwaModal);
+      installBtn.addEventListener("click", handleInstallClick);
     }
 
+    // Connect footer install button
+    const footerInstallBtn = document.getElementById("footer-btn-install");
+    if (footerInstallBtn) {
+      footerInstallBtn.addEventListener("click", () => openPwaModal());
+    }
+
+    // Connect Tab click events
+    document.querySelectorAll(".pwa-tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tab = btn.getAttribute("data-pwa-tab");
+        if (tab) switchPwaTab(tab);
+      });
+    });
+
+    // Close handlers
     const closeBtn = document.getElementById("btn-close-pwa-modal");
     if (closeBtn) {
       closeBtn.addEventListener("click", () => {
@@ -686,6 +868,15 @@ const App = {
     if (modalOverlay) {
       modalOverlay.addEventListener("click", (e) => {
         if (e.target === modalOverlay) modalOverlay.style.display = "none";
+      });
+    }
+
+    // Close iOS bottom pointer
+    const closePointerBtn = document.getElementById("btn-close-ios-pointer");
+    if (closePointerBtn) {
+      closePointerBtn.addEventListener("click", () => {
+        const pointer = document.getElementById("ios-safari-pointer");
+        if (pointer) pointer.style.display = "none";
       });
     }
   },
