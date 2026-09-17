@@ -1,0 +1,38 @@
+{
+  "name": "Nexus Royale - Pro Clash Royale Hub",
+  "short_name": "Nexus Royale",
+  "start_url": "./?source=pwa",
+  "id": "online.nexusroyale.app",
+  "display": "standalone",
+  "background_color": "#080A10",
+  "theme_color": "#080A10",
+  "orientation": "portrait",
+  "description": "Pro Clash Royale Intelligence, 2026 Heroes, 2v2 Radar & Live Stats",
+  "categories": ["games", "entertainment", "sports"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

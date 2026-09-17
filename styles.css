@@ -255,6 +255,36 @@ body {
   border-color: rgba(6, 182, 212, 0.4);
 }
 
+.btn-install-app {
+  background: linear-gradient(135deg, rgba(38, 236, 232, 0.15) 0%, rgba(216, 184, 120, 0.2) 100%);
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(38, 236, 232, 0.25);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-install-app:hover {
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%);
+  color: #080A10;
+  box-shadow: 0 0 16px rgba(38, 236, 232, 0.55);
+  transform: translateY(-1px);
+}
+
+.btn-install-app:active {
+  transform: scale(0.95);
+}
+
 .player-status-chip {
   display: flex;
   align-items: center;
@@ -1831,13 +1861,155 @@ html, body {
   max-width: 100vw;
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
 }
 
-@media (max-width: 950px) {
-  /* 1. Header & Mobile App Tab Navigation */
+/* Mobile Bottom Navigation Dock (Default Hidden on Desktop) */
+.mobile-bottom-dock {
+  display: none !important;
+}
+
+/* PWA Installation Modal */
+.pwa-modal-card {
+  max-width: 440px;
+  width: 92%;
+  background: linear-gradient(180deg, #0d121f 0%, #080a10 100%);
+  border: 1px solid rgba(38, 236, 232, 0.4);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(38, 236, 232, 0.25);
+  overflow: hidden;
+  animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pwa-modal-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pwa-modal-crest {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid rgba(38, 236, 232, 0.5);
+  box-shadow: 0 0 14px rgba(38, 236, 232, 0.35);
+  object-fit: cover;
+}
+
+.pwa-modal-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #fff;
+  margin: 0;
+}
+
+.pwa-modal-sub {
+  font-size: 0.75rem;
+  color: var(--cyan);
+  margin: 2px 0 0;
+  font-weight: 600;
+}
+
+.pwa-modal-body {
+  padding: 1.25rem;
+}
+
+.pwa-perks-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.pwa-perk {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.35rem;
+  text-align: center;
+}
+
+.pwa-perk-icon {
+  font-size: 1.35rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.pwa-perk-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.pwa-perk-desc {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.pwa-instructions-box {
+  background: rgba(8, 10, 16, 0.9);
+  border: 1px solid rgba(216, 184, 120, 0.35);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.pwa-step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.pwa-step-card:last-child {
+  margin-bottom: 0;
+}
+
+.pwa-step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #080a10;
+  font-weight: 900;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pwa-step-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.pwa-step-text strong {
+  color: #fff;
+}
+
+.pwa-btn-install-direct {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%);
+  color: #080a10;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 900;
+  font-size: 0.9rem;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  margin-top: 0.5rem;
+  box-shadow: 0 0 15px rgba(38, 236, 232, 0.4);
+}
+
+@media (max-width: 900px) {
+  /* 1. Header & Mobile App Top Bar */
   .creator-code-bar {
-    padding: 0.35rem 0.85rem;
-    font-size: 0.72rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.7rem;
     justify-content: space-between;
     gap: 0.5rem;
     width: 100%;
@@ -1849,40 +2021,40 @@ html, body {
     overflow: hidden;
     text-overflow: ellipsis;
     min-width: 0;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
   }
 
   .btn-copy-code {
-    padding: 0.22rem 0.5rem;
-    font-size: 0.68rem;
+    padding: 0.18rem 0.45rem;
+    font-size: 0.65rem;
     flex-shrink: 0;
   }
 
   .top-nav {
-    height: auto;
-    padding: 0.55rem 0.85rem;
+    height: 52px;
+    padding: 0.4rem 0.85rem;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.4rem;
     width: 100%;
     box-sizing: border-box;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .brand-group {
     order: 1;
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
 
   .brand-symbol {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     font-size: 1rem;
   }
 
   .brand-text {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
+    font-weight: 900;
   }
 
   .nav-actions {
@@ -1890,77 +2062,131 @@ html, body {
     gap: 0.35rem;
   }
 
+  .btn-install-app {
+    padding: 0.28rem 0.6rem;
+    font-size: 0.7rem;
+  }
+
   .audio-toggle-btn {
-    padding: 0.3rem 0.55rem;
-    font-size: 0.72rem;
+    padding: 0.28rem 0.5rem;
+    font-size: 0.7rem;
   }
 
   .player-status-chip {
-    padding: 0.25rem 0.6rem;
-    font-size: 0.72rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
   }
 
-  .nav-links {
-    order: 3;
-    width: 100%;
+  /* HIDE TOP NAV HORIZONTAL SCROLLBAR - NAVIGATION NOW IN MOBILE BOTTOM DOCK */
+  .top-nav .nav-links {
+    display: none !important;
+  }
+
+  /* 2. Persistent Mobile Bottom App Dock (Clash Royale Style) */
+  .mobile-bottom-dock {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: rgba(8, 10, 16, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(38, 236, 232, 0.25);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: content-box;
+  }
+
+  .dock-btn {
+    flex: 1;
     display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    gap: 0.35rem;
-    padding: 0.35rem 0.1rem;
-    margin-top: 0.2rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
     background: transparent;
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.3rem 0 0.15rem;
+    position: relative;
+    transition: all 0.15s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .nav-links::-webkit-scrollbar {
-    display: none;
+  .dock-btn .dock-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .nav-btn {
-    flex-shrink: 0;
-    white-space: nowrap;
-    padding: 0.45rem 0.8rem;
-    font-size: 0.75rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-full);
+  .dock-btn .dock-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-top: 2px;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
   }
 
-  .nav-btn.active {
-    background: var(--bg-surface-elevated);
-    border-color: var(--gold);
-    color: var(--gold);
-    box-shadow: 0 0 10px rgba(229, 169, 60, 0.25);
+  .dock-btn .dock-pip {
+    width: 0;
+    height: 3px;
+    background: var(--cyan);
+    border-radius: 999px;
+    position: absolute;
+    bottom: 3px;
+    transition: width 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
   }
 
-  /* 2. Main Canvas & Ad Unit */
+  .dock-btn.active {
+    color: var(--cyan);
+  }
+
+  .dock-btn.active .dock-icon {
+    transform: translateY(-2px) scale(1.15);
+    filter: drop-shadow(0 0 8px rgba(38, 236, 232, 0.8));
+  }
+
+  .dock-btn.active .dock-label {
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .dock-btn.active .dock-pip {
+    width: 18px;
+    box-shadow: 0 0 8px var(--cyan);
+  }
+
+  .dock-btn:active {
+    transform: scale(0.92);
+  }
+
+  /* 3. Main Canvas Padding to Accommodate Dock */
   .main-canvas {
-    padding: 0.75rem 0.85rem 4rem;
+    padding: 0.65rem 0.85rem calc(80px + env(safe-area-inset-bottom, 16px)) !important;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
   }
 
+  /* Hide distracting empty ad slot on mobile screens */
   .ad-slot-leaderboard {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    min-height: 52px;
-    margin: 0.75rem auto 1rem;
-    padding: 0.5rem 0.75rem;
-    box-sizing: border-box;
+    display: none !important;
   }
 
-  .ad-content-box {
-    font-size: 0.72rem;
-    line-height: 1.35;
+  /* 4. Prevent iOS Input Auto-Zoom on iPhone */
+  .tag-input, input, select {
+    font-size: 16px !important;
   }
 
-  /* 3. Hero Gateway */
+  /* 5. Hero Gateway on Mobile */
   .gateway-hero-layout {
     grid-template-columns: 1fr;
     gap: 1.75rem;
@@ -2020,7 +2246,7 @@ html, body {
   }
 
   .tag-input {
-    font-size: 0.95rem;
+    font-size: 16px !important;
     padding: 0.6rem 0.5rem;
     min-width: 0;
     flex: 1;

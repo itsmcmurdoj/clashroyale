@@ -219,6 +219,7 @@ const App = {
 
   init: function() {
     WebAudioFX.init();
+    this.initPwa();
     this.bindEvents();
     this.setupCardPhysics();
     this.setupAmbientCanvas();
@@ -274,11 +275,20 @@ const App = {
       });
     }
 
-    // 4. Navigation tabs
+    // 4. Navigation tabs (Top Nav & Mobile Bottom Dock)
     document.querySelectorAll(".nav-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         WebAudioFX.playClick();
+        if (navigator.vibrate) {
+          try { navigator.vibrate(10); } catch(e) {}
+        }
         const tab = btn.getAttribute("data-tab");
+        if (tab === "account" && !this.activePlayer) {
+          this.updateNavButtons("");
+          this.showView("gateway");
+          this.showToast("👑 Please connect your player tag to view your profile!");
+          return;
+        }
         this.updateNavButtons(tab);
         this.showView(tab);
       });
@@ -456,10 +466,136 @@ const App = {
     document.querySelectorAll(".nav-btn").forEach(b => {
       const isActive = (b.getAttribute("data-tab") === activeTab);
       b.classList.toggle("active", isActive);
-      if (isActive) {
+      // Only scroll into view if it's in the top nav scrollable bar, not the fixed bottom dock
+      if (isActive && !b.classList.contains("dock-btn")) {
         b.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
       }
     });
+  },
+
+  initPwa: function() {
+    // 1. Register Service Worker
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").then((reg) => {
+          console.log("Nexus Royale PWA Service Worker registered:", reg.scope);
+        }).catch((err) => {
+          console.log("Service Worker note:", err);
+        });
+      });
+    }
+
+    // 2. Android BeforeInstallPrompt
+    let deferredPrompt = null;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const installBtn = document.getElementById("btn-install-pwa");
+      if (installBtn) installBtn.style.display = "inline-flex";
+    });
+
+    const isIos = () => {
+      const ua = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(ua);
+    };
+
+    const isStandalone = () => {
+      return (window.matchMedia("(display-mode: standalone)").matches) || (window.navigator.standalone === true);
+    };
+
+    if (isStandalone()) {
+      const installBtn = document.getElementById("btn-install-pwa");
+      if (installBtn) installBtn.style.display = "none";
+    }
+
+    // 3. Open PWA modal
+    const openPwaModal = () => {
+      const modal = document.getElementById("pwa-install-modal");
+      const box = document.getElementById("pwa-instructions-box");
+      if (!modal || !box) return;
+
+      if (isIos()) {
+        box.innerHTML = `
+          <div style="font-size:0.75rem; font-weight:800; color:var(--cyan); margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.05em;">
+            🍎 iPhone / iPad (Safari) 2-Step Setup:
+          </div>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">1</div>
+            <div class="pwa-step-text">Tap the <strong>Share button</strong> <span style="font-size:1.1rem; color:var(--cyan);">⎋</span> in the bottom toolbar of Safari.</div>
+          </div>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">2</div>
+            <div class="pwa-step-text">Scroll down and tap <strong>"Add to Home Screen"</strong> <span style="font-size:1rem; color:var(--gold);">⊞</span>.</div>
+          </div>
+          <div class="pwa-step-card">
+            <div class="pwa-step-num">3</div>
+            <div class="pwa-step-text">Tap <strong>"Add"</strong> in the top-right corner. Nexus Royale launches in full-screen standalone mode without any browser bars!</div>
+          </div>
+        `;
+      } else {
+        box.innerHTML = `
+          <div style="font-size:0.75rem; font-weight:800; color:var(--gold); margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.05em;">
+            ⚡ Android / Chrome Quick Install:
+          </div>
+          <button type="button" class="pwa-btn-install-direct" id="btn-trigger-native-install">
+            📲 Tap to Install Nexus Royale App Now
+          </button>
+          <div style="margin-top:0.75rem; font-size:0.75rem; color:var(--text-muted); text-align:center;">
+            Or tap Chrome menu (<strong>⋮</strong>) → <strong>"Install app"</strong> / <strong>"Add to Home screen"</strong>.
+          </div>
+        `;
+
+        setTimeout(() => {
+          const directBtn = document.getElementById("btn-trigger-native-install");
+          if (directBtn) {
+            directBtn.addEventListener("click", async () => {
+              if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === "accepted") {
+                  this.showToast("🎉 Nexus Royale installed to your Home Screen!");
+                  modal.style.display = "none";
+                }
+                deferredPrompt = null;
+              } else {
+                this.showToast("Tap browser menu (⋮) and select 'Install app'");
+              }
+            });
+          }
+        }, 50);
+      }
+
+      modal.style.display = "flex";
+      WebAudioFX.playSuccess();
+    };
+
+    const installBtn = document.getElementById("btn-install-pwa");
+    if (installBtn) {
+      installBtn.addEventListener("click", openPwaModal);
+    }
+
+    const closeBtn = document.getElementById("btn-close-pwa-modal");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => {
+        const modal = document.getElementById("pwa-install-modal");
+        if (modal) modal.style.display = "none";
+      });
+    }
+
+    const doneBtn = document.getElementById("btn-pwa-modal-done");
+    if (doneBtn) {
+      doneBtn.addEventListener("click", () => {
+        const modal = document.getElementById("pwa-install-modal");
+        if (modal) modal.style.display = "none";
+      });
+    }
+
+    const modalOverlay = document.getElementById("pwa-install-modal");
+    if (modalOverlay) {
+      modalOverlay.addEventListener("click", (e) => {
+        if (e.target === modalOverlay) modalOverlay.style.display = "none";
+      });
+    }
   },
 
   showView: function(viewId) {

@@ -3,12 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Nexus Royale | Live Clash Royale Intelligence & Esports Hub</title>
+  
+  <!-- PWA & Mobile Web App Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#07080B">
-  <title>Nexus Royale | Live Clash Royale Intelligence & Esports Hub</title>
-  <link rel="icon" type="image/jpeg" href="nexus_badge.jpg">
-  <link rel="apple-touch-icon" href="nexus_badge.jpg">
+  <meta name="apple-mobile-web-app-title" content="Nexus Royale">
+  <meta name="application-name" content="Nexus Royale">
+  <meta name="theme-color" content="#080A10">
+  <meta name="msapplication-navbutton-color" content="#080A10">
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="nexus_crest_cyber.jpg">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -47,8 +59,12 @@
       <button class="nav-btn active" data-tab="account" id="nav-btn-account" style="display: none;">MY PROFILE</button>
     </nav>
 
-    <!-- Nav Actions: SFX Toggle & API Health -->
+    <!-- Nav Actions: SFX Toggle, Install App & API Health -->
     <div class="nav-actions">
+      <button type="button" class="btn-install-app" id="btn-install-pwa" title="Install App (100% Free)">
+        <span class="install-icon">📲</span> <span class="install-txt">GET APP</span>
+      </button>
+
       <button type="button" class="audio-toggle-btn on" id="btn-toggle-audio" title="Toggle Web Audio SFX">
         <span id="audio-icon">🔊</span> <span id="audio-txt">SFX ON</span>
       </button>
@@ -217,7 +233,11 @@
         <div class="kpi-card">
           <div class="kpi-label">Tournament Cards Won</div>
           <div class="kpi-value" id="kpi-tourney-cards" style="color: var(--blue);">18,420</div>
-        <!-- 2v2 Competitive League Tracker & Top 10k Cutoff Radar (Deck Recall Feature) -->
+          <div class="kpi-sub">Competitive Trophies</div>
+        </div>
+      </div>
+
+      <!-- 2v2 Competitive League Tracker & Top 10k Cutoff Radar (Deck Recall Feature) -->
       <div class="section-panel" id="section-2v2-tracker" style="padding: 1.35rem; border: 1px solid rgba(6, 182, 212, 0.35); background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(17, 19, 28, 0.95) 100%); margin-bottom: 1.75rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
           <div>
@@ -757,6 +777,82 @@
       </div>
     </div>
   </footer>
+
+  <!-- Mobile Persistent App Bottom Dock (iOS/Android Native Style) -->
+  <nav class="mobile-bottom-dock" id="mobile-bottom-dock">
+    <button type="button" class="nav-btn dock-btn" data-tab="account" id="dock-btn-profile">
+      <span class="dock-icon">👑</span>
+      <span class="dock-label">Profile</span>
+      <span class="dock-pip"></span>
+    </button>
+    <button type="button" class="nav-btn dock-btn" data-tab="radar" id="dock-btn-radar">
+      <span class="dock-icon">⚡</span>
+      <span class="dock-label">2v2 Radar</span>
+      <span class="dock-pip"></span>
+    </button>
+    <button type="button" class="nav-btn dock-btn" data-tab="recall" id="dock-btn-recall">
+      <span class="dock-icon">🧠</span>
+      <span class="dock-label">Recall</span>
+      <span class="dock-pip"></span>
+    </button>
+    <button type="button" class="nav-btn dock-btn" data-tab="heroes" id="dock-btn-heroes">
+      <span class="dock-icon">🃏</span>
+      <span class="dock-label">Heroes</span>
+      <span class="dock-pip"></span>
+    </button>
+    <button type="button" class="nav-btn dock-btn" data-tab="studio" id="dock-btn-studio">
+      <span class="dock-icon">⚔️</span>
+      <span class="dock-label">Studio</span>
+      <span class="dock-pip"></span>
+    </button>
+  </nav>
+
+  <!-- Mobile App Installation Guide Modal -->
+  <div class="modal-overlay" id="pwa-install-modal" style="display: none;">
+    <div class="modal-card pwa-modal-card">
+      <div class="modal-header">
+        <div class="pwa-modal-brand">
+          <img src="icon-192.png" alt="Nexus Royale Logo" class="pwa-modal-crest">
+          <div>
+            <h3 class="pwa-modal-title">NEXUS ROYALE APP</h3>
+            <p class="pwa-modal-sub">100% Free • Standalone Fullscreen Mode</p>
+          </div>
+        </div>
+        <button type="button" class="btn-modal-close" id="btn-close-pwa-modal">✕</button>
+      </div>
+
+      <div class="pwa-modal-body">
+        <div class="pwa-perks-row">
+          <div class="pwa-perk">
+            <span class="pwa-perk-icon">⚡</span>
+            <div class="pwa-perk-title">Zero Lag</div>
+            <div class="pwa-perk-desc">Direct cached launch</div>
+          </div>
+          <div class="pwa-perk">
+            <span class="pwa-perk-icon">📱</span>
+            <div class="pwa-perk-title">Fullscreen</div>
+            <div class="pwa-perk-desc">No browser bars</div>
+          </div>
+          <div class="pwa-perk">
+            <span class="pwa-perk-icon">💎</span>
+            <div class="pwa-perk-title">$0 Free</div>
+            <div class="pwa-perk-desc">Zero App Store fee</div>
+          </div>
+        </div>
+
+        <!-- Dynamic Instructions based on Platform -->
+        <div class="pwa-instructions-box" id="pwa-instructions-box">
+          <!-- Populated by JS for iOS or Android -->
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding: 1rem 1.25rem; display: flex; justify-content: flex-end;">
+        <button type="button" class="btn-primary-action" id="btn-pwa-modal-done" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+          Got It, Let's Clash!
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="toast-bar" id="toast-bar">Copied to clipboard!</div>
 
