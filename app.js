@@ -245,18 +245,83 @@ const App = {
       audioBtn.addEventListener("click", () => WebAudioFX.toggle());
     }
 
-    // 2. Creator Code 1-Click Copy
+    // 2. Creator Code Modal & In-Game Boost Launcher
+    const openCreatorModal = () => {
+      WebAudioFX.playClick();
+      const modal = document.getElementById("creator-code-modal");
+      if (modal) modal.style.display = "flex";
+    };
+
     const copyCodeBtn = document.getElementById("btn-copy-creator-code");
     if (copyCodeBtn) {
-      copyCodeBtn.addEventListener("click", () => {
+      copyCodeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openCreatorModal();
+      });
+    }
+
+    const bannerEl = document.getElementById("creator-code-banner");
+    if (bannerEl) {
+      bannerEl.addEventListener("click", (e) => {
+        if (e.target.closest("#btn-copy-creator-code")) return;
+        openCreatorModal();
+      });
+    }
+
+    const footerCodeCard = document.getElementById("footer-code-card");
+    if (footerCodeCard) {
+      footerCodeCard.addEventListener("click", openCreatorModal);
+    }
+
+    const closeCreatorBtn = document.getElementById("btn-close-creator-modal");
+    if (closeCreatorBtn) {
+      closeCreatorBtn.addEventListener("click", () => {
+        const modal = document.getElementById("creator-code-modal");
+        if (modal) modal.style.display = "none";
+      });
+    }
+
+    const doneCreatorBtn = document.getElementById("btn-done-creator-modal");
+    if (doneCreatorBtn) {
+      doneCreatorBtn.addEventListener("click", () => {
+        const modal = document.getElementById("creator-code-modal");
+        if (modal) modal.style.display = "none";
+      });
+    }
+
+    const creatorModalOverlay = document.getElementById("creator-code-modal");
+    if (creatorModalOverlay) {
+      creatorModalOverlay.addEventListener("click", (e) => {
+        if (e.target === creatorModalOverlay) creatorModalOverlay.style.display = "none";
+      });
+    }
+
+    const modalCopyNexusBtn = document.getElementById("btn-modal-copy-nexus-code");
+    if (modalCopyNexusBtn) {
+      modalCopyNexusBtn.addEventListener("click", () => {
         navigator.clipboard.writeText("NEXUS").then(() => {
           WebAudioFX.playSuccess();
-          this.showToast("💎 Creator Code NEXUS copied! Use in Clash Royale Shop.");
-          this.ceoMetrics.creatorCodeUses++;
+          this.showToast("💎 Creator Code NEXUS copied! Remember to enter it in Clash Royale shop.");
+          this.ceoMetrics.creatorCodeUses = (this.ceoMetrics.creatorCodeUses || 0) + 1;
           this.updateCeoStatsUI();
         }).catch(() => {
           this.showToast("Creator Code: NEXUS");
         });
+      });
+    }
+
+    const modalLaunchCreatorLink = document.getElementById("btn-modal-launch-creator-link");
+    if (modalLaunchCreatorLink) {
+      modalLaunchCreatorLink.addEventListener("click", () => {
+        WebAudioFX.playSuccess();
+        this.showToast("⚔️ Launching Clash Royale Creator Boost...");
+        this.ceoMetrics.creatorCodeUses = (this.ceoMetrics.creatorCodeUses || 0) + 1;
+        this.updateCeoStatsUI();
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+          setTimeout(() => {
+            window.location.href = "clashroyale://action=SupportCreator&id=NEXUS";
+          }, 300);
+        }
       });
     }
 

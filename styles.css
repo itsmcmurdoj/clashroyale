@@ -2005,6 +2005,18 @@ html, body {
   box-shadow: 0 0 15px rgba(38, 236, 232, 0.4);
 }
 
+/* Creator Code Milestone & Deep Link Modal */
+.creator-modal-card {
+  max-width: 480px;
+  width: 92%;
+  background: linear-gradient(180deg, #0d121f 0%, #080a10 100%);
+  border: 1px solid rgba(216, 184, 120, 0.45);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(216, 184, 120, 0.25);
+  overflow: hidden;
+  animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* Official Clash Royale Deck Export Modal */
 .deck-copy-card {
   max-width: 460px;

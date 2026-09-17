@@ -29,12 +29,12 @@
   <canvas id="particles-canvas"></canvas>
 
   <!-- 1. Creator Code Monetization Banner -->
-  <div class="creator-code-bar">
+  <div class="creator-code-bar" id="creator-code-banner">
     <div class="creator-code-text">
-      <span>💎 Support Nexus Royale: Code <span class="creator-highlight">NEXUS</span> in Shop</span>
+      <span>💎 Road to Creator Code <span class="creator-highlight">NEXUS</span>: Goal 5,000 Followers on IG</span>
     </div>
-    <button type="button" class="btn-copy-code" id="btn-copy-creator-code" title="Copy Creator Code">
-      <span>COPY CODE</span>
+    <button type="button" class="btn-copy-code" id="btn-copy-creator-code" title="View Creator Code Goal & Status">
+      <span>SUPPORT CODE</span>
       <strong>NEXUS</strong>
     </button>
   </div>
@@ -768,11 +768,11 @@
 
       <div class="footer-links-col">
         <div class="footer-col-title">Creator & Partner Support</div>
-        <div class="footer-code-card">
+        <div class="footer-code-card" id="footer-code-card" style="cursor: pointer;" title="Click to view Creator Code status & milestone">
           <span>In-Game Creator Code:</span>
           <strong>NEXUS</strong>
         </div>
-        <p class="footer-code-sub">Use code NEXUS in the Clash Royale shop before purchasing Pass Royale or gems to directly support platform updates and features!</p>
+        <p class="footer-code-sub">Help us reach <strong>5,000 Followers</strong> on Instagram (<a href="https://instagram.com/nexusroyale.online" target="_blank" rel="noopener" style="color: #f43f5e; text-decoration: underline;">@nexusroyale.online</a>) to officially unlock in-game Creator Code <strong>NEXUS</strong> in the Clash Royale shop!</p>
       </div>
 
       <div class="footer-legal-col">
@@ -905,6 +905,71 @@
 
       <div class="modal-footer" style="padding: 0.75rem 1.25rem; display: flex; justify-content: flex-end;">
         <button type="button" class="btn-secondary" id="btn-done-deck-modal" style="font-size: 0.8rem; padding: 0.4rem 1rem;">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Creator Code Milestone & Deep Link Modal -->
+  <div class="modal-overlay" id="creator-code-modal" style="display: none;">
+    <div class="modal-card creator-modal-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.6rem;">💎</span>
+          <div>
+            <h3 class="pwa-modal-title">CREATOR CODE: NEXUS</h3>
+            <p class="pwa-modal-sub">Supercell Creator Program Partnership</p>
+          </div>
+        </div>
+        <button type="button" class="btn-modal-close" id="btn-close-creator-modal">✕</button>
+      </div>
+
+      <div class="pwa-modal-body">
+        <!-- Notice Callout -->
+        <div style="background: rgba(234, 179, 8, 0.12); border: 1px solid var(--gold); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span style="font-size: 1rem;">⚠️</span>
+            <strong style="color: var(--gold); font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.04em;">Not Active in Shop Yet!</strong>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+            Supercell requires creators to reach milestone community thresholds (<strong>5,000 Followers</strong>) before an official in-game Creator Code is approved and activated in the Clash Royale shop.
+          </p>
+        </div>
+
+        <!-- 5k Follower Milestone Tracker -->
+        <div style="background: rgba(13, 18, 31, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.78rem; font-weight: 800; color: #fff;">Milestone Goal: 5,000 Followers</span>
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--cyan); font-weight: 700;">Road to 5k</span>
+          </div>
+          <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.08); border-radius: 999px; overflow: hidden; margin-bottom: 0.5rem;">
+            <div style="width: 18%; height: 100%; background: linear-gradient(90deg, var(--cyan) 0%, var(--gold) 100%); border-radius: 999px;"></div>
+          </div>
+          <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0; line-height: 1.4;">
+            Follow our Instagram <strong><a href="https://instagram.com/nexusroyale.online" target="_blank" rel="noopener" style="color: #f43f5e; text-decoration: underline;">@nexusroyale.online</a></strong> to help us hit the 5,000 follower requirement so Supercell unlocks Code <strong>NEXUS</strong>!
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          <!-- 1. Follow on Instagram -->
+          <a href="https://instagram.com/nexusroyale.online" target="_blank" rel="noopener" class="btn-primary-action" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem; font-size: 0.92rem; font-weight: 900; background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #eab308 100%); color: #fff; text-decoration: none; border-radius: var(--radius-sm); box-shadow: 0 0 20px rgba(244, 63, 94, 0.4);">
+            📸 Follow @nexusroyale.online on Instagram
+          </a>
+
+          <!-- 2. Copy Code NEXUS -->
+          <button type="button" class="btn-secondary" id="btn-modal-copy-nexus-code" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; font-size: 0.85rem; font-weight: 800; background: var(--bg-surface-elevated); border: 1px solid var(--border-hover); color: #fff;">
+            📋 Copy Code NEXUS
+          </button>
+
+          <!-- 3. Launch Clash Royale Creator Section -->
+          <a href="https://link.clashroyale.com/en?action=SupportCreator&id=NEXUS" target="_blank" class="btn-secondary" id="btn-modal-launch-creator-link" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.65rem; font-size: 0.78rem; font-weight: 700; color: var(--cyan); text-decoration: none; border: 1px dashed rgba(38, 236, 232, 0.35);">
+            ⚔️ Open Creator Boost in Clash Royale App →
+          </a>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding: 0.75rem 1.25rem; display: flex; justify-content: flex-end;">
+        <button type="button" class="btn-secondary" id="btn-done-creator-modal" style="font-size: 0.8rem; padding: 0.4rem 1rem;">Close</button>
       </div>
     </div>
   </div>
