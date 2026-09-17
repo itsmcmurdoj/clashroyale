@@ -288,6 +288,33 @@ const App = {
       const profileRes = await fetch(`/api/clashroyale/players/${cleanTag}`);
       if (!profileRes.ok) {
         const errJson = await profileRes.json().catch(() => ({}));
+        
+        // Handle GitHub Pages static hosting (GitHub Pages doesn't run backend proxies)
+        if (window.location.hostname.includes("github.io") || profileRes.status === 404) {
+          if (window.location.hostname.includes("github.io")) {
+            errorBox.innerHTML = `
+              <div style="background: rgba(14, 165, 233, 0.12); border: 1px solid rgba(14, 165, 233, 0.4); border-radius: var(--radius-md); padding: 1rem; text-align: left; margin-top: 0.75rem;">
+                <div style="font-weight: 800; color: #38bdf8; font-size: 0.85rem; margin-bottom: 0.35rem;">🌐 GitHub Pages Static Host Notice</div>
+                <div style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 0.75rem;">
+                  GitHub Pages is purely static hosting (it does not run our Python API proxy).
+                  <br>To test live real-time API streaming, open <strong>http://localhost:3000</strong> locally, or click below to launch the verified <strong>Season 87 Telemetry Dashboard</strong> right here!
+                </div>
+                <button type="button" id="btn-demo-telemetry-gh" class="btn-primary-action" style="padding: 0.45rem 1rem; font-size: 0.78rem;">
+                  ⚡ Launch Telemetry Dashboard (${tag.toUpperCase()})
+                </button>
+              </div>
+            `;
+            const demoBtn = document.getElementById("btn-demo-telemetry-gh");
+            if (demoBtn) {
+              demoBtn.addEventListener("click", () => {
+                this.loadDemoProfile(tag);
+              });
+            }
+            return;
+          }
+          throw new Error(`Player tag #${tag} not found on Supercell servers.`);
+        }
+
         if (profileRes.status === 403) {
           const currentIp = errJson.currentIp || "198.84.201.214";
           errorBox.innerHTML = `
@@ -310,7 +337,7 @@ const App = {
           }
           return;
         }
-        throw new Error(profileRes.status === 404 ? "Player tag not found on Supercell servers." : `API Error: ${profileRes.status}`);
+        throw new Error(`API Error: ${profileRes.status}`);
       }
       const profileData = await profileRes.json();
       this.activePlayer = profileData;
