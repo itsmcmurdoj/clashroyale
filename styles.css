@@ -1639,3 +1639,166 @@ body {
   opacity: 0.3;
   pointer-events: none;
 }
+
+/* =================================================== */
+/* VIP 1-CLICK INSTANT LOGIN & BUTTER-SMOOTH TRANSITIONS */
+/* =================================================== */
+.vip-quick-connect-banner {
+  background: linear-gradient(135deg, rgba(229, 169, 60, 0.18) 0%, rgba(20, 23, 35, 0.95) 100%);
+  border: 1.5px solid rgba(229, 169, 60, 0.55);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(229, 169, 60, 0.18);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: vipPulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes vipPulseGlow {
+  0%, 100% {
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 169, 60, 0.15);
+    border-color: rgba(229, 169, 60, 0.45);
+  }
+  50% {
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7), 0 0 35px rgba(229, 169, 60, 0.35);
+    border-color: rgba(229, 169, 60, 0.85);
+  }
+}
+
+.vip-quick-connect-banner:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.8), 0 0 38px rgba(229, 169, 60, 0.35);
+}
+
+.vip-avatar {
+  font-size: 2.25rem;
+  background: radial-gradient(circle, rgba(229, 169, 60, 0.3) 0%, rgba(229, 169, 60, 0.05) 70%);
+  border: 1.5px solid var(--gold);
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 18px rgba(229, 169, 60, 0.25);
+}
+
+.vip-info {
+  flex: 1;
+}
+
+.vip-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.vip-badge {
+  background: var(--gold);
+  color: #000;
+  font-size: 0.62rem;
+  font-weight: 900;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(229, 169, 60, 0.4);
+}
+
+.vip-tag-text {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.vip-name {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.vip-clan {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.btn-vip-login {
+  position: relative;
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  color: #0b0f19;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 20px rgba(234, 179, 8, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.btn-vip-login::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: rotate(25deg);
+  animation: vipShine 3.5s infinite;
+}
+
+@keyframes vipShine {
+  0% { left: -60%; }
+  25% { left: 140%; }
+  100% { left: 140%; }
+}
+
+.btn-vip-login:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(234, 179, 8, 0.6);
+  filter: brightness(1.05);
+}
+
+.btn-vip-login:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.btn-vip-login.loading {
+  opacity: 0.8;
+  pointer-events: none;
+  cursor: wait;
+}
+
+/* Smooth view crossfade transition */
+main > section {
+  animation: smoothFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes smoothFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
