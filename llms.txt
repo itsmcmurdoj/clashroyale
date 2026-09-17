@@ -1,0 +1,19 @@
+# Nexus Royale
+> The pro intelligence, live telemetry, and competitive deck platform for Clash Royale (2026).
+
+Nexus Royale (https://nexusroyale.online) is a fast, web-based esports intelligence platform and deck builder for Supercell's Clash Royale. It provides direct real-time telemetry into Supercell live servers, tracking player career stats, 2v2 Competitive League ratings, Season 87 Hero mechanics, Evolution slot interactions, and combat simulations.
+
+## Key Modules & Tools
+
+- [Live Player Telemetry](https://nexusroyale.online/#account): Real-time sync with Supercell servers. Query any player tag (e.g., `#Y0JJY80`) to inspect seasonal trophies, 2v2 rating, active 8-card battle deck, and battle log.
+- [2026 Heroes Radar](https://nexusroyale.online/#heroes): Comprehensive database on August 2026 Heroes (Hero Ice Wizard, Hero Knight, Hero Wizard, Boss Bandit), single-use ability timings, and elixir costs.
+- [Pro Meta Rankings](https://nexusroyale.online/#meta): Tier list (S+, S, A) of top Ultimate Champion and Path of Legends decks piloted by world champions (Mohamed Light, Ryley, Viper).
+- [Tactical Deck Studio](https://nexusroyale.online/#studio): 3-Slot Special Builder (🟣 Evolution Slot, 🟡 Hero Slot, 🔵 Wild Slot) with average elixir calculations and 4-card cycle metrics.
+- [Combat Matchup Simulator](https://nexusroyale.online/#simulator): Instant elixir trade calculations, swarm counters, anti-air defense, and tank buster DPS analysis.
+- [1-Tap In-Game Export](https://nexusroyale.online/): Generates official deep links (`clashroyale://copyDeck?deck=...`) and universal web links to slot decks directly into the game.
+- [Daily Lucky Drop Probabilities](https://nexusroyale.online/): Official mystery box drop rates (Common 51.2%, Rare 28.0%, Epic 15.0%, Legendary 4.3%, Champion 1.5%).
+
+## Full Documentation
+
+- [Full LLM Specification](https://nexusroyale.online/llms-full.txt): Deep technical documentation, card ID maps, and 2026 mechanics.
+- [Official Supercell News](https://nexusroyale.online/official_news.json): Synced balance patch notes and live updates.

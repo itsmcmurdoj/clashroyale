@@ -1,0 +1,43 @@
+# Nexus Royale — Full Technical & Meta Documentation for AI Crawlers
+
+Website: https://nexusroyale.online
+Last Updated: September 2026 (Season 87: Minion Academy)
+Platform Engine: Single Page Application, Progressive Web App (PWA), Service Worker Caching
+
+## 1. 2026 Clash Royale Game Mechanics Overview
+
+In 2026, Clash Royale features a modernized 3-Special-Slot deck architecture:
+1. **Slot 1 (Evolution Slot - 🟣)**: Houses official Evolution cards (Evo PEKKA, Evo Battle Ram, Evo Elite Barbarians, Evo Goblin Barrel, Evo Zap, etc.) with cycle requirements.
+2. **Slot 2 (Hero Slot - 🟡)**: Houses official Hero cards (Hero Ice Wizard, Hero Knight, Hero Mega Minion, Hero Wizard). Heroes are base cards imbued with deterministic single-use manual abilities (activated for 1-2 Elixir during deployment).
+3. **Slot 3 (Wild Slot - 🔵)**: Flexible slot that can host either a 2nd Evolution card OR a 2nd Hero/Champion.
+
+Note on Chests: Legacy chest cycles were deprecated by Supercell and replaced by Daily Task Lucky Drops (Mystery Boxes with Common, Rare, Epic, Legendary, and Champion tiers).
+
+## 2. Season 87 Meta Tier 1 Decks
+
+### S+ Tier: Season 87 Hero Ice Wizard PEKKA Control
+- Piloted by: Mohamed Light (#1 World Champion)
+- Win Rate: 58.6% | Use Rate: 11.4% | Avg Elixir: 3.6
+- Special Slots:
+  - 🟣 Evo Slot: P.E.K.K.A (ID: 26000004)
+  - 🟡 Hero Slot: Hero Ice Wizard (ID: 26000023, Ability: Frost Surge)
+  - 🔵 Wild Slot: Knight (ID: 26000000)
+- Full 8 Cards: Ice Wizard, PEKKA, Knight, Zap, Poison, Electro Spirit, Bandit, Baby Dragon
+- Universal Deck Link: https://link.clashroyale.com/deck/en?deck=26000023;26000004;26000000;28000008;28000009;26000084;26000046;26000015
+
+### S Tier: Hero Knight 2.8 Log Bait Evolution
+- Piloted by: Ryley (#1 Global Bait)
+- Win Rate: 57.1% | Use Rate: 10.2% | Avg Elixir: 2.8
+- Special Slots:
+  - 🟣 Evo Slot: Goblin Barrel (ID: 28000004)
+  - 🟡 Hero Slot: Hero Knight (ID: 26000000, Ability: Iron Bulwark)
+  - 🔵 Wild Slot: Valkyrie (ID: 26000011)
+- Full 8 Cards: Knight, Goblin Barrel, Valkyrie, Princess, The Log, Rocket, Ice Spirit, Goblin Gang
+- Universal Deck Link: https://link.clashroyale.com/deck/en?deck=26000000;28000004;26000011;26000026;28000011;28000003;26000030;26000041
+
+## 3. Official Creator Support Code
+- Creator Code: `NEXUS`
+- Status: Goal 5,000 Instagram followers (@nexusroyale.online) to unlock official Supercell partner code status in the in-game shop.
+
+## 4. API Endpoints Available
+- `/official_news.json`: Live synced Supercell patch notes, balance changes, and blog updates.
