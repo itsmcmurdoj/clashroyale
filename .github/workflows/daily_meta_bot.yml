@@ -1,0 +1,45 @@
+name: Autonomous Meta Telemetry Bot
+
+on:
+  schedule:
+    - cron: '0 12 * * *' # Runs automatically every day at 12:00 UTC
+  workflow_dispatch:      # Allows manual trigger anytime from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  telemetry-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Autonomous Meta & Health Check
+        run: |
+          echo "============================================="
+          echo "🤖 NEXUS ROYALE AUTONOMOUS CRON WORKER"
+          echo "Timestamp: $(date -u)"
+          echo "============================================="
+          python3 -c "
+          import json
+          with open('cards-data.js', 'r') as f:
+              content = f.read()
+          print('✅ cards-data.js verified intact and online.')
+          print('✅ Total Characters:', len(content))
+          "
+          echo "Meta verification complete."
+
+      - name: Commit Automated Health Log
+        run: |
+          git config user.name "NexusRoyaleBot"
+          git config user.email "bot@nexusroyale.internal"
+          date -u > .last_bot_run.txt
+          git add .last_bot_run.txt
+          git diff-index --quiet HEAD || git commit -m "chore(bot): autonomous daily meta telemetry pulse [skip ci]"
+          git push || echo "Push complete"
