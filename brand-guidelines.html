@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Royale — Official Brand Identity Guidelines (2026)</title>
+  <link rel="icon" type="image/jpeg" href="nexus_crest_cyber.jpg">
+  <style>
+    :root {
+      --cyan: #26ECE8;
+      --cyan-glow: rgba(38, 236, 232, 0.4);
+      --gold: #D8B878;
+      --gold-deep: #B48A3C;
+      --bg-void: #080A10;
+      --bg-midnight: #0C111C;
+      --bg-card: #111827;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-cyan: rgba(38, 236, 232, 0.3);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --win: #10B981;
+      --purple: #A855F7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-void);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      padding: 3rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    header.brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-cyan);
+      padding-bottom: 2rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .header-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .master-emblem-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 25px var(--cyan-glow);
+      object-fit: cover;
+    }
+
+    .brand-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      background: linear-gradient(135deg, #FFFFFF 30%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-subtitle {
+      font-size: 0.85rem;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+
+    .meta-tag-pill {
+      background: rgba(38, 236, 232, 0.1);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    section {
+      background: var(--bg-midnight);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    h2.section-heading {
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: #FFFFFF;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+
+    h2.section-heading span.num {
+      color: var(--cyan);
+      font-family: monospace;
+      font-size: 1.1rem;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    /* Logo Showcase Grid */
+    .logo-showcase-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 800px) {
+      .logo-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-crest-stage {
+      background: radial-gradient(circle at center, rgba(38, 236, 232, 0.15) 0%, #080A10 75%);
+      border: 1px solid var(--border-cyan);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(38, 236, 232, 0.2);
+    }
+
+    .hero-crest-stage img {
+      max-width: 280px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.8);
+      border: 1px solid rgba(216, 184, 120, 0.4);
+    }
+
+    .crest-caption {
+      font-size: 0.8rem;
+      font-family: monospace;
+      color: var(--gold);
+      margin-top: 1rem;
+    }
+
+    .rules-list {
+      list-style: none;
+    }
+
+    .rules-list li {
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .rules-list li .badge-do {
+      color: var(--win);
+      font-weight: 800;
+    }
+
+    .rules-list li .badge-dont {
+      color: #EF4444;
+      font-weight: 800;
+    }
+
+    /* Color Swatches Grid */
+    .swatches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .swatch-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .swatch-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+    }
+
+    .swatch-color {
+      height: 110px;
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      padding: 0.75rem;
+      font-size: 0.75rem;
+      font-family: monospace;
+      font-weight: 700;
+    }
+
+    .swatch-info {
+      padding: 1rem;
+    }
+
+    .swatch-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 0.25rem;
+    }
+
+    .swatch-hex {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .swatch-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      line-height: 1.4;
+    }
+
+    /* Typography Showcase */
+    .type-specimen {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .type-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .type-sample-display {
+      font-size: 1.75rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: #FFFFFF;
+      margin-bottom: 0.5rem;
+    }
+
+    .type-sample-mono {
+      font-family: monospace;
+      font-size: 1.2rem;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+    }
+
+    /* Creator Code Box */
+    .creator-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, rgba(216, 184, 120, 0.15) 0%, rgba(38, 236, 232, 0.1) 100%);
+      border: 1px solid var(--gold);
+      border-radius: 12px;
+      padding: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .creator-code-huge {
+      font-family: monospace;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 20px rgba(216, 184, 120, 0.4);
+    }
+
+    footer.brand-footer {
+      text-align: center;
+      padding: 3rem 0 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--cyan);
+      color: #080A10;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      box-shadow: 0 4px 16px rgba(38, 236, 232, 0.5);
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Top Header -->
+    <header class="brand-header">
+      <div class="header-logo-row">
+        <img src="nexus_crest_cyber.jpg" alt="Nexus Crest Cyber" class="master-emblem-img">
+        <div>
+          <h1 class="brand-title">NEXUS ROYALE</h1>
+          <div class="brand-subtitle">Official Brand Identity & Design System • Edition 1.0</div>
+        </div>
+      </div>
+      <div>
+        <span class="meta-tag-pill">👑 APPROVED ASSET • 2026</span>
+      </div>
+    </header>
+
+    <!-- Section 1: Brand Essence -->
+    <section>
+      <h2 class="section-heading"><span class="num">01.</span> BRAND ESSENCE & MISSION</h2>
+      <p>
+        <strong>Nexus Royale</strong> is the premier computational intelligence, esports telemetry, and deck strategy platform for competitive <em>Clash Royale</em>. Designed for high-ladder contenders and esports athletes, the platform replaces childish mobile graphics with an elite, obsidian cyber-chivalric identity.
+      </p>
+      <p>
+        Our design ethos is <strong>"Butter-Smooth Precision"</strong>: instant response times, zero error states, rich tactical dark surfaces, and native mobile ergonomic dock navigation.
+      </p>
+    </section>
+
+    <!-- Section 2: The Master Emblem -->
+    <section>
+      <h2 class="section-heading"><span class="num">02.</span> THE MASTER EMBLEM — NEXUS CREST CYBER</h2>
+      <p>
+        The definitive visual mark for all official products, web properties, app icons, and esports media is <strong>Nexus Crest Cyber</strong> (<code>nexus_crest_cyber.jpg</code>).
+      </p>
+
+      <div class="logo-showcase-grid">
+        <div class="hero-crest-stage">
+          <img src="nexus_crest_cyber.jpg" alt="Nexus Crest Cyber Master">
+          <div class="crest-caption">Master Asset: nexus_crest_cyber.jpg (1024 x 1024)</div>
+        </div>
+
+        <div>
+          <h3 style="font-size: 1.1rem; color: #FFFFFF; margin-bottom: 0.85rem;">Symbolic Anatomy:</h3>
+          <ul class="rules-list">
+            <li><span class="badge-do">🛡️ Hexagonal Shield:</span> Represents competitive fortitude, defensive mastery, and elite clan unity.</li>
+            <li><span class="badge-do">👑 Tri-Spike Apex:</span> Modern architectural crown paying tribute to 3-Crown victories without cartoon tropes.</li>
+            <li><span class="badge-do">⚡ Arctic Cyan Conduits:</span> Neon circuit traces radiating live telemetry from Supercell competitive servers.</li>
+            <li><span class="badge-do">🏆 Champagne Gold Bevels:</span> Aerospace-grade titanium gold edge facets marking Ultimate Champion status.</li>
+          </ul>
+
+          <h3 style="font-size: 1.1rem; color: #FFFFFF; margin: 1.5rem 0 0.85rem;">Usage Guidelines:</h3>
+          <ul class="rules-list">
+            <li><span class="badge-do">✓ DO</span> Maintain 0.5x clear space around all outer shield perimeter edges.</li>
+            <li><span class="badge-do">✓ DO</span> Place on deep obsidian or midnight navy backgrounds (`#080A10` / `#0C111C`).</li>
+            <li><span class="badge-dont">✕ DON'T</span> Never stretch, skew, or rotate the crest at odd angles.</li>
+            <li><span class="badge-dont">✕ DON'T</span> Never alter the core Arctic Cyan energy conduits to red or green.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Color System -->
+    <section>
+      <h2 class="section-heading"><span class="num">03.</span> OFFICIAL COLOR PALETTE</h2>
+      <p>Click any color swatch to automatically copy its HEX code to your clipboard.</p>
+
+      <div class="swatches-grid">
+        <!-- Swatch 1: Cyan -->
+        <div class="swatch-card" onclick="copyColor('#26ECE8')">
+          <div class="swatch-color" style="background-color: #26ECE8; color: #080A10;">PRIMARY GLOW</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Prismatic Arctic Cyan</div>
+            <div class="swatch-hex">#26ECE8</div>
+            <div class="swatch-role">Primary brand accent, glowing telemetry seams, active tab indicators, neon CTAs.</div>
+          </div>
+        </div>
+
+        <!-- Swatch 2: Gold -->
+        <div class="swatch-card" onclick="copyColor('#D8B878')">
+          <div class="swatch-color" style="background-color: #D8B878; color: #080A10;">PRESTIGE TRIM</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Champagne Titanium Gold</div>
+            <div class="swatch-hex">#D8B878</div>
+            <div class="swatch-role">Crest outer bevels, VIP CEO insignia, trophy counts, Creator Code badges.</div>
+          </div>
+        </div>
+
+        <!-- Swatch 3: Midnight Sapphire -->
+        <div class="swatch-card" onclick="copyColor('#0C111C')">
+          <div class="swatch-color" style="background-color: #0C111C; color: #26ECE8; border-bottom: 1px solid rgba(255,255,255,0.1);">SURFACE ARMOR</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Midnight Sapphire</div>
+            <div class="swatch-hex">#0C111C</div>
+            <div class="swatch-role">Tactile card containers, modal cards, dashboard sections, elevated panels.</div>
+          </div>
+        </div>
+
+        <!-- Swatch 4: Obsidian Void -->
+        <div class="swatch-card" onclick="copyColor('#080A10')">
+          <div class="swatch-color" style="background-color: #080A10; color: #94A3B8; border-bottom: 1px solid rgba(255,255,255,0.1);">VOID BACKDROP</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Obsidian Void</div>
+            <div class="swatch-hex">#080A10</div>
+            <div class="swatch-role">Primary canvas background, mobile status bar, deep shadow falls.</div>
+          </div>
+        </div>
+
+        <!-- Swatch 5: Emerald Win -->
+        <div class="swatch-card" onclick="copyColor('#10B981')">
+          <div class="swatch-color" style="background-color: #10B981; color: #080A10;">VICTORY / TELEMETRY</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Victorious Emerald</div>
+            <div class="swatch-hex">#10B981</div>
+            <div class="swatch-role">Win rates, positive ladder gains, Supercell live API online status indicator.</div>
+          </div>
+        </div>
+
+        <!-- Swatch 6: Royal Violet -->
+        <div class="swatch-card" onclick="copyColor('#A855F7')">
+          <div class="swatch-color" style="background-color: #A855F7; color: #FFFFFF;">EVOLUTION SLOT</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Royal Evolution Violet</div>
+            <div class="swatch-hex">#A855F7</div>
+            <div class="swatch-role">2026 Special Slot 1 framing, Evolution card auras, shard milestones.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Typography -->
+    <section>
+      <h2 class="section-heading"><span class="num">04.</span> TYPOGRAPHIC STANDARDS</h2>
+      
+      <div class="type-specimen">
+        <div class="type-label">Display & Titles • Outfit / Cabinet Grotesk / Inter Black</div>
+        <div class="type-sample-display">SYNC YOUR ROYALE IDENTITY.</div>
+        <p style="margin: 0; font-size: 0.8rem;">Used in all-caps for hero headlines, major module titles, and primary action buttons. Weight: 900.</p>
+      </div>
+
+      <div class="type-specimen">
+        <div class="type-label">Telemetry & Numeric Data • JetBrains Mono / Space Mono</div>
+        <div class="type-sample-mono">#Y0JJY80 • 14,000 🏆 • 2,273 RATING • CUTOFF 2,450</div>
+        <p style="margin: 0; font-size: 0.8rem;">Used for player tags, ladder trophies, win percentages, card IDs, and elixir costs. Tabular figures ensure aligned data columns.</p>
+      </div>
+    </section>
+
+    <!-- Section 5: Creator Code -->
+    <section>
+      <h2 class="section-heading"><span class="num">05.</span> CREATOR CODE & MONETIZATION</h2>
+      <p>
+        The official Creator Code must always be displayed prominently with high contrast and 1-click clipboard copy functionality.
+      </p>
+
+      <div class="creator-box">
+        <div>
+          <div style="font-size: 0.8rem; color: #FFFFFF; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem;">
+            Official Supercell Creator Code
+          </div>
+          <div class="creator-code-huge">NEXUS</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem;">
+            Use code NEXUS in the Clash Royale shop before purchasing Pass Royale or Gems.
+          </div>
+        </div>
+        <button onclick="copyColor('NEXUS')" style="background: linear-gradient(135deg, var(--gold) 0%, #F59E0B 100%); border: none; padding: 0.8rem 1.6rem; border-radius: 8px; font-weight: 900; color: #080A10; cursor: pointer; letter-spacing: 0.05em;">
+          COPY CODE NEXUS
+        </button>
+      </div>
+    </section>
+
+    <!-- Section 6: Official Channels -->
+    <section>
+      <h2 class="section-heading"><span class="num">06.</span> VERIFIED DIGITAL CHANNELS</h2>
+      <ul class="rules-list">
+        <li><strong>🌐 Live Domain:</strong> <a href="https://nexusroyale.online" target="_blank" style="color: var(--cyan); text-decoration: none; margin-left: 0.5rem;">https://nexusroyale.online</a></li>
+        <li><strong>✉️ Business Email:</strong> <span style="color: var(--gold); margin-left: 0.5rem; font-family: monospace;">nexusroyaleonline@gmail.com</span></li>
+        <li><strong>📸 Official Instagram:</strong> <span style="color: #F43F5E; margin-left: 0.5rem;">@nexusroyale.online</span></li>
+        <li><strong>👑 CEO / Flagship Account:</strong> <span style="color: var(--cyan); margin-left: 0.5rem; font-family: monospace;">Muk (#Y0JJY80) • 14,000 🏆 • The Darkness</span></li>
+      </ul>
+    </section>
+
+    <footer class="brand-footer">
+      © 2026 Nexus Royale. Master Brand Style Guide for Muk & the Global Competitive Community.
+    </footer>
+
+  </div>
+
+  <div class="toast" id="toast-box">Copied to clipboard!</div>
+
+  <script>
+    function copyColor(val) {
+      navigator.clipboard.writeText(val).then(() => {
+        const toast = document.getElementById("toast-box");
+        toast.textContent = "Copied: " + val;
+        toast.style.display = "block";
+        setTimeout(() => { toast.style.display = "none"; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
