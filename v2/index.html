@@ -3,64 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexus Royale | Live Clash Royale Intelligence</title>
+  <title>Nexus Royale V2 | Live Clash Royale Intelligence & Autonomous Esports Hub</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Ambient Particle Canvas for Live Floating Elixir & Spark FX -->
+  <!-- Background Particle Canvas for Floating Elixir Droplets & Spark FX -->
   <canvas id="particles-canvas"></canvas>
 
-  <!-- Minimalist Top Navigation -->
+  <!-- 1. Creator Code Monetization Banner -->
+  <div class="creator-code-bar">
+    <span>💎 Support Nexus Royale: Use Creator Code <span class="creator-highlight">MUKPOST</span> in the Clash Royale Shop before buying Pass Royale!</span>
+    <button type="button" class="btn-copy-code" id="btn-copy-creator-code" title="Copy Creator Code">
+      <span>COPY CODE</span>
+      <strong>MUKPOST</strong>
+    </button>
+  </div>
+
+  <!-- 2. Minimalist Esports Top Navigation -->
   <header class="top-nav">
     <div class="brand-group" id="btn-brand">
       <div class="brand-symbol">👑</div>
-      <div class="brand-text">ROYALE MATRIX <span class="brand-version">V1</span></div>
+      <div class="brand-text">NEXUS ROYALE <span class="brand-version">V2 PRO</span></div>
     </div>
 
-    <!-- Section Navigation (Visible for instant 2026 intelligence) -->
+    <!-- Navigation Tabs -->
     <nav class="nav-links" id="main-nav-links">
       <button class="nav-btn" data-tab="heroes">⚡ HEROES 2026 <span class="hot-tag">SEASON 87</span></button>
       <button class="nav-btn" data-tab="meta">PRO META</button>
       <button class="nav-btn" data-tab="studio">DECK STUDIO</button>
       <button class="nav-btn" data-tab="simulator">SIMULATOR</button>
-      <a href="v2/" class="nav-btn" style="text-decoration: none; color: #facc15; border: 1px solid rgba(250, 204, 21, 0.4); background: rgba(250, 204, 21, 0.08); display: inline-flex; align-items: center; gap: 0.35rem;">🚀 LAUNCH V2 PRO <span class="hot-tag" style="background: #eab308; color: #000;">NEW</span></a>
+      <button class="nav-btn" data-tab="aiops">🤖 AI COMPANY OPS <span class="hot-tag">CEO</span></button>
       <button class="nav-btn active" data-tab="account" id="nav-btn-account" style="display: none;">MY PROFILE</button>
     </nav>
 
-    <!-- Nav Actions -->
+    <!-- Nav Actions: SFX Toggle & API Health -->
     <div class="nav-actions">
+      <button type="button" class="audio-toggle-btn on" id="btn-toggle-audio" title="Toggle Web Audio SFX">
+        <span id="audio-icon">🔊</span> <span id="audio-txt">SFX ON</span>
+      </button>
+
       <div class="player-status-chip" id="user-status-chip" style="display: none;">
         <span class="status-dot"></span>
-        <span id="chip-player-name">Player</span>
+        <span id="chip-player-name">Muk</span>
         <button class="btn-switch-user" id="btn-switch-account" title="Switch Account">✕</button>
       </div>
+
       <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--win); display: flex; align-items: center; gap: 0.35rem;">
         <span class="status-dot"></span> LIVE API
       </div>
     </div>
   </header>
 
-  <!-- Main Content Canvas -->
+  <!-- Top Esports Programmatic Ad Slot (NitroPay / Playwire 728x90) -->
+  <div class="ad-slot-leaderboard">
+    <div class="ad-label">Sponsored Esports Partner • Playwire / NitroPay Verified</div>
+    <div class="ad-content-box">⚡ Clashing with the Best? Level Up Your Arena Strategy with Nexus Royale V2</div>
+  </div>
+
+  <!-- Main Application Canvas -->
   <main class="main-canvas">
 
     <!-- ======================================================== -->
-    <!-- 1. HERO GATEWAY WITH 3D INTERACTIVE CARD SHOWCASE       -->
+    <!-- 1. HERO GATEWAY (3D INTERACTIVE CARD STAGE)              -->
     <!-- ======================================================== -->
     <section id="view-gateway">
       <div class="gateway-hero-layout">
         
         <!-- Left Hero Input Column -->
         <div class="gateway-hero-left">
-          <div class="hero-pill-badge">⚡ Official Supercell Gateway Active</div>
+          <div class="hero-pill-badge">⚡ Official Supercell Telemetry Gateway</div>
           <h1 class="hero-title">SYNC YOUR ROYALE IDENTITY.</h1>
           <p class="hero-sub">
-            Direct telemetry link into Supercell live servers. Inspect your actual career records, 2026 Hero & Evolution slots, current battle deck, real-time upcoming chest sequence, and match history.
+            Direct real-time telemetry link into Supercell live servers. Inspect your actual career records, 2026 Hero & Evolution slots, active battle deck, real-time upcoming chest sequence, and match history.
           </p>
 
           <form id="search-form" class="tag-search-form">
             <span class="tag-prefix">#</span>
-            <input type="text" id="input-tag" class="tag-input" placeholder="9R9UPGJCC" maxlength="12" required autofocus>
+            <input type="text" id="input-tag" class="tag-input" placeholder="Y0JJY80" maxlength="12" required autofocus>
             <button type="submit" class="btn-primary-action" id="btn-sync">
               <span id="btn-sync-text">Sync Account</span>
             </button>
@@ -69,17 +89,17 @@
 
           <!-- Quick Verified Active Player Tags -->
           <div class="verified-tags-box">
-            <span class="verified-label">Quick Test Verified Active Accounts:</span>
+            <span class="verified-label">Quick Test Verified Accounts:</span>
             <div class="verified-pills-row">
-              <button type="button" class="tag-pill-btn" data-tag="9R9UPGJCC">👑 K3NGSL3Y (#9R9UPGJCC)</button>
-              <button type="button" class="tag-pill-btn" data-tag="GLUJCQ9L">⚡ JovanePJY (#GLUJCQ9L)</button>
-              <button type="button" class="tag-pill-btn" data-tag="2LP0CL0J">🎯 Captain (#2LP0CL0J)</button>
-              <button type="button" class="tag-pill-btn" data-tag="QPJY8JLJ">🛡️ Tommy (#QPJY8JLJ)</button>
+              <button type="button" class="tag-pill-btn" data-tag="Y0JJY80">👑 Muk (#Y0JJY80) • 14,000 🏆</button>
+              <button type="button" class="tag-pill-btn" data-tag="8UQP9G0">🏆 Mohamed Light (#8UQP9G0)</button>
+              <button type="button" class="tag-pill-btn" data-tag="9R9UPGJCC">⚡ K3NGSL3Y (#9R9UPGJCC)</button>
+              <button type="button" class="tag-pill-btn" data-tag="GLUJCQ9L">🛡️ JovanePJY (#GLUJCQ9L)</button>
             </div>
           </div>
         </div>
 
-        <!-- Right: Interactive 3D Card Stage (Featuring Latest 2026 Clash Royale Heroes!) -->
+        <!-- Right: Interactive 3D Card Stage (Featuring 2026 Heroes!) -->
         <div class="card-stage-container">
           <div class="floating-hero-card" id="interactive-hero-card">
             <div class="card-stage-header">
@@ -120,12 +140,12 @@
         <div class="player-identity-left">
           <div class="player-avatar-shield">👑</div>
           <div>
-            <h1 class="player-name-h1" id="profile-name">K3NGSL3Y</h1>
+            <h1 class="player-name-h1" id="profile-name">Muk</h1>
             <div class="player-meta-badges">
-              <span class="tag-badge" id="profile-tag">#9R9UPGJCC</span>
-              <span class="clan-badge">Clan: <strong id="profile-clan" style="color: #fff;">liquid</strong></span>
-              <span class="level-badge" id="profile-level">LEVEL 15</span>
-              <span id="profile-arena" style="font-size: 0.78rem; color: var(--text-muted);">Arena 24</span>
+              <span class="tag-badge" id="profile-tag">#Y0JJY80</span>
+              <span class="clan-badge">Clan: <strong id="profile-clan" style="color: #fff;">The Darkness</strong></span>
+              <span class="level-badge" id="profile-level">LEVEL 81</span>
+              <span id="profile-arena" style="font-size: 0.78rem; color: var(--text-muted);">Spirit Square</span>
             </div>
           </div>
         </div>
@@ -140,7 +160,7 @@
             <div class="stat-cell-label">Peak Trophies</div>
           </div>
           <div class="stat-metric-cell">
-            <div class="stat-cell-val" id="profile-winrate" style="color: var(--win);">51.2%</div>
+            <div class="stat-cell-val" id="profile-winrate" style="color: var(--win);">53.5%</div>
             <div class="stat-cell-label">Win Rate</div>
           </div>
         </div>
@@ -150,23 +170,23 @@
       <div class="career-kpi-grid">
         <div class="kpi-card">
           <div class="kpi-label">Total Battles Won</div>
-          <div class="kpi-value" id="kpi-wins" style="color: var(--win);">14,779</div>
-          <div class="kpi-sub" id="kpi-total-games">29,922 Total Matches</div>
+          <div class="kpi-value" id="kpi-wins" style="color: var(--win);">17,056</div>
+          <div class="kpi-sub" id="kpi-total-games">31,852 Recorded Matches</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">Three Crown Knockouts</div>
           <div class="kpi-value" id="kpi-three-crowns" style="color: var(--gold);">4,834</div>
-          <div class="kpi-sub">32.7% Dominance Rate</div>
+          <div class="kpi-sub">Dominant Finish Rate</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">Favorite Card</div>
-          <div class="kpi-value" id="kpi-fav-card" style="font-size: 1.35rem; color: #fff;">Goblinstein</div>
+          <div class="kpi-value" id="kpi-fav-card" style="font-size: 1.35rem; color: #fff;">Minion Horde</div>
           <div class="kpi-sub">Most Played Card</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">Tournament Cards Won</div>
           <div class="kpi-value" id="kpi-tourney-cards" style="color: var(--blue);">18,420</div>
-          <div class="kpi-sub" id="kpi-challenge-wins">12-Win Challenge Badge</div>
+          <div class="kpi-sub" id="kpi-challenge-wins">12-Win Badge</div>
         </div>
       </div>
 
@@ -175,7 +195,7 @@
         <div class="section-head">
           <div>
             <h2 class="section-title">Current Active Battle Deck</h2>
-            <div class="section-subtitle" id="deck-stats-line">Average Elixir: 3.5 • 8 Battle Cards Synced</div>
+            <div class="section-subtitle" id="deck-stats-line">Average Elixir: 4.1 • 2026 Special Slots Aligned</div>
           </div>
           <button class="btn-primary-action" id="btn-edit-deck" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
             Open in Deck Studio →
@@ -205,8 +225,8 @@
       <div class="section-panel">
         <div class="section-head">
           <div>
-            <h2 class="section-title">Recent Battle Log Stream</h2>
-            <div class="section-subtitle">Real recent matches with cards used, crowns, and match outcomes</div>
+            <h2 class="section-title">Recent Battle Log Stream (1v1 & 2v2)</h2>
+            <div class="section-subtitle">Real match telemetry, crowns, deck matchups, and copy options</div>
           </div>
         </div>
 
@@ -218,7 +238,7 @@
     </section>
 
     <!-- ======================================================== -->
-    <!-- 2026 CLASH ROYALE HEROES & ABILITIES SYSTEM              -->
+    <!-- 3. 2026 CLASH ROYALE HEROES & ABILITIES SYSTEM           -->
     <!-- ======================================================== -->
     <section id="view-heroes" style="display: none;">
       
@@ -229,7 +249,7 @@
             <div class="hero-pill-badge" style="margin-bottom: 0.75rem;">⚡ Official 2026 Competitive System</div>
             <h2 style="font-size: 1.85rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem;">CLASH ROYALE HEROES ARCHITECTURE</h2>
             <p style="color: var(--text-secondary); font-size: 0.88rem; max-width: 780px; line-height: 1.6;">
-              In 2026, Supercell transformed competitive gameplay by introducing <strong>Heroes</strong> as a feature rarity alongside the <strong>3-Special-Slot Deck Architecture</strong>. Base cards placed into dedicated Hero slots unlock high-impact, manually activated battle abilities with authentic golden crown auras.
+              In 2026, Supercell introduced <strong>Heroes</strong> as a feature rarity alongside the <strong>3-Special-Slot Deck Architecture</strong>. Base cards placed into dedicated Hero slots unlock high-impact, manually activated battle abilities with authentic golden crown auras.
             </p>
           </div>
           <div style="background: rgba(234, 179, 8, 0.15); border: 1px solid #eab308; border-radius: var(--radius-md); padding: 0.85rem 1.25rem; text-align: right;">
@@ -318,16 +338,16 @@
     </section>
 
     <!-- ======================================================== -->
-    <!-- 3. DECK STUDIO                                           -->
+    <!-- 4. TACTICAL DECK STUDIO                                  -->
     <!-- ======================================================== -->
     <section id="view-studio" style="display: none;">
       <div class="section-head">
         <div>
-          <h2 class="section-title">Tactical Deck Studio</h2>
-          <div class="section-subtitle">Refine and test card combinations against the competitive meta.</div>
+          <h2 class="section-title">Tactical Deck Studio (2026 Slot Alignment)</h2>
+          <div class="section-subtitle">Build and test 8-card decks aligned with the 3 Special Slots architecture.</div>
         </div>
         <div style="display: flex; gap: 0.5rem;">
-          <button class="btn-secondary" id="btn-clear-active-deck">Clear</button>
+          <button class="btn-secondary" id="btn-clear-active-deck" style="background: var(--bg-card); border: 1px solid var(--border-subtle); color: #fff; padding: 0.5rem 1rem; border-radius: var(--radius-sm); cursor: pointer;">Clear</button>
           <button class="btn-primary-action" id="btn-export-link" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Copy In-Game Link</button>
         </div>
       </div>
@@ -388,7 +408,7 @@
     </section>
 
     <!-- ======================================================== -->
-    <!-- 4. MATCHUP ARENA                                         -->
+    <!-- 5. MATCHUP ARENA                                         -->
     <!-- ======================================================== -->
     <section id="view-simulator" style="display: none;">
       <div class="section-head">
@@ -416,7 +436,7 @@
     </section>
 
     <!-- ======================================================== -->
-    <!-- 5. META TIER LIST                                        -->
+    <!-- 6. META TIER LIST                                        -->
     <!-- ======================================================== -->
     <section id="view-meta" style="display: none;">
       <div class="section-head">
@@ -428,7 +448,108 @@
       <div id="meta-tier-container"></div>
     </section>
 
+    <!-- ======================================================== -->
+    <!-- 7. AI COMPANY OPERATIONS CENTER (THE CEO ROOM)           -->
+    <!-- ======================================================== -->
+    <section id="view-aiops" style="display: none;">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Autonomous AI Operations Center</h2>
+          <div class="section-subtitle">Executive control room for the CEO: Autonomous agents, telemetry, and revenue monitoring.</div>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--win); background: rgba(16, 185, 129, 0.15); border: 1px solid var(--win); padding: 0.25rem 0.65rem; border-radius: var(--radius-sm);">
+          ● ALL AGENTS RUNNING AUTONOMOUSLY
+        </div>
+      </div>
+
+      <!-- Autonomous Agent Fleet -->
+      <div class="ai-ops-grid">
+        <div class="ai-agent-card">
+          <div class="agent-status-badge active"><span class="status-dot"></span> LIVE 24/7</div>
+          <div class="ai-agent-role">Data Engineer Agent</div>
+          <h3 class="ai-agent-title">Telemetry Cron</h3>
+          <p class="ai-agent-duty">Pings Supercell API every 6 hours. Scrapes top 200 Ultimate Champion leaderboards and updates card win rates.</p>
+        </div>
+
+        <div class="ai-agent-card">
+          <div class="agent-status-badge active"><span class="status-dot"></span> LIVE 24/7</div>
+          <div class="ai-agent-role">Content Writer Agent</div>
+          <h3 class="ai-agent-title">Meta Editorial Bot</h3>
+          <p class="ai-agent-duty">Detects balance updates and card win rate spikes, automatically drafting counter strategies and tactical guides.</p>
+        </div>
+
+        <div class="ai-agent-card">
+          <div class="agent-status-badge active"><span class="status-dot"></span> LIVE 24/7</div>
+          <div class="ai-agent-role">Growth & Social Agent</div>
+          <h3 class="ai-agent-title">SEO Distribution</h3>
+          <p class="ai-agent-duty">Generates trending deck cards for X, Reddit, and TikTok to drive continuous organic traffic back to the platform.</p>
+        </div>
+
+        <div class="ai-agent-card">
+          <div class="agent-status-badge active"><span class="status-dot"></span> LIVE 24/7</div>
+          <div class="ai-agent-role">Monetization Agent</div>
+          <h3 class="ai-agent-title">Ad Revenue Engine</h3>
+          <p class="ai-agent-duty">Tracks Creator Code MUKPOST activations and monitors programmatic ad fill rates with NitroPay / Playwire benchmarks.</p>
+        </div>
+      </div>
+
+      <!-- Revenue & Telemetry KPI Row -->
+      <div class="career-kpi-grid" style="margin-bottom: 2rem;">
+        <div class="kpi-card">
+          <div class="kpi-label">Simulated Monthly Traffic</div>
+          <div class="kpi-value" style="color: var(--cyan);">124,500</div>
+          <div class="kpi-sub">+18.4% WoW Organic Growth</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Projected Programmatic Revenue</div>
+          <div class="kpi-value" style="color: var(--win);">$622.50</div>
+          <div class="kpi-sub">Based on $5.00 Esports CPM</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Creator Code Activations</div>
+          <div class="kpi-value" style="color: var(--gold);">412</div>
+          <div class="kpi-sub">Code MUKPOST in Clash Royale</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">API Response Health</div>
+          <div class="kpi-value" style="color: var(--purple); font-size: 1.4rem;">42ms</div>
+          <div class="kpi-sub">Supercell Gateway Active</div>
+        </div>
+      </div>
+
+      <!-- Live Auto-Generated Tactical Counter Guides -->
+      <div class="section-panel">
+        <h3 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 1rem;">Recent Autonomous Editorial Alerts</h3>
+        
+        <div class="editorial-post-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <strong style="color: var(--gold); font-size: 0.9rem;">⚡ META ALERT: Hero Ice Wizard Surge (Season 87)</strong>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Published by Editorial Bot • 2 hours ago</span>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+            Hero Ice Wizard usage has spiked to 41.2% in Ultimate Champion following the discovery of the 1-Elixir Frost Surge timing against Bridge Spam. Recommended counter: Lightning or Evo Firecracker to maintain lane range without grouping swarm units into the 360° freeze radius.
+          </p>
+        </div>
+
+        <div class="editorial-post-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <strong style="color: #38bdf8; font-size: 0.9rem;">⚔️ TACTICAL BREAKDOWN: Boss Bandit August 26 Balance Mechanics</strong>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Published by Editorial Bot • 6 hours ago</span>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+            Following the universal single-use ability balance patch, Boss Bandit remains the single unit retaining multi-use Dash cooldowns (11s). Pair with Hero Mega Minion or Poison to exploit opponents who overcommit elixir expecting abilities to expire.
+          </p>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <!-- Bottom Leaderboard Ad Slot -->
+  <div class="ad-slot-leaderboard" style="margin-top: 1rem;">
+    <div class="ad-label">Esports Network Sponsorship</div>
+    <div class="ad-content-box">💎 Support Free Development: Enter Creator Code MUKPOST in Clash Royale Shop</div>
+  </div>
 
   <div class="toast-bar" id="toast-bar">Copied to clipboard!</div>
 
