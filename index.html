@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Royale | Live Clash Royale Intelligence</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Ambient Particle Canvas for Live Floating Elixir & Spark FX -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Minimalist Top Navigation -->
+  <header class="top-nav">
+    <div class="brand-group" id="btn-brand">
+      <div class="brand-symbol">👑</div>
+      <div class="brand-text">ROYALE MATRIX <span class="brand-version">V1</span></div>
+    </div>
+
+    <!-- Section Navigation (Visible for instant 2026 intelligence) -->
+    <nav class="nav-links" id="main-nav-links">
+      <button class="nav-btn" data-tab="heroes">⚡ HEROES 2026 <span class="hot-tag">SEASON 87</span></button>
+      <button class="nav-btn" data-tab="meta">PRO META</button>
+      <button class="nav-btn" data-tab="studio">DECK STUDIO</button>
+      <button class="nav-btn" data-tab="simulator">SIMULATOR</button>
+      <button class="nav-btn active" data-tab="account" id="nav-btn-account" style="display: none;">MY PROFILE</button>
+    </nav>
+
+    <!-- Nav Actions -->
+    <div class="nav-actions">
+      <div class="player-status-chip" id="user-status-chip" style="display: none;">
+        <span class="status-dot"></span>
+        <span id="chip-player-name">Player</span>
+        <button class="btn-switch-user" id="btn-switch-account" title="Switch Account">✕</button>
+      </div>
+      <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--win); display: flex; align-items: center; gap: 0.35rem;">
+        <span class="status-dot"></span> LIVE API
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Canvas -->
+  <main class="main-canvas">
+
+    <!-- ======================================================== -->
+    <!-- 1. HERO GATEWAY WITH 3D INTERACTIVE CARD SHOWCASE       -->
+    <!-- ======================================================== -->
+    <section id="view-gateway">
+      <div class="gateway-hero-layout">
+        
+        <!-- Left Hero Input Column -->
+        <div class="gateway-hero-left">
+          <div class="hero-pill-badge">⚡ Official Supercell Gateway Active</div>
+          <h1 class="hero-title">SYNC YOUR ROYALE IDENTITY.</h1>
+          <p class="hero-sub">
+            Direct telemetry link into Supercell live servers. Inspect your actual career records, 2026 Hero & Evolution slots, current battle deck, real-time upcoming chest sequence, and match history.
+          </p>
+
+          <form id="search-form" class="tag-search-form">
+            <span class="tag-prefix">#</span>
+            <input type="text" id="input-tag" class="tag-input" placeholder="9R9UPGJCC" maxlength="12" required autofocus>
+            <button type="submit" class="btn-primary-action" id="btn-sync">
+              <span id="btn-sync-text">Sync Account</span>
+            </button>
+          </form>
+          <div id="search-error" class="search-feedback-msg"></div>
+
+          <!-- Quick Verified Active Player Tags -->
+          <div class="verified-tags-box">
+            <span class="verified-label">Quick Test Verified Active Accounts:</span>
+            <div class="verified-pills-row">
+              <button type="button" class="tag-pill-btn" data-tag="9R9UPGJCC">👑 K3NGSL3Y (#9R9UPGJCC)</button>
+              <button type="button" class="tag-pill-btn" data-tag="GLUJCQ9L">⚡ JovanePJY (#GLUJCQ9L)</button>
+              <button type="button" class="tag-pill-btn" data-tag="2LP0CL0J">🎯 Captain (#2LP0CL0J)</button>
+              <button type="button" class="tag-pill-btn" data-tag="QPJY8JLJ">🛡️ Tommy (#QPJY8JLJ)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive 3D Card Stage (Featuring Latest 2026 Clash Royale Heroes!) -->
+        <div class="card-stage-container">
+          <div class="floating-hero-card" id="interactive-hero-card">
+            <div class="card-stage-header">
+              <div class="hero-card-elixir" id="stage-card-elixir">3</div>
+              <div class="hero-card-rarity-pill" id="stage-card-rarity" style="background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid #eab308;">S-Tier Hero</div>
+            </div>
+
+            <div class="hero-card-img-wrap">
+              <img id="stage-card-img" src="https://api-assets.clashroyale.com/cardheroes/300/W3dkw0HTw9n1jB-zbknY2w3wHuyuLxSRIAV5fUT1SEY.png" alt="Hero Ice Wizard" class="hero-card-img">
+            </div>
+
+            <div class="hero-card-footer">
+              <div class="hero-card-title" id="stage-card-name">Hero Ice Wizard</div>
+              <div class="hero-card-mechanic" id="stage-card-desc">❄️ Frost Surge (1⚡ Single-Use): 360° Blizzard Nova slows hitspeed 65%</div>
+            </div>
+          </div>
+
+          <!-- Quick Switcher to Preview Latest 2026 Meta Heroes -->
+          <div class="card-stage-switcher">
+            <button type="button" class="stage-switch-pill active" data-showcase="icewizard">❄️ Hero Ice Wizard</button>
+            <button type="button" class="stage-switch-pill" data-showcase="knight">🛡️ Hero Knight</button>
+            <button type="button" class="stage-switch-pill" data-showcase="valkyrie">🌪️ Hero Valkyrie</button>
+            <button type="button" class="stage-switch-pill" data-showcase="bossbandit">⚔️ Boss Bandit</button>
+            <button type="button" class="stage-switch-pill" data-showcase="goblinstein">⚡ Goblinstein</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 2. PLAYER PROFILE & LIVE DASHBOARD                       -->
+    <!-- ======================================================== -->
+    <section id="view-account" style="display: none;">
+      
+      <!-- Player Hero Card -->
+      <div class="player-hero-card">
+        <div class="player-identity-left">
+          <div class="player-avatar-shield">👑</div>
+          <div>
+            <h1 class="player-name-h1" id="profile-name">K3NGSL3Y</h1>
+            <div class="player-meta-badges">
+              <span class="tag-badge" id="profile-tag">#9R9UPGJCC</span>
+              <span class="clan-badge">Clan: <strong id="profile-clan" style="color: #fff;">liquid</strong></span>
+              <span class="level-badge" id="profile-level">LEVEL 15</span>
+              <span id="profile-arena" style="font-size: 0.78rem; color: var(--text-muted);">Arena 24</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-stats-right">
+          <div class="stat-metric-cell">
+            <div class="stat-cell-val" id="profile-trophies" style="color: var(--gold);">14,000</div>
+            <div class="stat-cell-label">Current Trophies</div>
+          </div>
+          <div class="stat-metric-cell">
+            <div class="stat-cell-val" id="profile-best-trophies">14,000</div>
+            <div class="stat-cell-label">Peak Trophies</div>
+          </div>
+          <div class="stat-metric-cell">
+            <div class="stat-cell-val" id="profile-winrate" style="color: var(--win);">51.2%</div>
+            <div class="stat-cell-label">Win Rate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Career KPI Matrix -->
+      <div class="career-kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Total Battles Won</div>
+          <div class="kpi-value" id="kpi-wins" style="color: var(--win);">14,779</div>
+          <div class="kpi-sub" id="kpi-total-games">29,922 Total Matches</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Three Crown Knockouts</div>
+          <div class="kpi-value" id="kpi-three-crowns" style="color: var(--gold);">4,834</div>
+          <div class="kpi-sub">32.7% Dominance Rate</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Favorite Card</div>
+          <div class="kpi-value" id="kpi-fav-card" style="font-size: 1.35rem; color: #fff;">Goblinstein</div>
+          <div class="kpi-sub">Most Played Card</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Tournament Cards Won</div>
+          <div class="kpi-value" id="kpi-tourney-cards" style="color: var(--blue);">18,420</div>
+          <div class="kpi-sub" id="kpi-challenge-wins">12-Win Challenge Badge</div>
+        </div>
+      </div>
+
+      <!-- Live Active Battle Deck Section -->
+      <div class="section-panel">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Current Active Battle Deck</h2>
+            <div class="section-subtitle" id="deck-stats-line">Average Elixir: 3.5 • 8 Battle Cards Synced</div>
+          </div>
+          <button class="btn-primary-action" id="btn-edit-deck" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
+            Open in Deck Studio →
+          </button>
+        </div>
+
+        <div class="deck-eight-grid" id="profile-deck-grid">
+          <!-- Populated from Live API -->
+        </div>
+      </div>
+
+      <!-- Upcoming Chest Timeline Section -->
+      <div class="section-panel">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Live Upcoming Chest Drop Sequence</h2>
+            <div class="section-subtitle">Official drop order generated directly from Supercell server</div>
+          </div>
+        </div>
+
+        <div class="chests-track" id="profile-chests-track">
+          <!-- Populated from Live API -->
+        </div>
+      </div>
+
+      <!-- Live Recent Battle History Section -->
+      <div class="section-panel">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Recent Battle Log Stream</h2>
+            <div class="section-subtitle">Real recent matches with cards used, crowns, and match outcomes</div>
+          </div>
+        </div>
+
+        <div class="battles-feed" id="profile-battles-feed">
+          <!-- Populated from Live API -->
+        </div>
+      </div>
+
+    <!-- ======================================================== -->
+    <!-- 2026 CLASH ROYALE HEROES & ABILITIES SYSTEM              -->
+    <!-- ======================================================== -->
+    <section id="view-heroes" style="display: none;">
+      
+      <!-- System Architecture Explainer Banner -->
+      <div class="heroes-banner">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div class="hero-pill-badge" style="margin-bottom: 0.75rem;">⚡ Official 2026 Competitive System</div>
+            <h2 style="font-size: 1.85rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem;">CLASH ROYALE HEROES ARCHITECTURE</h2>
+            <p style="color: var(--text-secondary); font-size: 0.88rem; max-width: 780px; line-height: 1.6;">
+              In 2026, Supercell transformed competitive gameplay by introducing <strong>Heroes</strong> as a feature rarity alongside the <strong>3-Special-Slot Deck Architecture</strong>. Base cards placed into dedicated Hero slots unlock high-impact, manually activated battle abilities with authentic golden crown auras.
+            </p>
+          </div>
+          <div style="background: rgba(234, 179, 8, 0.15); border: 1px solid #eab308; border-radius: var(--radius-md); padding: 0.85rem 1.25rem; text-align: right;">
+            <div style="font-size: 0.72rem; color: var(--gold); font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase;">Current Meta</div>
+            <div style="font-size: 1.2rem; font-weight: 900; color: #fff;">Season 87 (September 2026)</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Featuring Hero Ice Wizard</div>
+          </div>
+        </div>
+
+        <div class="mechanics-grid-3">
+          <div class="mech-card gold-border">
+            <div class="mech-title">
+              <span>👑</span> Feature Rarity vs Champions
+            </div>
+            <div class="mech-desc">
+              <strong>Champions</strong> (e.g. Boss Bandit, Goblinstein) are native card rarities. <strong>Heroes</strong> are regular base cards (e.g. Knight, Ice Wizard, Valkyrie) that gain active manual abilities when assigned to your deck's Hero Slot.
+            </div>
+          </div>
+
+          <div class="mech-card cyan-border">
+            <div class="mech-title">
+              <span>🪙</span> Arena 5 & Hero Coins
+            </div>
+            <div class="mech-desc">
+              Unlocked immediately at <strong>Arena 5</strong>. Players use deterministic <strong>Hero Coins</strong> (capped at 200). Any overflow automatically converts 1:1 into Gems with zero random lootboxes.
+            </div>
+          </div>
+
+          <div class="mech-card purple-border">
+            <div class="mech-title">
+              <span>⚖️</span> Single-Use Ability Rule
+            </div>
+            <div class="mech-desc">
+              Following the <strong>August 26, 2026 balance update</strong>, all Hero & Champion abilities are strictly <strong>single-use per arena deployment</strong> (with the sole exception of the Boss Bandit, who retains multi-use dash cooldowns).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026 3 Special Slots Visualizer -->
+      <div class="section-panel" style="padding: 1.25rem; margin-bottom: 2rem;">
+        <h3 style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 0.85rem;">2026 Official Deck Slot Rules (3 Special Slots)</h3>
+        <div class="special-slots-tracker">
+          <div class="special-slot-box evo-slot">
+            <div class="slot-icon-pill">🟣</div>
+            <div class="slot-info-col">
+              <h4>Slot 1: Evolution Slot</h4>
+              <p>Reserved strictly for 1 Evolution card cycle.</p>
+            </div>
+          </div>
+          <div class="special-slot-box hero-slot">
+            <div class="slot-icon-pill">🟡</div>
+            <div class="slot-info-col">
+              <h4>Slot 2: Hero Slot</h4>
+              <p>Transforms 1 base card into an active Hero.</p>
+            </div>
+          </div>
+          <div class="special-slot-box wild-slot">
+            <div class="slot-icon-pill">🔵</div>
+            <div class="slot-info-col">
+              <h4>Slot 3: Wild Slot</h4>
+              <p>Flexible: Hosts either a 2nd Evolution OR a 2nd Hero/Champion.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Filter Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+        <div class="hero-filter-bar" id="hero-tier-filters">
+          <button type="button" class="filter-btn-hero active" data-tier="all">All Units (25)</button>
+          <button type="button" class="filter-btn-hero" data-tier="S">S-Tier Heroes (3)</button>
+          <button type="button" class="filter-btn-hero" data-tier="A">A-Tier Heroes (6)</button>
+          <button type="button" class="filter-btn-hero" data-tier="B">B-Tier Heroes (5)</button>
+          <button type="button" class="filter-btn-hero" data-tier="C">C-Tier Heroes (3)</button>
+          <button type="button" class="filter-btn-hero" data-tier="champion">Champions (8)</button>
+        </div>
+        <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">
+          Official Supercell CDN Asset Stream
+        </div>
+      </div>
+
+      <!-- Heroes Catalog Grid -->
+      <div class="heroes-catalog-grid" id="heroes-catalog-grid"></div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 3. DECK STUDIO                                           -->
+    <!-- ======================================================== -->
+    <section id="view-studio" style="display: none;">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Tactical Deck Studio</h2>
+          <div class="section-subtitle">Refine and test card combinations against the competitive meta.</div>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn-secondary" id="btn-clear-active-deck">Clear</button>
+          <button class="btn-primary-action" id="btn-export-link" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Copy In-Game Link</button>
+        </div>
+      </div>
+
+      <div class="studio-layout">
+        <div>
+          <!-- 8 Active Deck Slots -->
+          <div class="section-panel" style="padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span style="font-size: 0.85rem; font-weight: 700; color: #fff;">Selected 8 Cards</span>
+              <span id="studio-avg-elixir" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--elixir);">Avg: 3.5 Elixir</span>
+            </div>
+            <div class="deck-eight-grid" id="studio-deck-slots"></div>
+          </div>
+
+          <!-- Catalog -->
+          <div class="section-panel" style="padding: 1.25rem;">
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.85rem;" id="studio-catalog-filters">
+              <button type="button" class="filter-btn-hero active" data-filter="all">All (123)</button>
+              <button type="button" class="filter-btn-hero" data-filter="heroes">⚡ Heroes (17)</button>
+              <button type="button" class="filter-btn-hero" data-filter="evolutions">🟣 Evolutions</button>
+              <button type="button" class="filter-btn-hero" data-filter="champions">👑 Champions (8)</button>
+              <button type="button" class="filter-btn-hero" data-filter="spell">Spells</button>
+              <button type="button" class="filter-btn-hero" data-filter="building">Buildings</button>
+            </div>
+            <div class="catalog-search-bar">
+              <input type="text" id="studio-search-input" class="catalog-input" placeholder="Search 123 Clash Royale cards...">
+            </div>
+            <div class="cards-catalog-scroll" id="studio-catalog-grid"></div>
+          </div>
+        </div>
+
+        <!-- Studio Telemetry -->
+        <div>
+          <div class="section-panel" style="padding: 1.25rem;">
+            <h3 style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 1rem;">Synergy Diagnostics</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.82rem;">
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">4-Card Rotation Cycle</span>
+                <span id="studio-cycle-val" style="font-family: var(--font-mono); font-weight: 700; color: #fff;">9 Elixir</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Archetype Classification</span>
+                <span id="studio-archetype-val" style="font-weight: 700; color: var(--blue);">Control / Beatdown</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Anti-Air Defense</span>
+                <span style="font-weight: 700; color: var(--win);">Optimal</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Small Spell Support</span>
+                <span style="font-weight: 700; color: var(--win);">Verified</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 4. MATCHUP ARENA                                         -->
+    <!-- ======================================================== -->
+    <section id="view-simulator" style="display: none;">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Head-to-Head Matchup Arena</h2>
+          <div class="section-subtitle">Simulate lane pressure and card trade dynamics between any two decks.</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+        <div class="section-panel" style="padding: 1.25rem;">
+          <h3 style="font-size: 0.9rem; font-weight: 800; margin-bottom: 0.75rem; color: #fff;">Deck 1 (Blue)</h3>
+          <div class="deck-eight-grid" id="sim-deck-1" style="grid-template-columns: repeat(4, 1fr);"></div>
+        </div>
+        <div class="section-panel" style="padding: 1.25rem;">
+          <h3 style="font-size: 0.9rem; font-weight: 800; margin-bottom: 0.75rem; color: #fff;">Deck 2 (Red)</h3>
+          <div class="deck-eight-grid" id="sim-deck-2" style="grid-template-columns: repeat(4, 1fr);"></div>
+        </div>
+      </div>
+
+      <div class="section-panel" style="text-align: center; padding: 2rem;">
+        <button class="btn-primary-action" id="btn-run-sim" style="margin: 0 auto; margin-bottom: 1.5rem;">Simulate 10,000 Exchanges</button>
+        <div style="font-size: 1.35rem; font-weight: 800; color: #fff;" id="sim-outcome-verdict">Even Matchup (50% - 50%)</div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 5. META TIER LIST                                        -->
+    <!-- ======================================================== -->
+    <section id="view-meta" style="display: none;">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Competitive Meta Rankings</h2>
+          <div class="section-subtitle">S-Tier and A-Tier decks dominating current Ultimate Champion leaderboards.</div>
+        </div>
+      </div>
+      <div id="meta-tier-container"></div>
+    </section>
+
+  </main>
+
+  <div class="toast-bar" id="toast-bar">Copied to clipboard!</div>
+
+  <script src="cards-data.js"></script>
+  <script src="simulator.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
