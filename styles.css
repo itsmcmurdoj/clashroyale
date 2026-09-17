@@ -1802,3 +1802,451 @@ main > section {
     transform: translateY(0);
   }
 }
+
+/* =================================================== */
+/* 8. COMPREHENSIVE MOBILE & APP RESPONSIVE ENGINE     */
+/* =================================================== */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 950px) {
+  /* 1. Header & Mobile App Tab Navigation */
+  .creator-code-bar {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.72rem;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .creator-code-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    font-size: 0.72rem;
+  }
+
+  .btn-copy-code {
+    padding: 0.22rem 0.5rem;
+    font-size: 0.68rem;
+    flex-shrink: 0;
+  }
+
+  .top-nav {
+    height: auto;
+    padding: 0.55rem 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .brand-group {
+    order: 1;
+    gap: 0.5rem;
+  }
+
+  .brand-symbol {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .brand-text {
+    font-size: 0.9rem;
+  }
+
+  .nav-actions {
+    order: 2;
+    gap: 0.35rem;
+  }
+
+  .audio-toggle-btn {
+    padding: 0.3rem 0.55rem;
+    font-size: 0.72rem;
+  }
+
+  .player-status-chip {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.72rem;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.35rem;
+    padding: 0.35rem 0.1rem;
+    margin-top: 0.2rem;
+    background: transparent;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+  }
+
+  .nav-btn.active {
+    background: var(--bg-surface-elevated);
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 10px rgba(229, 169, 60, 0.25);
+  }
+
+  /* 2. Main Canvas & Ad Unit */
+  .main-canvas {
+    padding: 0.75rem 0.85rem 4rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ad-slot-leaderboard {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 52px;
+    margin: 0.75rem auto 1rem;
+    padding: 0.5rem 0.75rem;
+    box-sizing: border-box;
+  }
+
+  .ad-content-box {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  /* 3. Hero Gateway */
+  .gateway-hero-layout {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin: 0.5rem auto 2rem;
+    text-align: center;
+  }
+
+  .hero-pill-badge {
+    margin-bottom: 0.75rem;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.65rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.75rem, 6.5vw, 2.5rem);
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-sub {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 1.35rem;
+    text-align: center;
+  }
+
+  .vip-quick-connect-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+    text-align: left;
+  }
+
+  .vip-avatar {
+    width: 46px;
+    height: 46px;
+    font-size: 1.6rem;
+  }
+
+  .vip-name {
+    font-size: 1.1rem;
+  }
+
+  .btn-vip-login {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .tag-search-form {
+    padding: 0.35rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .tag-input {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.5rem;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .btn-primary-action {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .verified-pills-row {
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .tag-pill-btn {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.65rem;
+  }
+
+  .floating-hero-card {
+    width: min(300px, 88vw);
+    padding: 1.25rem;
+    margin: 0 auto;
+  }
+
+  .hero-card-img-wrap {
+    height: 180px;
+  }
+
+  .stage-switch-pill {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.72rem;
+  }
+
+  /* 4. Player Account Dashboard */
+  .player-hero-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .player-identity-left {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .player-avatar-shield {
+    width: 58px;
+    height: 58px;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+
+  .player-name-h1 {
+    font-size: 1.5rem;
+  }
+
+  .player-stats-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    width: 100%;
+  }
+
+  .stat-metric-cell {
+    min-width: 0;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .stat-cell-val {
+    font-size: 1.35rem;
+  }
+
+  .career-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .kpi-card {
+    padding: 0.85rem 0.75rem;
+  }
+
+  .kpi-value {
+    font-size: 1.35rem;
+    margin: 0.25rem 0;
+  }
+
+  /* 5. Deck 8-Card Grid (4x2 Clash Royale layout) */
+  .deck-eight-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.4rem;
+  }
+
+  .deck-card-unit {
+    padding: 0.4rem 0.2rem;
+  }
+
+  .card-caption {
+    font-size: 0.65rem;
+  }
+
+  .card-lvl-tag {
+    font-size: 0.58rem;
+  }
+
+  .card-elixir-dot {
+    width: 18px;
+    height: 18px;
+    font-size: 0.62rem;
+    top: -4px;
+    left: -4px;
+  }
+
+  /* 6. Upcoming Chests Horizontal Touch Slider */
+  .chests-track {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .chests-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chest-node {
+    min-width: 88px;
+    flex-shrink: 0;
+    padding: 0.65rem 0.35rem;
+  }
+
+  /* 7. Battles Feed */
+  .battle-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.85rem;
+  }
+
+  .battle-decks-matchup {
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: stretch;
+  }
+
+  .mini-cards-line {
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+
+  .mini-card-thumb {
+    width: 24px;
+    height: 30px;
+  }
+
+  /* 8. 2026 Special Slots & Heroes */
+  .special-slots-tracker {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .heroes-banner {
+    padding: 1.25rem;
+  }
+
+  .mechanics-grid-3 {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .heroes-catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* 9. 2v2 Radar & Deck Recall */
+  .radar-interactive-box {
+    padding: 1rem;
+  }
+
+  .radar-input-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .radar-number-input {
+    width: 100%;
+    font-size: 1.85rem;
+    padding: 0.4rem;
+  }
+
+  .radar-range-slider {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .recall-stage {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .recall-countdown-overlay {
+    font-size: 2.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .recall-slots-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .recall-tray-grid {
+    grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+    gap: 6px;
+    max-height: 240px;
+  }
+
+  /* 10. Matchup Arena & Studio */
+  .matchup-duo-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .studio-layout {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .section-title {
+    font-size: 1.05rem;
+  }
+
+  .section-panel {
+    padding: 1.15rem;
+    margin-bottom: 1.5rem;
+  }
+}

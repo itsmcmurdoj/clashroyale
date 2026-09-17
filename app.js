@@ -454,7 +454,11 @@ const App = {
 
   updateNavButtons: function(activeTab) {
     document.querySelectorAll(".nav-btn").forEach(b => {
-      b.classList.toggle("active", b.getAttribute("data-tab") === activeTab);
+      const isActive = (b.getAttribute("data-tab") === activeTab);
+      b.classList.toggle("active", isActive);
+      if (isActive) {
+        b.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
     });
   },
 
@@ -477,7 +481,7 @@ const App = {
     }, 3200);
   },
 
-  // --- 3. 3D CARD STAGE MOUSE TILT PHYSICS ---
+  // --- 3. 3D CARD STAGE MOUSE & TOUCH TILT PHYSICS ---
   setupCardPhysics: function() {
     const container = document.querySelector(".card-stage-container");
     const card = document.getElementById("interactive-hero-card");
@@ -510,6 +514,28 @@ const App = {
     });
 
     container.addEventListener("mouseleave", () => {
+      card.style.transition = "transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)";
+      card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+    });
+
+    // Touch support for mobile devices
+    container.addEventListener("touchmove", (e) => {
+      if (!bounds) refreshBounds();
+      const touch = e.touches[0];
+      if (!touch) return;
+      const mouseX = touch.clientX - bounds.left;
+      const mouseY = touch.clientY - bounds.top;
+
+      const xPct = (mouseX / bounds.width) - 0.5;
+      const yPct = (mouseY / bounds.height) - 0.5;
+
+      const rotX = -yPct * 20;
+      const rotY = xPct * 20;
+
+      card.style.transform = `perspective(900px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+    }, { passive: true });
+
+    container.addEventListener("touchend", () => {
       card.style.transition = "transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)";
       card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
     });
