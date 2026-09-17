@@ -566,7 +566,7 @@ const App = {
         speedY: -(Math.random() * 0.45 + 0.15),
         speedX: (Math.random() - 0.5) * 0.3,
         alpha: Math.random() * 0.5 + 0.2,
-        color: Math.random() > 0.4 ? "rgba(225, 29, 72, " : "rgba(234, 179, 8, " // Elixir red or gold
+        color: Math.random() > 0.4 ? "rgba(38, 236, 232, " : "rgba(216, 184, 120, " // Prismatic Cyan or Champagne Gold
       });
     }
 
