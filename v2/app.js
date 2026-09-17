@@ -1,6 +1,6 @@
 // ============================================================================
 // NEXUS ROYALE V2 PRO - ESPORTS INTELLIGENCE & AUTONOMOUS COMPANY HUB (2026)
-// Season 87 Meta • Web Audio FX • Creator Code MUKPOST • AI Company Ops
+// Season 87 Meta • Web Audio FX • Creator Code NEXUS • AI Company Ops
 // ============================================================================
 
 // --- 1. WEB AUDIO SYNTHESIZER (NATIVE ZERO-LATENCY SFX) ---
@@ -247,13 +247,13 @@ const App = {
     const copyCodeBtn = document.getElementById("btn-copy-creator-code");
     if (copyCodeBtn) {
       copyCodeBtn.addEventListener("click", () => {
-        navigator.clipboard.writeText("MUKPOST").then(() => {
+        navigator.clipboard.writeText("NEXUS").then(() => {
           WebAudioFX.playSuccess();
-          this.showToast("💎 Creator Code MUKPOST copied! Use in Clash Royale Shop.");
+          this.showToast("💎 Creator Code NEXUS copied! Use in Clash Royale Shop.");
           this.ceoMetrics.creatorCodeUses++;
           this.updateCeoStatsUI();
         }).catch(() => {
-          this.showToast("Creator Code: MUKPOST");
+          this.showToast("Creator Code: NEXUS");
         });
       });
     }
