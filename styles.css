@@ -3592,14 +3592,138 @@ html, body {
   color: #fff;
 }
 
-/* --- B. Battle Log Modal & Carved Tabs (Screenshot 1) --- */
+/* --- B. Battle Log Modal & In-Game Stone Sheet (Screenshot 3) --- */
+.cr-phone-stage {
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* In-Game Stone Modal Sheet Frame */
+.cr-modal-sheet {
+  background: linear-gradient(180deg, #2b3040 0%, #1a1e2b 100%);
+  border: 4px solid #475569;
+  border-radius: 18px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+  padding: 0.65rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.cr-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0.6rem 0.5rem 0.85rem;
+}
+
+.cr-modal-title {
+  font-family: var(--font-clash);
+  font-size: 1.75rem;
+  color: #ffffff;
+  letter-spacing: 0.03em;
+  text-shadow: 0 3px 0 #000, 0 4px 8px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.cr-modal-close-btn {
+  position: absolute;
+  right: 4px;
+  top: 6px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
+  border: 2px solid #571212;
+  border-radius: 7px;
+  box-shadow: 0 3px 0 #571212, 0 4px 6px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  font-family: var(--font-clash);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.05s ease;
+}
+.cr-modal-close-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #571212;
+}
+
+/* Hanging Stone Tabs: Battles | Tournaments */
+.cr-stone-tabs-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.35rem;
+  margin-bottom: 0.85rem;
+  padding: 0 0.25rem;
+}
+
+.cr-stone-tab {
+  flex: 1;
+  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+  border: 2px solid #1e293b;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-clash);
+  font-size: 1.05rem;
+  color: #94a3b8;
+  text-align: center;
+  cursor: pointer;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.6);
+  user-select: none;
+  transition: all 0.1s ease;
+}
+
+.cr-stone-tab.active {
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+  color: #0f172a;
+  text-shadow: none;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  border-color: #64748b;
+}
+
+/* Filter Pills inside Battle Log */
+.cr-battle-filters-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.cr-filter-pill {
+  background: #1e293b;
+  border: 1.5px solid #475569;
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  color: #cbd5e1;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.72rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+.cr-filter-pill.active {
+  background: var(--cyan);
+  border-color: #0284c7;
+  color: #042f2e;
+}
+
+/* 1:1 Authentic In-Game Match Card (Screenshot 3) */
 .cr-battle-log-card {
-  background: #f1f5f9;
-  border: 3px solid #64748b;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%);
+  border: 2.5px solid #94a3b8;
   border-radius: 14px;
-  padding: 0.85rem 1rem;
-  margin-bottom: 1.25rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.8);
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   color: #0f172a;
   position: relative;
 }
@@ -3608,89 +3732,147 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.45rem;
 }
 
 .cr-match-status-text {
   font-family: var(--font-clash);
   font-size: 1.55rem;
   letter-spacing: 0.04em;
-  text-shadow: 0 2px 0 #000;
+  line-height: 1;
 }
 
 .cr-match-status-text.defeat {
-  color: #f43f5e;
-  -webkit-text-stroke: 1.5px #881337;
+  color: #ef4444;
+  text-shadow: 0 2px 0 #7f1d1d, 0 3px 6px rgba(0, 0, 0, 0.4);
 }
 
 .cr-match-status-text.victory {
   color: #38bdf8;
-  -webkit-text-stroke: 1.5px #0c4a6e;
+  text-shadow: 0 2px 0 #075985, 0 3px 6px rgba(0, 0, 0, 0.4);
 }
 
 .cr-crowns-score-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   background: #0f172a;
   border: 2px solid #334155;
   border-radius: 9999px;
-  padding: 0.2rem 0.85rem;
+  padding: 0.15rem 0.65rem;
   font-family: var(--font-clash);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: #fff;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  line-height: 1;
 }
 
-.cr-combatants-strip {
+/* Combatants & Side-by-Side 2x4 Decks */
+.cr-battle-arena-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4px;
+  margin-bottom: 0.55rem;
+}
+
+.cr-combatant-column {
+  flex: 1;
+  min-width: 0;
+}
+
+.cr-combatant-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.65rem;
-  font-family: var(--font-clash);
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+  height: 28px;
+}
+
+.cr-combatant-header.opp {
+  justify-content: flex-end;
+}
+
+.cr-crest-badge {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.cr-combatant-meta {
+  min-width: 0;
+  overflow: hidden;
+}
+.cr-combatant-meta.text-right {
+  text-align: right;
 }
 
 .cr-combatant-name {
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  font-family: var(--font-clash);
+  font-size: 0.88rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.1;
 }
 
-.cr-combatant-name.you {
-  color: #eab308;
-  -webkit-text-stroke: 0.5px #713f12;
+.cr-combatant-header.you .cr-combatant-name {
+  color: #b45309;
 }
-
-.cr-combatant-name.opp {
-  color: #ec4899;
-  -webkit-text-stroke: 0.5px #831843;
+.cr-combatant-header.opp .cr-combatant-name {
+  color: #be123c;
 }
 
 .cr-combatant-clan {
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   font-weight: 700;
   color: #64748b;
-  margin-left: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
 }
 
-/* 2x4 Cards Matrix Layout */
+.cr-tower-lvl-badge {
+  background: #854d0e;
+  border: 1px solid #ca8a04;
+  color: #fff;
+  font-family: var(--font-clash);
+  font-size: 0.62rem;
+  border-radius: 4px;
+  padding: 0 3px;
+  line-height: 1.2;
+}
+
+/* Center Crossed Swords */
+.cr-vs-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  width: 18px;
+  flex-shrink: 0;
+}
+
+.cr-swords-icon {
+  font-size: 1.1rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* 2x4 Cards Matrix */
 .cr-cards-matrix {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, auto);
-  gap: 0.4rem;
-  margin-bottom: 0.85rem;
+  gap: 3px;
 }
 
 .cr-matrix-slot {
   position: relative;
   background: #1e293b;
-  border-radius: 8px;
-  padding: 3px;
-  border: 2px solid #475569;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  padding: 1.5px;
+  border: 1.5px solid #475569;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3698,33 +3880,61 @@ html, body {
 
 .cr-matrix-slot.evo-slot {
   border-color: #a855f7 !important;
-  box-shadow: 0 0 10px rgba(168, 85, 247, 0.7) !important;
+  box-shadow: 0 0 6px rgba(168, 85, 247, 0.8) !important;
 }
 
 .cr-matrix-slot.hero-slot {
   border-color: #facc15 !important;
-  box-shadow: 0 0 10px rgba(250, 204, 21, 0.7) !important;
+  box-shadow: 0 0 6px rgba(250, 204, 21, 0.8) !important;
+}
+
+.cr-evo-gem {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 7px;
+  height: 7px;
+  background: #c084fc;
+  border: 1px solid #f3e8ff;
+  box-shadow: 0 0 5px #a855f7;
+  z-index: 2;
+}
+
+.cr-hero-gem {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 7px;
+  height: 7px;
+  background: #fde047;
+  border: 1px solid #fef9c3;
+  box-shadow: 0 0 5px #eab308;
+  z-index: 2;
 }
 
 .cr-matrix-slot img {
   width: 100%;
   aspect-ratio: 3/4;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: 3px;
   display: block;
 }
 
 .cr-card-lvl-pill {
   background: #0f172a;
   border: 1px solid #334155;
-  border-radius: 4px;
+  border-radius: 3px;
   color: #fff;
   font-family: var(--font-clash);
-  font-size: 0.65rem;
-  padding: 1px 4px;
-  margin-top: 2px;
+  font-size: 0.55rem;
+  padding: 0 2px;
+  margin-top: 1px;
   text-align: center;
-  width: 95%;
-  letter-spacing: 0.02em;
+  width: 100%;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
 .cr-card-lvl-pill.max {
@@ -3733,73 +3943,114 @@ html, body {
   color: #fff;
 }
 
-/* 3 Action Buttons (Practice, Share, Watch) */
+/* Match Footer & 3 Action Buttons */
+.cr-match-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1.5px solid #cbd5e1;
+  padding-top: 0.45rem;
+  margin-top: 0.25rem;
+}
+
+.cr-match-outcome-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.outcome-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.outcome-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.outcome-text {
+  font-family: var(--font-clash);
+  font-size: 0.78rem;
+  line-height: 1.1;
+}
+.outcome-text.win { color: #16a34a; }
+.outcome-text.loss { color: #dc2626; }
+
+.outcome-time {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #64748b;
+  line-height: 1;
+}
+
 .cr-match-action-buttons {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0.65rem;
-  margin-top: 0.5rem;
+  gap: 0.4rem;
 }
 
 .cr-sub-btn-blue {
   font-family: var(--font-clash) !important;
   text-transform: uppercase;
   color: #fff !important;
-  background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 50%, #1d4ed8 100%) !important;
-  border: 2px solid #172554 !important;
-  border-radius: 9px !important;
-  box-shadow: 0 4px 0 #172554, 0 6px 10px rgba(0, 0, 0, 0.3) !important;
-  padding: 0.45rem 0.95rem !important;
-  font-size: 0.85rem !important;
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 60%, #0369a1 100%) !important;
+  border: 1.5px solid #075985 !important;
+  border-radius: 7px !important;
+  box-shadow: 0 3px 0 #075985, 0 4px 6px rgba(0, 0, 0, 0.25) !important;
+  padding: 0.35rem 0.65rem !important;
+  font-size: 0.78rem !important;
   cursor: pointer;
   user-select: none;
+  transition: transform 0.05s ease;
 }
 .cr-sub-btn-blue:active {
-  transform: translateY(3px) !important;
-  box-shadow: 0 1px 0 #172554 !important;
+  transform: translateY(2px) !important;
+  box-shadow: 0 1px 0 #075985 !important;
 }
 
 .cr-sub-btn-green {
   font-family: var(--font-clash) !important;
   text-transform: uppercase;
   color: #fff !important;
-  background: linear-gradient(180deg, #4ade80 0%, #22c55e 50%, #15803d 100%) !important;
-  border: 2px solid #052e16 !important;
-  border-radius: 9px !important;
-  box-shadow: 0 4px 0 #052e16, 0 6px 10px rgba(0, 0, 0, 0.3) !important;
-  padding: 0.45rem 0.95rem !important;
-  font-size: 0.85rem !important;
+  background: linear-gradient(180deg, #4ade80 0%, #16a34a 60%, #15803d 100%) !important;
+  border: 1.5px solid #14532d !important;
+  border-radius: 7px !important;
+  box-shadow: 0 3px 0 #14532d, 0 4px 6px rgba(0, 0, 0, 0.25) !important;
+  padding: 0.35rem 0.65rem !important;
+  font-size: 0.78rem !important;
   cursor: pointer;
   user-select: none;
+  transition: transform 0.05s ease;
 }
 .cr-sub-btn-green:active {
-  transform: translateY(3px) !important;
-  box-shadow: 0 1px 0 #052e16 !important;
+  transform: translateY(2px) !important;
+  box-shadow: 0 1px 0 #14532d !important;
 }
 
-/* --- C. Deck Studio Ribbon Selector & Hanging Bookmark (Screenshot 3) --- */
+/* --- C. Deck Studio Ribbon Selector & Hanging Bookmark (Screenshot 1) --- */
 .cr-deck-selector-row {
   display: flex;
   align-items: flex-start;
-  gap: 0.4rem;
-  margin-bottom: 1.5rem;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
   overflow-x: auto;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
 }
 
 .cr-deck-slot-tab {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   background: #1e293b;
   border: 2px solid #475569;
-  border-radius: 10px;
+  border-radius: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #cbd5e1;
   font-family: var(--font-clash);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   cursor: pointer;
   user-select: none;
   transition: all 0.1s ease;
@@ -3807,14 +4058,14 @@ html, body {
 }
 
 .cr-deck-slot-tab.active {
-  width: 48px;
-  height: 56px;
+  width: 44px;
+  height: 52px;
   background: linear-gradient(180deg, #fde047 0%, #eab308 60%, #ca8a04 100%);
   border: 2.5px solid #713f12;
-  border-radius: 10px 10px 4px 4px;
+  border-radius: 9px 9px 4px 4px;
   clip-path: polygon(0% 0%, 100% 0%, 100% 88%, 50% 100%, 0% 88%);
   color: #fff;
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   -webkit-text-stroke: 1.5px #713f12;
   box-shadow: 0 4px 12px rgba(250, 204, 21, 0.5);
   transform: translateY(-2px);
@@ -3823,19 +4074,19 @@ html, body {
 .cr-elixir-average-bar {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  background: rgba(15, 23, 42, 0.85);
+  gap: 0.65rem;
+  background: rgba(15, 23, 42, 0.9);
   border: 2px solid #334155;
   border-radius: 9999px;
-  padding: 0.35rem 1rem;
+  padding: 0.25rem 0.85rem;
   width: fit-content;
-  margin: 1rem 0;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+  margin: 0.75rem 0;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .cr-large-elixir-drop {
-  width: 32px;
-  height: 38px;
+  width: 28px;
+  height: 34px;
   background: radial-gradient(circle at 35% 35%, #ff2a70, #c0004c 75%, #7a0028 100%);
   border: 2px solid #ffe4ed;
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
@@ -3843,12 +4094,12 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(225, 29, 72, 0.6);
+  box-shadow: 0 3px 8px rgba(225, 29, 72, 0.6);
 }
 
 .cr-elixir-num {
   font-family: var(--font-clash);
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   color: #fff;
   letter-spacing: 0.02em;
 }

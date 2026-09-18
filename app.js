@@ -598,6 +598,55 @@ const App = {
         });
       });
     }
+
+    // In-Game Battle Log Modal Sheet Controls
+    const closeBattlesBtn = document.getElementById("btn-close-battles-view");
+    if (closeBattlesBtn) {
+      closeBattlesBtn.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        if (this.activePlayer) {
+          this.showView("account");
+          this.updateNavButtons("account");
+        } else {
+          this.showView("gateway");
+          this.updateNavButtons("battles");
+        }
+      });
+    }
+
+    // Toggle Deck AI Telemetry Drawer
+    const toggleDeckAiBtn = document.getElementById("btn-toggle-deckai-telemetry");
+    const deckAiDrawer = document.getElementById("deckai-telemetry-drawer");
+    if (toggleDeckAiBtn && deckAiDrawer) {
+      toggleDeckAiBtn.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        const isHidden = deckAiDrawer.style.display === "none";
+        deckAiDrawer.style.display = isHidden ? "block" : "none";
+        toggleDeckAiBtn.style.background = isHidden ? "rgba(56, 189, 248, 0.25)" : "rgba(15,23,42,0.9)";
+      });
+    }
+
+    // Battle Log Stone Tabs: Battles | Tournaments
+    const stoneTabsContainer = document.getElementById("battle-log-stone-tabs");
+    const tournamentsEmptyView = document.getElementById("tournaments-empty-view");
+    const battlesStreamContainer = document.getElementById("battles-stream-container");
+    if (stoneTabsContainer) {
+      stoneTabsContainer.querySelectorAll(".cr-stone-tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+          WebAudioFX.playClick();
+          stoneTabsContainer.querySelectorAll(".cr-stone-tab").forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          const subtab = tab.getAttribute("data-subtab");
+          if (subtab === "tournaments") {
+            if (tournamentsEmptyView) tournamentsEmptyView.style.display = "block";
+            if (battlesStreamContainer) battlesStreamContainer.style.display = "none";
+          } else {
+            if (tournamentsEmptyView) tournamentsEmptyView.style.display = "none";
+            if (battlesStreamContainer) battlesStreamContainer.style.display = "block";
+          }
+        });
+      });
+    }
   },
 
   updateNavButtons: function(activeTab) {
@@ -2000,49 +2049,57 @@ const App = {
         </div>
         <div class="cr-crowns-score-pill">
           <span style="color:#38bdf8;">👑 ${myCrowns}</span>
-          <span style="color:#94a3b8; font-size: 1rem;">-</span>
+          <span style="color:#94a3b8; font-size: 0.9rem; margin: 0 3px;">-</span>
           <span style="color:#f43f5e;">${oppCrowns} 👑</span>
         </div>
       </div>
 
-      <!-- Combatants: Muk (The Darkness) vs Opponent -->
-      <div class="cr-combatants-strip">
-        <div class="cr-combatant-name you">
-          <span>🌙</span>
-          <strong>${teamPlayer1.name || "Muk"}</strong>
-          <span class="cr-combatant-clan">${teamPlayer1.clan ? teamPlayer1.clan.name : "The Darkness"}</span>
-        </div>
-        <div style="font-size: 1.15rem;">⚔️</div>
-        <div class="cr-combatant-name opp">
-          <strong>${oppPlayer1.name || "Opponent"}</strong>
-          <span class="cr-combatant-clan">${oppPlayer1.clan ? oppPlayer1.clan.name : "No Clan"}</span>
-          <span>🛡️</span>
-        </div>
-      </div>
-
-      <!-- Combatant Cards Matrix (Exact 2x4 Layout from Screenshot 1) -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin-bottom: 0.75rem;">
+      <!-- Combatants Row (1:1 with Screenshot 3) -->
+      <div class="cr-battle-arena-row">
         <!-- You: 8 Cards in 2x4 -->
-        <div>
-          <div style="font-size: 0.68rem; font-family: var(--font-clash); color: #64748b; margin-bottom: 0.25rem;">YOUR DECK (${myAvg}💧)</div>
+        <div class="cr-combatant-column">
+          <div class="cr-combatant-header you">
+            <span class="cr-crest-badge">🌙</span>
+            <div class="cr-combatant-meta">
+              <div class="cr-combatant-name" title="${teamPlayer1.name || "Muk"}">${teamPlayer1.name || "Muk"}</div>
+              <div class="cr-combatant-clan" title="${teamPlayer1.clan ? teamPlayer1.clan.name : "The Darkness"}">${teamPlayer1.clan ? teamPlayer1.clan.name : "The Darkness"}</div>
+            </div>
+            <span class="cr-tower-lvl-badge">15</span>
+          </div>
           <div class="cr-cards-matrix">
-            ${myCards.map((c, idx) => `
+            ${myCards.map(c => `
               <div class="cr-matrix-slot ${c.isEvo ? "evo-slot" : ""} ${c.isHero ? "hero-slot" : ""}" title="${c.name} (${c.elixir}💧)">
-                <img src="${c.icon}" alt="${c.name}" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
-                <div class="cr-card-lvl-pill max">Lvl 16</div>
+                ${c.isEvo ? '<div class="cr-evo-gem"></div>' : ''}
+                ${c.isHero ? '<div class="cr-hero-gem"></div>' : ''}
+                <img src="${c.icon}" alt="${c.name}" loading="lazy" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
+                <div class="cr-card-lvl-pill max">${c.lvl || "Lvl 15"}</div>
               </div>
             `).join("")}
           </div>
         </div>
 
+        <!-- Center Swords Divider -->
+        <div class="cr-vs-center">
+          <span class="cr-swords-icon">⚔️</span>
+        </div>
+
         <!-- Opponent: 8 Cards in 2x4 -->
-        <div>
-          <div style="font-size: 0.68rem; font-family: var(--font-clash); color: #64748b; margin-bottom: 0.25rem;">OPPONENT (${oppAvg}💧)</div>
+        <div class="cr-combatant-column">
+          <div class="cr-combatant-header opp">
+            <span class="cr-tower-lvl-badge">15</span>
+            <div class="cr-combatant-meta text-right">
+              <div class="cr-combatant-name" title="${oppPlayer1.name || "Opponent"}">${oppPlayer1.name || "Opponent"}</div>
+              <div class="cr-combatant-clan" title="${oppPlayer1.clan ? oppPlayer1.clan.name : "No Clan"}">${oppPlayer1.clan ? oppPlayer1.clan.name : "No Clan"}</div>
+            </div>
+            <span class="cr-crest-badge">🛡️</span>
+          </div>
           <div class="cr-cards-matrix">
-            ${oppCards.map((c, idx) => `
+            ${oppCards.map(c => `
               <div class="cr-matrix-slot ${c.isEvo ? "evo-slot" : ""} ${c.isHero ? "hero-slot" : ""}" title="${c.name} (${c.elixir}💧)">
-                <img src="${c.icon}" alt="${c.name}" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
-                <div class="cr-card-lvl-pill max">Lvl 16</div>
+                ${c.isEvo ? '<div class="cr-evo-gem"></div>' : ''}
+                ${c.isHero ? '<div class="cr-hero-gem"></div>' : ''}
+                <img src="${c.icon}" alt="${c.name}" loading="lazy" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
+                <div class="cr-card-lvl-pill max">${c.lvl || "Lvl 15"}</div>
               </div>
             `).join("")}
           </div>
@@ -2065,11 +2122,14 @@ const App = {
         </div>
       </div>
 
-      <!-- Match Footer: Mode + 3 Action Buttons (Screenshot 1: Practice, Share, Watch) -->
-      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #cbd5e1; padding-top: 0.65rem;">
-        <div style="font-family: var(--font-clash); font-size: 0.82rem; color: #64748b; display: flex; align-items: center; gap: 0.4rem;">
-          <span style="color: ${isWin ? '#22c55e' : '#ef4444'};">${isWin ? '🏆 WIN' : '🛡️ LOSS'}</span>
-          <span style="font-size: 0.72rem; color: #94a3b8;">• ${b.timeAgo || this.formatBattleTime(b.battleTime)}</span>
+      <!-- Match Footer: Mode + 3 Action Buttons (Screenshot 3: Practice, Share, Watch) -->
+      <div class="cr-match-footer-row">
+        <div class="cr-match-outcome-badge">
+          <span class="outcome-icon">${isWin ? '🏆' : '🛡️'}</span>
+          <div class="outcome-details">
+            <span class="outcome-text ${isWin ? 'win' : 'loss'}">${isWin ? 'VICTORY' : 'DEFEAT'}</span>
+            <span class="outcome-time">${b.timeAgo || this.formatBattleTime(b.battleTime)}</span>
+          </div>
         </div>
 
         <div class="cr-match-action-buttons">
