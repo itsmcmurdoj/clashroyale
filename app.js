@@ -1466,64 +1466,78 @@ const App = {
       { name: "The Log", id: 28000011, elixirCost: 2, level: 15 }
     ];
 
+    const guarrilloDeck = [
+      { name: "Firecracker", id: 26000064, elixirCost: 3, level: 16, hasEvolution: true },
+      { name: "Knight", id: 26000000, elixirCost: 3, level: 16 },
+      { name: "Monk", id: 26000077, elixirCost: 5, level: 16, isChampion: true },
+      { name: "Cannon", id: 27000000, elixirCost: 3, level: 16 },
+      { name: "Ram Rider", id: 26000051, elixirCost: 5, level: 16 },
+      { name: "Earthquake", id: 28000014, elixirCost: 3, level: 16 },
+      { name: "Skeletons", id: 26000010, elixirCost: 1, level: 16 },
+      { name: "Electro Spirit", id: 26000084, elixirCost: 1, level: 16 }
+    ];
+
+    const giluDeck = [
+      { name: "Bats", id: 26000049, elixirCost: 2, level: 16, hasEvolution: true },
+      { name: "Skeleton Army", id: 26000012, elixirCost: 3, level: 16 },
+      { name: "Goblin Gang", id: 26000041, elixirCost: 3, level: 16 },
+      { name: "Ice Spirit", id: 26000030, elixirCost: 1, level: 16 },
+      { name: "Mirror", id: 28000006, elixirCost: 1, level: 16 },
+      { name: "Electro Wizard", id: 26000042, elixirCost: 4, level: 16 },
+      { name: "The Log", id: 28000011, elixirCost: 2, level: 16 },
+      { name: "Mega Knight", id: 26000055, elixirCost: 7, level: 16 }
+    ];
+
+    const mikeDeck = [
+      { name: "Hog Rider", id: 26000021, elixirCost: 4, level: 16 },
+      { name: "Valkyrie", id: 26000011, elixirCost: 4, level: 16 },
+      { name: "Musketeer", id: 26000014, elixirCost: 4, level: 16 },
+      { name: "Skeletons", id: 26000010, elixirCost: 1, level: 16 },
+      { name: "Cannon", id: 27000000, elixirCost: 3, level: 16 },
+      { name: "Ice Spirit", id: 26000030, elixirCost: 1, level: 16 },
+      { name: "Fireball", id: 28000000, elixirCost: 4, level: 16 },
+      { name: "The Log", id: 28000011, elixirCost: 2, level: 16 }
+    ];
+
     this.activeBattles = [
       {
-        id: "battle_1",
-        type: "Ranked 1v1 Ultimate Champion",
-        timeAgo: "5m ago",
-        odds: { userWinProb: 68, oppWinProb: 32, label: "Favorable Matchup" },
+        id: "battle_guarrillo",
+        type: "Ranked 1v1 League 4",
+        timeAgo: "36min ago",
+        odds: { userWinProb: 48, oppWinProb: 52, label: "Tight Interaction" },
         outcomeAnalysis: {
-          interaction: "Hero Ice Wizard Frost Surge + Minion Horde melted Evo PEKKA at the bridge before it touched the crown tower.",
-          elixirAdvantage: "Maintained +0.4 elixir advantage in triple elixir by punishing Mohamed's early Poison cycles.",
-          coachTip: "Flawless swarm bait execution. Opponent lacked sufficient splash reset spells."
-        },
-        team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 3, cards: myDeck }],
-        opponent: [{ name: "Mohamed Light", tag: "#Y82VPR9", clan: { name: "SK Gaming" }, crowns: 2, cards: mohamedDeck }]
-      },
-      {
-        id: "battle_2",
-        type: "Ranked Path of Legends",
-        timeAgo: "38m ago",
-        odds: { userWinProb: 64, oppWinProb: 36, label: "Favorable Matchup" },
-        outcomeAnalysis: {
-          interaction: "Zap + Ice Golem kiting cleanly absorbed Goblin Gang pushes, neutralizing Ryley's fast-cycle barrel attempts.",
-          elixirAdvantage: "Ryley overcommitted 6 elixir on an offensive Rocket, allowing an immediate 3-crown counter-push.",
-          coachTip: "High-discipline defense. Zero spell damage leakage."
-        },
-        team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 2, cards: myDeck }],
-        opponent: [{ name: "Ryley", tag: "#29UJQLP", clan: { name: "SK Gaming" }, crowns: 1, cards: ryleyDeck }]
-      },
-      {
-        id: "battle_3",
-        type: "2v2 League 2026",
-        timeAgo: "2h ago",
-        odds: { userWinProb: 70, oppWinProb: 30, label: "Massive Advantage" },
-        outcomeAnalysis: {
-          interaction: "Double Hero deployment: Muk's Hero Ice Wizard Frost Surge synchronized with Morten's Miner to overwhelm their dual-lane defenses.",
-          elixirAdvantage: "Punished 7-elixir Lava Hound deployments with opposite lane Hog Rider pressure.",
-          coachTip: "Unmatched 2v2 synergy. Dominated both lanes seamlessly."
-        },
-        team: [
-          { name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 3, cards: myDeck },
-          { name: "Morten", tag: "#8GJL90", clan: { name: "SK Gaming" }, crowns: 3, cards: mortenDeck }
-        ],
-        opponent: [
-          { name: "Surgical Goblin", tag: "#2U8J8L", clan: { name: "Team Queso" }, crowns: 1, cards: surgicalViperDeck },
-          { name: "Viper", tag: "#9PJ28C", clan: { name: "Tribe Gaming" }, crowns: 1, cards: surgicalViperDeck }
-        ]
-      },
-      {
-        id: "battle_4",
-        type: "Ranked 1v1 Ultimate Champion",
-        timeAgo: "5h ago",
-        odds: { userWinProb: 44, oppWinProb: 56, label: "Unfavorable Cycle" },
-        outcomeAnalysis: {
-          interaction: "Ian77's Earthquake consistently predicted defensive placements while Evolved Firecracker pierced through swarms.",
-          elixirAdvantage: "Ian held a -0.6 elixir cycle speed advantage, out-cycling your Ice Wizard.",
-          coachTip: "Spread defense wide and avoid placing troops directly adjacent to princess towers against EQ."
+          interaction: "Guarrillo's Monk deflection timing absorbed Fireball support while Ram Rider broke through the opposite lane.",
+          elixirAdvantage: "Cannon + Earthquake defense held a +1.2 elixir cycle advantage against heavy Lava Hound pushes.",
+          coachTip: "Bait Monk's Pensive Protection ability with Boss Bandit before committing spells."
         },
         team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 1, cards: myDeck }],
-        opponent: [{ name: "Ian77", tag: "#8UYLP20", clan: { name: "Nova Esports" }, crowns: 2, cards: ianDeck }]
+        opponent: [{ name: "guarrillo", tag: "#P9928QV", clan: { name: "guarrillo" }, crowns: 2, cards: guarrilloDeck }]
+      },
+      {
+        id: "battle_gilu",
+        type: "Ranked 1v1 League 4",
+        timeAgo: "4h 9min ago",
+        odds: { userWinProb: 46, oppWinProb: 54, label: "Heavy Swarm Matchup" },
+        outcomeAnalysis: {
+          interaction: "Gilu's Mega Knight counter-push combined with Mirrored Bats overwhelmed air defense during single elixir.",
+          elixirAdvantage: "Baiting Zap with Skeleton Army allowed Bats to deal massive undefended tower damage.",
+          coachTip: "Save Fireball for Bats and Goblin Gang clusters; use Tombstone to pull Mega Knight into king tower range."
+        },
+        team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 1, cards: myDeck }],
+        opponent: [{ name: "Gilu", tag: "#8J92LL0", clan: { name: "No Clan" }, crowns: 2, cards: giluDeck }]
+      },
+      {
+        id: "battle_mike",
+        type: "Ranked 1v1 League 4",
+        timeAgo: "8h ago",
+        odds: { userWinProb: 65, oppWinProb: 35, label: "Dominant Defense" },
+        outcomeAnalysis: {
+          interaction: "Lava Hound + Minion Horde push overwhelmed Mike's solo Musketeer defense before 2.6 Hog could reset cycle.",
+          elixirAdvantage: "Controlled trades throughout double elixir (+2.4 advantage).",
+          coachTip: "Flawless air beatdown execution. Opponent lacked secondary air splash."
+        },
+        team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 1, cards: myDeck }],
+        opponent: [{ name: "Mike", tag: "#29UJQLP", clan: { name: "ASTRORAPTORS" }, crowns: 0, cards: mikeDeck }]
       },
       {
         id: "battle_5",
