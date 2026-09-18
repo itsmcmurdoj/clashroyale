@@ -36,6 +36,11 @@ class NexusHandler(http.server.SimpleHTTPRequestHandler):
         if self.path.startswith('/api/clashroyale/'):
             target_subpath = self.path[len('/api/clashroyale/'):]
             
+            # Strip any query parameters
+            query_str = ""
+            if '?' in target_subpath:
+                target_subpath, query_str = target_subpath.split('?', 1)
+
             # Ensure player tags have %23 prepended for Supercell API
             if target_subpath.startswith('players/') and not target_subpath.startswith('players/%23') and not target_subpath.startswith('players/#'):
                 parts = target_subpath.split('/', 1)
@@ -66,6 +71,9 @@ class NexusHandler(http.server.SimpleHTTPRequestHandler):
                     self.send_response(200)
                     self.send_header('Content-Type', 'application/json')
                     self.send_header('Access-Control-Allow-Origin', '*')
+                    self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                    self.send_header('Pragma', 'no-cache')
+                    self.send_header('Expires', '0')
                     self.end_headers()
                     self.wfile.write(content)
             except urllib.error.HTTPError as e:

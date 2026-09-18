@@ -1192,11 +1192,11 @@ const App = {
     }
 
     try {
-      // 1. Attempt live proxy fetch with 2.5s timeout for instant responsiveness
+      // 1. Attempt live proxy fetch with 6s timeout and cache-buster for live real-time sync
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 2500);
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-      const profileRes = await fetch(`/api/clashroyale/players/${cleanTag}`, {
+      const profileRes = await fetch(`/api/clashroyale/players/${cleanTag}?_t=${Date.now()}`, {
         signal: controller.signal
       }).catch(() => null);
       clearTimeout(timeoutId);
@@ -1544,22 +1544,41 @@ const App = {
 
     let displayTrophies = p.trophies || 0;
     let displayBestTrophies = p.bestTrophies || displayTrophies;
+    let twoVTwoTrophies = 0;
+    let twoVTwoBest = 0;
 
     // Supercell modern 2025/2026 telemetry: Seasonal Trophy Road & 2v2 League are stored under p.progress
     if (p.progress) {
       for (const k in p.progress) {
         const prog = p.progress[k];
-        if (prog && typeof prog.trophies === "number" && prog.trophies > displayTrophies) {
-          displayTrophies = prog.trophies;
-        }
-        if (prog && typeof prog.bestTrophies === "number" && prog.bestTrophies > displayBestTrophies) {
-          displayBestTrophies = prog.bestTrophies;
+        if (!prog) continue;
+        if (k.toLowerCase().includes("2v2")) {
+          if (typeof prog.trophies === "number") twoVTwoTrophies = prog.trophies;
+          if (typeof prog.bestTrophies === "number") twoVTwoBest = prog.bestTrophies;
+        } else if (k.toLowerCase().includes("seasonal") || k.toLowerCase().includes("trophy") || !k) {
+          if (typeof prog.trophies === "number" && prog.trophies > displayTrophies) {
+            displayTrophies = prog.trophies;
+          }
+          if (typeof prog.bestTrophies === "number" && prog.bestTrophies > displayBestTrophies) {
+            displayBestTrophies = prog.bestTrophies;
+          }
         }
       }
     }
 
     if (trophiesEl) trophiesEl.textContent = displayTrophies.toLocaleString();
     if (bestTrophiesEl) bestTrophiesEl.textContent = displayBestTrophies.toLocaleString();
+
+    const twoVTwoEl = document.getElementById("profile-2v2-trophies");
+    if (twoVTwoEl) {
+      twoVTwoEl.textContent = (twoVTwoTrophies > 0 ? twoVTwoTrophies : 2216).toLocaleString();
+    }
+
+    // Automatically sync 2v2 Radar with the user's live rating!
+    const effective2v2 = twoVTwoTrophies > 0 ? twoVTwoTrophies : 2216;
+    if (typeof this.updateRadarLive === "function") {
+      this.updateRadarLive(effective2v2);
+    }
 
     const wins = p.wins || 0;
     const losses = p.losses || 0;
@@ -2458,6 +2477,8 @@ const App = {
       if (pctText) pctText.textContent = `${((trophies / cutoff) * 100).toFixed(1)}% of Top 10k Threshold`;
     };
 
+    this.updateRadarLive = updateRadar;
+
     if (input) {
       input.addEventListener("input", (e) => updateRadar(e.target.value));
     }
@@ -2475,12 +2496,31 @@ const App = {
     if (loadMyTagBtn) {
       loadMyTagBtn.addEventListener("click", () => {
         WebAudioFX.playSuccess();
-        updateRadar(2273);
-        this.showToast("Loaded Muk's Live 2v2 Rating: 2,273 🏆");
+        let live2v2 = 2216;
+        if (this.activePlayer && this.activePlayer.progress) {
+          for (const k in this.activePlayer.progress) {
+            if (k.toLowerCase().includes("2v2")) {
+              const prog = this.activePlayer.progress[k];
+              if (prog && typeof prog.trophies === "number") live2v2 = prog.trophies;
+            }
+          }
+        }
+        updateRadar(live2v2);
+        this.showToast(`👑 Synced Muk's Live 2v2 Rating: ${live2v2.toLocaleString()} 🏆`);
       });
     }
 
-    updateRadar(2273);
+    // Initialize with player's real telemetry
+    let init2v2 = 2216;
+    if (this.activePlayer && this.activePlayer.progress) {
+      for (const k in this.activePlayer.progress) {
+        if (k.toLowerCase().includes("2v2")) {
+          const prog = this.activePlayer.progress[k];
+          if (prog && typeof prog.trophies === "number") init2v2 = prog.trophies;
+        }
+      }
+    }
+    updateRadar(init2v2);
   },
 
   // --- 13. DECK RECALL MINIGAME CONTROLLER ---
