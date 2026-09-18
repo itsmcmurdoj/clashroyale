@@ -11,7 +11,8 @@ import sys
 
 PORT = 3000
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImYxMDU3ZDM0LWVmZWYtNDUwNy1iNDhmLTM2ZjUwMTI4YjgwYSIsImlhdCI6MTc4OTY3ODI0OCwic3ViIjoiZGV2ZWxvcGVyL2I2YWRiNmRkLWVkM2MtNDhiZC04OTE5LTU1YjJhYjYyOTYwMCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTguODQuMjAxLjIxNCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.WCrHNZtHkfCYOP7Ni99hJhC-K8y1bUeFsJHJrtTnYv6rXCIN-ruitlHSXx_W0JrOmvNaeVS1dpW4jlYf0Vd3Fg'
+DEFAULT_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6Ijk4NjgyNmYyLWUyY2MtNGUwZS1hNGUwLTlhMTBkOWU3NTdlYiIsImlhdCI6MTc4OTc0OTg1MSwic3ViIjoiZGV2ZWxvcGVyL2I2YWRiNmRkLWVkM2MtNDhiZC04OTE5LTU1YjJhYjYyOTYwMCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI0NS43OS4yMTguNzkiXSwidHlwZSI6ImNsaWVudCJ9XX0.QPsNhg4EWwJAMiXmBUcijlb4m159CVw6e0xr_PHjyhfuc-1ynuvVstR3Et4AdZdteLJRky58uxIHWbtPwQl5ww'
+WORK_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjhlNWIwNDhkLWE0YTItNGZlOC1iMDkyLTY4ZTcyYWQ1OGZjYSIsImlhdCI6MTc4OTc0OTgyNywic3ViIjoiZGV2ZWxvcGVyL2I2YWRiNmRkLWVkM2MtNDhiZC04OTE5LTU1YjJhYjYyOTYwMCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI5OS4yMzkuMzMuMTQyIl0sInR5cGUiOiJjbGllbnQifV19.3WjaiuquSmVyNlKs0tHjBmhamB_ChR4BwKgaZBJDMPjxEMOGjKEuDt7IMayI4ZOnd7756bkpkxI5WCxwv_Y4SQ'
 
 def get_api_key():
     key = os.environ.get('CLASH_ROYALE_API_KEY')
@@ -60,59 +61,60 @@ class NexusHandler(http.server.SimpleHTTPRequestHandler):
                 else:
                     target_subpath = f"players/{encoded_tag}"
 
-            cr_api_url = f'https://api.clashroyale.com/v1/{target_subpath}'
+            token_val = get_api_key()
             
-            auth_header = self.headers.get('Authorization')
-            if not auth_header:
-                token_val = get_api_key()
-                if token_val:
-                    auth_header = f'Bearer {token_val}'
+            # Primary: Always-Active RoyaleAPI Global Proxy (IP 45.79.218.79)
+            proxy_url = f'https://proxy.royaleapi.dev/v1/{target_subpath}'
+            direct_url = f'https://api.clashroyale.com/v1/{target_subpath}'
+            
+            headers = {
+                'Authorization': f'Bearer {token_val}',
+                'Accept': 'application/json',
+                'User-Agent': 'NexusRoyale/1.0 (Macintosh; Intel Mac OS X 10_15_7)'
+            }
 
-            req = urllib.request.Request(cr_api_url)
-            if auth_header:
-                req.add_header('Authorization', auth_header)
-            req.add_header('Accept', 'application/json')
+            def try_fetch(req_url, auth_tok):
+                h = dict(headers)
+                h['Authorization'] = f'Bearer {auth_tok}'
+                req = urllib.request.Request(req_url, headers=h)
+                with urllib.request.urlopen(req, context=SSL_CTX, timeout=7) as resp:
+                    return resp.read()
 
             try:
-                with urllib.request.urlopen(req, context=SSL_CTX) as response:
-                    content = response.read()
+                # 1. Attempt RoyaleAPI Global Proxy
+                content = try_fetch(proxy_url, token_val)
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                self.end_headers()
+                self.wfile.write(content)
+                return
+            except Exception as proxy_err:
+                # 2. Fallback to direct Supercell API with work key if proxy hiccups
+                try:
+                    content = try_fetch(direct_url, WORK_TOKEN)
                     self.send_response(200)
                     self.send_header('Content-Type', 'application/json')
                     self.send_header('Access-Control-Allow-Origin', '*')
                     self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
-                    self.send_header('Pragma', 'no-cache')
-                    self.send_header('Expires', '0')
                     self.end_headers()
                     self.wfile.write(content)
-            except urllib.error.HTTPError as e:
-                self.send_response(e.code)
-                self.send_header('Content-Type', 'application/json')
-                self.send_header('Access-Control-Allow-Origin', '*')
-                self.end_headers()
-                
-                detected_ip = "198.84.201.214"
-                try:
-                    with urllib.request.urlopen("https://api.ipify.org", context=SSL_CTX, timeout=2) as ip_res:
-                        detected_ip = ip_res.read().decode().strip()
-                except Exception:
-                    pass
-
-                err_payload = {
-                    'error': str(e),
-                    'code': e.code,
-                    'message': 'Supercell API 403 Forbidden: IP address mismatch.',
-                    'currentIp': detected_ip,
-                    'tokenWhitelistedIp': '99.239.39.175',
-                    'fix': f'Add {detected_ip} to your key on developer.clashroyale.com'
-                }
-                self.wfile.write(json.dumps(err_payload).encode())
-            except Exception as e:
-                self.send_response(500)
-                self.send_header('Content-Type', 'application/json')
-                self.send_header('Access-Control-Allow-Origin', '*')
-                self.end_headers()
-                self.wfile.write(json.dumps({'error': str(e)}).encode())
-            return
+                    return
+                except urllib.error.HTTPError as e:
+                    self.send_response(e.code)
+                    self.send_header('Content-Type', 'application/json')
+                    self.send_header('Access-Control-Allow-Origin', '*')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({'error': str(e), 'code': e.code, 'proxy_error': str(proxy_err)}).encode())
+                    return
+                except Exception as e:
+                    self.send_response(500)
+                    self.send_header('Content-Type', 'application/json')
+                    self.send_header('Access-Control-Allow-Origin', '*')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({'error': str(e)}).encode())
+                    return
 
         super().do_GET()
 

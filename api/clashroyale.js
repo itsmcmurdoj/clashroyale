@@ -8,15 +8,16 @@ export default async function handler(req, res) {
   }
 
   const endpoint = req.query.endpoint || "";
-  const token = process.env.CLASH_ROYALE_API_KEY || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImYxMDU3ZDM0LWVmZWYtNDUwNy1iNDhmLTM2ZjUwMTI4YjgwYSIsImlhdCI6MTc4OTY3ODI0OCwic3ViIjoiZGV2ZWxvcGVyL2I2YWRiNmRkLWVkM2MtNDhiZC04OTE5LTU1YjJhYjYyOTYwMCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTguODQuMjAxLjIxNCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.WCrHNZtHkfCYOP7Ni99hJhC-K8y1bUeFsJHJrtTnYv6rXCIN-ruitlHSXx_W0JrOmvNaeVS1dpW4jlYf0Vd3Fg";
+  const token = process.env.CLASH_ROYALE_API_KEY || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6Ijk4NjgyNmYyLWUyY2MtNGUwZS1hNGUwLTlhMTBkOWU3NTdlYiIsImlhdCI6MTc4OTc0OTg1MSwic3ViIjoiZGV2ZWxvcGVyL2I2YWRiNmRkLWVkM2MtNDhiZC04OTE5LTU1YjJhYjYyOTYwMCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI0NS43OS4yMTguNzkiXSwidHlwZSI6ImNsaWVudCJ9XX0.QPsNhg4EWwJAMiXmBUcijlb4m159CVw6e0xr_PHjyhfuc-1ynuvVstR3Et4AdZdteLJRky58uxIHWbtPwQl5ww";
 
-  const targetUrl = `https://api.clashroyale.com/v1/${endpoint}`;
+  const targetUrl = `https://proxy.royaleapi.dev/v1/${endpoint}`;
 
   try {
     const upstreamRes = await fetch(targetUrl, {
       headers: {
         Authorization: `Bearer ${token}`,
-        Accept: "application/json"
+        Accept: "application/json",
+        "User-Agent": "NexusRoyale/1.0 (Macintosh; Intel Mac OS X 10_15_7)"
       }
     });
 
