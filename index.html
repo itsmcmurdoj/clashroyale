@@ -132,7 +132,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="shortcut icon" href="nexus_crest_cyber.jpg">
 
-  <link rel="stylesheet" href="styles.css?v=20260918_6">
+  <link rel="stylesheet" href="styles.css?v=20260918_7">
 </head>
 <body>
 
@@ -150,10 +150,13 @@
     </button>
   </div>
 
-  <!-- 2. Authentic Clash Royale In-Game Top Navigation -->
-  <header class="top-nav">
+  <!-- 2. Authentic Clash Royale In-Game Top Navigation Bar (1:1 with Client) -->
+  <header class="top-nav cr-in-game-bar">
     <div class="brand-group" id="btn-brand">
-      <div class="cr-king-badge" title="King Tower Level 15 (Elite)">15</div>
+      <div class="cr-trophy-cluster" id="top-trophy-btn" title="Seasonal Trophy Road & Rank">
+        <div class="cr-ribbon-badge">👑</div>
+        <div class="cr-trophy-number-pill" id="top-trophy-count">14,030</div>
+      </div>
       <div class="brand-symbol">
         <img src="nexus_crest_cyber.jpg" alt="Nexus Royale Crest" class="brand-crest-img">
       </div>
@@ -173,22 +176,32 @@
       <button class="nav-btn active" data-tab="account" id="nav-btn-account" style="display: none;">MY PROFILE</button>
     </nav>
 
-    <!-- In-Game Currency Status Bar & Nav Actions -->
+    <!-- In-Game Currency Status Bar & Nav Actions (1:1 with Game Screenshots) -->
     <div class="nav-actions">
       <!-- Currency Status Pills -->
       <div class="cr-status-bar" id="cr-status-bar">
-        <div class="cr-resource-pill gold-pill" title="Live Gold Reserve">🪙 <span id="top-gold-count">1.25M</span></div>
-        <div class="cr-resource-pill gem-pill" title="Clash Gems">💎 <span id="top-gem-count">1,450</span></div>
-        <div class="cr-resource-pill hero-coin-pill" title="Season 87 Hero Coins (Cap: 200)">⚡ <span>200/200</span></div>
+        <div class="cr-currency-pill gold" title="Live Gold Reserve">
+          🪙 <span id="top-gold-count">140 999</span>
+          <span class="cr-blue-plus">+</span>
+        </div>
+        <div class="cr-currency-pill gem" title="Clash Gems">
+          💎 <span id="top-gem-count">295</span>
+          <span class="cr-blue-plus">+</span>
+        </div>
       </div>
 
-      <button type="button" class="btn-install-app cr-btn-green" id="btn-install-pwa" title="Install App (100% Free)" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;">
-        <span class="install-icon">📲</span> <span class="install-txt">GET APP</span>
-      </button>
-
-      <button type="button" class="audio-toggle-btn on" id="btn-toggle-audio" title="Toggle Web Audio SFX" style="border-radius: 10px;">
-        <span id="audio-icon">🔊</span> <span id="audio-txt">SFX ON</span>
-      </button>
+      <!-- In-Game Utility Buttons Cluster (Screenshot 2: Friends, News, Menu) -->
+      <div class="cr-util-cluster">
+        <button type="button" class="cr-square-btn" id="btn-friends-nav" title="Social & Clan Radar" onclick="App.showView('radar'); App.updateNavButtons('radar');">
+          👥<span class="badge-counter">2</span>
+        </button>
+        <button type="button" class="cr-square-btn" id="btn-news-nav" title="Clash TV & News" onclick="App.showView('videos'); App.updateNavButtons('videos');">
+          📰
+        </button>
+        <button type="button" class="audio-toggle-btn on" id="btn-toggle-audio" title="Toggle Web Audio SFX" style="border-radius: 9px; padding: 0.4rem 0.6rem;">
+          <span id="audio-icon">🔊</span>
+        </button>
+      </div>
 
       <div class="player-status-chip" id="user-status-chip" style="display: none;">
         <span class="status-dot"></span>
@@ -790,13 +803,38 @@
 
       <div class="studio-layout">
         <div>
-          <!-- 8 Active Deck Slots -->
+          <!-- 8 Active Deck Slots (Screenshot 3 Layout) -->
           <div class="section-panel" style="padding: 1.25rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-              <span style="font-size: 0.85rem; font-weight: 700; color: #fff;">Selected 8 Cards</span>
-              <span id="studio-avg-elixir" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--elixir);">Avg: 3.5 Elixir</span>
+            <!-- In-Game Deck Slots Ribbon Carousel -->
+            <div class="cr-deck-selector-row" id="studio-deck-slots-row">
+              <div class="cr-deck-slot-tab" data-deck-slot="1">1</div>
+              <div class="cr-deck-slot-tab" data-deck-slot="2">2</div>
+              <div class="cr-deck-slot-tab" data-deck-slot="3">3</div>
+              <div class="cr-deck-slot-tab" data-deck-slot="4">4</div>
+              <div class="cr-deck-slot-tab" data-deck-slot="5">5</div>
+              <div class="cr-deck-slot-tab" data-deck-slot="6">6</div>
+              <div class="cr-deck-slot-tab" data-deck-slot="7">7</div>
+              <div class="cr-deck-slot-tab active" data-deck-slot="8" title="Active Deck 8">8</div>
+              <div class="cr-deck-slot-tab" data-deck-slot="9">9</div>
+              <div class="cr-deck-slot-tab" data-deck-slot="10">10</div>
             </div>
+
+            <!-- 2x4 In-Game Deck Matrix -->
             <div class="deck-eight-grid" id="studio-deck-slots"></div>
+
+            <!-- Large Teardrop Elixir Average Indicator (Screenshot 3) -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+              <div class="cr-elixir-average-bar" style="margin: 0;">
+                <div class="cr-large-elixir-drop">💧</div>
+                <div>
+                  <div style="font-size: 0.62rem; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Average Elixir</div>
+                  <div class="cr-elixir-num" id="studio-avg-elixir">3.9</div>
+                </div>
+              </div>
+              <button type="button" class="cr-btn-yellow" id="btn-studio-quick-battle" style="padding: 0.6rem 1.25rem; font-size: 0.95rem;">
+                ⚔️ BATTLE WITH DECK 8
+              </button>
+            </div>
           </div>
 
           <!-- Catalog -->
@@ -1215,28 +1253,28 @@
   <!-- Mobile Persistent App Bottom Dock (Official 5 Clash Royale Tabs) -->
   <nav class="mobile-bottom-dock" id="mobile-bottom-dock">
     <button type="button" class="nav-btn dock-btn" data-tab="gateway" id="dock-btn-shop">
-      <span class="dock-icon">🛒</span>
+      <span class="dock-icon">🧰</span>
       <span class="dock-label">Shop</span>
       <span class="dock-pip"></span>
     </button>
-    <button type="button" class="nav-btn dock-btn" data-tab="heroes" id="dock-btn-cards">
+    <button type="button" class="nav-btn dock-btn" data-tab="studio" id="dock-btn-cards">
       <span class="dock-icon">🃏</span>
       <span class="dock-label">Cards</span>
       <span class="dock-pip"></span>
     </button>
     <button type="button" class="nav-btn dock-btn active" data-tab="account" id="dock-btn-battle">
       <span class="dock-icon">⚔️</span>
-      <span class="dock-label">Battle</span>
+      <span class="dock-label">&lt; Battle &gt;</span>
       <span class="dock-pip"></span>
     </button>
     <button type="button" class="nav-btn dock-btn" data-tab="radar" id="dock-btn-social">
-      <span class="dock-icon">🛡️</span>
+      <span class="dock-icon">👥</span>
       <span class="dock-label">Social</span>
       <span class="dock-pip"></span>
     </button>
-    <button type="button" class="nav-btn dock-btn" data-tab="videos" id="dock-btn-tv">
+    <button type="button" class="nav-btn dock-btn" data-tab="videos" id="dock-btn-events">
       <span class="dock-icon">🏆</span>
-      <span class="dock-label">Clash TV</span>
+      <span class="dock-label">Events</span>
       <span class="dock-pip"></span>
     </button>
   </nav>
@@ -1452,8 +1490,8 @@
 
   <div class="toast-bar" id="toast-bar">Copied to clipboard!</div>
 
-  <script src="cards-data.js?v=20260918_6"></script>
-  <script src="simulator.js?v=20260918_6"></script>
-  <script src="app.js?v=20260918_6"></script>
+  <script src="cards-data.js?v=20260918_7"></script>
+  <script src="simulator.js?v=20260918_7"></script>
+  <script src="app.js?v=20260918_7"></script>
 </body>
 </html>

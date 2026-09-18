@@ -522,6 +522,30 @@ const App = {
       });
     }
 
+    // 11.5 In-Game Deck Slot Ribbon Selector (Screenshot 3)
+    const slotTabs = document.querySelectorAll(".cr-deck-slot-tab");
+    slotTabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        slotTabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        const slotNum = tab.getAttribute("data-deck-slot") || "8";
+        const battleBtn = document.getElementById("btn-studio-quick-battle");
+        if (battleBtn) battleBtn.textContent = `⚔️ BATTLE WITH DECK ${slotNum}`;
+        this.showToast(`🃏 Switched to Deck Slot ${slotNum}`);
+      });
+    });
+
+    const studioBattleBtn = document.getElementById("btn-studio-quick-battle");
+    if (studioBattleBtn) {
+      studioBattleBtn.addEventListener("click", () => {
+        WebAudioFX.playSuccess();
+        this.showView("account");
+        this.updateNavButtons("account");
+        this.showToast("⚔️ Active Deck Ready for Battle!");
+      });
+    }
+
     // 12. Head-to-Head Simulator
     const simBtn = document.getElementById("btn-run-sim");
     if (simBtn) {
@@ -1559,14 +1583,26 @@ const App = {
 
   updateTopBarPlayerStats: function() {
     if (!this.activePlayer) return;
-    const kingEl = document.querySelector(".cr-king-badge");
+    const trophyEl = document.getElementById("top-trophy-count");
     const goldEl = document.getElementById("top-gold-count");
-    const lvl = this.activePlayer.expLevel || 15;
-    if (kingEl) kingEl.textContent = (lvl > 50) ? Math.min(15, Math.floor(lvl / 5)) : lvl;
+    const gemEl = document.getElementById("top-gem-count");
+
+    // Live or Seasonal Trophies
+    if (trophyEl) {
+      const tro = this.activePlayer.trophies || (this.activePlayer.progress && this.activePlayer.progress["2v2League_202609"] ? this.activePlayer.progress["2v2League_202609"].trophies : 2208);
+      trophyEl.textContent = Number(tro).toLocaleString();
+    }
+
+    // Gold Reserve
     if (goldEl) {
-      const wins = this.activePlayer.wins || 5000;
-      const simulatedGold = Math.min(5000000, wins * 250);
-      goldEl.textContent = simulatedGold >= 1000000 ? `${(simulatedGold / 1000000).toFixed(1)}M` : `${Math.floor(simulatedGold / 1000)}K`;
+      const gold = this.activePlayer.gold || 140999;
+      goldEl.textContent = Number(gold).toLocaleString();
+    }
+
+    // Gems
+    if (gemEl) {
+      const gems = this.activePlayer.gems || 295;
+      gemEl.textContent = Number(gems).toLocaleString();
     }
   },
 
@@ -1888,68 +1924,66 @@ const App = {
     };
 
     const cardEl = document.createElement("div");
-    cardEl.className = "deckai-battle-card";
+    cardEl.className = "cr-battle-log-card";
     cardEl.innerHTML = `
-      <!-- Header Bar: Result, Mode, Time, Odds Track -->
-      <div class="deckai-card-header">
-        <div class="deckai-result-group">
-          <span class="status-indicator ${isWin ? "win" : "loss"}">${isWin ? "VICTORY" : "DEFEAT"}</span>
-          <span class="deckai-crowns-badge">👑 ${myCrowns} - ${oppCrowns}</span>
-          <span class="deckai-mode-badge">${is2v2 ? "⚡ 2v2 League" : (b.type || "Ranked 1v1")}</span>
-          <span style="font-size: 0.72rem; color: var(--text-muted);">${b.timeAgo || "Recent"}</span>
+      <!-- Match Status Header: DEFEAT / VICTORY + Crowns Score -->
+      <div class="cr-battle-header-row">
+        <div class="cr-match-status-text ${isWin ? "victory" : "defeat"}">
+          ${isWin ? "VICTORY" : "DEFEAT"}
         </div>
-
-        <div class="deckai-odds-box">
-          <div class="deckai-odds-label">${odds.userWinProb}% Win Odds • ${odds.label}</div>
-          <div class="deckai-odds-track" title="Deck AI Win Probability: ${odds.userWinProb}% vs ${odds.oppWinProb}%">
-            <div class="deckai-odds-fill" style="width: ${odds.userWinProb}%;"></div>
-          </div>
+        <div class="cr-crowns-score-pill">
+          <span style="color:#38bdf8;">👑 ${myCrowns}</span>
+          <span style="color:#94a3b8; font-size: 1rem;">-</span>
+          <span style="color:#f43f5e;">${oppCrowns} 👑</span>
         </div>
       </div>
 
-      <!-- Combatants Deck Display: You vs Opponent -->
-      <div class="deckai-combatants-grid">
-        <!-- You -->
-        <div class="deckai-combatant-side">
-          <div class="deckai-side-meta">
-            <span style="color: var(--cyan); font-weight: 800;">You ${is2v2 && b.team[1] ? `+ ${b.team[1].name}` : ""}</span>
-            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">${myAvg} Avg Elixir</span>
-          </div>
-          <div class="deckai-cards-strip">
-            ${myCards.map(c => `
-              <div class="deckai-card-slot ${c.isEvo ? "evo-glow" : ""} ${c.isHero ? "hero-glow" : ""}" title="${c.name} (${c.elixir}💧)">
+      <!-- Combatants: Muk (The Darkness) vs Opponent -->
+      <div class="cr-combatants-strip">
+        <div class="cr-combatant-name you">
+          <span>🌙</span>
+          <strong>${teamPlayer1.name || "Muk"}</strong>
+          <span class="cr-combatant-clan">${teamPlayer1.clan ? teamPlayer1.clan.name : "The Darkness"}</span>
+        </div>
+        <div style="font-size: 1.15rem;">⚔️</div>
+        <div class="cr-combatant-name opp">
+          <strong>${oppPlayer1.name || "Opponent"}</strong>
+          <span class="cr-combatant-clan">${oppPlayer1.clan ? oppPlayer1.clan.name : "No Clan"}</span>
+          <span>🛡️</span>
+        </div>
+      </div>
+
+      <!-- Combatant Cards Matrix (Exact 2x4 Layout from Screenshot 1) -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin-bottom: 0.75rem;">
+        <!-- You: 8 Cards in 2x4 -->
+        <div>
+          <div style="font-size: 0.68rem; font-family: var(--font-clash); color: #64748b; margin-bottom: 0.25rem;">YOUR DECK (${myAvg}💧)</div>
+          <div class="cr-cards-matrix">
+            ${myCards.map((c, idx) => `
+              <div class="cr-matrix-slot ${c.isEvo ? "evo-slot" : ""} ${c.isHero ? "hero-slot" : ""}" title="${c.name} (${c.elixir}💧)">
                 <img src="${c.icon}" alt="${c.name}" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
-                <div class="deckai-card-lvl">${c.lvl}</div>
+                <div class="cr-card-lvl-pill max">Lvl 16</div>
               </div>
             `).join("")}
           </div>
         </div>
 
-        <!-- Center VS & Elixir Badge -->
-        <div class="deckai-vs-col">
-          <div class="deckai-vs-badge">VS</div>
-          <div class="deckai-elixir-diff">${elixirAdvLabel}</div>
-        </div>
-
-        <!-- Opponent -->
-        <div class="deckai-combatant-side">
-          <div class="deckai-side-meta">
-            <span style="color: #fff; font-weight: 800;">${oppPlayer1.name || "Opponent"} ${oppPlayer1.clan ? `<span style="font-size:0.68rem; color:var(--text-muted); font-weight:normal;">(${oppPlayer1.clan.name})</span>` : ""}</span>
-            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">${oppAvg} Avg Elixir</span>
-          </div>
-          <div class="deckai-cards-strip">
-            ${oppCards.map(c => `
-              <div class="deckai-card-slot ${c.isEvo ? "evo-glow" : ""} ${c.isHero ? "hero-glow" : ""}" title="${c.name} (${c.elixir}💧)">
+        <!-- Opponent: 8 Cards in 2x4 -->
+        <div>
+          <div style="font-size: 0.68rem; font-family: var(--font-clash); color: #64748b; margin-bottom: 0.25rem;">OPPONENT (${oppAvg}💧)</div>
+          <div class="cr-cards-matrix">
+            ${oppCards.map((c, idx) => `
+              <div class="cr-matrix-slot ${c.isEvo ? "evo-slot" : ""} ${c.isHero ? "hero-slot" : ""}" title="${c.name} (${c.elixir}💧)">
                 <img src="${c.icon}" alt="${c.name}" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
-                <div class="deckai-card-lvl">${c.lvl}</div>
+                <div class="cr-card-lvl-pill max">Lvl 16</div>
               </div>
             `).join("")}
           </div>
         </div>
       </div>
 
-      <!-- Deck AI Post-Match Outcome Analysis Box -->
-      <div class="deckai-coach-box">
+      <!-- AI Coach Interaction Snippet (Collapsible) -->
+      <div class="deckai-coach-box" id="coach-tip-${b.id || Math.random().toString(36).slice(2, 7)}" style="display: none; margin-bottom: 0.65rem;">
         <div class="deckai-coach-item">
           <span class="deckai-coach-icon">🎯</span>
           <div><strong style="color: var(--cyan);">Key Interaction:</strong> ${analysis.interaction}</div>
@@ -1964,61 +1998,68 @@ const App = {
         </div>
       </div>
 
-      <!-- Action Buttons Row -->
-      <div class="deckai-actions-row">
-        <button type="button" class="btn-primary-action btn-copy-opp-deck" style="font-size: 0.76rem; padding: 0.45rem 0.85rem; background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%); color: #080a10; font-weight: 800;">
-          ⚔️ Copy Deck
-        </button>
+      <!-- Match Footer: Mode + 3 Action Buttons (Screenshot 1: Practice, Share, Watch) -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #cbd5e1; padding-top: 0.65rem;">
+        <div style="font-family: var(--font-clash); font-size: 0.82rem; color: #64748b; display: flex; align-items: center; gap: 0.4rem;">
+          <span style="color: ${isWin ? '#22c55e' : '#ef4444'};">${isWin ? '🏆 WIN' : '🛡️ LOSS'}</span>
+          <span style="font-size: 0.72rem; color: #94a3b8;">• ${b.timeAgo || "Recent"}</span>
+        </div>
 
-        <button type="button" class="btn-secondary btn-counter-opp-deck" style="font-size: 0.76rem; padding: 0.45rem 0.85rem; border-color: rgba(239, 68, 68, 0.4); color: #f87171; font-weight: 700;">
-          🎯 Generate Hard Counter
-        </button>
-
-        <button type="button" class="btn-secondary btn-studio-opp-deck" style="font-size: 0.76rem; padding: 0.45rem 0.75rem;">
-          Studio →
-        </button>
+        <div class="cr-match-action-buttons">
+          <button type="button" class="cr-sub-btn-blue btn-battle-practice" title="Practice Matchup in Simulator">
+            PRACTICE
+          </button>
+          <button type="button" class="cr-sub-btn-blue btn-battle-share" title="Copy & Share In-Game Deck Link">
+            SHARE
+          </button>
+          <button type="button" class="cr-sub-btn-green btn-battle-watch" title="Watch AI Coach Analysis">
+            WATCH
+          </button>
+        </div>
       </div>
     `;
 
-    // Wire Copy Button
-    const copyBtn = cardEl.querySelector(".btn-copy-opp-deck");
-    if (copyBtn) {
-      copyBtn.addEventListener("click", () => {
+    // 1. Wire Practice Button -> Loads Matchup into Combat Simulator
+    const practiceBtn = cardEl.querySelector(".btn-battle-practice");
+    if (practiceBtn) {
+      practiceBtn.addEventListener("click", () => {
+        WebAudioFX.playClick();
         if (oppRawCards && oppRawCards.length > 0) {
-          this.handleCopyDeck(oppRawCards, `${oppPlayer1.name || "Opponent"}'s Deck`);
+          this.studioDeck = oppRawCards.map(c => {
+            const match = CLASH_CARDS.find(x => x.name.toLowerCase() === (c.name || "").toLowerCase() || x.id === c.id);
+            return match || { id: c.id, name: c.name, elixir: c.elixirCost || 3, icon: "" };
+          });
+          this.showView("simulator");
+          this.updateNavButtons("simulator");
+          this.showToast(`⚔️ Loaded Matchup vs ${oppPlayer1.name || "Opponent"} into Combat Simulator!`);
         } else {
-          this.showToast("No opponent cards available to copy.");
+          this.showView("simulator");
+          this.updateNavButtons("simulator");
         }
       });
     }
 
-    // Wire Counter Button
-    const counterBtn = cardEl.querySelector(".btn-counter-opp-deck");
-    if (counterBtn) {
-      counterBtn.addEventListener("click", () => {
-        this.generateHardCounter(oppRawCards, oppPlayer1.name || "Opponent");
+    // 2. Wire Share Button -> Copies Official Deck Link & Opens Share Modal
+    const shareBtn = cardEl.querySelector(".btn-battle-share");
+    if (shareBtn) {
+      shareBtn.addEventListener("click", () => {
+        WebAudioFX.playSuccess();
+        const cardsToShare = (oppRawCards && oppRawCards.length >= 8) ? oppRawCards : myRawCards;
+        this.handleCopyDeck(cardsToShare, `${oppPlayer1.name || "Match"}'s Battle Deck`);
       });
     }
 
-    // Wire Studio Button
-    const studioBtn = cardEl.querySelector(".btn-studio-opp-deck");
-    if (studioBtn) {
-      studioBtn.addEventListener("click", () => {
-        WebAudioFX.playCardLock();
-        if (oppRawCards && oppRawCards.length > 0) {
-          this.studioDeck = oppRawCards.map(c => {
-            const match = CLASH_CARDS.find(x => x.name.toLowerCase() === (c.name || "").toLowerCase() || x.id === c.id);
-            return match || {
-              id: c.id,
-              name: c.name,
-              elixir: c.elixirCost || 3,
-              icon: c.iconUrls ? (c.iconUrls.medium || c.iconUrls.evolutionMedium) : ""
-            };
-          });
-          this.renderStudioDeck();
-          this.showView("studio");
-          this.updateNavButtons("studio");
-          this.showToast(`Loaded ${oppPlayer1.name || "Opponent"}'s deck into Tactical Studio!`);
+    // 3. Wire Watch Button -> Toggles In-Game AI Coach Analysis Panel
+    const watchBtn = cardEl.querySelector(".btn-battle-watch");
+    const coachBox = cardEl.querySelector(".deckai-coach-box");
+    if (watchBtn && coachBox) {
+      watchBtn.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        const isOpen = coachBox.style.display !== "none";
+        coachBox.style.display = isOpen ? "none" : "block";
+        watchBtn.textContent = isOpen ? "WATCH" : "CLOSE";
+        if (!isOpen) {
+          coachBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
         }
       });
     }
@@ -2189,7 +2230,7 @@ const App = {
 
     const avg = this.studioDeck.length > 0 ? (totalElixir / this.studioDeck.length).toFixed(1) : "0.0";
     const avgEl = document.getElementById("studio-avg-elixir");
-    if (avgEl) avgEl.textContent = `Avg: ${avg} Elixir`;
+    if (avgEl) avgEl.textContent = avg;
 
     // Telemetry updates
     const cycleVal = document.getElementById("studio-cycle-val");
