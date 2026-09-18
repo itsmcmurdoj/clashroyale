@@ -2849,3 +2849,87 @@ const NR_VIDEOS = [
     }
   });
 })();
+
+// ============================================================
+// NEXUS ROYALE — Compliance, Legal & Privacy Suite
+// ============================================================
+(function initLegalModal() {
+  const modal = document.getElementById("legal-modal-overlay");
+  const contentEl = document.getElementById("legal-modal-content");
+  const closeBtn = document.getElementById("btn-close-legal-modal");
+  if (!modal || !contentEl) return;
+
+  const POLICIES = {
+    privacy: `
+      <h3 style="color:#fff;font-size:1.2rem;margin-bottom:0.75rem;">Privacy Policy</h3>
+      <p style="margin-bottom:0.75rem;"><small style="color:var(--cyan);">Last Updated: September 18, 2026</small></p>
+      <p style="margin-bottom:0.75rem;">At Nexus Royale (<strong>https://nexusroyale.online</strong>), we value your privacy. This policy explains what data we collect, how it is processed, and your rights.</p>
+      
+      <h4 style="color:var(--gold);margin-top:1rem;margin-bottom:0.4rem;">1. Data We Collect</h4>
+      <p style="margin-bottom:0.75rem;">We do not require account registration or passwords. When you query player profiles, battle telemetry, or clan data, our servers query public endpoints of the Supercell Clash Royale API. We may store anonymized analytics regarding feature usage and general traffic patterns.</p>
+
+      <h4 style="color:var(--gold);margin-top:1rem;margin-bottom:0.4rem;">2. Advertising & Cookies (Ezoic & Google AdSense)</h4>
+      <p style="margin-bottom:0.75rem;">This site uses <strong>Ezoic Inc.</strong> and its monetization partners, including <strong>Google Ad Multiple Customer Management (MCM)</strong>. Ezoic and its partners use technologies such as cookies, web beacons, and device identifiers to personalize advertisements, measure performance, and deliver programmatic advertising. You can review Ezoic's detailed privacy disclosures or adjust your consent preferences at any time through our on-site Gatekeeper Consent CMP.</p>
+
+      <h4 style="color:var(--gold);margin-top:1rem;margin-bottom:0.4rem;">3. Google Analytics 4</h4>
+      <p style="margin-bottom:0.75rem;">We utilize Google Analytics 4 (GA4) to understand audience traffic, device categories, and page interactions. GA4 collects anonymized IP addresses and telemetry. You can opt out via Google's Ads Settings or browser opt-out add-ons.</p>
+
+      <h4 style="color:var(--gold);margin-top:1rem;margin-bottom:0.4rem;">4. GDPR & CCPA Rights</h4>
+      <p style="margin-bottom:0.75rem;">Visitors from the European Economic Area (EEA), UK, and California have statutory rights to access, rectify, or delete personal data, or object to data processing. Contact us at <strong>nexusroyaleonline@gmail.com</strong> with any inquiries.</p>
+    `,
+    terms: `
+      <h3 style="color:#fff;font-size:1.2rem;margin-bottom:0.75rem;">Terms of Service</h3>
+      <p style="margin-bottom:0.75rem;"><small style="color:var(--cyan);">Effective Date: September 18, 2026</small></p>
+
+      <h4 style="color:var(--gold);margin-top:1rem;margin-bottom:0.4rem;">1. Permitted Use</h4>
+      <p style="margin-bottom:0.75rem;">Nexus Royale is a free, fan-developed competitive intelligence and esports dashboard for players of Clash Royale. It is intended solely for personal, non-commercial entertainment and training purposes.</p>
+
+      <h4 style="color:var(--gold);margin-top:1rem;margin-bottom:0.4rem;">2. Supercell Fan Content Disclaimer</h4>
+      <p style="margin-bottom:0.75rem;">This material is unofficial and is not endorsed by Supercell. For more information see Supercell's Fan Content Policy: <a href="https://supercell.com/en/fan-content-policy/" target="_blank" rel="noopener" style="color:var(--cyan);">https://supercell.com/en/fan-content-policy/</a>. Clash Royale, its logos, cards, and game assets are trademarks of Supercell Oy.</p>
+
+      <h4 style="color:var(--gold);margin-top:1rem;margin-bottom:0.4rem;">3. Limitation of Liability</h4>
+      <p style="margin-bottom:0.75rem;">Nexus Royale provides telemetry and simulator data on an "as-is" and "as-available" basis without warranties of any kind. We are not liable for any discrepancies with in-game servers or balance patches.</p>
+    `,
+    about: `
+      <h3 style="color:#fff;font-size:1.2rem;margin-bottom:0.75rem;">About Nexus Royale</h3>
+      <p style="margin-bottom:0.75rem;">Nexus Royale was created to deliver ultra-fast, live Clash Royale telemetry, official 2026 Heroes system intelligence, 2v2 League rankings, and one-tap in-game deck export for mobile and desktop players worldwide.</p>
+
+      <h4 style="color:var(--gold);margin-top:1rem;margin-bottom:0.4rem;">Creator Support & Community</h4>
+      <p style="margin-bottom:0.75rem;">Support free updates by using Creator Code <strong>NEXUS</strong> in the Clash Royale shop.</p>
+
+      <h4 style="color:var(--gold);margin-top:1rem;margin-bottom:0.4rem;">Contact & Inquiries</h4>
+      <p style="margin-bottom:0.75rem;">Business inquiries, creator deck features, or bug reports:</p>
+      <p style="margin-bottom:0.35rem;">✉️ Email: <a href="mailto:nexusroyaleonline@gmail.com" style="color:var(--cyan);">nexusroyaleonline@gmail.com</a></p>
+      <p style="margin-bottom:0.35rem;">📸 Instagram: <a href="https://instagram.com/nexusroyale.online" target="_blank" rel="noopener" style="color:#f43f5e;">@nexusroyale.online</a></p>
+      <p style="margin-bottom:0.35rem;">🌐 Web: <a href="https://nexusroyale.online" style="color:var(--cyan);">nexusroyale.online</a></p>
+    `
+  };
+
+  function openPolicy(type) {
+    contentEl.innerHTML = POLICIES[type] || POLICIES.privacy;
+    document.querySelectorAll("#legal-modal-tabs button").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.legal === type);
+    });
+    modal.style.display = "flex";
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const privacyLink = document.getElementById("link-open-privacy");
+    const termsLink = document.getElementById("link-open-terms");
+    const aboutLink = document.getElementById("link-open-about");
+
+    if (privacyLink) privacyLink.addEventListener("click", (e) => { e.preventDefault(); openPolicy("privacy"); });
+    if (termsLink) termsLink.addEventListener("click", (e) => { e.preventDefault(); openPolicy("terms"); });
+    if (aboutLink) aboutLink.addEventListener("click", (e) => { e.preventDefault(); openPolicy("about"); });
+
+    document.querySelectorAll("#legal-modal-tabs button").forEach(btn => {
+      btn.addEventListener("click", () => openPolicy(btn.dataset.legal));
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", () => { modal.style.display = "none"; });
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.style.display = "none";
+    });
+  });
+})();
+
