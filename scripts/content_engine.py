@@ -49,8 +49,31 @@ def draw_standard_header(draw, category, headline):
 def draw_standard_footer(draw):
     draw.line([(70, 1000), (1010, 1000)], fill="#1e293b", width=1)
     draw.text((70, 1018), "nexusroyale.online", font=get_font(18, bold=False), fill="#64748b")
-    draw.text((360, 1018), "Unofficial Supercell Fan Content • supercell.com/fan-content-policy", font=get_font(13, bold=False), fill="#475569")
+    draw.text((350, 1018), "Unofficial Supercell Fan Content • supercell.com/fan-content-policy", font=get_font(13, bold=False), fill="#475569")
     draw.text((820, 1018), "CODE: NEXUS", font=get_font(18, bold=True), fill="#26ece8")
+
+def draw_wrapped_text(draw, pos, text, font, fill, max_width, line_spacing=6):
+    words = text.split()
+    lines = []
+    current_line = []
+    for word in words:
+        test_line = " ".join(current_line + [word])
+        bbox = draw.textbbox((0, 0), test_line, font=font)
+        if (bbox[2] - bbox[0]) <= max_width:
+            current_line.append(word)
+        else:
+            if current_line:
+                lines.append(" ".join(current_line))
+            current_line = [word]
+    if current_line:
+        lines.append(" ".join(current_line))
+    
+    x, y = pos
+    for line in lines:
+        draw.text((x, y), line, font=font, fill=fill)
+        bbox = draw.textbbox((x, y), line, font=font)
+        y += (bbox[3] - bbox[1]) + line_spacing
+    return y
 
 def paste_card(canvas, card_filename, pos, size=(175, 257)):
     fp = os.path.join(CARDS_DIR, card_filename)
@@ -80,7 +103,6 @@ def generate_meta_spotlight():
     draw.text((510, 290), "PILOT: MOHAMED LIGHT", font=get_font(18, bold=True), fill="#ffffff")
     draw.text((510, 316), "AVG ELIXIR: 3.6 • USE RATE: 11.4%", font=get_font(16, bold=False), fill="#94a3b8")
 
-    # 8-Card Grid
     row1 = [
         ("pekka_evo.png", "EVO SLOT", "#c084fc"),
         ("ice-wizard_hero.png", "HERO SLOT", "#eab308"),
@@ -103,7 +125,6 @@ def generate_meta_spotlight():
     for i, (fn, tag, col) in enumerate(row1):
         x = xs[i]
         paste_card(img, fn, (x, y1), size=(card_w, card_h))
-        # Draw slot badge above card
         draw.rectangle([x, y1 + card_h - 26, x + card_w, y1 + card_h], fill="#0f172a")
         draw.text((x + 10, y1 + card_h - 22), tag, font=get_font(13, bold=True), fill=col)
 
@@ -171,7 +192,7 @@ def generate_balance_shifts():
         
         # Stat breakdown & note
         draw.text((210, y + 62), stat, font=get_font(18, bold=True), fill="#e2e8f0")
-        draw.text((210, y + 100), note, font=get_font(15, bold=False), fill="#94a3b8")
+        draw_wrapped_text(draw, (210, y + 98), note, font=get_font(15, bold=False), fill="#94a3b8", max_width=770)
         y += 182
 
     draw_standard_footer(draw)
@@ -200,7 +221,7 @@ def generate_balance_shifts():
     }
 
 # -------------------------------------------------------------
-# 3. Counter This Card Post (Target vs Counters)
+# 3. Counter This Card Post (Target vs Counters with Clean Wrap)
 # -------------------------------------------------------------
 def generate_counter_guide():
     img = create_base_canvas()
@@ -215,14 +236,22 @@ def generate_counter_guide():
     paste_card(img, "ice-wizard_hero.png", (105, 305), size=(240, 353))
     
     draw.text((95, 680), "HERO ICE WIZARD", font=get_font(22, bold=True), fill="#ffffff")
-    draw.text((95, 715), "Cost: 3⚡ + 1⚡ Ability", font=get_font(16, bold=False), fill="#d8b878")
-    draw.text((95, 750), "Frost Surge 5s freeze stops\nall incoming tank momentum.\nRequires precise positive\nelixir trades.", font=get_font(15, bold=False), fill="#94a3b8", spacing=6)
+    draw.text((95, 715), "Cost: 3 Elixir (+1 Ability)", font=get_font(16, bold=False), fill="#d8b878")
+    draw_wrapped_text(
+        draw, 
+        (95, 750), 
+        "Frost Surge 5s freeze halts incoming tank momentum. Requires precise positive elixir trades.", 
+        font=get_font(15, bold=False), 
+        fill="#94a3b8", 
+        max_width=265,
+        line_spacing=5
+    )
 
     # Right Box: 3 Verified Counters
     counters = [
         ("poison.png", "POISON SPELL", "+0 ELIXIR TRADE", "Drop Poison instantly on deployment. Consistent area DPS denies Frost Surge value and clips support units.", "#06b6d4"),
         ("guards.png", "SPLIT GUARDS", "+1 ELIXIR TRADE", "Deploy Guards centered split-lane. Shields absorb freeze blast; dual lanes avoid cluster wipe.", "#10b981"),
-        ("bandit.png", "BOSS BANDIT DASH", "+0 ELIXIR TRADE", "Bandit's invulnerable dash frames ignore the Frost Surge freeze zone entirely and assassinate him.", "#06b6d4")
+        ("bandit.png", "BOSS BANDIT DASH", "+0 ELIXIR TRADE", "Bandit's invulnerable dash frames ignore the Frost Surge freeze zone entirely and assassinate him cleanly.", "#06b6d4")
     ]
 
     y = 240
@@ -237,8 +266,16 @@ def generate_counter_guide():
         draw.rectangle([tbbox[0]-8, y+58, tbbox[2]+8, y+86], fill=col)
         draw.text((580, y + 62), trade, font=get_font(15, bold=True), fill="#0f172a" if col == "#10b981" else "#ffffff")
         
-        # Desc
-        draw.text((580, y + 105), desc, font=get_font(15, bold=False), fill="#94a3b8", spacing=6)
+        # Multi-line Wrapped Description (Fits inside card cleanly)
+        draw_wrapped_text(
+            draw, 
+            (580, y + 105), 
+            desc, 
+            font=get_font(15, bold=False), 
+            fill="#94a3b8", 
+            max_width=390, 
+            line_spacing=5
+        )
         y += 250
 
     draw_standard_footer(draw)
@@ -276,7 +313,7 @@ def generate_2v2_radar():
     draw.rectangle([70, 240, 1010, 340], fill="#111827", outline="#1e293b", width=1)
     draw.text((95, 255), "GLOBAL 2V2 LEAGUE • TOP 500 SYNERGY SCORE", font=get_font(15, bold=True), fill="#d8b878")
     draw.text((95, 280), "62.4% DUO WIN RATE", font=get_font(44, bold=True), fill="#10b981")
-    draw.text((580, 290), "DUO COMBO: TANK ANCHOR + SPELL PRESSURE", font=get_font(16, bold=False), fill="#94a3b8")
+    draw.text((540, 290), "DUO COMBO: TANK ANCHOR + SPELL PRESSURE", font=get_font(16, bold=False), fill="#94a3b8")
 
     # Player 1 Deck Panel
     draw.rectangle([70, 360, 1010, 640], fill="#0f172a", outline="#1e293b", width=1)
