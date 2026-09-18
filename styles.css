@@ -59,6 +59,31 @@
   --font-mono: "JetBrains Mono", monospace;
 }
 
+/* ==========================================================================
+   iOS SAFARI, TOUCH & PWA MOBILE ENGINE
+   ========================================================================== */
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Prevent iOS auto-zoom on input focus */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Touch momentum scrolling */
+.modal-card,
+.deck-matrix-grid,
+.meta-decks-grid,
+.scroll-container,
+.deck-modal-cards-preview {
+  -webkit-overflow-scrolling: touch;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -82,6 +107,42 @@ body {
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
   overflow-x: hidden;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* Mobile Quick Co-Pilot Radar Button */
+.cr-mobile-radar-btn {
+  display: none;
+  background: linear-gradient(180deg, #fde047 0%, #ca8a04 100%);
+  color: #451a03;
+  border: 1.5px solid #ffffff;
+  border-radius: 8px;
+  padding: 0.32rem 0.65rem;
+  font-family: var(--font-clash);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 3px 0 #713f12, 0 0 10px rgba(253, 224, 71, 0.4);
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.cr-mobile-radar-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #713f12;
+}
+
+@media (max-width: 900px) {
+  .cr-mobile-radar-btn {
+    display: inline-flex;
+  }
 }
 
 /* Background canvas for live floating elixir bubbles & electric sparks */
@@ -863,40 +924,55 @@ body {
 }
 
 .deck-card-unit {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 0.6rem 0.5rem;
+  background: linear-gradient(180deg, #2b3040 0%, #151822 100%);
+  border: 2px solid #475569;
+  border-radius: 12px;
+  padding: 0.55rem 0.45rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   position: relative;
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 4px 0 #0f172a, 0 6px 14px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .deck-card-unit:hover {
   transform: translateY(-3px);
-  border-color: var(--border-hover);
+  border-color: var(--cr-gold);
+  box-shadow: 0 7px 0 #0f172a, 0 10px 20px rgba(0, 0, 0, 0.7);
+}
+
+.deck-card-unit:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #0f172a;
 }
 
 .card-elixir-dot {
   position: absolute;
   top: -6px;
   left: -6px;
-  width: 22px;
-  height: 22px;
-  background: var(--elixir);
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle at 35% 35%, #ff6b9d 0%, #ff2a70 50%, #990033 100%);
   color: #fff;
-  font-family: var(--font-mono);
+  font-family: var(--font-clash);
   font-weight: 900;
-  font-size: 0.72rem;
-  border-radius: 50%;
+  font-size: 0.78rem;
+  border-radius: 50% 50% 50% 15%;
+  transform: rotate(-45deg);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 8px rgba(225, 29, 72, 0.4);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 42, 112, 0.5);
+  border: 1.5px solid #ffffff;
   z-index: 2;
+}
+
+.card-elixir-dot span {
+  transform: rotate(45deg);
 }
 
 .card-artwork {
