@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Royale — Brand Guidelines</title>
+  <link rel="icon" href="nexus_crest_cyber.jpg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+    :root {
+      --bg-dark: #000000;
+      --text-white: #ffffff;
+      --text-muted: #888888;
+      --rule-white: #ffffff;
+      
+      /* Brand Accent Colors */
+      --royale-blue: #2D85F3;
+      --royale-green: #21C49F;
+      --royale-pink: #FB62AA;
+      --royale-yellow: #F7DB1C;
+
+      /* Supporting Grays */
+      --gray-dark: #191919;
+      --gray-med: #666666;
+      --gray-norm: #CCCCCC;
+      --gray-light: #F2F2F2;
+
+      --font-headline: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #0a0a0a;
+      color: var(--text-white);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    /* Fixed Presenter Nav Bar */
+    .deck-nav-bar {
+      position: fixed;
+      top: 1rem;
+      z-index: 9999;
+      background: rgba(18, 18, 18, 0.9);
+      backdrop-filter: blur(12px);
+      border: 1px solid #333;
+      border-radius: 999px;
+      padding: 0.5rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .deck-nav-bar button {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+    .deck-nav-bar button:hover {
+      background: #333;
+      color: var(--royale-blue);
+    }
+    .deck-nav-bar .btn-print {
+      background: var(--royale-blue);
+      color: #fff;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+    }
+
+    /* 16:9 Slide Canvas */
+    .brand-slide {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-dark);
+      position: relative;
+      padding: 3.5rem 4.5rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+      border: 1px solid #1a1a1a;
+      overflow: hidden;
+      page-break-after: always;
+    }
+
+    /* Standard Slide Header Rules */
+    .slide-top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .slide-top-header::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 44%;
+      height: 2px;
+      background: var(--rule-white);
+    }
+    .slide-top-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 52%;
+      height: 2px;
+      background: var(--rule-white);
+    }
+    .slide-category {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .slide-footer-num {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 4.5rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* Typographic Elements */
+    .massive-title {
+      font-family: var(--font-headline);
+      font-size: 4.2rem;
+      font-weight: 900;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      color: #fff;
+    }
+
+    .section-lead {
+      font-size: 1.25rem;
+      line-height: 1.45;
+      font-weight: 600;
+      color: #ffffff;
+      max-width: 580px;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-body {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #b0b0b0;
+      max-width: 560px;
+    }
+
+    .subhead-caps {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--royale-green);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Bullet List */
+    .guideline-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .guideline-list li {
+      font-size: 0.95rem;
+      color: #d1d5db;
+      position: relative;
+      padding-left: 1.25rem;
+      line-height: 1.4;
+    }
+    .guideline-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* Swatch Grid */
+    .swatches-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      width: 100%;
+      max-width: 480px;
+    }
+    .swatch-card {
+      background: #ffffff;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .swatch-color-box {
+      width: 100%;
+      height: 140px;
+      position: relative;
+    }
+    .swatch-tag {
+      position: absolute;
+      top: 0.65rem;
+      left: 0.65rem;
+      font-size: 0.6rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      color: #fff;
+      background: rgba(0,0,0,0.4);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+    .swatch-info {
+      padding: 0.85rem;
+      background: #ffffff;
+      color: #000;
+    }
+    .swatch-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+    .swatch-meta {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    /* Grayscale Swatches */
+    .swatches-gray-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    /* Print Formatting */
+    @media print {
+      body {
+        background: #000;
+        padding: 0;
+        gap: 0;
+      }
+      .deck-nav-bar {
+        display: none !important;
+      }
+      .brand-slide {
+        border: none;
+        box-shadow: none;
+        width: 100vw;
+        height: 100vh;
+        max-width: none;
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Presenter Navigation -->
+  <header class="deck-nav-bar">
+    <span style="font-weight: 900; font-size: 0.85rem; color: #fff;">NEXUS ROYALE</span>
+    <span style="color: #666;">|</span>
+    <span style="font-size: 0.75rem; color: #aaa;">BRAND GUIDELINES V1.0</span>
+    <button type="button" onclick="window.print()" class="btn-print">🖨️ Export PDF / Print</button>
+  </header>
+
+  <!-- SLIDE 1: COVER -->
+  <section class="brand-slide" id="slide-1" style="justify-content: center; align-items: center;">
+    <div style="text-align: center;">
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--font-headline); font-weight: 900; font-size: 4.5rem; line-height: 0.9; letter-spacing: 0.04em; color: #fff; text-transform: uppercase;">
+        <div>NEX</div>
+        <div>US•</div>
+        <div>ROY</div>
+      </div>
+      <div style="font-family: var(--font-headline); font-size: 1.1rem; letter-spacing: 0.25em; margin-top: 1.5rem; color: #fff; font-weight: 800;">
+        NEXUS ROYALE
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: TITLE -->
+  <section class="brand-slide" id="slide-2">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="margin-top: auto; margin-bottom: auto;">
+      <h1 class="massive-title">
+        BRAND<br>GUIDELINES
+      </h1>
+    </div>
+    <div class="slide-footer-num">2</div>
+  </section>
+
+  <!-- SLIDE 3: PHILOSOPHY -->
+  <section class="brand-slide" id="slide-3">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; height: 100%;">
+      <div>
+        <h2 class="massive-title" style="font-size: 2.25rem; margin-bottom: 2rem;">BRAND GUIDELINES</h2>
+        <p class="section-lead">
+          We want our brand identity to be as high quality as the games we celebrate, which is why we have put together this brand standard.
+        </p>
+        <p class="section-body">
+          Our design is supportive rather than expressive, to give room for live player telemetry, battle analytics, and Clash Royale's legendary gameplay to shine. Inside our Brand Guidelines you’ll find written, visual and graphic elements that comprise our brand. The following pages give guidance for using them in a consistent, distinctly Nexus Royale way.
+        </p>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: center; position: relative;">
+        <div style="width: 320px; height: 320px; background: linear-gradient(135deg, #181c26 0%, #0d1117 100%); border: 3px solid #2d3748; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 2px 0 rgba(255,255,255,0.1);">
+          <div style="font-family: var(--font-headline); font-size: 3.5rem; font-weight: 900; line-height: 0.92; color: #fff; text-align: center; text-shadow: 0 10px 20px rgba(0,0,0,0.6);">
+            NEX<br>US•<br>ROY
+          </div>
+          <div style="font-size: 0.72rem; color: var(--royale-blue); font-weight: 800; letter-spacing: 0.15em; margin-top: 1rem;">
+            AUTHENTIC STANDARD
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">3</div>
+  </section>
+
+  <!-- SLIDE 4: LOGO SECTION DIVIDER -->
+  <section class="brand-slide" id="slide-4">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="margin-top: auto; margin-bottom: auto;">
+      <h1 class="massive-title">LOGO</h1>
+    </div>
+    <div class="slide-footer-num">4</div>
+  </section>
+
+  <!-- SLIDE 5: LOGO USAGE & QUICK GUIDE -->
+  <section class="brand-slide" id="slide-5">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
+      <div>
+        <h2 class="section-title">Logo</h2>
+        <p class="section-body" style="margin-bottom: 2rem;">
+          The logo is our most valuable asset. It symbolizes our mission: uniting Clash Royale competitive players with instantaneous live telemetry and elite AI tactical tools. It should never be recreated or altered.
+        </p>
+        <div class="subhead-caps">QUICK GUIDE</div>
+        <ul class="guideline-list">
+          <li>Use logo only in black or white</li>
+          <li>Black background is preferred, use white background if needed</li>
+          <li>No type or other elements should infringe on its space</li>
+          <li>On image, white logo is preferred</li>
+          <li>When color background is needed, use white logo</li>
+        </ul>
+      </div>
+      <div style="border: 1px solid #222; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #000;">
+        <div style="text-align: center;">
+          <div style="font-family: var(--font-headline); font-size: 3.8rem; font-weight: 900; line-height: 0.95; color: #fff; letter-spacing: 0.05em;">
+            NEX<br>US•<br>ROY
+          </div>
+          <div style="font-family: var(--font-headline); font-size: 0.9rem; letter-spacing: 0.2em; margin-top: 1rem; color: #fff; font-weight: 800;">
+            NEXUS ROYALE
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">5</div>
+  </section>
+
+  <!-- SLIDE 6: CLEAR SPACE -->
+  <section class="brand-slide" id="slide-6">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
+      <div>
+        <h2 class="section-title">Clear Space</h2>
+        <p class="section-body">
+          In order to make our logo identifiable, it should always be given space to breathe. Breathing is very important. The clear space is measured by the height of the letter <strong>X</strong>.
+        </p>
+      </div>
+      <div style="border: 1px solid #222; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; background: #000;">
+        <div style="position: relative; border: 1.5px dashed #444; padding: 2.5rem 3.5rem;">
+          <div style="font-family: var(--font-headline); font-size: 3.5rem; font-weight: 900; line-height: 0.95; color: #fff; text-align: center;">
+            NEX<br>US•<br>ROY
+          </div>
+          <div style="position: absolute; bottom: 0.75rem; left: 1rem; font-family: var(--font-mono); font-size: 0.65rem; color: var(--royale-green);">
+            ◄ CLEAR SPACE [X]
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">6</div>
+  </section>
+
+  <!-- SLIDE 7: LOCATION -->
+  <section class="brand-slide" id="slide-7">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="margin-bottom: 2rem;">
+      <h2 class="section-title">Location</h2>
+      <p class="section-body">
+        The primary location is centered. Preferred secondary location is bottom left or right.
+      </p>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; flex: 1;">
+      <div style="border: 1px solid #222; border-radius: 8px; position: relative; display: flex; align-items: center; justify-content: center;">
+        <div style="font-family: var(--font-headline); font-size: 1.8rem; font-weight: 900; line-height: 0.95; text-align: center; color: #fff;">
+          NEX<br>US•<br>ROY
+        </div>
+        <div style="position: absolute; bottom: 1rem; left: 1rem; font-size: 0.65rem; font-weight: 800; color: var(--royale-green); letter-spacing: 0.05em;">
+          PRIMARY LOCATION — CENTERED ON PAGE
+        </div>
+      </div>
+      <div style="border: 1px solid #222; border-radius: 8px; position: relative; padding: 1.5rem;">
+        <div style="position: absolute; bottom: 2rem; left: 2rem; font-family: var(--font-headline); font-size: 1.1rem; font-weight: 900; line-height: 0.95; color: #fff;">
+          NEX<br>US•<br>ROY
+        </div>
+        <div style="position: absolute; bottom: 2rem; right: 2rem; font-family: var(--font-headline); font-size: 1.1rem; font-weight: 900; line-height: 0.95; color: #fff;">
+          NEX<br>US•<br>ROY
+        </div>
+        <div style="position: absolute; bottom: 0.65rem; left: 1rem; font-size: 0.65rem; font-weight: 800; color: var(--royale-green); letter-spacing: 0.05em;">
+          SECONDARY LOCATION — BOTTOM LEFT OR RIGHT
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">7</div>
+  </section>
+
+  <!-- SLIDE 8: SIZE -->
+  <section class="brand-slide" id="slide-8">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 2rem;">
+      <div>
+        <h2 class="section-title">Size</h2>
+        <p class="section-body">
+          <strong>Primary</strong> — Logo height is ⅓ of short length<br>
+          <strong>Secondary</strong> — If the primary rule makes the logo look too big, ¼ of short length
+        </p>
+      </div>
+      <div>
+        <p class="section-body" style="margin-top: 2.25rem;">
+          <strong>Small</strong> — For stationery items, the logo height is ⅛ of short length<br>
+          <strong>Large</strong> — Logo height is ½ of page length, where a large logo is needed
+        </p>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; flex: 1;">
+      <div style="border: 1px solid #222; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative;">
+        <div style="font-family: var(--font-headline); font-size: 1.6rem; font-weight: 900; line-height: 0.95;">NEX<br>US•<br>ROY</div>
+        <div style="position: absolute; bottom: 0.5rem; left: 0.5rem; font-size: 0.6rem; font-weight: 800; color: var(--royale-green);">PRIMARY (⅓)</div>
+      </div>
+      <div style="border: 1px solid #222; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative;">
+        <div style="font-family: var(--font-headline); font-size: 1.2rem; font-weight: 900; line-height: 0.95;">NEX<br>US•<br>ROY</div>
+        <div style="position: absolute; bottom: 0.5rem; left: 0.5rem; font-size: 0.6rem; font-weight: 800; color: var(--royale-green);">SECONDARY (¼)</div>
+      </div>
+      <div style="border: 1px solid #222; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative;">
+        <div style="font-family: var(--font-headline); font-size: 0.75rem; font-weight: 900; line-height: 0.95;">NEX<br>US•<br>ROY</div>
+        <div style="position: absolute; bottom: 0.5rem; left: 0.5rem; font-size: 0.6rem; font-weight: 800; color: var(--royale-green);">SMALL (⅛)</div>
+      </div>
+      <div style="border: 1px solid #222; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative;">
+        <div style="font-family: var(--font-headline); font-size: 2.5rem; font-weight: 900; line-height: 0.95;">NEX<br>US•<br>ROY</div>
+        <div style="position: absolute; bottom: 0.5rem; left: 0.5rem; font-size: 0.6rem; font-weight: 800; color: var(--royale-green);">LARGE (½)</div>
+      </div>
+    </div>
+    <div class="slide-footer-num">8</div>
+  </section>
+
+  <!-- SLIDE 9: TYPOGRAPHY SECTION DIVIDER -->
+  <section class="brand-slide" id="slide-9">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="margin-top: auto; margin-bottom: auto;">
+      <h1 class="massive-title">TYPOGRAPHY</h1>
+    </div>
+    <div class="slide-footer-num">9</div>
+  </section>
+
+  <!-- SLIDE 10: TYPOGRAPHY PHILOSOPHY -->
+  <section class="brand-slide" id="slide-10">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
+      <div>
+        <h2 class="section-title">Typography</h2>
+        <p class="section-body" style="margin-bottom: 2rem;">
+          Nexus Royale has two distinct brand typefaces, <strong>Nexus Headline</strong> and <strong>Nexus Text</strong>. Paired together they create a distinct look that feels uniquely ours while honoring Supercell's playful aesthetic.
+        </p>
+        <div class="subhead-caps">NEXUS HEADLINE</div>
+        <p class="section-body" style="font-size: 0.88rem; margin-bottom: 1.5rem;">
+          Bold and geometric. Nexus Headline is used in headlines, scoreboards, and larger text — in any type that needs attention: titles, key metrics, or call outs.
+        </p>
+        <div class="subhead-caps">NEXUS TEXT</div>
+        <p class="section-body" style="font-size: 0.88rem;">
+          Nexus Text is paired for best legibility for smaller text — subheads, player tags, telemetry metrics, and body copy. It’s highly functional and timeless.
+        </p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center; justify-content: center;">
+        <div style="flex: 1; background: var(--royale-blue); border-radius: 8px; padding: 2rem 1.5rem; text-align: center; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+          <div style="font-family: var(--font-headline); font-size: 1.85rem; font-weight: 900; line-height: 1.1;">WE BELIEVE<br>IN THE POWER<br>OF CLASH</div>
+        </div>
+        <div style="flex: 1; background: #191919; border: 1px solid #333; border-radius: 8px; padding: 2rem 1.5rem; text-align: center; color: #fff;">
+          <div style="font-family: var(--font-headline); font-size: 1.85rem; font-weight: 900; line-height: 1.1;">INSTANT DATA<br>BIG IMPACT</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">10</div>
+  </section>
+
+  <!-- SLIDE 11: HEADLINE SPECIMEN -->
+  <section class="brand-slide" id="slide-11">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; height: 100%;">
+      <div>
+        <h2 class="section-title">Nexus Headline</h2>
+        <div class="subhead-caps">TYPEFACE DETAILS</div>
+        <ul class="guideline-list">
+          <li>Primary — Nexus Headline Heavy</li>
+          <li>Secondary — Nexus Headline Bold</li>
+          <li>Always all capitals</li>
+          <li>Size always large and bold</li>
+          <li>Leading: 10% of type size</li>
+          <li>Optical kerning</li>
+          <li>Tracking: -15 (Web & Desktop)</li>
+          <li>Left or center aligned</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size: 0.7rem; font-weight: 800; color: var(--royale-blue); margin-bottom: 0.5rem; text-transform: uppercase;">
+          NEXUS HEADLINE HEAVY
+        </div>
+        <div style="font-family: var(--font-headline); font-size: 2.25rem; font-weight: 900; line-height: 1.1; margin-bottom: 2.5rem; text-transform: uppercase;">
+          THE QUICK HOG RIDER JUMPS OVER THE LAZY WALL
+        </div>
+        <div style="font-size: 0.7rem; font-weight: 800; color: var(--royale-blue); margin-bottom: 0.5rem; text-transform: uppercase;">
+          NEXUS HEADLINE BOLD
+        </div>
+        <div style="font-family: var(--font-headline); font-size: 2.25rem; font-weight: 700; line-height: 1.1; text-transform: uppercase;">
+          THE QUICK HOG RIDER JUMPS OVER THE LAZY WALL
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">11</div>
+  </section>
+
+  <!-- SLIDE 12: TEXT SPECIMEN -->
+  <section class="brand-slide" id="slide-12">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; height: 100%;">
+      <div>
+        <h2 class="section-title">Nexus Text</h2>
+        <div class="subhead-caps">TYPEFACE DETAILS</div>
+        <ul class="guideline-list">
+          <li>Regular, Medium and Bold</li>
+          <li>Sentence case or all capitals</li>
+          <li>Leading: 45% of type size</li>
+          <li>Optical kerning</li>
+          <li>Tracking: 0</li>
+          <li>Left or centre aligned</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size: 0.7rem; font-weight: 800; color: var(--royale-blue); margin-bottom: 0.4rem; text-transform: uppercase;">
+          NEXUS TEXT BOLD
+        </div>
+        <div style="font-size: 1.35rem; font-weight: 800; line-height: 1.35; margin-bottom: 1.75rem;">
+          The quick Hog Rider jumps over the lazy wall
+        </div>
+        <div style="font-size: 0.7rem; font-weight: 800; color: var(--royale-blue); margin-bottom: 0.4rem; text-transform: uppercase;">
+          NEXUS TEXT MEDIUM
+        </div>
+        <div style="font-size: 1.35rem; font-weight: 500; line-height: 1.35; margin-bottom: 1.75rem;">
+          The quick Hog Rider jumps over the lazy wall
+        </div>
+        <div style="font-size: 0.7rem; font-weight: 800; color: var(--royale-blue); margin-bottom: 0.4rem; text-transform: uppercase;">
+          NEXUS TEXT REGULAR
+        </div>
+        <div style="font-size: 1.35rem; font-weight: 400; line-height: 1.35;">
+          The quick Hog Rider jumps over the lazy wall
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">12</div>
+  </section>
+
+  <!-- SLIDE 13: TYPE ALIGNMENT -->
+  <section class="brand-slide" id="slide-13">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="margin-bottom: 2rem;">
+      <h2 class="section-title">Type Alignment</h2>
+      <p class="section-body">
+        Typically type is aligned to left margin, and starts at top. Like our logo, we can also center type.
+      </p>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; flex: 1;">
+      <div style="border: 1px solid #222; border-radius: 8px; padding: 2rem; position: relative;">
+        <div style="font-family: var(--font-headline); font-size: 1.35rem; font-weight: 900; line-height: 1.2; text-transform: uppercase;">
+          THE QUICK HOG RIDER JUMPS<br>OVER THE LAZY WALL
+        </div>
+        <div style="position: absolute; bottom: 0.75rem; left: 1rem; font-size: 0.65rem; font-weight: 800; color: var(--royale-blue);">
+          PRIMARY ALIGNMENT IS TOP LEFT CORNER
+        </div>
+      </div>
+      <div style="border: 1px solid #222; border-radius: 8px; padding: 2rem; display: flex; align-items: center; justify-content: center; position: relative;">
+        <div style="font-family: var(--font-headline); font-size: 1.35rem; font-weight: 900; line-height: 1.2; text-align: center; text-transform: uppercase;">
+          THE QUICK HOG RIDER JUMPS<br>OVER THE LAZY WALL
+        </div>
+        <div style="position: absolute; bottom: 0.75rem; left: 1rem; font-size: 0.65rem; font-weight: 800; color: var(--royale-blue);">
+          SECONDARY ALIGNMENT IS CENTERED
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">13</div>
+  </section>
+
+  <!-- SLIDE 14: TYPOGRAPHY IN ACTION -->
+  <section class="brand-slide" id="slide-14">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1.35fr; gap: 4rem; height: 100%;">
+      <div>
+        <h2 class="section-title">Typography Example</h2>
+      </div>
+      <div>
+        <h2 style="font-family: var(--font-headline); font-size: 2.2rem; font-weight: 900; line-height: 1.05; margin-bottom: 1.25rem; text-transform: uppercase;">
+          NEXUS ROYALE WAS FOUNDED ON REAL-TIME TELEMETRY
+        </h2>
+        <p style="font-size: 1.05rem; font-weight: 700; color: #fff; line-height: 1.45; margin-bottom: 1.25rem;">
+          Nexus Royale is an esports data intelligence platform built to connect competitive Clash Royale players directly with live Supercell servers.
+        </p>
+        <p style="font-size: 0.88rem; line-height: 1.6; color: #a1a1aa; margin-bottom: 1.25rem;">
+          We used this simple idea to build companion tools that eliminate guesswork from competitive gaming. What if players had immediate algorithmic analysis of every interaction, elixir trade, and deck matchup right at their fingertips? An environment with zero fluff where the best players could make the biggest possible impact.
+        </p>
+        <div style="font-size: 0.85rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">
+          Uncompromised Competitive Integrity
+        </div>
+        <p style="font-size: 0.82rem; line-height: 1.5; color: #888;">
+          We believe the best gameplay insights come from direct mathematical modeling rather than guesswork. Every win probability, archetype counter, and cycle benchmark is evaluated deterministically against live ladder matches.
+        </p>
+      </div>
+    </div>
+    <div class="slide-footer-num">14</div>
+  </section>
+
+  <!-- SLIDE 15: COLOR SECTION DIVIDER -->
+  <section class="brand-slide" id="slide-15">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="margin-top: auto; margin-bottom: auto;">
+      <h1 class="massive-title">COLOR</h1>
+    </div>
+    <div class="slide-footer-num">15</div>
+  </section>
+
+  <!-- SLIDE 16: PRIMARY COLORS -->
+  <section class="brand-slide" id="slide-16">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; height: 100%;">
+      <div>
+        <h2 class="section-title">Primary Colors</h2>
+        <p class="section-body">
+          Nexus Royale has two primary colors, black and white. These are our hero colors and the bedrock of our brand. We use black and white to signify quality and focus, while most importantly, giving the vibrant arena colors and card artwork room to shine. Use these colors for type and backgrounds.
+        </p>
+      </div>
+      <div class="swatches-grid">
+        <div class="swatch-card">
+          <div class="swatch-color-box" style="background: #000000; border-bottom: 1px solid #eee;"></div>
+          <div class="swatch-info">
+            <div class="swatch-title">Nexus Black</div>
+            <div class="swatch-meta">
+              #000000<br>
+              40C 30M 30Y 100K<br>
+              PMS Black 6 C<br>
+              PMS Neutral Black U
+            </div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-color-box" style="background: #ffffff; border-bottom: 1px solid #eee;"></div>
+          <div class="swatch-info">
+            <div class="swatch-title">Nexus White</div>
+            <div class="swatch-meta">
+              #FFFFFF<br>
+              0C 0M 0Y 0K<br>
+              PMS —<br>
+              PMS —
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">16</div>
+  </section>
+
+  <!-- SLIDE 17: ACCENT COLORS -->
+  <section class="brand-slide" id="slide-17">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
+      <div>
+        <h2 class="section-title">Accent Colors</h2>
+        <p class="section-body" style="margin-bottom: 1.5rem;">
+          We want our accent colors to be fun and bright, just like Clash Royale. Accent colors should be used to highlight text, telemetry metrics, or to create UI elements.
+        </p>
+        <p class="section-body">
+          While the colors are not game specific, they share a complementary hue to the official arena palette. Accent colors should be used thoughtfully — ideally one accent color at a time.
+        </p>
+      </div>
+      <div class="swatches-grid">
+        <div class="swatch-card">
+          <div class="swatch-color-box" style="background: var(--royale-blue);">
+            <span class="swatch-tag">PRIMARY</span>
+          </div>
+          <div class="swatch-info">
+            <div class="swatch-title">Royale Blue</div>
+            <div class="swatch-meta">#2D85F3 • 80C 40M 0Y 0K • 2727C</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-color-box" style="background: var(--royale-green);">
+            <span class="swatch-tag">PRIMARY</span>
+          </div>
+          <div class="swatch-info">
+            <div class="swatch-title">Royale Green</div>
+            <div class="swatch-meta">#21C49F • 70C 0M 50Y 0K • 3265C</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-color-box" style="background: var(--royale-pink);">
+            <span class="swatch-tag">SECONDARY</span>
+          </div>
+          <div class="swatch-info">
+            <div class="swatch-title">Elixir Pink</div>
+            <div class="swatch-meta">#FB62AA • 0C 80M 0Y 0K • 212C</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-color-box" style="background: var(--royale-yellow);">
+            <span class="swatch-tag">SECONDARY</span>
+          </div>
+          <div class="swatch-info">
+            <div class="swatch-title">Crown Yellow</div>
+            <div class="swatch-meta">#F7DB1C • 5C 10M 90Y 0K • 109C</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">17</div>
+  </section>
+
+  <!-- SLIDE 18: SUPPORTING GRAYS -->
+  <section class="brand-slide" id="slide-18">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
+      <div>
+        <h2 class="section-title">Supporting Grays</h2>
+        <p class="section-body">
+          In addition to our primary and accent colors, we have a set of Supporting Grays. These help our accent colors to pop out and create hierarchy in layouts. The supporting grays are best applied in text, backgrounds and digital applications.
+        </p>
+      </div>
+      <div class="swatches-gray-grid">
+        <div class="swatch-card">
+          <div class="swatch-color-box" style="background: var(--gray-dark); height: 85px;"></div>
+          <div class="swatch-info">
+            <div class="swatch-title" style="font-size: 0.78rem;">Nexus Dark Gray</div>
+            <div class="swatch-meta">#191919</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-color-box" style="background: var(--gray-med); height: 85px;"></div>
+          <div class="swatch-info">
+            <div class="swatch-title" style="font-size: 0.78rem;">Nexus Medium Gray</div>
+            <div class="swatch-meta">#666666</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-color-box" style="background: var(--gray-norm); height: 85px;"></div>
+          <div class="swatch-info">
+            <div class="swatch-title" style="font-size: 0.78rem;">Nexus Gray</div>
+            <div class="swatch-meta">#CCCCCC</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-color-box" style="background: var(--gray-light); height: 85px;"></div>
+          <div class="swatch-info">
+            <div class="swatch-title" style="font-size: 0.78rem;">Nexus Light Gray</div>
+            <div class="swatch-meta">#F2F2F2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">18</div>
+  </section>
+
+  <!-- SLIDE 19: GRADIENTS -->
+  <section class="brand-slide" id="slide-19">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
+      <div>
+        <h2 class="section-title">Gradients</h2>
+        <p class="section-body" style="margin-bottom: 2rem;">
+          The accent colors can also be used as gradients to bring attention to specific visual elements: win rates, timelines and infographics. The gradients are best applied in digital applications like websites and presentations. Gradients should be used sparingly.
+        </p>
+        <div style="margin-bottom: 1.5rem;">
+          <div style="font-size: 0.7rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">GRADIENT A</div>
+          <div style="height: 12px; border-radius: 999px; background: linear-gradient(90deg, var(--royale-blue) 0%, var(--royale-green) 100%); margin-bottom: 0.35rem;"></div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: #888; font-family: var(--font-mono);">
+            <span>Royale Blue</span><span>Royale Green</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 0.7rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">GRADIENT B</div>
+          <div style="height: 12px; border-radius: 999px; background: linear-gradient(90deg, var(--royale-blue) 0%, var(--royale-pink) 100%); margin-bottom: 0.35rem;"></div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: #888; font-family: var(--font-mono);">
+            <span>Royale Blue</span><span>Elixir Pink</span>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <div style="width: 260px; height: 360px; background: #111; border: 2.5px solid #333; border-radius: 36px; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 16px 40px rgba(0,0,0,0.8);">
+          <div style="width: 140px; height: 140px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: conic-gradient(from 180deg, var(--royale-blue), var(--royale-pink) 72%, #222 72%); position: relative;">
+            <div style="width: 116px; height: 116px; background: #111; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+              <div style="font-family: var(--font-headline); font-size: 1.75rem; font-weight: 900; color: #fff;">72%</div>
+              <div style="font-size: 0.55rem; font-weight: 800; color: #888; text-transform: uppercase;">WIN RATE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer-num">19</div>
+  </section>
+
+  <!-- SLIDE 20: COLOR USAGE RATIO -->
+  <section class="brand-slide" id="slide-20">
+    <div class="slide-top-header">
+      <div class="slide-category">Brand Guidelines</div>
+    </div>
+    <div style="margin-bottom: 3rem;">
+      <h2 class="section-title">Color Usage Ratio</h2>
+      <p class="section-body">
+        This chart represents the overall color usage ratio in our digital touchpoints. Please note — this ratio should be taken as a guide rather than a rule.
+      </p>
+    </div>
+    <div style="margin-top: 4rem;">
+      <div style="display: flex; justify-content: space-between; font-family: var(--font-headline); font-weight: 900; margin-bottom: 0.75rem;">
+        <div>
+          <span style="font-size: 2.5rem; color: #fff;">70%</span>
+          <div style="font-size: 0.7rem; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">PRIMARY COLORS</div>
+        </div>
+        <div style="text-align: right;">
+          <span style="font-size: 2.5rem; color: #fff;">30%</span>
+          <div style="font-size: 0.7rem; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">ACCENT COLORS</div>
+        </div>
+      </div>
+      <div style="display: flex; height: 36px; border-radius: 4px; overflow: hidden; width: 100%;">
+        <div style="width: 70%; background: #000; border: 1px solid #333;"></div>
+        <div style="width: 30%; background: linear-gradient(90deg, var(--royale-blue) 0%, var(--royale-green) 100%);"></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; font-weight: 800; color: #fff; margin-top: 1rem; letter-spacing: 0.05em;">
+        <span>▶ COLOR USAGE RATIO</span>
+      </div>
+    </div>
+    <div class="slide-footer-num">20</div>
+  </section>
+
+</body>
+</html>
