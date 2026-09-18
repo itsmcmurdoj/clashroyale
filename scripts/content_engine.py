@@ -658,11 +658,122 @@ def generate_post_9():
         "caption": caption
     }
 
+# POST 10: Day 4, 11:00 AM EDT
+def generate_post_10():
+    r1 = [
+        ("executioner_evo.png", "🟣 EVO EXEC", "#c084fc"),
+        ("knight_hero.png", "🟡 HERO KNIGHT", "#fde047"),
+        ("hog-rider.png", "HOG RIDER", "#e2e8f0"),
+        ("guards.png", "GUARDS", "#e2e8f0")
+    ]
+    r2 = [
+        ("freeze.png", "FREEZE SPELL", "#e2e8f0"),
+        ("zap_evo.png", "🟣 EVO ZAP", "#c084fc"),
+        ("valkyrie.png", "VALKYRIE", "#e2e8f0"),
+        ("baby-dragon.png", "BABY DRAGON", "#e2e8f0")
+    ]
+    generate_meta_spotlight_generic(
+        "10 / PRO SPOTLIGHT",
+        "MUK'S 14,030 TROPHY CONTROL: EXECUTIONER FREEZE",
+        "SEASON 87 TOP 1K LADDER • UNBEATEN DEFENSIVE ARCHETYPE",
+        "64.2% WIN RATE",
+        "PILOT: MUK (#Y0JJY80) • THE DARKNESS",
+        "AVG ELIXIR: 3.6 • 4-CARD FAST CYCLE: 9 ELIXIR",
+        r1, r2,
+        "post_10_muk_spotlight.jpg"
+    )
+    caption = (
+        "👑 PRO BUILD SPOTLIGHT: Muk's 14,030 Trophy Executioner Freeze\n\n"
+        "Ranked inside the top echelon of the global leaderboard, player Muk (#Y0JJY80) from The Darkness clan has piloted this unkillable defense into a 64.2% win rate:\n\n"
+        "Tactical Deck Engine:\n"
+        "🟣 Evo Slot: Executioner (Penetrating boomerang cleave)\n"
+        "🟡 Hero Slot: Hero Knight (1-Elixir Iron Bulwark absorption)\n"
+        "❄️ Surprise Finisher: Freeze (Freezes opponent counters for guaranteed Hog damage)\n\n"
+        "Full 8 Cards: Executioner, Hero Knight, Hog Rider, Guards, Freeze, Evo Zap, Valkyrie, Baby Dragon.\n\n"
+        "⚔️ 1-Tap Copy this deck directly into your Clash Royale app at nexusroyale.online (Link in bio).\n\n"
+        "#ClashRoyale #Muk #TheDarkness #ClashRoyaleDecks #NexusRoyale #Esports #TopLadder"
+    )
+    return {
+        "id": "post_10_muk_spotlight",
+        "title": "Pro Spotlight: Muk 14,030 Trophy Executioner Freeze",
+        "dueAt": "2026-09-21T15:00:00.000Z",
+        "image": "queue/post_10_muk_spotlight.jpg",
+        "caption": caption
+    }
+
+# POST 11: Day 4, 3:30 PM EDT
+def generate_post_11():
+    target = (
+        "graveyard.png",
+        "GRAVEYARD SPELL",
+        "Cost: 5 Elixir • Legendary",
+        "Spawns 15 continuous skeletons across 9 seconds directly onto your Crown Tower."
+    )
+    counters = [
+        ("guards.png", "GUARDS SURROUND", "+2 ELIXIR TRADE", "Physical shields prevent single-target overwhelm while Crown Tower cleans up.", "#10b981"),
+        ("poison.png", "POISON AREA DENIAL", "+1 ELIXIR TRADE", "Matching 8-second tick damage eliminates every spawned skeleton the instant it surfaces.", "#10b981"),
+        ("valkyrie.png", "VALKYRIE 360 AXE SWEEP", "+1 ELIXIR TRADE", "360-degree axe spin cleaves multiple skeletons every hit, converting into full counter-push.", "#10b981")
+    ]
+    generate_counter_guide_generic(
+        "11 / TACTICAL DECODE",
+        "HOW TO COUNTER GRAVEYARD SPELL PUSHES",
+        target,
+        counters,
+        "post_11_counter_graveyard.jpg"
+    )
+    caption = (
+        "🧠 TACTICAL DECODE: How to Completely Neutralize Graveyard (+2 Trade)\n\n"
+        "Graveyard's randomized RNG spawn pattern can overwhelm towers if defended with single-target troops. Here are the 3 frame-perfect trades used by CRL Champions:\n\n"
+        "1. GUARDS (+2 Trade): 3 shielded skeletons divide tower aggro and eliminate skeletons with 0 tower HP loss.\n"
+        "2. POISON (+1 Trade): Full area suppression kills every skeleton in 1 tick.\n"
+        "3. VALKYRIE (+1 Trade): 360 splash spin clears the entire graveyard zone while staying at full HP.\n\n"
+        "Simulate any card matchup live at nexusroyale.online (Link in bio).\n\n"
+        "#ClashRoyale #Graveyard #ClashRoyaleStrategy #NexusRoyale #GamingTips #Supercell"
+    )
+    return {
+        "id": "post_11_counter_graveyard",
+        "title": "Tactical Guide: Counter Graveyard Pushes",
+        "dueAt": "2026-09-21T19:30:00.000Z",
+        "image": "queue/post_11_counter_graveyard.jpg",
+        "caption": caption
+    }
+
+# POST 12: Day 4, 8:00 PM EDT
+def generate_post_12():
+    p1 = ("Player 1 / Heavy Anchor & Cleave", "Avg Elixir: 4.1", ["pekka_evo.png", "executioner_evo.png", "tornado.png", "zap.png"])
+    p2 = ("Player 2 / Spell Pressure & Swarm Control", "Avg Elixir: 3.4", ["graveyard.png", "poison.png", "knight_hero.png", "baby-dragon.png"])
+    generate_2v2_radar_generic(
+        "12 / 2V2 COMPETITIVE LEAGUE",
+        "PEKKA EXECUTIONER + TORNADO GRAVEYARD",
+        "GLOBAL 2V2 LEAGUE • DUAL PRESSURE BEATDOWN",
+        "63.5% DUO WIN RATE",
+        "HEAVY AXE CLEAVE + CONTINUOUS SPELL THREAT",
+        p1, p2,
+        "post_12_2v2_pekka_exec.jpg"
+    )
+    caption = (
+        "⚡ 2V2 RADAR: PEKKA Executioner + Tornado Graveyard (63.5% Win Rate)\n\n"
+        "The ultimate high-ladder 2v2 synergy: Player 1 controls space while Player 2 punishes opposite lane tower rotations:\n\n"
+        "Synergy Playbook:\n"
+        "1. Player 1 deploys Evo PEKKA and Executioner\n"
+        "2. When opponent drops defensive swarms, Player 1 Tornados them into Executioner's axe trajectory\n"
+        "3. Player 2 instantly drops Graveyard + Poison on the opposite low-elixir lane for the guaranteed 3-Crown\n\n"
+        "Test your 2v2 partner synergy and live stats at nexusroyale.online (Link in bio).\n\n"
+        "#ClashRoyale #2v2 #PEKKA #Executioner #NexusRoyale #Competitive"
+    )
+    return {
+        "id": "post_12_2v2_pekka_exec",
+        "title": "2v2 Radar: PEKKA Executioner + Tornado Graveyard",
+        "dueAt": "2026-09-22T00:00:00.000Z",
+        "image": "queue/post_12_2v2_pekka_exec.jpg",
+        "caption": caption
+    }
+
 # =============================================================
 # MAIN ORCHESTRATOR
 # =============================================================
 def main():
-    print(f"[{datetime.now().isoformat()}] Running Nexus Royale 3-Day 9-Post Content Engine...")
+    print(f"[{datetime.now().isoformat()}] Running Nexus Royale Multi-Day Content Engine...")
     
     posts = [
         generate_post_1(),
@@ -673,7 +784,10 @@ def main():
         generate_post_6(),
         generate_post_7(),
         generate_post_8(),
-        generate_post_9()
+        generate_post_9(),
+        generate_post_10(),
+        generate_post_11(),
+        generate_post_12()
     ]
     
     # Mirror generated graphics from Socials/queue/ to V1/queue/ for GitHub sync
