@@ -967,11 +967,9 @@ const App = {
       openBtn.href = links.webLink;
       openBtn.onclick = (e) => {
         WebAudioFX.playClick();
+        // Supercell Universal Link automatically launches Clash Royale on mobile devices
         if (/iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase())) {
-          window.location.href = links.deepLink;
-          setTimeout(() => {
-            window.open(links.webLink, "_blank");
-          }, 400);
+          window.location.href = links.webLink;
           e.preventDefault();
         }
       };
@@ -979,6 +977,23 @@ const App = {
 
     if (urlInput) {
       urlInput.value = links.webLink;
+    }
+
+    const qrImg = document.getElementById("deck-modal-qr-img");
+    if (qrImg && links.webLink) {
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(links.webLink)}`;
+    }
+
+    const quickCopyBtn = document.getElementById("deck-modal-quick-copy-btn");
+    if (quickCopyBtn) {
+      quickCopyBtn.onclick = () => {
+        WebAudioFX.playSuccess();
+        this.copyToClipboard(links.webLink).then(() => {
+          quickCopyBtn.textContent = "COPIED!";
+          setTimeout(() => { quickCopyBtn.textContent = "COPY"; }, 2000);
+          this.showToast("In-game deck link copied to clipboard!");
+        });
+      };
     }
 
     if (copyBtn) {

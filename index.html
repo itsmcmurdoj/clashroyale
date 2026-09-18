@@ -1205,6 +1205,15 @@
           <input type="text" id="deck-modal-url-input" readonly style="flex: 1; min-width: 0; background: transparent; border: none; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); outline: none;">
           <button type="button" id="deck-modal-quick-copy-btn" class="btn-copy-code" style="padding: 0.2rem 0.6rem; font-size: 0.68rem; flex-shrink: 0;">COPY</button>
         </div>
+
+        <!-- Desktop QR Code for instant phone scan -->
+        <div id="deck-modal-qr-box" style="margin-top: 0.85rem; padding: 0.75rem; background: #ffffff; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 0.85rem;">
+          <img id="deck-modal-qr-img" src="" alt="Scan QR" style="width: 76px; height: 76px; border-radius: 4px; display: block; flex-shrink: 0;">
+          <div>
+            <div style="color: #080a10; font-size: 0.75rem; font-weight: 800;">📱 Playing on Mobile?</div>
+            <div style="color: #475569; font-size: 0.68rem; line-height: 1.35; margin-top: 0.15rem;">Point your iPhone or Android camera at this code to open and copy this deck directly into Clash Royale!</div>
+          </div>
+        </div>
       </div>
 
       <div class="modal-footer" style="padding: 0.75rem 1.25rem; display: flex; justify-content: flex-end;">
