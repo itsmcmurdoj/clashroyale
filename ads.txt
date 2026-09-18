@@ -1,0 +1,5 @@
+# Ezoic Ads.txt — managed via srv.adstxtmanager.com
+# This file is automatically kept current by Ezoic.
+# See: https://srv.adstxtmanager.com/19390/nexusroyale.online
+
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0

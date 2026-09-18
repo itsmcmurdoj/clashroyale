@@ -33,6 +33,14 @@ class NexusHandler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
 
     def do_GET(self):
+        # Ezoic ads.txt redirect — must be served from root of domain
+        if self.path == '/ads.txt':
+            self.send_response(301)
+            self.send_header('Location', 'https://srv.adstxtmanager.com/19390/nexusroyale.online')
+            self.send_header('Cache-Control', 'no-cache')
+            self.end_headers()
+            return
+
         if self.path.startswith('/api/clashroyale/'):
             target_subpath = self.path[len('/api/clashroyale/'):]
             
