@@ -1557,10 +1557,24 @@ const App = {
     this.showToast(`👑 Synced ${this.activePlayer.name} (${this.activePlayer.tag}) Telemetry!`);
   },
 
+  updateTopBarPlayerStats: function() {
+    if (!this.activePlayer) return;
+    const kingEl = document.querySelector(".cr-king-badge");
+    const goldEl = document.getElementById("top-gold-count");
+    const lvl = this.activePlayer.expLevel || 15;
+    if (kingEl) kingEl.textContent = (lvl > 50) ? Math.min(15, Math.floor(lvl / 5)) : lvl;
+    if (goldEl) {
+      const wins = this.activePlayer.wins || 5000;
+      const simulatedGold = Math.min(5000000, wins * 250);
+      goldEl.textContent = simulatedGold >= 1000000 ? `${(simulatedGold / 1000000).toFixed(1)}M` : `${Math.floor(simulatedGold / 1000)}K`;
+    }
+  },
+
   // --- 7. RENDER PLAYER PROFILE DASHBOARD ---
   renderPlayerDashboard: function() {
     const p = this.activePlayer;
     if (!p) return;
+    this.updateTopBarPlayerStats();
 
     const nameEl = document.getElementById("profile-name");
     const tagEl = document.getElementById("profile-tag");

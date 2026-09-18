@@ -25,35 +25,76 @@ os.makedirs(QUEUE_DIR, exist_ok=True)
 os.makedirs(V1_QUEUE_DIR, exist_ok=True)
 os.makedirs(CARDS_DIR, exist_ok=True)
 
-FONT_PATH = "/System/Library/Fonts/HelveticaNeue.ttc"
+LILITA_FONT_PATH = "/Users/jacksonmcmurdo/Desktop/Nexus Royale/Brand/fonts/LilitaOne-Regular.ttf"
+HELVETICA_FONT_PATH = "/System/Library/Fonts/HelveticaNeue.ttc"
 
-def get_font(size, bold=False):
+def get_font(size, bold=False, clash=False):
+    if clash and os.path.exists(LILITA_FONT_PATH):
+        try:
+            return ImageFont.truetype(LILITA_FONT_PATH, size)
+        except Exception:
+            pass
     index = 1 if bold else 0
     try:
-        return ImageFont.truetype(FONT_PATH, size, index=index)
+        return ImageFont.truetype(HELVETICA_FONT_PATH, size, index=index)
     except Exception:
         return ImageFont.load_default()
 
 def create_base_canvas():
-    return Image.new("RGB", (1080, 1080), color="#090d16")
+    # In-game royal blue dark slate canvas with gold border
+    img = Image.new("RGB", (1080, 1080), color="#080e1a")
+    draw = ImageDraw.Draw(img)
+    # Subtle vertical gradient from #132240 at top to #070c16 at bottom
+    for i in range(1080):
+        ratio = i / 1080
+        r = int(19 - (12 * ratio))
+        g = int(34 - (22 * ratio))
+        b = int(64 - (42 * ratio))
+        draw.line([(0, i), (1080, i)], fill=(r, g, b))
+    
+    # Outer gold royal border (Clash style)
+    draw.rectangle([(16, 16), (1064, 1064)], outline="#ca8a04", width=3)
+    draw.rectangle([(22, 22), (1058, 1058)], outline="#854d0e", width=1)
+    
+    # Gold corner accents (Clash rivets)
+    corners = [(16, 16), (1064, 16), (16, 1064), (1064, 1064)]
+    for cx, cy in corners:
+        draw.ellipse([(cx-6, cy-6), (cx+6, cy+6)], fill="#facc15", outline="#713f12", width=2)
+    
+    return img
 
 def draw_standard_header(draw, category, headline):
-    # Top Brand Mark
-    draw.text((70, 55), "NEXUS ", font=get_font(22, bold=True), fill="#ffffff")
-    bbox = draw.textbbox((70, 55), "NEXUS ", font=get_font(22, bold=True))
-    draw.text((bbox[2], 55), "ROYALE", font=get_font(22, bold=True), fill="#d8b878")
+    # Top Brand Mark with Lilita One font
+    draw.text((70, 48), "NEXUS ROYALE", font=get_font(28, clash=True), fill="#facc15")
     
-    # Category Kicker
-    draw.text((70, 95), category.upper(), font=get_font(15, bold=True), fill="#26ece8")
+    # Category Pill
+    cat_text = f"⚡ {category.upper()}"
+    bbox = draw.textbbox((0, 0), cat_text, font=get_font(15, bold=True))
+    draw.rounded_rectangle([(70, 88), (70 + (bbox[2] - bbox[0]) + 24, 116)], radius=12, fill="#1e3a8a", outline="#3b82f6", width=2)
+    draw.text((82, 93), cat_text, font=get_font(14, bold=True), fill="#93c5fd")
     
-    # Headline
-    draw.text((70, 122), headline.upper(), font=get_font(42, bold=True), fill="#ffffff", spacing=6)
+    # Headline in Clash display font with drop shadow
+    draw.text((72, 132), headline.upper(), font=get_font(42, clash=True), fill="#000000")
+    draw.text((70, 130), headline.upper(), font=get_font(42, clash=True), fill="#ffffff")
 
 def draw_standard_footer(draw):
-    draw.line([(70, 1000), (1010, 1000)], fill="#1e293b", width=1)
-    draw.text((70, 1018), "nexusroyale.online", font=get_font(18, bold=False), fill="#64748b")
-    draw.text((350, 1018), "Unofficial Supercell Fan Content • supercell.com/fan-content-policy", font=get_font(13, bold=False), fill="#475569")
-    draw.text((820, 1018), "CODE: NEXUS", font=get_font(18, bold=True), fill="#26ece8")
+    draw.line([(60, 975), (1020, 975)], fill="#334155", width=2)
+    
+    # In-Game Green 3D Push-Button Call To Action
+    # 3D bottom bevel
+    draw.rounded_rectangle([(70, 915), (1010, 965)], radius=14, fill="#14532d")
+    # Top button surface
+    draw.rounded_rectangle([(70, 910), (1010, 960)], radius=14, fill="#22c55e", outline="#14532d", width=2)
+    cta_txt = "⚡ 1-TAP COPY IN CLASH ROYALE: NEXUSROYALE.ONLINE"
+    cbox = draw.textbbox((0, 0), cta_txt, font=get_font(21, clash=True))
+    cx = (1080 - (cbox[2] - cbox[0])) // 2
+    draw.text((cx + 1, 924 + 1), cta_txt, font=get_font(21, clash=True), fill="#052e16")
+    draw.text((cx, 924), cta_txt, font=get_font(21, clash=True), fill="#ffffff")
+    
+    # Compliance & Creator Code
+    draw.text((70, 992), "Unofficial Fan Content • Not affiliated with Supercell", font=get_font(14, bold=False), fill="#64748b")
+    draw.text((760, 992), "CREATOR CODE: NEXUS", font=get_font(16, clash=True), fill="#facc15")
+
 
 def draw_wrapped_text(draw, pos, text, font, fill, max_width, line_spacing=6):
     words = text.split()

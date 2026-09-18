@@ -132,7 +132,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="shortcut icon" href="nexus_crest_cyber.jpg">
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260918_6">
 </head>
 <body>
 
@@ -150,9 +150,10 @@
     </button>
   </div>
 
-  <!-- 2. Minimalist Esports Top Navigation -->
+  <!-- 2. Authentic Clash Royale In-Game Top Navigation -->
   <header class="top-nav">
     <div class="brand-group" id="btn-brand">
+      <div class="cr-king-badge" title="King Tower Level 15 (Elite)">15</div>
       <div class="brand-symbol">
         <img src="nexus_crest_cyber.jpg" alt="Nexus Royale Crest" class="brand-crest-img">
       </div>
@@ -168,17 +169,24 @@
       <button class="nav-btn" data-tab="meta">PRO META</button>
       <button class="nav-btn" data-tab="studio">DECK STUDIO</button>
       <button class="nav-btn" data-tab="simulator">SIMULATOR</button>
-      <button class="nav-btn" data-tab="videos">🎬 VIDEOS <span class="hot-tag">NEW</span></button>
+      <button class="nav-btn" data-tab="videos">🎬 CLASH TV <span class="hot-tag">NEW</span></button>
       <button class="nav-btn active" data-tab="account" id="nav-btn-account" style="display: none;">MY PROFILE</button>
     </nav>
 
-    <!-- Nav Actions: SFX Toggle, Install App & API Health -->
+    <!-- In-Game Currency Status Bar & Nav Actions -->
     <div class="nav-actions">
-      <button type="button" class="btn-install-app" id="btn-install-pwa" title="Install App (100% Free)">
+      <!-- Currency Status Pills -->
+      <div class="cr-status-bar" id="cr-status-bar">
+        <div class="cr-resource-pill gold-pill" title="Live Gold Reserve">🪙 <span id="top-gold-count">1.25M</span></div>
+        <div class="cr-resource-pill gem-pill" title="Clash Gems">💎 <span id="top-gem-count">1,450</span></div>
+        <div class="cr-resource-pill hero-coin-pill" title="Season 87 Hero Coins (Cap: 200)">⚡ <span>200/200</span></div>
+      </div>
+
+      <button type="button" class="btn-install-app cr-btn-green" id="btn-install-pwa" title="Install App (100% Free)" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;">
         <span class="install-icon">📲</span> <span class="install-txt">GET APP</span>
       </button>
 
-      <button type="button" class="audio-toggle-btn on" id="btn-toggle-audio" title="Toggle Web Audio SFX">
+      <button type="button" class="audio-toggle-btn on" id="btn-toggle-audio" title="Toggle Web Audio SFX" style="border-radius: 10px;">
         <span id="audio-icon">🔊</span> <span id="audio-txt">SFX ON</span>
       </button>
 
@@ -186,10 +194,6 @@
         <span class="status-dot"></span>
         <span id="chip-player-name">Muk</span>
         <button class="btn-switch-user" id="btn-switch-account" title="Switch Account">✕</button>
-      </div>
-
-      <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--win); display: flex; align-items: center; gap: 0.35rem;">
-        <span class="status-dot"></span> LIVE API
       </div>
     </div>
   </header>
@@ -1208,36 +1212,31 @@
     </div>
   </div>
 
-  <!-- Mobile Persistent App Bottom Dock (iOS/Android Native Style) -->
+  <!-- Mobile Persistent App Bottom Dock (Official 5 Clash Royale Tabs) -->
   <nav class="mobile-bottom-dock" id="mobile-bottom-dock">
-    <button type="button" class="nav-btn dock-btn" data-tab="account" id="dock-btn-profile">
-      <span class="dock-icon">👑</span>
-      <span class="dock-label">Profile</span>
+    <button type="button" class="nav-btn dock-btn" data-tab="gateway" id="dock-btn-shop">
+      <span class="dock-icon">🛒</span>
+      <span class="dock-label">Shop</span>
       <span class="dock-pip"></span>
     </button>
-    <button type="button" class="nav-btn dock-btn" data-tab="battles" id="dock-btn-battles">
-      <span class="dock-icon">⚔️</span>
-      <span class="dock-label">Battles</span>
-      <span class="dock-pip"></span>
-    </button>
-    <button type="button" class="nav-btn dock-btn" data-tab="radar" id="dock-btn-radar">
-      <span class="dock-icon">⚡</span>
-      <span class="dock-label">2v2 Radar</span>
-      <span class="dock-pip"></span>
-    </button>
-    <button type="button" class="nav-btn dock-btn" data-tab="heroes" id="dock-btn-heroes">
+    <button type="button" class="nav-btn dock-btn" data-tab="heroes" id="dock-btn-cards">
       <span class="dock-icon">🃏</span>
-      <span class="dock-label">Heroes</span>
+      <span class="dock-label">Cards</span>
       <span class="dock-pip"></span>
     </button>
-    <button type="button" class="nav-btn dock-btn" data-tab="studio" id="dock-btn-studio">
-      <span class="dock-icon">🛠️</span>
-      <span class="dock-label">Studio</span>
+    <button type="button" class="nav-btn dock-btn active" data-tab="account" id="dock-btn-battle">
+      <span class="dock-icon">⚔️</span>
+      <span class="dock-label">Battle</span>
       <span class="dock-pip"></span>
     </button>
-    <button type="button" class="nav-btn dock-btn" data-tab="videos" id="dock-btn-videos">
-      <span class="dock-icon">🎬</span>
-      <span class="dock-label">Videos</span>
+    <button type="button" class="nav-btn dock-btn" data-tab="radar" id="dock-btn-social">
+      <span class="dock-icon">🛡️</span>
+      <span class="dock-label">Social</span>
+      <span class="dock-pip"></span>
+    </button>
+    <button type="button" class="nav-btn dock-btn" data-tab="videos" id="dock-btn-tv">
+      <span class="dock-icon">🏆</span>
+      <span class="dock-label">Clash TV</span>
       <span class="dock-pip"></span>
     </button>
   </nav>
@@ -1352,15 +1351,15 @@
           <!-- Populated by JS -->
         </div>
 
-        <div class="deck-modal-actions-list" style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1.2rem;">
-          <!-- 1. Direct App Launcher -->
-          <a id="deck-modal-open-btn" href="#" target="_blank" class="btn-primary-action" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem; font-size: 0.95rem; font-weight: 900; background: linear-gradient(135deg, var(--cyan) 0%, var(--gold) 100%); color: #080a10; text-decoration: none; border-radius: var(--radius-sm); box-shadow: 0 0 20px rgba(38, 236, 232, 0.4);">
-            ⚔️ Open in Clash Royale App
+        <div class="deck-modal-actions-list" style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.2rem;">
+          <!-- 1. Direct In-Game App Launcher -->
+          <a id="deck-modal-open-btn" href="#" target="_blank" class="cr-btn-yellow" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.95rem; font-size: 1.05rem; text-decoration: none;">
+            ⚔️ OPEN & COPY IN CLASH ROYALE
           </a>
 
-          <!-- 2. Copy Link to Clipboard -->
-          <button type="button" class="btn-secondary" id="deck-modal-copy-btn" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; font-size: 0.85rem; font-weight: 800; background: var(--bg-surface-elevated); border: 1px solid var(--border-hover); color: #fff;">
-            📋 Copy Shareable Link
+          <!-- 2. Tactile Green Copy Link Button -->
+          <button type="button" class="cr-btn-green" id="deck-modal-copy-btn" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem; font-size: 0.92rem;">
+            📋 COPY IN-GAME DECK LINK
           </button>
         </div>
 
@@ -1453,8 +1452,8 @@
 
   <div class="toast-bar" id="toast-bar">Copied to clipboard!</div>
 
-  <script src="cards-data.js?v=20260918_5"></script>
-  <script src="simulator.js?v=20260918_5"></script>
-  <script src="app.js?v=20260918_5"></script>
+  <script src="cards-data.js?v=20260918_6"></script>
+  <script src="simulator.js?v=20260918_6"></script>
+  <script src="app.js?v=20260918_6"></script>
 </body>
 </html>

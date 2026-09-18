@@ -2,45 +2,59 @@
    NEXUS ROYALE V2 - ESPORTS INTELLIGENCE & AUTONOMOUS COMPANY ENGINE (2026)
    ========================================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap");
 
 :root {
-  /* Nexus Cyber Crest Palette: Obsidian, Champagne Titanium Gold & Prismatic Arctic Cyan */
-  --bg-black: #080A10;
-  --bg-surface: #0C111C;
-  --bg-surface-elevated: #111827;
-  --bg-card: #0F1524;
+  /* Nexus Cyber Crest Palette + Clash Royale In-Game Royal Palette */
+  --bg-black: #060913;
+  --bg-surface: #0a1122;
+  --bg-surface-elevated: #101c36;
+  --bg-card: #0d172e;
   
-  --border-subtle: #19233A;
-  --border-hover: #26385C;
-  --border-focus: #26ECE8;
+  --cr-royal-blue: #1e3a8a;
+  --cr-dark-blue: #0f172a;
+  --cr-gold: #facc15;
+  --cr-gold-shadow: #854d0e;
+  --cr-green: #22c55e;
+  --cr-green-shadow: #14532d;
+  --cr-blue: #3b82f6;
+  --cr-blue-shadow: #1e3a8a;
+  --cr-red: #ef4444;
+  --cr-red-shadow: #991b1b;
+  --cr-elixir: #e11d48;
+  --cr-wood: #2d1810;
   
-  --text-main: #F1F5F9;
-  --text-secondary: #94A3B8;
-  --text-muted: #5A6B88;
+  --border-subtle: #1e293b;
+  --border-hover: #334155;
+  --border-focus: #facc15;
   
-  --gold: #D8B878;
-  --gold-light: #EBD4A2;
-  --gold-glow: rgba(216, 184, 120, 0.28);
-  --gold-subtle: rgba(216, 184, 120, 0.12);
+  --text-main: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
   
-  --cyan: #26ECE8;
-  --cyan-bright: #68FFFA;
-  --cyan-glow: rgba(38, 236, 232, 0.35);
-  --cyan-subtle: rgba(38, 236, 232, 0.12);
+  --gold: #facc15;
+  --gold-light: #fef08a;
+  --gold-glow: rgba(250, 204, 21, 0.35);
+  --gold-subtle: rgba(250, 204, 21, 0.12);
+  
+  --cyan: #38bdf8;
+  --cyan-bright: #7dd3fc;
+  --cyan-glow: rgba(56, 189, 248, 0.35);
+  --cyan-subtle: rgba(56, 189, 248, 0.12);
 
-  --elixir: #E11D48;
+  --elixir: #e11d48;
   --elixir-subtle: rgba(225, 29, 72, 0.14);
-  --win: #10B981;
-  --loss: #EF4444;
-  --blue: #38BDF8;
-  --purple: #A855F7;
+  --win: #22c55e;
+  --loss: #ef4444;
+  --blue: #3b82f6;
+  --purple: #a855f7;
   
   --radius-sm: 8px;
   --radius-md: 14px;
-  --radius-lg: 22px;
+  --radius-lg: 20px;
   --radius-full: 9999px;
   
+  --font-clash: "Lilita One", "Plus Jakarta Sans", sans-serif;
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
@@ -3223,3 +3237,221 @@ html, body {
   color: var(--text-muted);
   font-family: var(--font-mono);
 }
+
+/* ==========================================================================
+   OFFICIAL CLASH ROYALE IN-GAME UI ARCHITECTURE (FAN CONTENT COMPLIANT)
+   ========================================================================== */
+
+/* --- 1. Gaming Display Typography & Text Strokes --- */
+.section-title,
+.hero-card-title,
+.deckai-vs-badge,
+.brand-text,
+.cr-text,
+.pwa-modal-title {
+  font-family: var(--font-clash) !important;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 0 #000, 0 4px 10px rgba(0,0,0,0.8);
+}
+
+/* --- 2. Authentic 3D Tactile Push-Buttons --- */
+.btn-primary-action,
+.btn-start-recall,
+.hero-btn-primary,
+.cr-btn,
+.cr-btn-yellow {
+  font-family: var(--font-clash) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1.05rem;
+  color: #ffffff !important;
+  background: linear-gradient(180deg, #fef08a 0%, #facc15 30%, #eab308 65%, #ca8a04 100%) !important;
+  border: 2px solid #713f12 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 5px 0 #713f12, 0 8px 16px rgba(0, 0, 0, 0.45) !important;
+  -webkit-text-stroke: 1px #592e07;
+  text-shadow: 0 2px 2px rgba(0,0,0,0.8);
+  cursor: pointer;
+  transition: transform 0.06s ease, box-shadow 0.06s ease, filter 0.12s ease;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary-action:hover,
+.btn-start-recall:hover,
+.hero-btn-primary:hover,
+.cr-btn-yellow:hover {
+  filter: brightness(1.08);
+}
+
+.btn-primary-action:active,
+.btn-start-recall:active,
+.hero-btn-primary:active,
+.cr-btn-yellow:active {
+  transform: translateY(4px) !important;
+  box-shadow: 0 1px 0 #713f12, 0 2px 6px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Green Action Buttons (Confirm / Copy / Share) */
+.btn-copy-action,
+.cr-btn-green,
+#deck-modal-btn-copy,
+#deck-modal-btn-quick-copy,
+.btn-copy-code {
+  font-family: var(--font-clash) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #ffffff !important;
+  background: linear-gradient(180deg, #86efac 0%, #4ade80 30%, #22c55e 65%, #16a34a 100%) !important;
+  border: 2px solid #14532d !important;
+  border-radius: 12px !important;
+  box-shadow: 0 5px 0 #14532d, 0 8px 16px rgba(0, 0, 0, 0.45) !important;
+  -webkit-text-stroke: 1px #052e16;
+  text-shadow: 0 2px 2px rgba(0,0,0,0.8);
+  cursor: pointer;
+  transition: transform 0.06s ease, box-shadow 0.06s ease, filter 0.12s ease;
+  user-select: none;
+}
+
+.btn-copy-action:active,
+.cr-btn-green:active,
+#deck-modal-btn-copy:active,
+#deck-modal-btn-quick-copy:active,
+.btn-copy-code:active {
+  transform: translateY(4px) !important;
+  box-shadow: 0 1px 0 #14532d, 0 2px 6px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Blue Action Buttons (Filter / Secondary / Info) */
+.cr-btn-blue,
+.filter-btn-hero.active {
+  font-family: var(--font-clash) !important;
+  color: #ffffff !important;
+  background: linear-gradient(180deg, #93c5fd 0%, #60a5fa 30%, #3b82f6 65%, #2563eb 100%) !important;
+  border: 2px solid #1e3a8a !important;
+  box-shadow: 0 4px 0 #1e3a8a, 0 6px 12px rgba(0, 0, 0, 0.4) !important;
+  -webkit-text-stroke: 1px #172554;
+  text-shadow: 0 2px 2px rgba(0,0,0,0.8);
+  cursor: pointer;
+  transition: transform 0.06s ease, box-shadow 0.06s ease;
+}
+
+.cr-btn-blue:active,
+.filter-btn-hero.active:active {
+  transform: translateY(3px) !important;
+  box-shadow: 0 1px 0 #1e3a8a !important;
+}
+
+/* --- 3. In-Game Clash Top Bar & Currency Status Pills --- */
+.top-nav {
+  background: linear-gradient(180deg, #132240 0%, #0d172e 100%) !important;
+  border-bottom: 2px solid #ca8a04 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+}
+
+.cr-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.cr-resource-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #080e1c;
+  border: 2px solid #334155;
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  font-family: var(--font-clash);
+  font-size: 0.82rem;
+  color: #fff;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.3);
+  user-select: none;
+}
+
+.cr-resource-pill.gold-pill {
+  border-color: #ca8a04;
+  color: #fef08a;
+}
+
+.cr-resource-pill.gem-pill {
+  border-color: #059669;
+  color: #86efac;
+}
+
+.cr-resource-pill.hero-coin-pill {
+  border-color: #0891b2;
+  color: #7dd3fc;
+}
+
+.cr-king-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: radial-gradient(circle at 35% 35%, #60a5fa, #2563eb 70%, #1e3a8a 100%);
+  border: 2px solid #facc15;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  font-family: var(--font-clash);
+  font-size: 0.88rem;
+  font-weight: 900;
+  text-shadow: 0 1px 2px #000;
+  transform: rotate(-3deg);
+  user-select: none;
+}
+
+/* --- 4. Authentic Teardrop Elixir Badge --- */
+.card-elixir-dot,
+.hero-card-elixir {
+  width: 28px !important;
+  height: 32px !important;
+  background: radial-gradient(circle at 35% 35%, #ff2a70, #c0004c 75%, #7a0028 100%) !important;
+  border: 1.5px solid #ffe4ed !important;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40% !important;
+  clip-path: polygon(50% 0%, 95% 38%, 95% 90%, 50% 100%, 5% 90%, 5% 38%) !important;
+  color: #ffffff !important;
+  font-family: var(--font-clash) !important;
+  font-size: 0.92rem !important;
+  font-weight: 900 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.6) !important;
+  text-shadow: 0 1px 2px #000 !important;
+  z-index: 5 !important;
+}
+
+/* --- 5. Clash Royale In-Game Mobile Bottom Dock --- */
+@media (max-width: 850px) {
+  .mobile-bottom-dock {
+    background: linear-gradient(180deg, #162444 0%, #0d162a 100%) !important;
+    border-top: 2px solid #ca8a04 !important;
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.75) !important;
+  }
+
+  .dock-btn.active .dock-label {
+    color: #facc15 !important;
+    font-family: var(--font-clash) !important;
+    font-size: 0.68rem !important;
+    text-shadow: 0 1px 2px #000;
+  }
+
+  .dock-btn.active .dock-pip {
+    background: #facc15 !important;
+    box-shadow: 0 0 12px rgba(250, 204, 21, 0.9) !important;
+    width: 26px !important;
+  }
+
+  .dock-btn.active .dock-icon {
+    transform: translateY(-3px) scale(1.22) !important;
+    filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.5));
+  }
+}
+
