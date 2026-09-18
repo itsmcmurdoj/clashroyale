@@ -3,32 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexus Royale — Brand Guidelines</title>
-  <link rel="icon" href="nexus_crest_cyber.jpg">
+  <title>Nexus Royale — Brand & UI Design Guidelines (Clash Royale Design System)</title>
+  <link rel="icon" type="image/jpeg" href="nexus_crest_cyber.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;800&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700;900&family=JetBrains+Mono:wght@500;700&display=swap');
+    @font-face {
+      font-family: 'LilitaOneLocal';
+      src: url('fonts/LilitaOne-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
     :root {
-      --bg-dark: #000000;
-      --text-white: #ffffff;
-      --text-muted: #888888;
-      --rule-white: #ffffff;
-      
-      /* Brand Accent Colors */
-      --royale-blue: #2D85F3;
-      --royale-green: #21C49F;
-      --royale-pink: #FB62AA;
-      --royale-yellow: #F7DB1C;
-
-      /* Supporting Grays */
-      --gray-dark: #191919;
-      --gray-med: #666666;
-      --gray-norm: #CCCCCC;
-      --gray-light: #F2F2F2;
-
-      --font-headline: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      /* Typography */
+      --font-clash: 'LilitaOneLocal', 'Lilita One', cursive, -apple-system, sans-serif;
       --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+
+      /* Authentic Clash Royale Color System */
+      --cr-gold-light: #fef08a;
+      --cr-gold: #fde047;
+      --cr-gold-deep: #ca8a04;
+      --cr-gold-bevel: #713f12;
+
+      --cr-blue-light: #7dd3fc;
+      --cr-blue: #38bdf8;
+      --cr-blue-deep: #0284c7;
+      --cr-blue-bevel: #075985;
+
+      --cr-red-light: #fca5a5;
+      --cr-red: #ef4444;
+      --cr-red-deep: #b91c1c;
+      --cr-red-bevel: #571212;
+
+      --cr-green-light: #86efac;
+      --cr-green: #4ade80;
+      --cr-green-deep: #16a34a;
+      --cr-green-bevel: #14532d;
+
+      --cr-elixir: #ff2a70;
+      --cr-elixir-deep: #7a0028;
+      --cr-elixir-glow: #e11d48;
+
+      --cr-evo-purple: #c084fc;
+      --cr-evo-purple-deep: #a855f7;
+      --cr-hero-amber: #fbbf24;
+
+      /* Environmental Surfaces */
+      --cr-bg-midnight: #130d24;
+      --cr-bg-quilt-1: #17112b;
+      --cr-bg-quilt-2: #201338;
+      --cr-stone-light: #33394a;
+      --cr-stone-dark: #1b1e2a;
+      --cr-stone-border: #475569;
+      --cr-stone-bevel: #0f172a;
+
+      /* Master Shield Cyber Colors */
+      --cyber-cyan: #22d3ee;
+      --cyber-cyan-deep: #0891b2;
+      --cyber-cyan-glow: rgba(34, 211, 238, 0.6);
     }
 
     * {
@@ -38,883 +73,1294 @@
     }
 
     body {
-      background: #0a0a0a;
-      color: var(--text-white);
+      background-color: var(--cr-bg-midnight);
+      background-image: 
+        radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(225, 29, 72, 0.08) 0%, transparent 50%),
+        repeating-linear-gradient(45deg, var(--cr-bg-quilt-1) 0, var(--cr-bg-quilt-1) 28px, var(--cr-bg-quilt-2) 28px, var(--cr-bg-quilt-2) 56px);
+      background-attachment: fixed;
+      color: #ffffff;
       font-family: var(--font-body);
-      -webkit-font-smoothing: antialiased;
-      padding: 2rem 1rem;
+      line-height: 1.5;
+      padding: 5.5rem 1rem 3rem 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2.5rem;
+      gap: 3rem;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Fixed Presenter Nav Bar */
-    .deck-nav-bar {
+    /* Fixed Presenter Dock */
+    .presenter-dock {
       position: fixed;
       top: 1rem;
-      z-index: 9999;
-      background: rgba(18, 18, 18, 0.9);
-      backdrop-filter: blur(12px);
-      border: 1px solid #333;
+      z-index: 10000;
+      background: linear-gradient(180deg, #2b3040 0%, #171b26 100%);
+      border: 3px solid #475569;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.8), inset 0 2px 0 rgba(255,255,255,0.2), 0 4px 0 #0f172a;
       border-radius: 999px;
-      padding: 0.5rem 1.25rem;
+      padding: 0.4rem 1rem;
       display: flex;
       align-items: center;
-      gap: 1.25rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      gap: 0.6rem;
+      backdrop-filter: blur(12px);
     }
-    .deck-nav-bar button {
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 0.85rem;
-      font-weight: 700;
+    .presenter-dock .dock-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--cr-gold);
+      box-shadow: 0 0 6px var(--cyber-cyan-glow);
+    }
+    .presenter-dock .dock-title {
+      font-family: var(--font-clash);
+      font-size: 0.95rem;
+      color: var(--cr-gold);
+      text-shadow: 0 2px 0 #000;
+      letter-spacing: 0.5px;
+      margin-right: 0.4rem;
+    }
+    .slide-pills {
+      display: flex;
+      gap: 0.3rem;
+    }
+    .slide-pill {
+      background: rgba(0,0,0,0.5);
+      border: 1.5px solid #475569;
+      color: #94a3b8;
+      font-family: var(--font-clash);
+      font-size: 0.8rem;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
       transition: all 0.15s ease;
     }
-    .deck-nav-bar button:hover {
-      background: #333;
-      color: var(--royale-blue);
-    }
-    .deck-nav-bar .btn-print {
-      background: var(--royale-blue);
+    .slide-pill:hover {
+      background: var(--cr-blue-deep);
+      border-color: var(--cr-blue);
       color: #fff;
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
+      transform: translateY(-1px);
+    }
+    .slide-pill.active {
+      background: linear-gradient(180deg, var(--cr-gold) 0%, var(--cr-gold-deep) 100%);
+      border-color: #fff;
+      color: #000;
+      box-shadow: 0 0 8px var(--cr-gold);
+      font-weight: 900;
+    }
+    .dock-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-left: 0.5rem;
+      padding-left: 0.5rem;
+      border-left: 2px solid #334155;
+    }
+    .dock-btn {
+      background: linear-gradient(180deg, var(--cr-blue) 0%, var(--cr-blue-deep) 100%);
+      border: 1.5px solid #fff;
+      border-bottom: 2.5px solid var(--cr-blue-bevel);
+      color: #fff;
+      font-family: var(--font-clash);
+      font-size: 0.75rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+      box-shadow: 0 2px 0 var(--cr-blue-bevel);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .dock-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 0 0 var(--cr-blue-bevel);
+    }
+    .dock-btn-sound {
+      background: #334155;
+      border-color: #64748b;
+      box-shadow: 0 2px 0 #1e293b;
     }
 
-    /* 16:9 Slide Canvas */
+    /* 16:9 Presentation Canvas */
     .brand-slide {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1160px;
       aspect-ratio: 16 / 9;
-      background: var(--bg-dark);
+      background: linear-gradient(180deg, rgba(30, 24, 48, 0.96) 0%, rgba(18, 14, 32, 0.98) 100%);
+      border: 4px solid #3b4256;
+      border-radius: 24px;
       position: relative;
-      padding: 3.5rem 4.5rem;
+      padding: 3rem 4rem;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-      border: 1px solid #1a1a1a;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9), inset 0 2px 0 rgba(255,255,255,0.15), 0 8px 0 #0f172a;
       overflow: hidden;
       page-break-after: always;
     }
 
-    /* Standard Slide Header Rules */
-    .slide-top-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      padding-bottom: 1.5rem;
-      margin-bottom: 2.5rem;
+    /* Decorative Corner Screws */
+    .slide-screw {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #94a3b8 0%, #475569 70%, #1e293b 100%);
+      border: 1.5px solid #0f172a;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.6);
+      z-index: 2;
     }
-    .slide-top-header::before {
+    .slide-screw::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 44%;
+      top: 50%;
+      left: 50%;
+      width: 8px;
       height: 2px;
-      background: var(--rule-white);
+      background: #0f172a;
+      transform: translate(-50%, -50%) rotate(45deg);
     }
-    .slide-top-header::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 52%;
-      height: 2px;
-      background: var(--rule-white);
-    }
-    .slide-category {
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
+    .screw-tl { top: 14px; left: 14px; }
+    .screw-tr { top: 14px; right: 14px; }
+    .screw-bl { bottom: 14px; left: 14px; }
+    .screw-br { bottom: 14px; right: 14px; }
+
+    /* Clash UI 3D Typography */
+    .cr-title-massive {
+      font-family: var(--font-clash);
+      font-size: 3.8rem;
+      letter-spacing: 0.5px;
+      line-height: 1.05;
       text-transform: uppercase;
-      color: #fff;
-    }
-
-    .slide-footer-num {
-      position: absolute;
-      bottom: 2.5rem;
-      right: 4.5rem;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    /* Typographic Elements */
-    .massive-title {
-      font-family: var(--font-headline);
-      font-size: 4.2rem;
-      font-weight: 900;
-      line-height: 1.02;
-      letter-spacing: -0.03em;
-      text-transform: uppercase;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      margin-bottom: 1.25rem;
-      color: #fff;
-    }
-
-    .section-lead {
-      font-size: 1.25rem;
-      line-height: 1.45;
-      font-weight: 600;
       color: #ffffff;
-      max-width: 580px;
+      text-shadow: 
+        0 4px 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        0 8px 16px rgba(0,0,0,0.9);
+    }
+    .cr-title-gold {
+      color: var(--cr-gold);
+      background: linear-gradient(180deg, #fff7aa 0%, #fde047 45%, #eab308 70%, #a16207 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 0 #713f12) drop-shadow(0 0 12px rgba(250, 204, 21, 0.4));
+    }
+    .cr-title-h2 {
+      font-family: var(--font-clash);
+      font-size: 1.85rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .cr-subtitle {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #94a3b8;
+      letter-spacing: 0.2px;
       margin-bottom: 1.5rem;
     }
 
-    .section-body {
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: #b0b0b0;
-      max-width: 560px;
-    }
-
-    .subhead-caps {
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--royale-green);
-      margin-bottom: 0.75rem;
-    }
-
-    /* Bullet List */
-    .guideline-list {
-      list-style: none;
+    /* Slide Header Header Bar */
+    .slide-bar {
       display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-    .guideline-list li {
-      font-size: 0.95rem;
-      color: #d1d5db;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #334155;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.75rem;
       position: relative;
-      padding-left: 1.25rem;
-      line-height: 1.4;
     }
-    .guideline-list li::before {
-      content: '•';
+    .slide-bar::after {
+      content: '';
       position: absolute;
+      bottom: -3px;
       left: 0;
-      color: #fff;
-      font-weight: bold;
+      width: 140px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cr-gold) 0%, var(--cr-blue) 100%);
+      box-shadow: 0 0 8px var(--cr-gold);
+    }
+    .slide-tag {
+      font-family: var(--font-clash);
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      color: var(--cr-gold);
+      text-shadow: 0 1px 2px #000;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .slide-num {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #64748b;
+      background: rgba(0,0,0,0.4);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #334155;
+    }
+
+    /* Tactile 3D Button Engine */
+    .cr-btn {
+      font-family: var(--font-clash);
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-radius: 12px;
+      padding: 0.75rem 1.6rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      user-select: none;
+      outline: none;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s ease;
+      position: relative;
+      text-decoration: none;
+    }
+    .cr-btn:active {
+      transform: translateY(3px) !important;
+    }
+
+    /* Yellow Battle CTA */
+    .cr-btn-yellow {
+      background: linear-gradient(180deg, #fff275 0%, #fde047 35%, #eab308 70%, #ca8a04 100%);
+      border: 3px solid #ffffff;
+      border-bottom: 3px solid #713f12;
+      color: #451a03;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+      box-shadow: 0 5px 0 #713f12, 0 8px 16px rgba(0,0,0,0.6);
+    }
+    .cr-btn-yellow:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+    .cr-btn-yellow:active {
+      box-shadow: 0 2px 0 #713f12, 0 4px 8px rgba(0,0,0,0.6);
+    }
+
+    /* Blue Practice / Action */
+    .cr-btn-blue {
+      background: linear-gradient(180deg, #bae6fd 0%, #38bdf8 40%, #0284c7 75%, #0369a1 100%);
+      border: 2.5px solid #ffffff;
+      border-bottom: 2.5px solid #075985;
+      color: #ffffff;
+      text-shadow: 0 2px 0 #075985;
+      box-shadow: 0 4px 0 #075985, 0 6px 12px rgba(0,0,0,0.5);
+    }
+    .cr-btn-blue:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+    .cr-btn-blue:active {
+      box-shadow: 0 1px 0 #075985, 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* Green Watch / Success */
+    .cr-btn-green {
+      background: linear-gradient(180deg, #bbf7d0 0%, #4ade80 40%, #16a34a 75%, #15803d 100%);
+      border: 2.5px solid #ffffff;
+      border-bottom: 2.5px solid #14532d;
+      color: #ffffff;
+      text-shadow: 0 2px 0 #14532d;
+      box-shadow: 0 4px 0 #14532d, 0 6px 12px rgba(0,0,0,0.5);
+    }
+    .cr-btn-green:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+    .cr-btn-green:active {
+      box-shadow: 0 1px 0 #14532d, 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* Red Close / Defeat */
+    .cr-btn-red {
+      background: linear-gradient(180deg, #fecaca 0%, #ef4444 40%, #dc2626 75%, #991b1b 100%);
+      border: 2.5px solid #ffffff;
+      border-bottom: 2.5px solid #571212;
+      color: #ffffff;
+      text-shadow: 0 2px 0 #571212;
+      box-shadow: 0 4px 0 #571212, 0 6px 12px rgba(0,0,0,0.5);
+      padding: 0.6rem 1rem;
+    }
+    .cr-btn-red:active {
+      box-shadow: 0 1px 0 #571212;
+    }
+
+    /* Layout Grids */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      height: 100%;
+    }
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* Stone Panel Card */
+    .cr-panel {
+      background: linear-gradient(180deg, #2b3040 0%, #1a1e2b 100%);
+      border: 3px solid #475569;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6), inset 0 2px 0 rgba(255,255,255,0.15), 0 4px 0 #0f172a;
+      position: relative;
     }
 
     /* Swatch Grid */
-    .swatches-grid {
+    .palette-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-      width: 100%;
-      max-width: 480px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
     }
     .swatch-card {
-      background: #ffffff;
-      border-radius: 4px;
+      background: #1e2433;
+      border: 2px solid #334155;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
-    .swatch-color-box {
+    .swatch-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--cr-gold);
+    }
+    .swatch-preview {
+      height: 64px;
       width: 100%;
-      height: 140px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 0.4rem;
+    }
+    .swatch-details {
+      padding: 0.75rem;
+    }
+    .swatch-name {
+      font-family: var(--font-clash);
+      font-size: 0.95rem;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* 2x4 Deck Matrix */
+    .deck-container {
+      background: linear-gradient(180deg, #1e2433 0%, #131722 100%);
+      border: 3px solid #475569;
+      border-radius: 18px;
+      padding: 1.25rem;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 4px 0 #0f172a;
+    }
+    .deck-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    .cr-card {
+      aspect-ratio: 1 / 1.22;
+      background: #272f42;
+      border-radius: 8px;
+      border: 2px solid #64748b;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      background-size: cover;
+      background-position: center;
+    }
+    .cr-card.is-evo {
+      border: 2.5px solid var(--cr-evo-purple);
+      box-shadow: 0 0 12px rgba(192, 132, 252, 0.5);
+    }
+    .cr-card.is-hero {
+      border: 2.5px solid var(--cr-gold);
+      box-shadow: 0 0 12px rgba(253, 224, 71, 0.5);
+    }
+    .cr-diamond-gem {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 16px;
+      height: 16px;
+      z-index: 5;
+      border: 1.5px solid #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+    .gem-evo {
+      background: linear-gradient(135deg, #e9d5ff 0%, #c084fc 50%, #9333ea 100%);
+    }
+    .gem-hero {
+      background: linear-gradient(135deg, #fef08a 0%, #fde047 50%, #ca8a04 100%);
+    }
+    .cr-elixir-pill {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      background: var(--cr-elixir);
+      border: 1.5px solid #fff;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-clash);
+      font-size: 0.75rem;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+      z-index: 4;
+    }
+    .cr-lvl-badge {
+      background: rgba(15, 23, 42, 0.85);
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding: 0.15rem 0.3rem;
+      font-family: var(--font-clash);
+      font-size: 0.65rem;
+      color: var(--cr-gold);
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    /* Master Shield Display */
+    .master-crest-showcase {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      background: radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.15) 0%, rgba(19, 13, 36, 0.8) 70%);
+      border: 3px solid #38bdf8;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.25), inset 0 0 20px rgba(0,0,0,0.8);
       position: relative;
     }
-    .swatch-tag {
-      position: absolute;
-      top: 0.65rem;
-      left: 0.65rem;
-      font-size: 0.6rem;
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      color: #fff;
-      background: rgba(0,0,0,0.4);
-      padding: 2px 6px;
-      border-radius: 2px;
+    .master-crest-img {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 28px;
+      border: 3.5px solid var(--cr-gold);
+      box-shadow: 0 0 24px var(--cyber-cyan-glow), 0 12px 24px rgba(0,0,0,0.8);
     }
-    .swatch-info {
-      padding: 0.85rem;
-      background: #ffffff;
-      color: #000;
+
+    /* Callout Box */
+    .cr-callout {
+      background: rgba(30, 41, 59, 0.7);
+      border-left: 4px solid var(--cr-gold);
+      border-radius: 0 8px 8px 0;
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+      color: #cbd5e1;
     }
-    .swatch-title {
+    .cr-callout strong {
+      color: var(--cr-gold);
+    }
+
+    /* Bottom 5-Tab Navigation Dock */
+    .cr-nav-dock {
+      display: flex;
+      background: linear-gradient(180deg, #2b3040 0%, #171a24 100%);
+      border: 3px solid #475569;
+      border-radius: 16px;
+      padding: 0.4rem;
+      gap: 0.4rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.7), 0 4px 0 #0f172a;
+    }
+    .cr-tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 0.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #94a3b8;
+      font-family: var(--font-clash);
       font-size: 0.85rem;
-      font-weight: 800;
-      margin-bottom: 0.25rem;
+      transition: all 0.15s ease;
     }
-    .swatch-meta {
+    .cr-tab-item:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+    }
+    .cr-tab-item.active {
+      background: linear-gradient(180deg, var(--cr-blue) 0%, var(--cr-blue-deep) 100%);
+      color: #fff;
+      border: 2px solid #fff;
+      border-bottom: 3px solid var(--cr-blue-bevel);
+      box-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Code Snippet */
+    .code-block {
+      background: #090d16;
+      border: 2px solid #1e293b;
+      border-radius: 10px;
+      padding: 1rem;
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: #555;
-      line-height: 1.4;
+      font-size: 0.8rem;
+      color: #38bdf8;
+      overflow-x: auto;
+      line-height: 1.5;
     }
 
-    /* Grayscale Swatches */
-    .swatches-gray-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 480px;
+    /* Toast notification */
+    #copy-toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--cr-gold);
+      color: #000;
+      font-family: var(--font-clash);
+      font-size: 0.95rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      border: 2px solid #fff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+      z-index: 99999;
+      opacity: 0;
+      transition: all 0.25s ease;
+      pointer-events: none;
     }
-
-    /* Print Formatting */
-    @media print {
-      body {
-        background: #000;
-        padding: 0;
-        gap: 0;
-      }
-      .deck-nav-bar {
-        display: none !important;
-      }
-      .brand-slide {
-        border: none;
-        box-shadow: none;
-        width: 100vw;
-        height: 100vh;
-        max-width: none;
-        page-break-after: always;
-      }
+    #copy-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
   </style>
 </head>
 <body>
 
-  <!-- Fixed Presenter Navigation -->
-  <header class="deck-nav-bar">
-    <span style="font-weight: 900; font-size: 0.85rem; color: #fff;">NEXUS ROYALE</span>
-    <span style="color: #666;">|</span>
-    <span style="font-size: 0.75rem; color: #aaa;">BRAND GUIDELINES V1.0</span>
-    <button type="button" onclick="window.print()" class="btn-print">🖨️ Export PDF / Print</button>
-  </header>
+  <!-- Floating Presenter Dock -->
+  <div class="presenter-dock">
+    <img src="nexus_crest_cyber.jpg" alt="Nexus Royale Shield" class="dock-logo">
+    <span class="dock-title">NEXUS ROYALE</span>
+    <div class="slide-pills">
+      <button class="slide-pill active" onclick="goToSlide(1)">1</button>
+      <button class="slide-pill" onclick="goToSlide(2)">2</button>
+      <button class="slide-pill" onclick="goToSlide(3)">3</button>
+      <button class="slide-pill" onclick="goToSlide(4)">4</button>
+      <button class="slide-pill" onclick="goToSlide(5)">5</button>
+      <button class="slide-pill" onclick="goToSlide(6)">6</button>
+      <button class="slide-pill" onclick="goToSlide(7)">7</button>
+      <button class="slide-pill" onclick="goToSlide(8)">8</button>
+    </div>
+    <div class="dock-actions">
+      <button class="dock-btn dock-btn-sound" onclick="toggleSound()" id="sound-btn" title="Toggle UI sound effects">🔊 Sound: ON</button>
+      <button class="dock-btn" onclick="togglePresentationMode()">📺 Slide Mode</button>
+      <a href="https://nexusroyale.online" target="_blank" class="dock-btn" style="background: linear-gradient(180deg, var(--cr-gold) 0%, var(--cr-gold-deep) 100%); color: #000; border-bottom-color: var(--cr-gold-bevel);">🚀 Live Site</a>
+    </div>
+  </div>
 
-  <!-- SLIDE 1: COVER -->
-  <section class="brand-slide" id="slide-1" style="justify-content: center; align-items: center;">
-    <div style="text-align: center;">
-      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--font-headline); font-weight: 900; font-size: 4.5rem; line-height: 0.9; letter-spacing: 0.04em; color: #fff; text-transform: uppercase;">
-        <div>NEX</div>
-        <div>US•</div>
-        <div>ROY</div>
-      </div>
-      <div style="font-family: var(--font-headline); font-size: 1.1rem; letter-spacing: 0.25em; margin-top: 1.5rem; color: #fff; font-weight: 800;">
-        NEXUS ROYALE
-      </div>
-    </div>
-  </section>
+  <!-- SLIDE 1: COVER & MASTER IDENTITY -->
+  <section class="brand-slide" id="slide-1">
+    <div class="slide-screw screw-tl"></div>
+    <div class="slide-screw screw-tr"></div>
+    <div class="slide-screw screw-bl"></div>
+    <div class="slide-screw screw-br"></div>
 
-  <!-- SLIDE 2: TITLE -->
-  <section class="brand-slide" id="slide-2">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
+    <div class="slide-bar">
+      <div class="slide-tag">👑 CLASH ROYALE DESIGN SYSTEM EDITION • V2.0</div>
+      <div class="slide-num">SLIDE 01 / 08</div>
     </div>
-    <div style="margin-top: auto; margin-bottom: auto;">
-      <h1 class="massive-title">
-        BRAND<br>GUIDELINES
-      </h1>
-    </div>
-    <div class="slide-footer-num">2</div>
-  </section>
 
-  <!-- SLIDE 3: PHILOSOPHY -->
-  <section class="brand-slide" id="slide-3">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; height: 100%;">
+    <div class="grid-2col" style="align-items: center;">
       <div>
-        <h2 class="massive-title" style="font-size: 2.25rem; margin-bottom: 2rem;">BRAND GUIDELINES</h2>
-        <p class="section-lead">
-          We want our brand identity to be as high quality as the games we celebrate, which is why we have put together this brand standard.
+        <h1 class="cr-title-massive">NEXUS<br><span class="cr-title-gold">ROYALE</span></h1>
+        <p class="cr-subtitle" style="color: #cbd5e1; margin-top: 0.75rem;">
+          Official Brand & UI Design Guidelines • Master Specifications for In-Game Aesthetics, Tactile Skeuomorphism & Telemetry Architecture.
         </p>
-        <p class="section-body">
-          Our design is supportive rather than expressive, to give room for live player telemetry, battle analytics, and Clash Royale's legendary gameplay to shine. Inside our Brand Guidelines you’ll find written, visual and graphic elements that comprise our brand. The following pages give guidance for using them in a consistent, distinctly Nexus Royale way.
-        </p>
-      </div>
-      <div style="display: flex; align-items: center; justify-content: center; position: relative;">
-        <div style="width: 320px; height: 320px; background: linear-gradient(135deg, #181c26 0%, #0d1117 100%); border: 3px solid #2d3748; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 2px 0 rgba(255,255,255,0.1);">
-          <div style="font-family: var(--font-headline); font-size: 3.5rem; font-weight: 900; line-height: 0.92; color: #fff; text-align: center; text-shadow: 0 10px 20px rgba(0,0,0,0.6);">
-            NEX<br>US•<br>ROY
-          </div>
-          <div style="font-size: 0.72rem; color: var(--royale-blue); font-weight: 800; letter-spacing: 0.15em; margin-top: 1rem;">
-            AUTHENTIC STANDARD
-          </div>
+
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+          <span style="background: #1e293b; border: 1.5px solid var(--cr-gold); color: var(--cr-gold); font-family: var(--font-clash); font-size: 0.85rem; padding: 0.35rem 0.8rem; border-radius: 8px;">
+            CREATOR CODE: NEXUS
+          </span>
+          <span style="background: #1e293b; border: 1.5px solid var(--cr-blue); color: var(--cr-blue); font-family: var(--font-clash); font-size: 0.85rem; padding: 0.35rem 0.8rem; border-radius: 8px;">
+            SUPERCELL FAN POLICY COMPLIANT
+          </span>
+          <span style="background: #1e293b; border: 1.5px solid #64748b; color: #cbd5e1; font-family: var(--font-clash); font-size: 0.85rem; padding: 0.35rem 0.8rem; border-radius: 8px;">
+            SEPTEMBER 2026 META
+          </span>
         </div>
-      </div>
-    </div>
-    <div class="slide-footer-num">3</div>
-  </section>
 
-  <!-- SLIDE 4: LOGO SECTION DIVIDER -->
-  <section class="brand-slide" id="slide-4">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="margin-top: auto; margin-bottom: auto;">
-      <h1 class="massive-title">LOGO</h1>
-    </div>
-    <div class="slide-footer-num">4</div>
-  </section>
-
-  <!-- SLIDE 5: LOGO USAGE & QUICK GUIDE -->
-  <section class="brand-slide" id="slide-5">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
-      <div>
-        <h2 class="section-title">Logo</h2>
-        <p class="section-body" style="margin-bottom: 2rem;">
-          The logo is our most valuable asset. It symbolizes our mission: uniting Clash Royale competitive players with instantaneous live telemetry and elite AI tactical tools. It should never be recreated or altered.
+        <p style="font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">
+          Nexus Royale exists as an authentic, high-octane extension of the Clash Royale arena. We discard flat, sterile corporate SaaS patterns in favor of tactile push buttons, rich royal wallpapers, stone dialogs, and esports telemetry.
         </p>
-        <div class="subhead-caps">QUICK GUIDE</div>
-        <ul class="guideline-list">
-          <li>Use logo only in black or white</li>
-          <li>Black background is preferred, use white background if needed</li>
-          <li>No type or other elements should infringe on its space</li>
-          <li>On image, white logo is preferred</li>
-          <li>When color background is needed, use white logo</li>
-        </ul>
       </div>
-      <div style="border: 1px solid #222; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #000;">
+
+      <div class="master-crest-showcase">
+        <img src="nexus_crest_cyber.jpg" alt="Nexus Royale Cyber Shield Master Logo" class="master-crest-img">
         <div style="text-align: center;">
-          <div style="font-family: var(--font-headline); font-size: 3.8rem; font-weight: 900; line-height: 0.95; color: #fff; letter-spacing: 0.05em;">
-            NEX<br>US•<br>ROY
-          </div>
-          <div style="font-family: var(--font-headline); font-size: 0.9rem; letter-spacing: 0.2em; margin-top: 1rem; color: #fff; font-weight: 800;">
-            NEXUS ROYALE
-          </div>
+          <div style="font-family: var(--font-clash); font-size: 1.3rem; color: #fff; text-shadow: 0 2px 4px #000;">THE CYBER SHIELD</div>
+          <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--cyber-cyan); letter-spacing: 1px;">EXCLUSIVE MASTER EMBLEM</div>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="cr-btn cr-btn-yellow" onclick="playClick(); alert('Nexus Royale Master Emblem verified. The Cyber Shield is locked as primary identity.')" style="font-size: 0.9rem; padding: 0.5rem 1.1rem;">
+            ⚔️ EXPLORE SYSTEM
+          </button>
         </div>
       </div>
     </div>
-    <div class="slide-footer-num">5</div>
   </section>
 
-  <!-- SLIDE 6: CLEAR SPACE -->
+  <!-- SLIDE 2: PHILOSOPHY & IN-GAME PRINCIPLES -->
+  <section class="brand-slide" id="slide-2">
+    <div class="slide-screw screw-tl"></div>
+    <div class="slide-screw screw-tr"></div>
+    <div class="slide-screw screw-bl"></div>
+    <div class="slide-screw screw-br"></div>
+
+    <div class="slide-bar">
+      <div class="slide-tag">📐 CORE DESIGN PHILOSOPHY</div>
+      <div class="slide-num">SLIDE 02 / 08</div>
+    </div>
+
+    <h2 class="cr-title-h2">THE THREE IN-GAME PILLARS</h2>
+    <p class="cr-subtitle">How Nexus Royale mirrors Clash Royale's physical game feel on the modern web.</p>
+
+    <div class="grid-3col" style="margin-top: 0.5rem;">
+      <div class="cr-panel">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔘</div>
+        <h3 style="font-family: var(--font-clash); font-size: 1.25rem; color: var(--cr-gold); margin-bottom: 0.5rem;">1. Tactile Skeuomorphism</h3>
+        <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.55;">
+          Every button is an actual physical 3D object with a 3px–5px bottom bevel shadow. When clicked, buttons depress 2px–3px with synchronized audio click feedback. No flat ghost buttons or zero-elevation elements.
+        </p>
+        <div class="cr-callout">
+          <strong>Rule:</strong> Never use flat 1px borders without depth. Always simulate extruded plastic, beveled stone, or stamped metal.
+        </div>
+      </div>
+
+      <div class="cr-panel">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛡️</div>
+        <h3 style="font-family: var(--font-clash); font-size: 1.25rem; color: var(--cr-blue); margin-bottom: 0.5rem;">2. Supportive Hierarchy</h3>
+        <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.55;">
+          The interface never overpowers gameplay assets. Cards, Evolution crystals, and King Tower levels sit inside structured recessed trays, while primary Battle CTAs instantly pull the player's eye via high-contrast Crown Gold.
+        </p>
+        <div class="cr-callout">
+          <strong>Rule:</strong> The primary CTA is always yellow (#FDE047). Navigation and utility actions are blue (#38BDF8) or stone.
+        </div>
+      </div>
+
+      <div class="cr-panel">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📱</div>
+        <h3 style="font-family: var(--font-clash); font-size: 1.25rem; color: var(--cr-green); margin-bottom: 0.5rem;">3. Handheld 500px Stage</h3>
+        <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.55;">
+          Clash Royale is natively a portrait mobile experience. On desktop monitors, Nexus Royale pins the interactive UI inside an authentic <code style="color:var(--cr-gold)">max-width: 500px</code> center stage against the royal quilted diamond wallpaper.
+        </p>
+        <div class="cr-callout">
+          <strong>Rule:</strong> Maintain native smartphone thumb ergonomics regardless of screen resolution or aspect ratio.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: MASTER EMBLEM ANATOMY -->
+  <section class="brand-slide" id="slide-3">
+    <div class="slide-screw screw-tl"></div>
+    <div class="slide-screw screw-tr"></div>
+    <div class="slide-screw screw-bl"></div>
+    <div class="slide-screw screw-br"></div>
+
+    <div class="slide-bar">
+      <div class="slide-tag">🛡️ MASTER EMBLEM ANATOMY</div>
+      <div class="slide-num">SLIDE 03 / 08</div>
+    </div>
+
+    <div class="grid-2col" style="align-items: center;">
+      <div class="cr-panel" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+        <div style="position: relative; display: inline-block;">
+          <img src="nexus_crest_cyber.jpg" alt="Cyber Shield Master Crest" style="width: 220px; height: 220px; border-radius: 32px; border: 4px solid var(--cr-gold); box-shadow: 0 0 30px var(--cyber-cyan-glow), 0 12px 32px rgba(0,0,0,0.9);">
+          <div style="position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px; border: 2px dashed rgba(34, 211, 238, 0.4); border-radius: 40px; pointer-events: none;"></div>
+        </div>
+        <div style="margin-top: 1.25rem; font-family: var(--font-clash); font-size: 1.4rem; color: #fff;">
+          THE CYBER SHIELD
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--cr-gold);">
+          CLEAR SPACE ZONE: 0.5X EMBLEM WIDTH
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <h2 class="cr-title-h2">EMBLEM SPECIFICATIONS</h2>
+        
+        <div class="cr-panel" style="padding: 1rem 1.25rem;">
+          <h4 style="font-family: var(--font-clash); color: var(--cr-gold); font-size: 1.05rem;">1. Chiseled Hexagonal Perimeter</h4>
+          <p style="font-size: 0.85rem; color: #cbd5e1;">Forged with champagne titanium-gold chamfers, symbolizing Ultimate Champion tier and unyielding defensive mastery.</p>
+        </div>
+
+        <div class="cr-panel" style="padding: 1rem 1.25rem;">
+          <h4 style="font-family: var(--font-clash); color: var(--cyber-cyan); font-size: 1.05rem;">2. Prismatic Cyan Conduits</h4>
+          <p style="font-size: 0.85rem; color: #cbd5e1;">Radiant neon conduits connecting the crown apex to the base, representing live real-time telemetry from Supercell API.</p>
+        </div>
+
+        <div class="cr-panel" style="padding: 1rem 1.25rem;">
+          <h4 style="font-family: var(--font-clash); color: #fff; font-size: 1.05rem;">3. Sovereign "N" Monogram</h4>
+          <p style="font-size: 0.85rem; color: #cbd5e1;">Architectural, faceted letterform anchored on an obsidian carbon backplate. Never recolor or distort.</p>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 0.25rem;">
+          <div style="font-family: var(--font-clash); font-size: 0.85rem; color: #94a3b8;">MINIMUM SIZES:</div>
+          <span style="background: #0f172a; padding: 0.2rem 0.5rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.75rem; border: 1px solid #334155;">App Dock: 32px</span>
+          <span style="background: #0f172a; padding: 0.2rem 0.5rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.75rem; border: 1px solid #334155;">Header: 36px</span>
+          <span style="background: #0f172a; padding: 0.2rem 0.5rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.75rem; border: 1px solid #334155;">PWA Icon: 192px</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: THE CLASH ROYALE COLOR PALETTE -->
+  <section class="brand-slide" id="slide-4">
+    <div class="slide-screw screw-tl"></div>
+    <div class="slide-screw screw-tr"></div>
+    <div class="slide-screw screw-bl"></div>
+    <div class="slide-screw screw-br"></div>
+
+    <div class="slide-bar">
+      <div class="slide-tag">🎨 THE CLASH ROYALE PALETTE</div>
+      <div class="slide-num">SLIDE 04 / 08</div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem;">
+      <div>
+        <h2 class="cr-title-h2">AUTHENTIC IN-GAME COLOR SYSTEM</h2>
+        <p class="cr-subtitle" style="margin-bottom: 0;">Click any color card to copy exact Hex code to clipboard.</p>
+      </div>
+      <div style="font-family: var(--font-clash); font-size: 0.85rem; color: var(--cr-gold);">
+        TIP: GRADIENTS ARE STRICTLY DIRECTIONAL (TOP-TO-BOTTOM)
+      </div>
+    </div>
+
+    <div class="palette-grid">
+      <!-- Crown Gold -->
+      <div class="swatch-card" onclick="copyHex('#FDE047', 'Crown Gold')">
+        <div class="swatch-preview" style="background: linear-gradient(180deg, #fef08a 0%, #fde047 50%, #ca8a04 100%);">
+          <span style="font-family: var(--font-clash); font-size: 0.75rem; color: #713f12; background: rgba(255,255,255,0.8); padding: 0.1rem 0.4rem; border-radius: 4px;">CTA BATTLE</span>
+        </div>
+        <div class="swatch-details">
+          <div class="swatch-name">Crown Gold</div>
+          <div class="swatch-hex"><span>#FDE047</span> <span>📋</span></div>
+        </div>
+      </div>
+
+      <!-- Royale Blue -->
+      <div class="swatch-card" onclick="copyHex('#38BDF8', 'Royale Blue')">
+        <div class="swatch-preview" style="background: linear-gradient(180deg, #bae6fd 0%, #38bdf8 50%, #0284c7 100%);">
+          <span style="font-family: var(--font-clash); font-size: 0.75rem; color: #075985; background: rgba(255,255,255,0.8); padding: 0.1rem 0.4rem; border-radius: 4px;">VICTORY / NAV</span>
+        </div>
+        <div class="swatch-details">
+          <div class="swatch-name">Royale Blue</div>
+          <div class="swatch-hex"><span>#38BDF8</span> <span>📋</span></div>
+        </div>
+      </div>
+
+      <!-- Elixir Magenta -->
+      <div class="swatch-card" onclick="copyHex('#FF2A70', 'Elixir Magenta')">
+        <div class="swatch-preview" style="background: linear-gradient(180deg, #fda4af 0%, #ff2a70 50%, #9f1239 100%);">
+          <span style="font-family: var(--font-clash); font-size: 0.75rem; color: #881337; background: rgba(255,255,255,0.8); padding: 0.1rem 0.4rem; border-radius: 4px;">RESOURCE DROP</span>
+        </div>
+        <div class="swatch-details">
+          <div class="swatch-name">Elixir Magenta</div>
+          <div class="swatch-hex"><span>#FF2A70</span> <span>📋</span></div>
+        </div>
+      </div>
+
+      <!-- Gem Emerald -->
+      <div class="swatch-card" onclick="copyHex('#4ADE80', 'Gem Emerald')">
+        <div class="swatch-preview" style="background: linear-gradient(180deg, #bbf7d0 0%, #4ade80 50%, #15803d 100%);">
+          <span style="font-family: var(--font-clash); font-size: 0.75rem; color: #14532d; background: rgba(255,255,255,0.8); padding: 0.1rem 0.4rem; border-radius: 4px;">WATCH / LIVE</span>
+        </div>
+        <div class="swatch-details">
+          <div class="swatch-name">Gem Emerald</div>
+          <div class="swatch-hex"><span>#4ADE80</span> <span>📋</span></div>
+        </div>
+      </div>
+
+      <!-- Defeat Crimson -->
+      <div class="swatch-card" onclick="copyHex('#EF4444', 'Defeat Crimson')">
+        <div class="swatch-preview" style="background: linear-gradient(180deg, #fecaca 0%, #ef4444 50%, #991b1b 100%);">
+          <span style="font-family: var(--font-clash); font-size: 0.75rem; color: #571212; background: rgba(255,255,255,0.8); padding: 0.1rem 0.4rem; border-radius: 4px;">DEFEAT / CLOSE</span>
+        </div>
+        <div class="swatch-details">
+          <div class="swatch-name">Defeat Crimson</div>
+          <div class="swatch-hex"><span>#EF4444</span> <span>📋</span></div>
+        </div>
+      </div>
+
+      <!-- Evolution Violet -->
+      <div class="swatch-card" onclick="copyHex('#C084FC', 'Evolution Violet')">
+        <div class="swatch-preview" style="background: linear-gradient(180deg, #f3e8ff 0%, #c084fc 50%, #7e22ce 100%);">
+          <span style="font-family: var(--font-clash); font-size: 0.75rem; color: #581c87; background: rgba(255,255,255,0.8); padding: 0.1rem 0.4rem; border-radius: 4px;">EVO SLOT 1</span>
+        </div>
+        <div class="swatch-details">
+          <div class="swatch-name">Evolution Violet</div>
+          <div class="swatch-hex"><span>#C084FC</span> <span>📋</span></div>
+        </div>
+      </div>
+
+      <!-- Royal Quilted Midnight -->
+      <div class="swatch-card" onclick="copyHex('#17112B', 'Royal Quilted')">
+        <div class="swatch-preview" style="background: linear-gradient(45deg, #17112b 50%, #201338 50%);">
+          <span style="font-family: var(--font-clash); font-size: 0.75rem; color: #fff; background: rgba(0,0,0,0.6); padding: 0.1rem 0.4rem; border-radius: 4px;">ARENA WALLPAPER</span>
+        </div>
+        <div class="swatch-details">
+          <div class="swatch-name">Quilted Midnight</div>
+          <div class="swatch-hex"><span>#17112B</span> <span>📋</span></div>
+        </div>
+      </div>
+
+      <!-- Stone Slate -->
+      <div class="swatch-card" onclick="copyHex('#2B3040', 'Stone Slate')">
+        <div class="swatch-preview" style="background: linear-gradient(180deg, #33394a 0%, #1b1e2a 100%); border-bottom: 2px solid #0f172a;">
+          <span style="font-family: var(--font-clash); font-size: 0.75rem; color: #cbd5e1; background: rgba(0,0,0,0.6); padding: 0.1rem 0.4rem; border-radius: 4px;">MODAL SHEET</span>
+        </div>
+        <div class="swatch-details">
+          <div class="swatch-name">Stone Slate</div>
+          <div class="swatch-hex"><span>#2B3040</span> <span>📋</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: 3D SKEUOMORPHIC BUTTON ENGINE -->
+  <section class="brand-slide" id="slide-5">
+    <div class="slide-screw screw-tl"></div>
+    <div class="slide-screw screw-tr"></div>
+    <div class="slide-screw screw-bl"></div>
+    <div class="slide-screw screw-br"></div>
+
+    <div class="slide-bar">
+      <div class="slide-tag">🔘 3D SKEUOMORPHIC BUTTON ENGINE</div>
+      <div class="slide-num">SLIDE 05 / 08</div>
+    </div>
+
+    <div class="grid-2col">
+      <div>
+        <h2 class="cr-title-h2">INTERACTIVE BUTTON LAB</h2>
+        <p class="cr-subtitle">Click to test depression mechanics & active state sink.</p>
+
+        <div class="cr-panel" style="display: flex; flex-direction: column; gap: 1.25rem; align-items: flex-start;">
+          <!-- Yellow Battle CTA -->
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <button class="cr-btn cr-btn-yellow" onclick="playClick()" style="font-size: 1.25rem; min-width: 200px;">
+              ⚔️ BATTLE
+            </button>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--cr-gold);">PRIMARY CALL-TO-ACTION</span>
+          </div>
+
+          <!-- Blue Practice Button -->
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <button class="cr-btn cr-btn-blue" onclick="playClick()" style="min-width: 200px;">
+              🛡️ BATTLE LOG
+            </button>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--cr-blue);">SECONDARY / NAVIGATION</span>
+          </div>
+
+          <!-- Green Watch Live TV Button -->
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <button class="cr-btn cr-btn-green" onclick="playClick()" style="min-width: 200px;">
+              📺 ROYALE TV
+            </button>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--cr-green);">CONFIRM / SPECTATE</span>
+          </div>
+
+          <!-- Red Close Button -->
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <button class="cr-btn cr-btn-red" onclick="playClick()" style="font-size: 1.2rem; width: 48px; height: 44px; padding: 0;">
+              ✖
+            </button>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--cr-red);">MODAL DISMISS / CANCEL</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="cr-title-h2">PHYSICS ENGINE CODE</h2>
+        <p class="cr-subtitle">Exact CSS architecture for the 3D button sink effect.</p>
+
+        <div class="code-block">
+/* Authentic Clash Royale Button CSS */
+.cr-btn-yellow {
+  background: linear-gradient(180deg, 
+    #fff275 0%, 
+    #fde047 35%, 
+    #eab308 70%, 
+    #ca8a04 100%);
+  border: 3px solid #ffffff;
+  border-bottom: 3px solid #713f12;
+  border-radius: 12px;
+  color: #451a03;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+  box-shadow: 0 5px 0 #713f12, 0 8px 16px rgba(0,0,0,0.6);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+/* Mechanical Push Depression */
+.cr-btn-yellow:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #713f12, 0 4px 8px rgba(0,0,0,0.6);
+}
+        </div>
+
+        <div class="cr-callout" style="margin-top: 1rem;">
+          <strong>Haptic Feedback Rule:</strong> Every button trigger is accompanied by a synthetic high-frequency transient click (Web Audio API or haptic vibration on mobile devices).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: 2X4 DECK MATRIX & EVOLUTION/HERO CRYSTALS -->
   <section class="brand-slide" id="slide-6">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
+    <div class="slide-screw screw-tl"></div>
+    <div class="slide-screw screw-tr"></div>
+    <div class="slide-screw screw-bl"></div>
+    <div class="slide-screw screw-br"></div>
+
+    <div class="slide-bar">
+      <div class="slide-tag">🃏 2X4 DECK MATRIX & 45° CRYSTALS</div>
+      <div class="slide-num">SLIDE 06 / 08</div>
     </div>
-    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
-      <div>
-        <h2 class="section-title">Clear Space</h2>
-        <p class="section-body">
-          In order to make our logo identifiable, it should always be given space to breathe. Breathing is very important. The clear space is measured by the height of the letter <strong>X</strong>.
-        </p>
-      </div>
-      <div style="border: 1px solid #222; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; background: #000;">
-        <div style="position: relative; border: 1.5px dashed #444; padding: 2.5rem 3.5rem;">
-          <div style="font-family: var(--font-headline); font-size: 3.5rem; font-weight: 900; line-height: 0.95; color: #fff; text-align: center;">
-            NEX<br>US•<br>ROY
+
+    <div class="grid-2col" style="align-items: center;">
+      <div class="deck-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem;">
+          <div style="font-family: var(--font-clash); font-size: 1.05rem; color: #fff; display: flex; align-items: center; gap: 0.4rem;">
+            ⚔️ BATTLE DECK 1
           </div>
-          <div style="position: absolute; bottom: 0.75rem; left: 1rem; font-family: var(--font-mono); font-size: 0.65rem; color: var(--royale-green);">
-            ◄ CLEAR SPACE [X]
+          <div style="display: flex; align-items: center; gap: 0.4rem; background: rgba(0,0,0,0.6); padding: 0.2rem 0.6rem; border-radius: 999px; border: 1.5px solid var(--cr-elixir);">
+            <span style="font-family: var(--font-clash); font-size: 0.75rem; color: #fff;">AVG ELIXIR:</span>
+            <span style="font-family: var(--font-clash); font-size: 0.95rem; color: var(--cr-elixir);">3.5</span>
+            <span style="color: var(--cr-elixir); font-size: 0.8rem;">💧</span>
+          </div>
+        </div>
+
+        <div class="deck-grid">
+          <!-- Card 1: Evolution Slot 1 -->
+          <div class="cr-card is-evo" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url('https://cdn.royaleapi.com/static/img/cards/royal-giant.png');">
+            <div class="cr-diamond-gem gem-evo" title="Evolution Slot 1"></div>
+            <div class="cr-elixir-pill">6</div>
+            <div class="cr-lvl-badge">★ LVL 15</div>
+          </div>
+
+          <!-- Card 2: Hero Slot 2 -->
+          <div class="cr-card is-hero" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url('https://cdn.royaleapi.com/static/img/cards/golden-knight.png');">
+            <div class="cr-diamond-gem gem-hero" title="Hero Slot 2"></div>
+            <div class="cr-elixir-pill">4</div>
+            <div class="cr-lvl-badge">★ LVL 15</div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="cr-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url('https://cdn.royaleapi.com/static/img/cards/fireball.png');">
+            <div class="cr-elixir-pill">4</div>
+            <div class="cr-lvl-badge">LVL 15</div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="cr-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url('https://cdn.royaleapi.com/static/img/cards/the-log.png');">
+            <div class="cr-elixir-pill">2</div>
+            <div class="cr-lvl-badge">LVL 15</div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="cr-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url('https://cdn.royaleapi.com/static/img/cards/fisherman.png');">
+            <div class="cr-elixir-pill">3</div>
+            <div class="cr-lvl-badge">LVL 15</div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="cr-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url('https://cdn.royaleapi.com/static/img/cards/hunter.png');">
+            <div class="cr-elixir-pill">4</div>
+            <div class="cr-lvl-badge">LVL 15</div>
+          </div>
+
+          <!-- Card 7 -->
+          <div class="cr-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url('https://cdn.royaleapi.com/static/img/cards/electro-spirit.png');">
+            <div class="cr-elixir-pill">1</div>
+            <div class="cr-lvl-badge">LVL 15</div>
+          </div>
+
+          <!-- Card 8 -->
+          <div class="cr-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url('https://cdn.royaleapi.com/static/img/cards/guards.png');">
+            <div class="cr-elixir-pill">3</div>
+            <div class="cr-lvl-badge">LVL 15</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="cr-title-h2">CARD COMPONENT RULES</h2>
+        <p class="cr-subtitle">Authentic card architecture standards.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <div class="cr-panel" style="padding: 1rem;">
+            <h4 style="font-family: var(--font-clash); color: var(--cr-evo-purple); font-size: 1rem;">1. Evolution Slot 1 (45° Diamond Crystal)</h4>
+            <p style="font-size: 0.85rem; color: #cbd5e1;">Top-centered 45° diamond shard in radiant magenta/purple. Shines with <code style="color:var(--cr-evo-purple)">box-shadow: 0 0 12px #c084fc</code>.</p>
+          </div>
+
+          <div class="cr-panel" style="padding: 1rem;">
+            <h4 style="font-family: var(--font-clash); color: var(--cr-gold); font-size: 1rem;">2. Hero Slot 2 (Amber Crown Crystal)</h4>
+            <p style="font-size: 0.85rem; color: #cbd5e1;">Top-centered 45° diamond shard in faceted amber-gold for Champion / Hero abilities.</p>
+          </div>
+
+          <div class="cr-panel" style="padding: 1rem;">
+            <h4 style="font-family: var(--font-clash); color: var(--cr-elixir); font-size: 1rem;">3. Elixir Teardrop Pip</h4>
+            <p style="font-size: 0.85rem; color: #cbd5e1;">Upper-left circular badge with white outer border and white bold Lilita One numeral.</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="slide-footer-num">6</div>
   </section>
 
-  <!-- SLIDE 7: LOCATION -->
+  <!-- SLIDE 7: STONE MODALS, RIBBONS & DOCK -->
   <section class="brand-slide" id="slide-7">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
+    <div class="slide-screw screw-tl"></div>
+    <div class="slide-screw screw-tr"></div>
+    <div class="slide-screw screw-bl"></div>
+    <div class="slide-screw screw-br"></div>
+
+    <div class="slide-bar">
+      <div class="slide-tag">🏛️ STONE SHEETS & NAVIGATION DOCK</div>
+      <div class="slide-num">SLIDE 07 / 08</div>
     </div>
-    <div style="margin-bottom: 2rem;">
-      <h2 class="section-title">Location</h2>
-      <p class="section-body">
-        The primary location is centered. Preferred secondary location is bottom left or right.
-      </p>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; flex: 1;">
-      <div style="border: 1px solid #222; border-radius: 8px; position: relative; display: flex; align-items: center; justify-content: center;">
-        <div style="font-family: var(--font-headline); font-size: 1.8rem; font-weight: 900; line-height: 0.95; text-align: center; color: #fff;">
-          NEX<br>US•<br>ROY
-        </div>
-        <div style="position: absolute; bottom: 1rem; left: 1rem; font-size: 0.65rem; font-weight: 800; color: var(--royale-green); letter-spacing: 0.05em;">
-          PRIMARY LOCATION — CENTERED ON PAGE
+
+    <div class="grid-2col">
+      <div>
+        <h2 class="cr-title-h2">STONE MODAL DIALOGS</h2>
+        <p class="cr-subtitle">Heavy-duty stone slabs with corner rivets and hanging ribbons.</p>
+
+        <!-- Live Stone Modal Representation -->
+        <div class="cr-panel" style="border-width: 4px; padding: 1.5rem; position: relative;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #334155; padding-bottom: 0.75rem; margin-bottom: 1rem;">
+            <div style="font-family: var(--font-clash); font-size: 1.2rem; color: var(--cr-gold); display: flex; align-items: center; gap: 0.5rem;">
+              🏆 ULTIMATE CHAMPION TELEMETRY
+            </div>
+            <button class="cr-btn cr-btn-red" onclick="playClick()" style="padding: 0.2rem 0.5rem; font-size: 0.85rem;">✖</button>
+          </div>
+          <p style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 1rem;">
+            Matchup prediction: <strong>68.4% Win Advantage</strong> vs Classic Log Bait. Recommended opening play: cycle Royal Giant in back or bait Inferno Tower with Fisherman.
+          </p>
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button class="cr-btn cr-btn-blue" onclick="playClick()" style="font-size: 0.85rem; padding: 0.5rem 1rem;">CANCEL</button>
+            <button class="cr-btn cr-btn-yellow" onclick="playClick()" style="font-size: 0.85rem; padding: 0.5rem 1rem;">CONFIRM</button>
+          </div>
         </div>
       </div>
-      <div style="border: 1px solid #222; border-radius: 8px; position: relative; padding: 1.5rem;">
-        <div style="position: absolute; bottom: 2rem; left: 2rem; font-family: var(--font-headline); font-size: 1.1rem; font-weight: 900; line-height: 0.95; color: #fff;">
-          NEX<br>US•<br>ROY
+
+      <div>
+        <h2 class="cr-title-h2">5-TAB BOTTOM DOCK BAR</h2>
+        <p class="cr-subtitle">Authentic Clash Royale navigation dock with tactile active state.</p>
+
+        <div class="cr-nav-dock" style="margin-top: 1rem;">
+          <div class="cr-tab-item" onclick="selectTab(this)">
+            <span style="font-size: 1.25rem;">🛒</span>
+            <span>SHOP</span>
+          </div>
+          <div class="cr-tab-item" onclick="selectTab(this)">
+            <span style="font-size: 1.25rem;">🃏</span>
+            <span>CARDS</span>
+          </div>
+          <div class="cr-tab-item active" onclick="selectTab(this)">
+            <span style="font-size: 1.25rem;">⚔️</span>
+            <span>BATTLE</span>
+          </div>
+          <div class="cr-tab-item" onclick="selectTab(this)">
+            <span style="font-size: 1.25rem;">🛡️</span>
+            <span>SOCIAL</span>
+          </div>
+          <div class="cr-tab-item" onclick="selectTab(this)">
+            <span style="font-size: 1.25rem;">🏆</span>
+            <span>EVENTS</span>
+          </div>
         </div>
-        <div style="position: absolute; bottom: 2rem; right: 2rem; font-family: var(--font-headline); font-size: 1.1rem; font-weight: 900; line-height: 0.95; color: #fff;">
-          NEX<br>US•<br>ROY
-        </div>
-        <div style="position: absolute; bottom: 0.65rem; left: 1rem; font-size: 0.65rem; font-weight: 800; color: var(--royale-green); letter-spacing: 0.05em;">
-          SECONDARY LOCATION — BOTTOM LEFT OR RIGHT
+
+        <div class="cr-callout" style="margin-top: 1.75rem;">
+          <strong>Active Tab Mechanic:</strong> The selected tab ascends with <code style="color:var(--cr-blue)">transform: translateY(-2px)</code>, gains a vibrant Royale Blue gradient fill, a 2px white border, and a 3px dark bevel base.
         </div>
       </div>
     </div>
-    <div class="slide-footer-num">7</div>
   </section>
 
-  <!-- SLIDE 8: SIZE -->
+  <!-- SLIDE 8: TYPOGRAPHY, LEGAL & FAN POLICY -->
   <section class="brand-slide" id="slide-8">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
+    <div class="slide-screw screw-tl"></div>
+    <div class="slide-screw screw-tr"></div>
+    <div class="slide-screw screw-bl"></div>
+    <div class="slide-screw screw-br"></div>
+
+    <div class="slide-bar">
+      <div class="slide-tag">⚖️ COMPLIANCE & LEGAL POLICY</div>
+      <div class="slide-num">SLIDE 08 / 08</div>
     </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 2rem;">
+
+    <div class="grid-2col">
       <div>
-        <h2 class="section-title">Size</h2>
-        <p class="section-body">
-          <strong>Primary</strong> — Logo height is ⅓ of short length<br>
-          <strong>Secondary</strong> — If the primary rule makes the logo look too big, ¼ of short length
-        </p>
+        <h2 class="cr-title-h2">TYPOGRAPHY HIERARCHY</h2>
+        <p class="cr-subtitle">Dual-engine font stack for arcade energy and data precision.</p>
+
+        <div class="cr-panel" style="margin-bottom: 1rem;">
+          <div style="font-family: var(--font-clash); font-size: 1.5rem; color: var(--cr-gold); margin-bottom: 0.25rem;">
+            Lilita One (Clash Extruded 3D)
+          </div>
+          <p style="font-size: 0.85rem; color: #cbd5e1;">Used for giant CTAs, card level badges, trophy counts, and primary arena headings.</p>
+        </div>
+
+        <div class="cr-panel">
+          <div style="font-family: var(--font-body); font-weight: 800; font-size: 1.2rem; color: #fff; margin-bottom: 0.25rem;">
+            Plus Jakarta Sans & JetBrains Mono
+          </div>
+          <p style="font-size: 0.85rem; color: #cbd5e1;">Used for live Supercell telemetry, algorithmic percentages, damage calculations, and analytics tables.</p>
+        </div>
       </div>
+
       <div>
-        <p class="section-body" style="margin-top: 2.25rem;">
-          <strong>Small</strong> — For stationery items, the logo height is ⅛ of short length<br>
-          <strong>Large</strong> — Logo height is ½ of page length, where a large logo is needed
-        </p>
+        <h2 class="cr-title-h2">SUPERCELL FAN CONTENT POLICY</h2>
+        <p class="cr-subtitle">Mandatory legal disclaimer and branding compliance.</p>
+
+        <div class="cr-panel" style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.6;">
+          <p style="margin-bottom: 0.75rem;">
+            This material is unofficial and is not endorsed by Supercell. For more information see 
+            <a href="https://supercell.com/en/fan-content-policy/" target="_blank" style="color: var(--cr-blue); text-decoration: underline;">Supercell’s Fan Content Policy</a>.
+          </p>
+          <ul style="list-style: disc; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; color: #94a3b8;">
+            <li>Nexus Royale never implies official partnership or Supercell ownership.</li>
+            <li>Nexus Royale never creates or sells physical counterfeit merchandise.</li>
+            <li>Master emblem remains <strong>The Cyber Shield</strong>, distinguishing our community platform from the official game client.</li>
+          </ul>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-top: 1.25rem;">
+          <a href="https://nexusroyale.online" target="_blank" class="cr-btn cr-btn-yellow" onclick="playClick()" style="flex: 1;">
+            👑 LAUNCH NEXUS ROYALE
+          </a>
+        </div>
       </div>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; flex: 1;">
-      <div style="border: 1px solid #222; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative;">
-        <div style="font-family: var(--font-headline); font-size: 1.6rem; font-weight: 900; line-height: 0.95;">NEX<br>US•<br>ROY</div>
-        <div style="position: absolute; bottom: 0.5rem; left: 0.5rem; font-size: 0.6rem; font-weight: 800; color: var(--royale-green);">PRIMARY (⅓)</div>
-      </div>
-      <div style="border: 1px solid #222; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative;">
-        <div style="font-family: var(--font-headline); font-size: 1.2rem; font-weight: 900; line-height: 0.95;">NEX<br>US•<br>ROY</div>
-        <div style="position: absolute; bottom: 0.5rem; left: 0.5rem; font-size: 0.6rem; font-weight: 800; color: var(--royale-green);">SECONDARY (¼)</div>
-      </div>
-      <div style="border: 1px solid #222; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative;">
-        <div style="font-family: var(--font-headline); font-size: 0.75rem; font-weight: 900; line-height: 0.95;">NEX<br>US•<br>ROY</div>
-        <div style="position: absolute; bottom: 0.5rem; left: 0.5rem; font-size: 0.6rem; font-weight: 800; color: var(--royale-green);">SMALL (⅛)</div>
-      </div>
-      <div style="border: 1px solid #222; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative;">
-        <div style="font-family: var(--font-headline); font-size: 2.5rem; font-weight: 900; line-height: 0.95;">NEX<br>US•<br>ROY</div>
-        <div style="position: absolute; bottom: 0.5rem; left: 0.5rem; font-size: 0.6rem; font-weight: 800; color: var(--royale-green);">LARGE (½)</div>
-      </div>
-    </div>
-    <div class="slide-footer-num">8</div>
   </section>
 
-  <!-- SLIDE 9: TYPOGRAPHY SECTION DIVIDER -->
-  <section class="brand-slide" id="slide-9">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="margin-top: auto; margin-bottom: auto;">
-      <h1 class="massive-title">TYPOGRAPHY</h1>
-    </div>
-    <div class="slide-footer-num">9</div>
-  </section>
+  <!-- Copy Notification Toast -->
+  <div id="copy-toast">Copied to clipboard!</div>
 
-  <!-- SLIDE 10: TYPOGRAPHY PHILOSOPHY -->
-  <section class="brand-slide" id="slide-10">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
-      <div>
-        <h2 class="section-title">Typography</h2>
-        <p class="section-body" style="margin-bottom: 2rem;">
-          Nexus Royale has two distinct brand typefaces, <strong>Nexus Headline</strong> and <strong>Nexus Text</strong>. Paired together they create a distinct look that feels uniquely ours while honoring Supercell's playful aesthetic.
-        </p>
-        <div class="subhead-caps">NEXUS HEADLINE</div>
-        <p class="section-body" style="font-size: 0.88rem; margin-bottom: 1.5rem;">
-          Bold and geometric. Nexus Headline is used in headlines, scoreboards, and larger text — in any type that needs attention: titles, key metrics, or call outs.
-        </p>
-        <div class="subhead-caps">NEXUS TEXT</div>
-        <p class="section-body" style="font-size: 0.88rem;">
-          Nexus Text is paired for best legibility for smaller text — subheads, player tags, telemetry metrics, and body copy. It’s highly functional and timeless.
-        </p>
-      </div>
-      <div style="display: flex; gap: 1rem; align-items: center; justify-content: center;">
-        <div style="flex: 1; background: var(--royale-blue); border-radius: 8px; padding: 2rem 1.5rem; text-align: center; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-          <div style="font-family: var(--font-headline); font-size: 1.85rem; font-weight: 900; line-height: 1.1;">WE BELIEVE<br>IN THE POWER<br>OF CLASH</div>
-        </div>
-        <div style="flex: 1; background: #191919; border: 1px solid #333; border-radius: 8px; padding: 2rem 1.5rem; text-align: center; color: #fff;">
-          <div style="font-family: var(--font-headline); font-size: 1.85rem; font-weight: 900; line-height: 1.1;">INSTANT DATA<br>BIG IMPACT</div>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer-num">10</div>
-  </section>
+  <script>
+    // Audio synthesizer for authentic tactile button feedback
+    let soundEnabled = true;
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-  <!-- SLIDE 11: HEADLINE SPECIMEN -->
-  <section class="brand-slide" id="slide-11">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; height: 100%;">
-      <div>
-        <h2 class="section-title">Nexus Headline</h2>
-        <div class="subhead-caps">TYPEFACE DETAILS</div>
-        <ul class="guideline-list">
-          <li>Primary — Nexus Headline Heavy</li>
-          <li>Secondary — Nexus Headline Bold</li>
-          <li>Always all capitals</li>
-          <li>Size always large and bold</li>
-          <li>Leading: 10% of type size</li>
-          <li>Optical kerning</li>
-          <li>Tracking: -15 (Web & Desktop)</li>
-          <li>Left or center aligned</li>
-        </ul>
-      </div>
-      <div>
-        <div style="font-size: 0.7rem; font-weight: 800; color: var(--royale-blue); margin-bottom: 0.5rem; text-transform: uppercase;">
-          NEXUS HEADLINE HEAVY
-        </div>
-        <div style="font-family: var(--font-headline); font-size: 2.25rem; font-weight: 900; line-height: 1.1; margin-bottom: 2.5rem; text-transform: uppercase;">
-          THE QUICK HOG RIDER JUMPS OVER THE LAZY WALL
-        </div>
-        <div style="font-size: 0.7rem; font-weight: 800; color: var(--royale-blue); margin-bottom: 0.5rem; text-transform: uppercase;">
-          NEXUS HEADLINE BOLD
-        </div>
-        <div style="font-family: var(--font-headline); font-size: 2.25rem; font-weight: 700; line-height: 1.1; text-transform: uppercase;">
-          THE QUICK HOG RIDER JUMPS OVER THE LAZY WALL
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer-num">11</div>
-  </section>
+    function playClick() {
+      if (!soundEnabled) return;
+      try {
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(420, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.06);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.06);
+      } catch (e) {
+        // AudioContext not allowed before gesture
+      }
+    }
 
-  <!-- SLIDE 12: TEXT SPECIMEN -->
-  <section class="brand-slide" id="slide-12">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; height: 100%;">
-      <div>
-        <h2 class="section-title">Nexus Text</h2>
-        <div class="subhead-caps">TYPEFACE DETAILS</div>
-        <ul class="guideline-list">
-          <li>Regular, Medium and Bold</li>
-          <li>Sentence case or all capitals</li>
-          <li>Leading: 45% of type size</li>
-          <li>Optical kerning</li>
-          <li>Tracking: 0</li>
-          <li>Left or centre aligned</li>
-        </ul>
-      </div>
-      <div>
-        <div style="font-size: 0.7rem; font-weight: 800; color: var(--royale-blue); margin-bottom: 0.4rem; text-transform: uppercase;">
-          NEXUS TEXT BOLD
-        </div>
-        <div style="font-size: 1.35rem; font-weight: 800; line-height: 1.35; margin-bottom: 1.75rem;">
-          The quick Hog Rider jumps over the lazy wall
-        </div>
-        <div style="font-size: 0.7rem; font-weight: 800; color: var(--royale-blue); margin-bottom: 0.4rem; text-transform: uppercase;">
-          NEXUS TEXT MEDIUM
-        </div>
-        <div style="font-size: 1.35rem; font-weight: 500; line-height: 1.35; margin-bottom: 1.75rem;">
-          The quick Hog Rider jumps over the lazy wall
-        </div>
-        <div style="font-size: 0.7rem; font-weight: 800; color: var(--royale-blue); margin-bottom: 0.4rem; text-transform: uppercase;">
-          NEXUS TEXT REGULAR
-        </div>
-        <div style="font-size: 1.35rem; font-weight: 400; line-height: 1.35;">
-          The quick Hog Rider jumps over the lazy wall
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer-num">12</div>
-  </section>
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('sound-btn').innerText = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+      if (soundEnabled) playClick();
+    }
 
-  <!-- SLIDE 13: TYPE ALIGNMENT -->
-  <section class="brand-slide" id="slide-13">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="margin-bottom: 2rem;">
-      <h2 class="section-title">Type Alignment</h2>
-      <p class="section-body">
-        Typically type is aligned to left margin, and starts at top. Like our logo, we can also center type.
-      </p>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; flex: 1;">
-      <div style="border: 1px solid #222; border-radius: 8px; padding: 2rem; position: relative;">
-        <div style="font-family: var(--font-headline); font-size: 1.35rem; font-weight: 900; line-height: 1.2; text-transform: uppercase;">
-          THE QUICK HOG RIDER JUMPS<br>OVER THE LAZY WALL
-        </div>
-        <div style="position: absolute; bottom: 0.75rem; left: 1rem; font-size: 0.65rem; font-weight: 800; color: var(--royale-blue);">
-          PRIMARY ALIGNMENT IS TOP LEFT CORNER
-        </div>
-      </div>
-      <div style="border: 1px solid #222; border-radius: 8px; padding: 2rem; display: flex; align-items: center; justify-content: center; position: relative;">
-        <div style="font-family: var(--font-headline); font-size: 1.35rem; font-weight: 900; line-height: 1.2; text-align: center; text-transform: uppercase;">
-          THE QUICK HOG RIDER JUMPS<br>OVER THE LAZY WALL
-        </div>
-        <div style="position: absolute; bottom: 0.75rem; left: 1rem; font-size: 0.65rem; font-weight: 800; color: var(--royale-blue);">
-          SECONDARY ALIGNMENT IS CENTERED
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer-num">13</div>
-  </section>
+    // Slide navigation & scrolling
+    let currentSlide = 1;
+    const totalSlides = 8;
 
-  <!-- SLIDE 14: TYPOGRAPHY IN ACTION -->
-  <section class="brand-slide" id="slide-14">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1.35fr; gap: 4rem; height: 100%;">
-      <div>
-        <h2 class="section-title">Typography Example</h2>
-      </div>
-      <div>
-        <h2 style="font-family: var(--font-headline); font-size: 2.2rem; font-weight: 900; line-height: 1.05; margin-bottom: 1.25rem; text-transform: uppercase;">
-          NEXUS ROYALE WAS FOUNDED ON REAL-TIME TELEMETRY
-        </h2>
-        <p style="font-size: 1.05rem; font-weight: 700; color: #fff; line-height: 1.45; margin-bottom: 1.25rem;">
-          Nexus Royale is an esports data intelligence platform built to connect competitive Clash Royale players directly with live Supercell servers.
-        </p>
-        <p style="font-size: 0.88rem; line-height: 1.6; color: #a1a1aa; margin-bottom: 1.25rem;">
-          We used this simple idea to build companion tools that eliminate guesswork from competitive gaming. What if players had immediate algorithmic analysis of every interaction, elixir trade, and deck matchup right at their fingertips? An environment with zero fluff where the best players could make the biggest possible impact.
-        </p>
-        <div style="font-size: 0.85rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">
-          Uncompromised Competitive Integrity
-        </div>
-        <p style="font-size: 0.82rem; line-height: 1.5; color: #888;">
-          We believe the best gameplay insights come from direct mathematical modeling rather than guesswork. Every win probability, archetype counter, and cycle benchmark is evaluated deterministically against live ladder matches.
-        </p>
-      </div>
-    </div>
-    <div class="slide-footer-num">14</div>
-  </section>
+    function goToSlide(n) {
+      playClick();
+      currentSlide = n;
+      document.querySelectorAll('.slide-pill').forEach((pill, idx) => {
+        pill.classList.toggle('active', idx + 1 === n);
+      });
+      const el = document.getElementById('slide-' + n);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
 
-  <!-- SLIDE 15: COLOR SECTION DIVIDER -->
-  <section class="brand-slide" id="slide-15">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="margin-top: auto; margin-bottom: auto;">
-      <h1 class="massive-title">COLOR</h1>
-    </div>
-    <div class="slide-footer-num">15</div>
-  </section>
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        if (currentSlide < totalSlides) goToSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        if (currentSlide > 1) goToSlide(currentSlide - 1);
+      }
+    });
 
-  <!-- SLIDE 16: PRIMARY COLORS -->
-  <section class="brand-slide" id="slide-16">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; height: 100%;">
-      <div>
-        <h2 class="section-title">Primary Colors</h2>
-        <p class="section-body">
-          Nexus Royale has two primary colors, black and white. These are our hero colors and the bedrock of our brand. We use black and white to signify quality and focus, while most importantly, giving the vibrant arena colors and card artwork room to shine. Use these colors for type and backgrounds.
-        </p>
-      </div>
-      <div class="swatches-grid">
-        <div class="swatch-card">
-          <div class="swatch-color-box" style="background: #000000; border-bottom: 1px solid #eee;"></div>
-          <div class="swatch-info">
-            <div class="swatch-title">Nexus Black</div>
-            <div class="swatch-meta">
-              #000000<br>
-              40C 30M 30Y 100K<br>
-              PMS Black 6 C<br>
-              PMS Neutral Black U
-            </div>
-          </div>
-        </div>
-        <div class="swatch-card">
-          <div class="swatch-color-box" style="background: #ffffff; border-bottom: 1px solid #eee;"></div>
-          <div class="swatch-info">
-            <div class="swatch-title">Nexus White</div>
-            <div class="swatch-meta">
-              #FFFFFF<br>
-              0C 0M 0Y 0K<br>
-              PMS —<br>
-              PMS —
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer-num">16</div>
-  </section>
+    // Copy Hex to clipboard
+    function copyHex(hex, name) {
+      playClick();
+      navigator.clipboard.writeText(hex).then(() => {
+        const toast = document.getElementById('copy-toast');
+        toast.innerText = 'Copied ' + name + ' (' + hex + ')';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    }
 
-  <!-- SLIDE 17: ACCENT COLORS -->
-  <section class="brand-slide" id="slide-17">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
-      <div>
-        <h2 class="section-title">Accent Colors</h2>
-        <p class="section-body" style="margin-bottom: 1.5rem;">
-          We want our accent colors to be fun and bright, just like Clash Royale. Accent colors should be used to highlight text, telemetry metrics, or to create UI elements.
-        </p>
-        <p class="section-body">
-          While the colors are not game specific, they share a complementary hue to the official arena palette. Accent colors should be used thoughtfully — ideally one accent color at a time.
-        </p>
-      </div>
-      <div class="swatches-grid">
-        <div class="swatch-card">
-          <div class="swatch-color-box" style="background: var(--royale-blue);">
-            <span class="swatch-tag">PRIMARY</span>
-          </div>
-          <div class="swatch-info">
-            <div class="swatch-title">Royale Blue</div>
-            <div class="swatch-meta">#2D85F3 • 80C 40M 0Y 0K • 2727C</div>
-          </div>
-        </div>
-        <div class="swatch-card">
-          <div class="swatch-color-box" style="background: var(--royale-green);">
-            <span class="swatch-tag">PRIMARY</span>
-          </div>
-          <div class="swatch-info">
-            <div class="swatch-title">Royale Green</div>
-            <div class="swatch-meta">#21C49F • 70C 0M 50Y 0K • 3265C</div>
-          </div>
-        </div>
-        <div class="swatch-card">
-          <div class="swatch-color-box" style="background: var(--royale-pink);">
-            <span class="swatch-tag">SECONDARY</span>
-          </div>
-          <div class="swatch-info">
-            <div class="swatch-title">Elixir Pink</div>
-            <div class="swatch-meta">#FB62AA • 0C 80M 0Y 0K • 212C</div>
-          </div>
-        </div>
-        <div class="swatch-card">
-          <div class="swatch-color-box" style="background: var(--royale-yellow);">
-            <span class="swatch-tag">SECONDARY</span>
-          </div>
-          <div class="swatch-info">
-            <div class="swatch-title">Crown Yellow</div>
-            <div class="swatch-meta">#F7DB1C • 5C 10M 90Y 0K • 109C</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer-num">17</div>
-  </section>
+    // Presentation Mode toggle (fullscreen)
+    function togglePresentationMode() {
+      playClick();
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
 
-  <!-- SLIDE 18: SUPPORTING GRAYS -->
-  <section class="brand-slide" id="slide-18">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
-      <div>
-        <h2 class="section-title">Supporting Grays</h2>
-        <p class="section-body">
-          In addition to our primary and accent colors, we have a set of Supporting Grays. These help our accent colors to pop out and create hierarchy in layouts. The supporting grays are best applied in text, backgrounds and digital applications.
-        </p>
-      </div>
-      <div class="swatches-gray-grid">
-        <div class="swatch-card">
-          <div class="swatch-color-box" style="background: var(--gray-dark); height: 85px;"></div>
-          <div class="swatch-info">
-            <div class="swatch-title" style="font-size: 0.78rem;">Nexus Dark Gray</div>
-            <div class="swatch-meta">#191919</div>
-          </div>
-        </div>
-        <div class="swatch-card">
-          <div class="swatch-color-box" style="background: var(--gray-med); height: 85px;"></div>
-          <div class="swatch-info">
-            <div class="swatch-title" style="font-size: 0.78rem;">Nexus Medium Gray</div>
-            <div class="swatch-meta">#666666</div>
-          </div>
-        </div>
-        <div class="swatch-card">
-          <div class="swatch-color-box" style="background: var(--gray-norm); height: 85px;"></div>
-          <div class="swatch-info">
-            <div class="swatch-title" style="font-size: 0.78rem;">Nexus Gray</div>
-            <div class="swatch-meta">#CCCCCC</div>
-          </div>
-        </div>
-        <div class="swatch-card">
-          <div class="swatch-color-box" style="background: var(--gray-light); height: 85px;"></div>
-          <div class="swatch-info">
-            <div class="swatch-title" style="font-size: 0.78rem;">Nexus Light Gray</div>
-            <div class="swatch-meta">#F2F2F2</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer-num">18</div>
-  </section>
-
-  <!-- SLIDE 19: GRADIENTS -->
-  <section class="brand-slide" id="slide-19">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; height: 100%;">
-      <div>
-        <h2 class="section-title">Gradients</h2>
-        <p class="section-body" style="margin-bottom: 2rem;">
-          The accent colors can also be used as gradients to bring attention to specific visual elements: win rates, timelines and infographics. The gradients are best applied in digital applications like websites and presentations. Gradients should be used sparingly.
-        </p>
-        <div style="margin-bottom: 1.5rem;">
-          <div style="font-size: 0.7rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">GRADIENT A</div>
-          <div style="height: 12px; border-radius: 999px; background: linear-gradient(90deg, var(--royale-blue) 0%, var(--royale-green) 100%); margin-bottom: 0.35rem;"></div>
-          <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: #888; font-family: var(--font-mono);">
-            <span>Royale Blue</span><span>Royale Green</span>
-          </div>
-        </div>
-        <div>
-          <div style="font-size: 0.7rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">GRADIENT B</div>
-          <div style="height: 12px; border-radius: 999px; background: linear-gradient(90deg, var(--royale-blue) 0%, var(--royale-pink) 100%); margin-bottom: 0.35rem;"></div>
-          <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: #888; font-family: var(--font-mono);">
-            <span>Royale Blue</span><span>Elixir Pink</span>
-          </div>
-        </div>
-      </div>
-      <div style="display: flex; align-items: center; justify-content: center;">
-        <div style="width: 260px; height: 360px; background: #111; border: 2.5px solid #333; border-radius: 36px; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 16px 40px rgba(0,0,0,0.8);">
-          <div style="width: 140px; height: 140px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: conic-gradient(from 180deg, var(--royale-blue), var(--royale-pink) 72%, #222 72%); position: relative;">
-            <div style="width: 116px; height: 116px; background: #111; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-              <div style="font-family: var(--font-headline); font-size: 1.75rem; font-weight: 900; color: #fff;">72%</div>
-              <div style="font-size: 0.55rem; font-weight: 800; color: #888; text-transform: uppercase;">WIN RATE</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer-num">19</div>
-  </section>
-
-  <!-- SLIDE 20: COLOR USAGE RATIO -->
-  <section class="brand-slide" id="slide-20">
-    <div class="slide-top-header">
-      <div class="slide-category">Brand Guidelines</div>
-    </div>
-    <div style="margin-bottom: 3rem;">
-      <h2 class="section-title">Color Usage Ratio</h2>
-      <p class="section-body">
-        This chart represents the overall color usage ratio in our digital touchpoints. Please note — this ratio should be taken as a guide rather than a rule.
-      </p>
-    </div>
-    <div style="margin-top: 4rem;">
-      <div style="display: flex; justify-content: space-between; font-family: var(--font-headline); font-weight: 900; margin-bottom: 0.75rem;">
-        <div>
-          <span style="font-size: 2.5rem; color: #fff;">70%</span>
-          <div style="font-size: 0.7rem; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">PRIMARY COLORS</div>
-        </div>
-        <div style="text-align: right;">
-          <span style="font-size: 2.5rem; color: #fff;">30%</span>
-          <div style="font-size: 0.7rem; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">ACCENT COLORS</div>
-        </div>
-      </div>
-      <div style="display: flex; height: 36px; border-radius: 4px; overflow: hidden; width: 100%;">
-        <div style="width: 70%; background: #000; border: 1px solid #333;"></div>
-        <div style="width: 30%; background: linear-gradient(90deg, var(--royale-blue) 0%, var(--royale-green) 100%);"></div>
-      </div>
-      <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; font-weight: 800; color: #fff; margin-top: 1rem; letter-spacing: 0.05em;">
-        <span>▶ COLOR USAGE RATIO</span>
-      </div>
-    </div>
-    <div class="slide-footer-num">20</div>
-  </section>
-
+    // Tab interaction
+    function selectTab(el) {
+      playClick();
+      document.querySelectorAll('.cr-tab-item').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    }
+  </script>
 </body>
 </html>
