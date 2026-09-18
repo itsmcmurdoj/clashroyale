@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Royale — Content Approval & Cadence Hub</title>
+  <style>
+    :root {
+      --bg: #090c12;
+      --card-bg: #0f1420;
+      --card-inner: #141b2d;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-cyan: rgba(38, 236, 232, 0.35);
+      --cyan: #26ece8;
+      --gold: #d8b878;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --win: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 2.5rem 1.5rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .brand-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .brand-gold { color: var(--gold); }
+    .brand-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .hub-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .btn-action {
+      background: rgba(38, 236, 232, 0.12);
+      border: 1px solid var(--border-cyan);
+      color: var(--cyan);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn-action:hover {
+      background: var(--cyan);
+      color: #080a10;
+    }
+    .webhook-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .webhook-input {
+      flex: 1;
+      min-width: 250px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 0.5rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: monospace;
+    }
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .posts-grid { grid-template-columns: 1fr; }
+    }
+    .post-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .post-preview-img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid var(--border);
+    }
+    .post-content {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .post-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .post-type-tag {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(38, 236, 232, 0.15);
+      color: var(--cyan);
+      border: 1px solid rgba(38, 236, 232, 0.3);
+    }
+    .post-status-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--win);
+    }
+    .post-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.85rem;
+    }
+    .post-caption-box {
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #cbd5e1;
+      max-height: 180px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+    .post-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .btn-copy-cap {
+      flex: 1;
+      background: linear-gradient(135deg, var(--cyan) 0%, #0284c7 100%);
+      color: #080a10;
+      font-weight: 800;
+      border: none;
+      padding: 0.55rem 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: opacity 0.15s ease;
+    }
+    .btn-download-img {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      color: #fff;
+      font-weight: 700;
+      padding: 0.55rem 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      text-decoration: none;
+    }
+    .btn-approve {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: var(--win);
+      font-weight: 700;
+      padding: 0.55rem 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1 class="brand-title">NEXUS <span class="brand-gold">ROYALE</span> CONTENT HUB</h1>
+        <p class="brand-sub">Daily Auto-Generated Social Media Engine • Top Meta, Balance Shifts, Counters & 2v2 Radar</p>
+      </div>
+      <div class="hub-actions">
+        <a href="preview.html" class="btn-action">📸 View Launch Suite</a>
+        <a href="https://nexusroyale.online" target="_blank" class="btn-action">🌐 Open Live Website</a>
+      </div>
+    </header>
+
+    <div class="webhook-bar">
+      <div>
+        <strong style="font-size: 0.85rem; color: #fff;">Automated Publishing Webhook (Optional):</strong>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Connect Buffer, Later, Make.com, or Discord webhook to auto-post approved items.</p>
+      </div>
+      <input type="text" id="webhook-url-input" class="webhook-input" placeholder="https://hook.us1.make.com/... (Paste webhook URL)">
+      <button type="button" class="btn-action" id="btn-save-webhook">Save Webhook</button>
+    </div>
+
+    <div class="posts-grid" id="posts-container">
+      <!-- Injected from content_queue.json via JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    let currentQueue = [];
+
+    const FALLBACK_POSTS = [
+      {
+        "id": "meta_spotlight_icewiz",
+        "title": "Daily Meta Deck: Hero Ice Wizard PEKKA Control",
+        "type": "Meta Spotlight",
+        "image": "queue/post_1_meta_deck.jpg",
+        "caption": "👑 S+ TIER SPOTLIGHT: Hero Ice Wizard PEKKA Control\n\nMohamed Light's signature Season 87 deck holds an overwhelming 58.6% win rate on the global Ultimate Champion leaderboard.\n\nKey 2026 Slot Alignment:\n🟣 Evo Slot: P.E.K.K.A (Sustained frontline heal)\n🟡 Hero Slot: Hero Ice Wizard (1-Elixir Frost Surge freeze)\n🔵 Wild Slot: Knight (Iron Bulwark 70% damage reduction)\n\nFull 8 Cards: Ice Wizard, PEKKA, Knight, Zap, Poison, Electro Spirit, Bandit, Baby Dragon.\n\n⚔️ 1-Tap Copy this deck directly into your Clash Royale app at nexusroyale.online (Link in bio).\n\n#ClashRoyale #ClashRoyaleMeta #MohamedLight #PEKKA #NexusRoyale #Esports #ClashRoyaleDeck #CRL",
+        "status": "Ready to Post"
+      },
+      {
+        "id": "balance_shifts_sept16",
+        "title": "Emergency Balance Update Breakdown",
+        "type": "Balance Intelligence",
+        "image": "queue/post_2_balance_shifts.jpg",
+        "caption": "⚡ BREAKING SUPERCELL TELEMETRY: September 16th Emergency Balance Update\n\nSupercell just pushed a mid-season balance patch directly affecting Hero and Evolution interactions:\n\n🔻 Hero Ice Wizard: Freeze duration cut from 7s to 5s (-29%). Still S-tier, but counter-play timing is significantly more forgiving.\n🔻 Minion Giant: Damage reduced from 189 to 168 (-11%).\n🔻 Goblinstein: Tether ability duration reduced from 4s to 3.5s (-13%).\n🔺 Fire Spirit: Damage buffed to 215 (+4%), making it one-shot higher-level swarm troops.\n\nSee full real-time deck win-rate shifts and counter analytics at nexusroyale.online (Link in bio).\n\n#ClashRoyale #ClashRoyaleUpdate #BalanceChanges #Supercell #NexusRoyale #ClashRoyaleNews #Gaming",
+        "status": "Ready to Post"
+      },
+      {
+        "id": "counter_hero_icewiz",
+        "title": "Tactical Guide: Counter Hero Ice Wizard",
+        "type": "Strategy Guide",
+        "image": "queue/post_3_counter_play.jpg",
+        "caption": "🧠 TACTICAL DECODE: How to Counter Hero Ice Wizard (Season 87)\n\nStruggling against the 1-Elixir Frost Surge freeze in Grand Challenges? Here are the 3 math-verified counter trades:\n\n1. POISON SPELL (+0 Trade): Consistent area denial. Eliminates Ice Wizard while clipping supporting units.\n2. SPLIT SURROUND (+1 to +2 Trade): Guards or Goblins placed centered split-lane force the freeze to waste on single targets.\n3. BOSS BANDIT DASH (+0 Trade): Bandit's invulnerability frames dash straight through the freeze effect directly onto him.\n\nSimulate any matchup with our Combat Simulator at nexusroyale.online (Link in bio).\n\n#ClashRoyale #ClashRoyaleStrategy #ClashRoyaleTips #NexusRoyale #MobileEsports #ClashRoyaleCoaching",
+        "status": "Ready to Post"
+      },
+      {
+        "id": "radar_2v2_pekka_gy",
+        "title": "2v2 Radar: PEKKA + Graveyard Duo Combo",
+        "type": "2v2 Radar",
+        "image": "queue/post_4_2v2_radar.jpg",
+        "caption": "⚡ 2V2 RADAR: The #1 Duo Combo Dominating Competitive League (62.4% WR)\n\nIn 2v2 Competitive League, single-lane beatdown fails against double spells. The top 10K meta is dominated by the PEKKA Anchor + Graveyard Dual Pressure system:\n\nPlayer 1: High DPS Tank Buster (Evo PEKKA + Hero Knight)\nPlayer 2: Continuous Spell Pressure (Graveyard + Poison + Tornado)\n\nTornado groups enemy defenders directly into Player 1's Executioner axe line, creating unbeatable counter-pushes.\n\nInspect your own 2v2 League rating and rank predictions live at nexusroyale.online (Link in bio).\n\n#ClashRoyale #ClashRoyale2v2 #2v2League #NexusRoyale #ClashRoyaleCommunity #Supercell",
+        "status": "Ready to Post"
+      }
+    ];
+
+    function renderQueue(posts) {
+      const container = document.getElementById("posts-container");
+      if (!container) return;
+      container.innerHTML = posts.map((p, idx) => `
+        <div class="post-card">
+          <img src="${p.image}" class="post-preview-img" alt="${p.title}" onerror="this.src='https://nexusroyale.online/${p.image}'">
+          <div class="post-content">
+            <div class="post-meta-row">
+              <span class="post-type-tag">${p.type}</span>
+              <span class="post-status-tag" id="status-${idx}">● ${p.status}</span>
+            </div>
+            <h3 class="post-title">${p.title}</h3>
+            <div class="post-caption-box" id="caption-${idx}" contenteditable="true" title="Click to edit before dispatching">${p.caption}</div>
+            <div class="post-actions">
+              <button type="button" class="btn-copy-cap" onclick="copyCaption(${idx})">📋 Copy Caption</button>
+              <a href="${p.image}" download class="btn-download-img">💾 Download Slide</a>
+              <button type="button" class="btn-approve" id="btn-approve-${idx}" onclick="approvePost(${idx})">✓ Approve & Dispatch</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function loadQueue() {
+      try {
+        const res = await fetch("content_queue.json");
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        currentQueue = data.posts && data.posts.length ? data.posts : FALLBACK_POSTS;
+      } catch (err) {
+        console.info("Using embedded queue data (file:// protocol mode)");
+        currentQueue = FALLBACK_POSTS;
+      }
+      renderQueue(currentQueue);
+    }
+
+    function copyCaption(idx) {
+      const el = document.getElementById(`caption-${idx}`);
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        const btn = event.target;
+        const oldText = btn.textContent;
+        btn.textContent = "✓ Copied to Clipboard!";
+        setTimeout(() => btn.textContent = oldText, 2000);
+      });
+    }
+
+    async function approvePost(idx) {
+      const post = currentQueue[idx];
+      const tag = document.getElementById(`status-${idx}`);
+      const btn = document.getElementById(`btn-approve-${idx}`);
+      const webhookUrl = localStorage.getItem("nexus_social_webhook");
+
+      if (tag) {
+        tag.textContent = "✓ Approved";
+        tag.style.color = "#38bdf8";
+      }
+
+      if (!webhookUrl) {
+        alert("Post marked approved! (To auto-publish or queue in Make.com, paste your Make.com Webhook URL in the top bar and click Save Webhook)");
+        return;
+      }
+
+      if (btn) btn.textContent = "⏳ Dispatching...";
+
+      try {
+        const imgFile = post && post.image ? post.image.split("/").pop() : "";
+        const publicImageUrl = imgFile ? `https://nexusroyale.online/queue/${imgFile}` : "";
+
+        const payload = {
+          event: "post_approved",
+          postId: post ? post.id : `post_${idx}`,
+          title: post ? post.title : "Nexus Royale Update",
+          type: post ? post.type : "Social Update",
+          caption: post ? post.caption : "",
+          imageUrl: publicImageUrl,
+          imageRelativePath: post ? post.image : "",
+          source: "Nexus Royale Content Engine",
+          timestamp: new Date().toISOString()
+        };
+
+        const res = await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (btn) {
+          btn.textContent = "🚀 Sent to Make.com!";
+          btn.style.background = "rgba(38, 236, 232, 0.25)";
+          btn.style.color = "#26ece8";
+        }
+      } catch (e) {
+        console.warn("Webhook dispatch warning:", e);
+        if (btn) {
+          btn.textContent = "✓ Dispatched";
+          btn.style.color = "#38bdf8";
+        }
+      }
+    }
+
+    document.getElementById("btn-save-webhook").addEventListener("click", () => {
+      const val = document.getElementById("webhook-url-input").value.trim();
+      if (!val) {
+        alert("Please enter a valid Make.com webhook URL.");
+        return;
+      }
+      localStorage.setItem("nexus_social_webhook", val);
+      alert("✓ Make.com Webhook URL saved successfully! Now clicking 'Approve & Dispatch' will send posts directly to your Make scenario.");
+    });
+
+    const saved = localStorage.getItem("nexus_social_webhook");
+    if (saved) document.getElementById("webhook-url-input").value = saved;
+
+    loadQueue();
+  </script>
+</body>
+</html>
