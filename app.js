@@ -919,9 +919,14 @@ const App = {
       textArea.style.position = "fixed";
       textArea.style.left = "-999999px";
       textArea.style.top = "-999999px";
+      textArea.style.opacity = "0";
+      textArea.setAttribute("readonly", "");
       document.body.appendChild(textArea);
       textArea.focus();
       textArea.select();
+      if (textArea.setSelectionRange) {
+        textArea.setSelectionRange(0, 999999);
+      }
       try {
         document.execCommand("copy");
       } catch (err) {
@@ -963,13 +968,23 @@ const App = {
       });
     }
 
+    const isMobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase());
+
     if (openBtn) {
-      openBtn.href = links.webLink;
+      openBtn.href = isMobile ? links.deepLink : links.webLink;
+      if (isMobile) {
+        openBtn.removeAttribute("target");
+      } else {
+        openBtn.setAttribute("target", "_blank");
+      }
       openBtn.onclick = (e) => {
         WebAudioFX.playClick();
-        // Supercell Universal Link automatically launches Clash Royale on mobile devices
-        if (/iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase())) {
-          window.location.href = links.webLink;
+        this.copyToClipboard(links.webLink);
+        if (isMobile) {
+          window.location.href = links.deepLink;
+          setTimeout(() => {
+            window.location.href = links.webLink;
+          }, 1200);
           e.preventDefault();
         }
       };
@@ -991,7 +1006,7 @@ const App = {
         this.copyToClipboard(links.webLink).then(() => {
           quickCopyBtn.textContent = "COPIED!";
           setTimeout(() => { quickCopyBtn.textContent = "COPY"; }, 2000);
-          this.showToast("In-game deck link copied to clipboard!");
+          this.showToast("📋 In-game deck link copied!");
         });
       };
     }
@@ -1002,20 +1017,10 @@ const App = {
         WebAudioFX.playSuccess();
         this.copyToClipboard(links.webLink).then(() => {
           copyBtn.innerHTML = "✅ Copied to Clipboard!";
-          this.showToast("In-game deck link copied to clipboard!");
+          this.showToast("📋 In-game deck link copied!");
           setTimeout(() => {
             copyBtn.innerHTML = "📋 Copy Shareable Link to Clipboard";
           }, 2500);
-        });
-      };
-    }
-
-    const quickCopyBtn = document.getElementById("deck-modal-quick-copy-btn");
-    if (quickCopyBtn) {
-      quickCopyBtn.onclick = () => {
-        WebAudioFX.playSuccess();
-        this.copyToClipboard(links.webLink).then(() => {
-          this.showToast("Deck link copied!");
         });
       };
     }
@@ -1047,7 +1052,19 @@ const App = {
     }
 
     // Automatically copy to clipboard immediately
-    this.copyToClipboard(links.webLink);
+    this.copyToClipboard(links.webLink).then(() => {
+      this.showToast("📋 In-game deck link copied to clipboard!");
+    });
+
+    const isMobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase());
+    if (isMobile) {
+      // Trigger instant app launch prompt on mobile
+      try {
+        window.location.href = links.deepLink;
+      } catch (err) {
+        console.warn("Mobile deep link trigger:", err);
+      }
+    }
 
     // Show interactive export sheet with direct app launcher
     this.showDeckCopyModal(links, deckName);
