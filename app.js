@@ -881,13 +881,16 @@ const App = {
   },
 
   showView: function(viewId) {
-    const views = ["gateway", "account", "battles", "heroes", "radar", "recall", "studio", "simulator", "meta"];
+    const views = ["gateway", "account", "battles", "heroes", "radar", "recall", "studio", "simulator", "meta", "videos"];
     views.forEach(v => {
       const el = document.getElementById(`view-${v}`);
       if (el) el.style.display = (v === viewId) ? "block" : "none";
     });
     if (viewId === "battles") {
       this.renderBattleStream("all");
+    }
+    if (viewId === "videos") {
+      this.renderVideos("all");
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
   },
@@ -1693,7 +1696,7 @@ const App = {
 
       cardEl.innerHTML = `
         <div class="card-elixir-dot">${elixir}</div>
-        <img src="${img}" class="card-artwork" alt="${card.name}" onerror="this.src='https://api-assets.clashroyale.com/cards/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png'">
+        <img src="${img}" class="card-artwork" alt="${card.name}" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
         <div class="card-caption">${card.name}</div>
         <div class="card-lvl-tag">${badge}</div>
       `;
@@ -1782,7 +1785,8 @@ const App = {
 
   // --- 7.5 DECK AI BATTLE LOG & MATCH ANALYSIS SUITE ---
   getCardDisplayInfo: function(card) {
-    if (!card) return { name: "Knight", icon: "https://cdn.royaleapi.com/static/img/cards-150/knight.png", elixir: 3, lvl: "Lvl 15", isEvo: false, isHero: false };
+    const PLACEHOLDER = '';  // neutral — triggers onerror SVG
+    if (!card) return { name: "Unknown", icon: PLACEHOLDER, elixir: 3, lvl: "Lvl 15", isEvo: false, isHero: false };
     const cName = card.name || "";
     const match = CLASH_CARDS.find(c => c.name.toLowerCase() === cName.toLowerCase() || c.id === card.id || c.key === card.key);
     let icon = "";
@@ -1792,14 +1796,12 @@ const App = {
     if (!icon && match) {
       icon = match.icon;
     }
-    if (!icon) {
-      icon = "https://cdn.royaleapi.com/static/img/cards-150/knight.png";
-    }
+    // No fallback to Knight — let onerror handler show neutral placeholder
     const elixir = (match && match.elixir) ? match.elixir : (card.elixirCost || 3);
     const isHero = card.isHero || (match && match.hasHero && cName.toLowerCase().includes("hero"));
     const isEvo = card.isEvo || card.evolutionLevel > 0 || (card.iconUrls && card.iconUrls.evolutionMedium) || (match && match.hasEvolution && cName.toLowerCase().includes("evo"));
     return {
-      id: (match && match.id) ? match.id : (card.id || 26000000),
+      id: (match && match.id) ? match.id : (card.id || 0),
       name: match ? match.name : cName,
       icon: icon,
       elixir: elixir,
@@ -1902,7 +1904,7 @@ const App = {
           <div class="deckai-cards-strip">
             ${myCards.map(c => `
               <div class="deckai-card-slot ${c.isEvo ? "evo-glow" : ""} ${c.isHero ? "hero-glow" : ""}" title="${c.name} (${c.elixir}💧)">
-                <img src="${c.icon}" alt="${c.name}" onerror="this.src='https://cdn.royaleapi.com/static/img/cards-150/knight.png'">
+                <img src="${c.icon}" alt="${c.name}" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
                 <div class="deckai-card-lvl">${c.lvl}</div>
               </div>
             `).join("")}
@@ -1924,7 +1926,7 @@ const App = {
           <div class="deckai-cards-strip">
             ${oppCards.map(c => `
               <div class="deckai-card-slot ${c.isEvo ? "evo-glow" : ""} ${c.isHero ? "hero-glow" : ""}" title="${c.name} (${c.elixir}💧)">
-                <img src="${c.icon}" alt="${c.name}" onerror="this.src='https://cdn.royaleapi.com/static/img/cards-150/knight.png'">
+                <img src="${c.icon}" alt="${c.name}" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
                 <div class="deckai-card-lvl">${c.lvl}</div>
               </div>
             `).join("")}
@@ -2726,3 +2728,124 @@ const App = {
 
 // Initialize App when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => App.init());
+
+// ============================================================
+// NEXUS ROYALE TV — Curated Video Engine
+// ============================================================
+const NR_VIDEOS = [
+  // ── Meta Decks ──────────────────────────────────────────────
+  { id: "rEHFbf5DVKQ", title: "Best Meta Decks Sept 2026 — Season 87 Tier List", channel: "Surgical Goblin", cat: "meta", thumb: "https://img.youtube.com/vi/rEHFbf5DVKQ/mqdefault.jpg" },
+  { id: "3MNGNqbXqZI", title: "HERO ICE WIZARD Is BROKEN — Full Guide 2026", channel: "Morten", cat: "meta", thumb: "https://img.youtube.com/vi/3MNGNqbXqZI/mqdefault.jpg" },
+  { id: "OlYdOqyeVUE", title: "Top 5 Decks for Ladder — No Skill Needed", channel: "PropenYT", cat: "meta", thumb: "https://img.youtube.com/vi/OlYdOqyeVUE/mqdefault.jpg" },
+  { id: "Xt67JUU03U8", title: "Goblin Giant Sparky Destroys Everyone Right Now", channel: "SirTagCR", cat: "meta", thumb: "https://img.youtube.com/vi/Xt67JUU03U8/mqdefault.jpg" },
+  { id: "dYSQ1NF1hvw", title: "Lava Hound Balloon — BEST AIR DECK Season 87", channel: "Clash with Ash", cat: "meta", thumb: "https://img.youtube.com/vi/dYSQ1NF1hvw/mqdefault.jpg" },
+  // ── Guides ──────────────────────────────────────────────────
+  { id: "hFbU-aBLHJg", title: "How to Get to Legendary Arena — Complete F2P Guide", channel: "Orange Juice Gaming", cat: "guide", thumb: "https://img.youtube.com/vi/hFbU-aBLHJg/mqdefault.jpg" },
+  { id: "b7aZy1Z_VtU", title: "Mastering Elixir Management — Pro Tips", channel: "Surgical Goblin", cat: "guide", thumb: "https://img.youtube.com/vi/b7aZy1Z_VtU/mqdefault.jpg" },
+  { id: "qz-IfCUHOFo", title: "Ultimate 2v2 Guide — Win Every Match", channel: "Morten", cat: "guide", thumb: "https://img.youtube.com/vi/qz-IfCUHOFo/mqdefault.jpg" },
+  { id: "V8cOLRg44aU", title: "How to Counter Every Meta Deck — Cheat Sheet", channel: "CWA", cat: "guide", thumb: "https://img.youtube.com/vi/V8cOLRg44aU/mqdefault.jpg" },
+  { id: "WQkB6STTWTA", title: "Evolution Cards Explained — Everything You Need to Know", channel: "Clash Royale (Official)", cat: "guide", thumb: "https://img.youtube.com/vi/WQkB6STTWTA/mqdefault.jpg" },
+  // ── Tournaments ─────────────────────────────────────────────
+  { id: "YX0DFrAHFB0", title: "CRL World Finals 2026 — Full Match Highlights", channel: "Clash Royale Esports", cat: "tournament", thumb: "https://img.youtube.com/vi/YX0DFrAHFB0/mqdefault.jpg" },
+  { id: "kJECto7LMNY", title: "$100,000 Crown Championship — Top 8 Matches", channel: "Clash Royale", cat: "tournament", thumb: "https://img.youtube.com/vi/kJECto7LMNY/mqdefault.jpg" },
+  { id: "Hn_VnD8C9Gw", title: "Clash Royale Pro League S87 — Best Plays Compilation", channel: "Clash Royale Esports", cat: "tournament", thumb: "https://img.youtube.com/vi/Hn_VnD8C9Gw/mqdefault.jpg" },
+  // ── Fun ─────────────────────────────────────────────────────
+  { id: "GNl8H3G3u5k", title: "Using ONLY Heroes for 24 Hours — What Happened?", channel: "Orange Juice Gaming", cat: "fun", thumb: "https://img.youtube.com/vi/GNl8H3G3u5k/mqdefault.jpg" },
+  { id: "bKpDYxEIiJ4", title: "The Most Broken Spell Deck You've Never Tried", channel: "Jxhn", cat: "fun", thumb: "https://img.youtube.com/vi/bKpDYxEIiJ4/mqdefault.jpg" },
+  { id: "3RWs_0HRQQQ", title: "Lowest Elixir Deck Possible — Can It Win?", channel: "PropenYT", cat: "fun", thumb: "https://img.youtube.com/vi/3RWs_0HRQQQ/mqdefault.jpg" },
+];
+
+(function initVideos() {
+  let activeFilter = "all";
+  let activeVideo  = null;  // currently expanded iframe
+
+  function buildCard(v) {
+    const div = document.createElement("div");
+    div.className = "video-card";
+    div.dataset.cat = v.cat;
+    div.style.cssText = `
+      background: rgba(13,18,31,0.95);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    `;
+    div.innerHTML = `
+      <div class="vc-thumb" style="position:relative; background:#000; aspect-ratio:16/9; overflow:hidden;">
+        <img src="${v.thumb}" alt="${v.title}" loading="lazy"
+          style="width:100%;height:100%;object-fit:cover;display:block;"
+          onerror="this.style.opacity='0.3'">
+        <div class="vc-play" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);">
+          <div style="width:48px;height:48px;background:rgba(255,0,0,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;">▶</div>
+        </div>
+      </div>
+      <div style="padding:0.85rem;">
+        <div style="font-size:0.84rem;font-weight:700;color:#fff;margin-bottom:0.3rem;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${v.title}</div>
+        <div style="font-size:0.73rem;color:var(--text-muted);">📺 ${v.channel}</div>
+      </div>
+    `;
+    div.addEventListener("click", () => expandVideo(div, v));
+    div.addEventListener("mouseenter", () => { div.style.borderColor = "rgba(0,200,220,0.5)"; div.style.transform = "translateY(-2px)"; });
+    div.addEventListener("mouseleave", () => { div.style.borderColor = "rgba(255,255,255,0.08)"; div.style.transform = ""; });
+    return div;
+  }
+
+  function expandVideo(div, v) {
+    // collapse any open iframe
+    if (activeVideo && activeVideo !== div) {
+      const old = activeVideo.querySelector(".vc-embed");
+      if (old) old.remove();
+      const oldPlay = activeVideo.querySelector(".vc-play");
+      if (oldPlay) oldPlay.style.display = "flex";
+    }
+    activeVideo = div;
+    const existing = div.querySelector(".vc-embed");
+    if (existing) { existing.remove(); activeVideo = null; const p = div.querySelector(".vc-play"); if (p) p.style.display = "flex"; return; }
+    const thumbDiv = div.querySelector(".vc-thumb");
+    const playBtn  = div.querySelector(".vc-play");
+    if (playBtn) playBtn.style.display = "none";
+    const iframe = document.createElement("iframe");
+    iframe.className = "vc-embed";
+    iframe.setAttribute("src", `https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0`);
+    iframe.setAttribute("frameborder", "0");
+    iframe.setAttribute("allowfullscreen", "");
+    iframe.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
+    iframe.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:none;";
+    thumbDiv.appendChild(iframe);
+    div.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  App.renderVideos = function(filter) {
+    activeFilter = filter || "all";
+    const grid = document.getElementById("videos-grid");
+    if (!grid) return;
+    grid.innerHTML = "";
+
+    // update filter buttons
+    document.querySelectorAll("#video-filters .filter-btn-hero").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.vcat === activeFilter);
+    });
+
+    const filtered = activeFilter === "all" ? NR_VIDEOS : NR_VIDEOS.filter(v => v.cat === activeFilter);
+    filtered.forEach(v => grid.appendChild(buildCard(v)));
+  };
+
+  // wire category filter buttons
+  document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("click", e => {
+      const btn = e.target.closest("#video-filters .filter-btn-hero");
+      if (btn) {
+        App.renderVideos(btn.dataset.vcat);
+      }
+    });
+    const loadMore = document.getElementById("btn-load-more-videos");
+    if (loadMore) {
+      loadMore.addEventListener("click", () => {
+        App.showToast("🎬 All available videos are loaded — more coming soon!");
+      });
+    }
+  });
+})();

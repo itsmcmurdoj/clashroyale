@@ -158,6 +158,7 @@
       <button class="nav-btn" data-tab="meta">PRO META</button>
       <button class="nav-btn" data-tab="studio">DECK STUDIO</button>
       <button class="nav-btn" data-tab="simulator">SIMULATOR</button>
+      <button class="nav-btn" data-tab="videos">🎬 VIDEOS <span class="hot-tag">NEW</span></button>
       <button class="nav-btn active" data-tab="account" id="nav-btn-account" style="display: none;">MY PROFILE</button>
     </nav>
 
@@ -1066,6 +1067,7 @@
         </div>
       </div>
     </section>
+
     <!-- ── Ezoic Ad Slot ────────────────────────────────────────────────────── -->
     <div style="text-align:center;min-height:90px;margin:1rem auto;">
       <script>
@@ -1073,6 +1075,40 @@
       </script>
     </div>
     <!-- ────────────────────────────────────────────────────────────────────── -->
+
+    <!-- ======================================================== -->
+    <!-- FEATURED VIDEOS                                          -->
+    <!-- ======================================================== -->
+    <section id="view-videos" style="display: none;">
+      <div class="heroes-banner" style="background: linear-gradient(135deg, rgba(13,18,31,0.97) 0%, rgba(8,10,16,0.99) 100%); border: 1px solid rgba(238,180,8,0.35); margin-bottom: 2rem;">
+        <div style="display:flex;align-items:center;gap:1rem;padding:1.5rem 2rem;">
+          <div>
+            <div class="hero-pill-badge" style="margin-bottom:0.6rem; background:rgba(238,180,8,0.12); color:#eab308; border-color:rgba(238,180,8,0.4);">🎬 FEATURED CONTENT</div>
+            <div class="section-title" style="font-size:clamp(1.4rem,4vw,2rem); font-weight:900; color:#fff; margin-bottom:0.3rem;">CLASH ROYALE TV</div>
+            <div class="section-subtitle">Pro guides, deck breakdowns & tournament coverage from the best CR creators</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="hero-filter-bar" style="margin-bottom:1.5rem;" id="video-filters">
+        <button class="filter-btn-hero active" data-vcat="all">🎬 All Videos</button>
+        <button class="filter-btn-hero" data-vcat="meta">⚔️ Meta Decks</button>
+        <button class="filter-btn-hero" data-vcat="guide">📖 Guides</button>
+        <button class="filter-btn-hero" data-vcat="tournament">🏆 Tournaments</button>
+        <button class="filter-btn-hero" data-vcat="fun">😄 Fun</button>
+      </div>
+
+      <!-- Video Grid -->
+      <div id="videos-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr)); gap:1.25rem; margin-bottom:2rem;"></div>
+
+      <!-- Load More -->
+      <div style="text-align:center; margin-bottom:2rem;">
+        <button type="button" class="btn-primary-action" id="btn-load-more-videos" style="padding:0.85rem 2.5rem; font-size:1rem; font-weight:800;">
+          ⬇️ Load More Videos
+        </button>
+      </div>
+    </section>
 
   </main>
 
@@ -1163,6 +1199,11 @@
     <button type="button" class="nav-btn dock-btn" data-tab="studio" id="dock-btn-studio">
       <span class="dock-icon">🛠️</span>
       <span class="dock-label">Studio</span>
+      <span class="dock-pip"></span>
+    </button>
+    <button type="button" class="nav-btn dock-btn" data-tab="videos" id="dock-btn-videos">
+      <span class="dock-icon">🎬</span>
+      <span class="dock-label">Videos</span>
       <span class="dock-pip"></span>
     </button>
   </nav>
@@ -1378,8 +1419,8 @@
 
   <div class="toast-bar" id="toast-bar">Copied to clipboard!</div>
 
-  <script src="cards-data.js?v=20260918_3"></script>
-  <script src="simulator.js?v=20260918_3"></script>
-  <script src="app.js?v=20260918_3"></script>
+  <script src="cards-data.js?v=20260918_4"></script>
+  <script src="simulator.js?v=20260918_4"></script>
+  <script src="app.js?v=20260918_4"></script>
 </body>
 </html>
