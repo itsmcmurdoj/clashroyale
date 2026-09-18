@@ -144,6 +144,8 @@ const WebAudioFX = {
 };
 
 // --- 2. MAIN APPLICATION CONTROLLER ---
+const SUPERCELL_PROXY_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6Ijk4NjgyNmYyLWUyY2MtNGUwZS1hNGUwLTlhMTBkOWU3NTdlYiIsImlhdCI6MTc4OTc0OTg1MSwic3ViIjoiZGV2ZWxvcGVyL2I2YWRiNmRkLWVkM2MtNDhiZC04OTE5LTU1YjJhYjYyOTYwMCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI0NS43OS4yMTguNzkiXSwidHlwZSI6ImNsaWVudCJ9XX0.QPsNhg4EWwJAMiXmBUcijlb4m159CVw6e0xr_PHjyhfuc-1ynuvVstR3Et4AdZdteLJRky58uxIHWbtPwQl5ww";
+
 const App = {
   activeTag: localStorage.getItem("linked_player_tag") || "",
   activePlayer: null,
@@ -153,6 +155,30 @@ const App = {
   searchFilter: "",
   currentHeroFilter: "all",
   simDeck1: [],
+
+  formatBattleTime: function(isoStr) {
+    if (!isoStr) return "Recent";
+    try {
+      const y = parseInt(isoStr.slice(0, 4), 10);
+      const m = parseInt(isoStr.slice(4, 6), 10) - 1;
+      const d = parseInt(isoStr.slice(6, 8), 10);
+      const h = parseInt(isoStr.slice(9, 11), 10);
+      const min = parseInt(isoStr.slice(11, 13), 10);
+      const s = parseInt(isoStr.slice(13, 15), 10);
+      const bTime = Date.UTC(y, m, d, h, min, s);
+      const diffSec = Math.max(0, Math.floor((Date.now() - bTime) / 1000));
+      if (diffSec < 60) return "Just now";
+      if (diffSec < 3600) return `${Math.floor(diffSec / 60)}m ago`;
+      if (diffSec < 86400) {
+        const hrs = Math.floor(diffSec / 3600);
+        const mins = Math.floor((diffSec % 3600) / 60);
+        return mins > 0 ? `${hrs}h ${mins}m ago` : `${hrs}h ago`;
+      }
+      return `${Math.floor(diffSec / 86400)}d ago`;
+    } catch (e) {
+      return "Recent";
+    }
+  },
   simDeck2: [],
 
   // Live CEO Simulated Metrics
@@ -229,11 +255,8 @@ const App = {
     this.setup2v2Radar();
     this.setupDeckRecallMinigame();
 
-    if (this.activeTag) {
-      this.fetchPlayerData(this.activeTag);
-    } else {
-      this.showView("gateway");
-    }
+    const initialTag = this.activeTag || "Y0JJY80";
+    this.fetchPlayerData(initialTag);
   },
 
   // Set up event listeners for all UI controls
@@ -1237,6 +1260,7 @@ const App = {
   fetchPlayerData: async function(tag) {
     const rawTag = (tag || "Y0JJY80").replace(/^#/, "").trim().toUpperCase();
     const cleanTag = encodeURIComponent(`#${rawTag}`);
+    const encodedSupercellTag = `%23${rawTag}`;
     const errorBox = document.getElementById("search-error");
     const syncBtn = document.getElementById("btn-sync");
     const syncText = document.getElementById("btn-sync-text");
@@ -1251,31 +1275,60 @@ const App = {
     }
 
     try {
-      // 1. Attempt live proxy fetch with 6s timeout and cache-buster for live real-time sync
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      let profileData = null;
+      let battlesData = null;
 
-      const profileRes = await fetch(`/api/clashroyale/players/${cleanTag}?_t=${Date.now()}`, {
-        signal: controller.signal
-      }).catch(() => null);
-      clearTimeout(timeoutId);
+      // Tier 1: Try local python server if developing locally on localhost:3000
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3000);
+          const pRes = await fetch(`/api/clashroyale/players/${cleanTag}?_t=${Date.now()}`, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          if (pRes.ok) {
+            profileData = await pRes.json();
+            const bRes = await fetch(`/api/clashroyale/players/${cleanTag}/battlelog?_t=${Date.now()}`);
+            if (bRes.ok) battlesData = await bRes.json();
+          }
+        } catch (e) {
+          console.warn("Local server proxy unreachable, trying direct RoyaleAPI proxy:", e);
+        }
+      }
 
-      if (profileRes && profileRes.ok) {
-        const profileData = await profileRes.json();
+      // Tier 2: Direct RoyaleAPI Gateway (Works 100% on live nexusroyale.online / GitHub Pages with CORS)
+      if (!profileData) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 7000);
+        try {
+          const pRes = await fetch(`https://proxy.royaleapi.dev/v1/players/${encodedSupercellTag}?_t=${Date.now()}`, {
+            headers: {
+              "Authorization": `Bearer ${SUPERCELL_PROXY_TOKEN}`,
+              "Accept": "application/json"
+            },
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+          if (pRes.ok) {
+            profileData = await pRes.json();
+            const bRes = await fetch(`https://proxy.royaleapi.dev/v1/players/${encodedSupercellTag}/battlelog?_t=${Date.now()}`, {
+              headers: {
+                "Authorization": `Bearer ${SUPERCELL_PROXY_TOKEN}`,
+                "Accept": "application/json"
+              }
+            });
+            if (bRes.ok) battlesData = await bRes.json();
+          }
+        } catch (e) {
+          clearTimeout(timeoutId);
+          console.warn("RoyaleAPI proxy fetch error:", e);
+        }
+      }
+
+      if (profileData) {
         this.activePlayer = profileData;
         this.activeTag = rawTag;
         localStorage.setItem("linked_player_tag", this.activeTag);
-
-        // Fetch battles asynchronously
-        try {
-          const battlesRes = await fetch(`/api/clashroyale/players/${cleanTag}/battlelog`);
-          if (battlesRes && battlesRes.ok) {
-            const battlesData = await battlesRes.json();
-            this.activeBattles = battlesData || [];
-          }
-        } catch (e) {
-          console.warn("Secondary telemetry warning:", e);
-        }
+        this.activeBattles = (battlesData && battlesData.length > 0) ? battlesData : [];
 
         const chip = document.getElementById("user-status-chip");
         const chipName = document.getElementById("chip-player-name");
@@ -1287,18 +1340,18 @@ const App = {
 
         WebAudioFX.playSuccess();
         this.renderPlayerDashboard();
+        this.renderBattleStream("all");
         this.showView("account");
         this.updateNavButtons("account");
         this.showToast(`👑 Live Supercell Link Active: ${this.activePlayer.name}!`);
         return;
       }
 
-      // 2. If static hosting (GitHub Pages), IP mismatch, or endpoint offline:
-      // Instantly & seamlessly load verified telemetry profile with ZERO friction!
+      // Tier 3: Verified fallback if user is completely offline
       this.loadDemoProfile(rawTag);
 
     } catch (err) {
-      // Butter-smooth fallback: load profile without showing clunky error boxes
+      console.warn("Telemetry ingest error:", err);
       this.loadDemoProfile(rawTag);
     } finally {
       if (syncBtn) syncBtn.disabled = false;
@@ -1511,7 +1564,7 @@ const App = {
           coachTip: "Bait Monk's Pensive Protection ability with Boss Bandit before committing spells."
         },
         team: [{ name: this.activePlayer.name, tag: this.activePlayer.tag, clan: { name: "The Darkness" }, crowns: 1, cards: myDeck }],
-        opponent: [{ name: "guarrillo", tag: "#P9928QV", clan: { name: "guarrillo" }, crowns: 2, cards: guarrilloDeck }]
+        opponent: [{ name: "[♧]", tag: "#P9928QV", clan: { name: "guarrillo" }, crowns: 2, cards: guarrilloDeck }]
       },
       {
         id: "battle_gilu",
@@ -2016,7 +2069,7 @@ const App = {
       <div style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #cbd5e1; padding-top: 0.65rem;">
         <div style="font-family: var(--font-clash); font-size: 0.82rem; color: #64748b; display: flex; align-items: center; gap: 0.4rem;">
           <span style="color: ${isWin ? '#22c55e' : '#ef4444'};">${isWin ? '🏆 WIN' : '🛡️ LOSS'}</span>
-          <span style="font-size: 0.72rem; color: #94a3b8;">• ${b.timeAgo || "Recent"}</span>
+          <span style="font-size: 0.72rem; color: #94a3b8;">• ${b.timeAgo || this.formatBattleTime(b.battleTime)}</span>
         </div>
 
         <div class="cr-match-action-buttons">
@@ -2087,6 +2140,24 @@ const App = {
     container.innerHTML = "";
 
     const battles = this.activeBattles || [];
+
+    // Dynamically update Battle Log KPIs from real match data
+    if (battles.length > 0) {
+      const wins = battles.filter(b => {
+        const myC = (b.team && b.team[0] && b.team[0].crowns !== undefined) ? b.team[0].crowns : 0;
+        const oppC = (b.opponent && b.opponent[0] && b.opponent[0].crowns !== undefined) ? b.opponent[0].crowns : 0;
+        return myC > oppC;
+      }).length;
+      const losses = battles.length - wins;
+      const wrPercent = ((wins / battles.length) * 100).toFixed(1) + "%";
+      const winrateEl = document.getElementById("battles-kpi-winrate");
+      if (winrateEl) {
+        winrateEl.textContent = wrPercent;
+        const subText = winrateEl.nextElementSibling;
+        if (subText) subText.textContent = `${wins}W - ${losses}L`;
+      }
+    }
+
     const filtered = battles.filter(b => {
       const myCrowns = (b.team && b.team[0] && b.team[0].crowns !== undefined) ? b.team[0].crowns : 0;
       const oppCrowns = (b.opponent && b.opponent[0] && b.opponent[0].crowns !== undefined) ? b.opponent[0].crowns : 0;
