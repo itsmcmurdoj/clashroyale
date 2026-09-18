@@ -1,45 +1,52 @@
-name: Autonomous Meta Telemetry Bot
+name: Autonomous Daily Social Content Bot
 
 on:
   schedule:
-    - cron: '0 12 * * *' # Runs automatically every day at 12:00 UTC
+    - cron: '0 12 * * *' # Runs automatically every 24h at 12:00 UTC (8:00 AM EDT)
   workflow_dispatch:      # Allows manual trigger anytime from GitHub UI
 
 permissions:
   contents: write
 
 jobs:
-  telemetry-sync:
+  daily-content-sync:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Run Autonomous Meta & Health Check
+      - name: Install System Fonts and Dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-dejavu-core fonts-freefont-ttf
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pillow requests
+
+      - name: Run Autonomous Content Engine
         run: |
           echo "============================================="
-          echo "🤖 NEXUS ROYALE AUTONOMOUS CRON WORKER"
+          echo "🎨 NEXUS ROYALE AUTONOMOUS DAILY CONTENT ENGINE"
           echo "Timestamp: $(date -u)"
           echo "============================================="
-          python3 -c "
-          import json
-          with open('cards-data.js', 'r') as f:
-              content = f.read()
-          print('✅ cards-data.js verified intact and online.')
-          print('✅ Total Characters:', len(content))
-          "
-          echo "Meta verification complete."
+          python3 scripts/content_engine.py
+          echo "Content generation complete."
 
-      - name: Commit Automated Health Log
+      - name: Commit and Push Generated Assets to CDN
         run: |
           git config user.name "NexusRoyaleBot"
-          git config user.email "bot@nexusroyale.internal"
+          git config user.email "bot@nexusroyale.online"
           date -u > .last_bot_run.txt
-          git add .last_bot_run.txt
-          git diff-index --quiet HEAD || git commit -m "chore(bot): autonomous daily meta telemetry pulse [skip ci]"
-          git push || echo "Push complete"
+          git add queue/ content_queue.json .last_bot_run.txt
+          if git diff --staged --quiet; then
+            echo "No asset changes to commit."
+          else
+            git commit -m "chore(bot): autonomous daily social graphics & manifest sync [skip ci]"
+            git push origin main
+          fi

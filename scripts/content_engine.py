@@ -15,18 +15,37 @@ from datetime import datetime, timezone
 from PIL import Image, ImageDraw, ImageFont
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-SOCIALS_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "Socials"))
-QUEUE_DIR = os.path.join(SOCIALS_DIR, "queue")
+PARENT_SOCIALS_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "Socials"))
+SOCIALS_DIR = PARENT_SOCIALS_DIR if os.path.isdir(PARENT_SOCIALS_DIR) else BASE_DIR
+
+QUEUE_DIR = os.path.join(SOCIALS_DIR, "queue") if os.path.isdir(PARENT_SOCIALS_DIR) else os.path.join(BASE_DIR, "queue")
 V1_QUEUE_DIR = os.path.join(BASE_DIR, "queue")
-QUEUE_FILE = os.path.join(SOCIALS_DIR, "content_queue.json")
-CARDS_DIR = os.path.join(SOCIALS_DIR, "assets", "cards")
+QUEUE_FILE = os.path.join(BASE_DIR, "content_queue.json")
+SOCIALS_QUEUE_FILE = os.path.join(PARENT_SOCIALS_DIR, "content_queue.json") if os.path.isdir(PARENT_SOCIALS_DIR) else None
+
+# Cards directory lookup: prefer V1/assets/cards, fallback to Socials/assets/cards
+CARDS_DIR = os.path.join(BASE_DIR, "assets", "cards")
+if not os.path.isdir(CARDS_DIR):
+    CARDS_DIR = os.path.join(PARENT_SOCIALS_DIR, "assets", "cards")
 
 os.makedirs(QUEUE_DIR, exist_ok=True)
 os.makedirs(V1_QUEUE_DIR, exist_ok=True)
 os.makedirs(CARDS_DIR, exist_ok=True)
 
-LILITA_FONT_PATH = "/Users/jacksonmcmurdo/Desktop/Nexus Royale/Brand/fonts/LilitaOne-Regular.ttf"
+# Font lookups (Cross-platform: macOS + Linux GitHub Actions runner)
+LOCAL_LILITA = os.path.join(BASE_DIR, "fonts", "LilitaOne-Regular.ttf")
+BRAND_LILITA = "/Users/jacksonmcmurdo/Desktop/Nexus Royale/Brand/fonts/LilitaOne-Regular.ttf"
+LILITA_FONT_PATH = LOCAL_LILITA if os.path.exists(LOCAL_LILITA) else BRAND_LILITA
 HELVETICA_FONT_PATH = "/System/Library/Fonts/HelveticaNeue.ttc"
+
+LINUX_FALLBACK_FONTS = [
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSans.ttf"
+]
 
 def get_font(size, bold=False, clash=False):
     if clash and os.path.exists(LILITA_FONT_PATH):
@@ -35,10 +54,23 @@ def get_font(size, bold=False, clash=False):
         except Exception:
             pass
     index = 1 if bold else 0
-    try:
-        return ImageFont.truetype(HELVETICA_FONT_PATH, size, index=index)
-    except Exception:
-        return ImageFont.load_default()
+    if os.path.exists(HELVETICA_FONT_PATH):
+        try:
+            return ImageFont.truetype(HELVETICA_FONT_PATH, size, index=index)
+        except Exception:
+            pass
+    for lfont in LINUX_FALLBACK_FONTS:
+        if os.path.exists(lfont):
+            try:
+                return ImageFont.truetype(lfont, size)
+            except Exception:
+                pass
+    if os.path.exists(LILITA_FONT_PATH):
+        try:
+            return ImageFont.truetype(LILITA_FONT_PATH, size)
+        except Exception:
+            pass
+    return ImageFont.load_default()
 
 def create_base_canvas():
     # In-game royal blue dark slate canvas with gold border
@@ -795,7 +827,7 @@ def main():
         fn = os.path.basename(p["image"])
         src = os.path.join(QUEUE_DIR, fn)
         dst = os.path.join(V1_QUEUE_DIR, fn)
-        if os.path.exists(src):
+        if os.path.exists(src) and os.path.abspath(src) != os.path.abspath(dst):
             shutil.copy2(src, dst)
             print(f"Copied {fn} to V1/queue/")
             
@@ -807,6 +839,9 @@ def main():
     
     with open(QUEUE_FILE, "w") as f:
         json.dump(payload, f, indent=2)
+    if SOCIALS_QUEUE_FILE and os.path.abspath(QUEUE_FILE) != os.path.abspath(SOCIALS_QUEUE_FILE):
+        with open(SOCIALS_QUEUE_FILE, "w") as f:
+            json.dump(payload, f, indent=2)
         
     print(f"\n✅ Successfully generated all {len(posts)} posts into {QUEUE_DIR} and {V1_QUEUE_DIR}")
     print(f"✅ Schedule manifest saved to {QUEUE_FILE}")

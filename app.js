@@ -991,14 +991,49 @@ const App = {
     window.scrollTo({ top: 0, behavior: "smooth" });
   },
 
-  showToast: function(msg) {
+  showToast: function(msg, actionHtml = null, duration = 3500) {
     const toast = document.getElementById("toast-bar");
     if (!toast) return;
-    toast.textContent = msg;
+    toast.innerHTML = "";
+    const msgSpan = document.createElement("span");
+    msgSpan.innerHTML = msg;
+    toast.appendChild(msgSpan);
+
+    if (actionHtml) {
+      const actionWrap = document.createElement("span");
+      actionWrap.style.display = "inline-flex";
+      actionWrap.style.alignItems = "center";
+      actionWrap.style.marginLeft = "auto";
+      actionWrap.innerHTML = actionHtml;
+      toast.appendChild(actionWrap);
+    }
+
     toast.classList.add("show");
-    setTimeout(() => {
+    if (this._toastTimeout) clearTimeout(this._toastTimeout);
+    this._toastTimeout = setTimeout(() => {
       toast.classList.remove("show");
-    }, 3200);
+    }, duration);
+  },
+
+  // High-converting Creator Code conversion toast with instant 1-tap copy
+  showCreatorCodeToast: function(headline = "📋 In-game deck link copied!") {
+    const actionBtn = `<button type="button" id="toast-copy-nexus-btn" class="btn-copy-code" style="padding:0.3rem 0.65rem; font-size:0.75rem; font-weight:800; background:#facc15; color:#080a10; border:none; border-radius:4px; cursor:pointer; vertical-align:middle; box-shadow:0 0 10px rgba(250,204,21,0.5); display:inline-flex; align-items:center; gap:0.25rem;"><span>COPY</span><strong>NEXUS</strong></button>`;
+    this.showToast(`${headline} <span style="color:#facc15; font-weight:700; font-size:0.8rem; margin-left:0.25rem;">💎 Code NEXUS</span>`, actionBtn, 5500);
+    setTimeout(() => {
+      const btn = document.getElementById("toast-copy-nexus-btn");
+      if (btn) {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          WebAudioFX.playSuccess();
+          this.copyToClipboard("NEXUS").then(() => {
+            btn.innerHTML = "<span>✅ COPIED</span>";
+            setTimeout(() => {
+              btn.innerHTML = "<span>COPY</span><strong>NEXUS</strong>";
+            }, 2000);
+          });
+        };
+      }
+    }, 50);
   },
 
   // Robust Clipboard Copy with Executive Fallback
@@ -1079,6 +1114,7 @@ const App = {
       openBtn.onclick = (e) => {
         WebAudioFX.playClick();
         this.copyToClipboard(links.webLink);
+        this.showCreatorCodeToast("⚔️ Launching Clash Royale!");
         if (isMobile) {
           window.location.href = links.deepLink;
           setTimeout(() => {
@@ -1098,6 +1134,20 @@ const App = {
       qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(links.webLink)}`;
     }
 
+    const creatorCopyBtn = document.getElementById("deck-modal-copy-creator-btn");
+    if (creatorCopyBtn) {
+      creatorCopyBtn.onclick = () => {
+        WebAudioFX.playSuccess();
+        this.copyToClipboard("NEXUS").then(() => {
+          creatorCopyBtn.innerHTML = "<span>✅ COPIED</span><strong>NEXUS</strong>";
+          setTimeout(() => {
+            creatorCopyBtn.innerHTML = "<span>COPY</span><strong>NEXUS</strong>";
+          }, 2500);
+          this.showToast("💎 Creator Code NEXUS copied! Remember to enter it in Clash Royale shop.");
+        });
+      };
+    }
+
     const quickCopyBtn = document.getElementById("deck-modal-quick-copy-btn");
     if (quickCopyBtn) {
       quickCopyBtn.onclick = () => {
@@ -1105,7 +1155,7 @@ const App = {
         this.copyToClipboard(links.webLink).then(() => {
           quickCopyBtn.textContent = "COPIED!";
           setTimeout(() => { quickCopyBtn.textContent = "COPY"; }, 2000);
-          this.showToast("📋 In-game deck link copied!");
+          this.showCreatorCodeToast("📋 In-game deck link copied!");
         });
       };
     }
@@ -1116,7 +1166,7 @@ const App = {
         WebAudioFX.playSuccess();
         this.copyToClipboard(links.webLink).then(() => {
           copyBtn.innerHTML = "✅ Copied to Clipboard!";
-          this.showToast("📋 In-game deck link copied!");
+          this.showCreatorCodeToast("📋 In-game deck link copied!");
           setTimeout(() => {
             copyBtn.innerHTML = "📋 Copy Shareable Link to Clipboard";
           }, 2500);
@@ -1150,9 +1200,9 @@ const App = {
       return;
     }
 
-    // Automatically copy to clipboard immediately
+    // Automatically copy to clipboard immediately with high-converting Creator Code toast
     this.copyToClipboard(links.webLink).then(() => {
-      this.showToast("📋 In-game deck link copied to clipboard!");
+      this.showCreatorCodeToast("📋 In-game deck link copied!");
     });
 
     const isMobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase());
