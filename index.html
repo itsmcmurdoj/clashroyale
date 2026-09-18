@@ -132,7 +132,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="shortcut icon" href="nexus_crest_cyber.jpg">
 
-  <link rel="stylesheet" href="styles.css?v=20260918_cr_gameui">
+  <link rel="stylesheet" href="styles.css?v=20260918_cr_interfaceingame">
 </head>
 <body>
 
@@ -385,7 +385,43 @@
         </div>
       </div>
 
-      <!-- 2v2 Competitive League Tracker & Top 10k Cutoff Radar (Deck Recall Feature) -->
+      <!-- In-Game Badges Shelf (Interface In Game: clash-royale-badges) -->
+      <div class="cr-badges-shelf">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-size: 1.2rem;">🛡️</span>
+            <span style="font-family: var(--font-clash); font-size: 1.1rem; color: #fff;">CAREER BADGES</span>
+          </div>
+          <span style="font-size: 0.7rem; color: var(--gold); font-weight: 800; font-family: var(--font-mono);">TOP ROYALE VETERAN</span>
+        </div>
+        <div class="cr-badges-grid" id="profile-badges-grid">
+          <div class="cr-badge-item">
+            <div class="cr-badge-shield">⚔️</div>
+            <div class="cr-badge-title">12 Wins</div>
+            <div class="cr-badge-sub">Classic Challenge</div>
+          </div>
+          <div class="cr-badge-item">
+            <div class="cr-badge-shield">🏆</div>
+            <div class="cr-badge-title">14,030</div>
+            <div class="cr-badge-sub">Trophy Road</div>
+          </div>
+          <div class="cr-badge-item">
+            <div class="cr-badge-shield">👑</div>
+            <div class="cr-badge-title">8 Years</div>
+            <div class="cr-badge-sub">Played Since 2018</div>
+          </div>
+          <div class="cr-badge-item">
+            <div class="cr-badge-shield">⚡</div>
+            <div class="cr-badge-title">Grand Master</div>
+            <div class="cr-badge-sub">2,273 2v2 Medals</div>
+          </div>
+          <div class="cr-badge-item">
+            <div class="cr-badge-shield">🟣</div>
+            <div class="cr-badge-title">Evo Master</div>
+            <div class="cr-badge-sub">Executioner Max</div>
+          </div>
+        </div>
+      </div>
       <div class="section-panel" id="section-2v2-tracker" style="padding: 1.35rem; border: 1px solid rgba(6, 182, 212, 0.35); background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(17, 19, 28, 0.95) 100%); margin-bottom: 1.75rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
           <div>
@@ -1467,6 +1503,6 @@
 
   <script src="cards-data.js?v=20260918_8"></script>
   <script src="simulator.js?v=20260918_8"></script>
-  <script src="app.js?v=20260918_cr_gameui"></script>
+  <script src="app.js?v=20260918_cr_interfaceingame"></script>
 </body>
 </html>

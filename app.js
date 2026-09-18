@@ -2442,16 +2442,133 @@ const App = {
       `;
 
       item.onclick = () => {
-        if (!inDeck && this.studioDeck.length < 8) {
-          WebAudioFX.playCardLock();
-          this.studioDeck.push(c);
-          this.renderStudioDeck();
-          this.renderStudioCatalog();
-        }
+        this.showCardDetailModal(c);
       };
 
       container.appendChild(item);
     });
+  },
+
+  // --- Card Detail & Upgrade Inspection Modal (Interface In Game: clash-royale-upgrade-card) ---
+  showCardDetailModal: function(card) {
+    if (!card) return;
+    WebAudioFX.playHeroAura();
+
+    const existing = document.getElementById("cr-card-detail-modal-root");
+    if (existing) existing.remove();
+
+    const info = this.getCardDisplayInfo(card);
+    const match = CLASH_CARDS.find(c => c.name.toLowerCase() === (card.name || "").toLowerCase() || c.id === card.id);
+    const rarity = (match && match.rarity) ? match.rarity.toUpperCase() : "COMMON";
+    const type = (match && match.type) ? match.type.toUpperCase() : "TROOP";
+    const desc = (match && match.description) ? match.description : "A versatile tactical unit deployed in the arena.";
+
+    const backdrop = document.createElement("div");
+    backdrop.className = "cr-card-modal-backdrop";
+    backdrop.id = "cr-card-detail-modal-root";
+    backdrop.innerHTML = `
+      <div class="cr-card-modal-sheet">
+        <button type="button" class="cr-modal-close-btn" id="btn-close-card-modal" title="Close">✖</button>
+        
+        <div class="cr-modal-card-top">
+          <div>
+            <div style="font-size: 0.65rem; color: var(--gold); font-weight: 800; text-transform: uppercase;">${rarity} • ${type}</div>
+            <div class="cr-modal-card-name">${info.name}</div>
+          </div>
+          <div class="cr-currency-pill" style="background: rgba(225, 29, 72, 0.2); border-color: var(--elixir); color: #fff; font-size: 0.95rem;">
+            💧 ${info.elixir}
+          </div>
+        </div>
+
+        <div class="cr-modal-card-body">
+          <div class="cr-modal-card-art-box">
+            <img src="${info.icon}" alt="${info.name}" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22%3E%3Crect width=%22100%22 height=%22120%22 fill=%22%230d1117%22/%3E%3Ctext x=%2250%22 y=%2265%22 fill=%22%23fff%22 text-anchor=%22middle%22%3E🃏%3C/text%3E%3C/svg%3E'">
+            <div class="cr-card-lvl-pill max" style="position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 85%;">${info.lvl || "Lvl 15 Elite"}</div>
+          </div>
+
+          <div class="cr-modal-stat-grid">
+            <div class="cr-modal-stat-tile">
+              <div class="cr-modal-stat-label">Hitpoints</div>
+              <div class="cr-modal-stat-val">❤️ 1,840</div>
+            </div>
+            <div class="cr-modal-stat-tile">
+              <div class="cr-modal-stat-label">Damage</div>
+              <div class="cr-modal-stat-val">⚔️ 380</div>
+            </div>
+            <div class="cr-modal-stat-tile">
+              <div class="cr-modal-stat-label">Targets</div>
+              <div class="cr-modal-stat-val">🎯 Ground</div>
+            </div>
+            <div class="cr-modal-stat-tile">
+              <div class="cr-modal-stat-label">Hit Speed</div>
+              <div class="cr-modal-stat-val">⏱️ 1.2s</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cr-modal-ability-box">
+          <div style="font-weight: 800; font-family: var(--font-clash); margin-bottom: 2px;">
+            ${info.isHero ? "👑 HERO ABILITY UNLOCKED" : (info.isEvo ? "🟣 EVOLUTION ACTIVE" : "📜 TACTICAL ROLE")}
+          </div>
+          <div>${desc}</div>
+        </div>
+
+        <div class="cr-modal-action-row">
+          <button type="button" class="cr-sub-btn-blue" id="btn-modal-add-to-studio" style="flex: 1; padding: 0.55rem; font-size: 0.85rem;">
+            🃏 ADD TO STUDIO
+          </button>
+          <button type="button" class="cr-sub-btn-green" id="btn-modal-sim-card" style="flex: 1; padding: 0.55rem; font-size: 0.85rem;">
+            ⚔️ PRACTICE MATCHUP
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(backdrop);
+
+    // Close handlers
+    const closeBtn = backdrop.querySelector("#btn-close-card-modal");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        backdrop.remove();
+      });
+    }
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) backdrop.remove();
+    });
+
+    // Add to Studio button
+    const addBtn = backdrop.querySelector("#btn-modal-add-to-studio");
+    if (addBtn) {
+      addBtn.addEventListener("click", () => {
+        WebAudioFX.playCardLock();
+        if (this.studioDeck.length < 8) {
+          if (!this.studioDeck.some(c => c.id === info.id || c.name === info.name)) {
+            this.studioDeck.push({ id: info.id, name: info.name, elixir: info.elixir, icon: info.icon });
+            this.renderStudioDeck();
+            this.showToast(`✅ Added ${info.name} to Studio Deck!`);
+          } else {
+            this.showToast(`⚠️ ${info.name} is already in your Studio Deck.`);
+          }
+        } else {
+          this.showToast(`⚠️ Studio Deck is full (8/8 cards).`);
+        }
+        backdrop.remove();
+      });
+    }
+
+    // Simulate Matchup button
+    const simBtn = backdrop.querySelector("#btn-modal-sim-card");
+    if (simBtn) {
+      simBtn.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        backdrop.remove();
+        this.showView("simulator");
+        this.updateNavButtons("simulator");
+        this.showToast(`⚔️ Loaded ${info.name} into Combat Simulator!`);
+      });
+    }
   },
 
   // --- 10. MATCHUP ARENA SIMULATOR ---
