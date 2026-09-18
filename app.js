@@ -2373,6 +2373,24 @@ const App = {
       container.appendChild(slot);
     });
 
+    // Render empty placeholder slots to preserve exact 2x4 in-game grid (Game UI Database reference)
+    for (let i = this.studioDeck.length; i < 8; i++) {
+      const emptySlot = document.createElement("div");
+      emptySlot.className = "deck-card-unit empty-slot";
+      emptySlot.style.border = "2px dashed #475569";
+      emptySlot.style.background = "rgba(15, 23, 42, 0.5)";
+      emptySlot.style.minHeight = "110px";
+      emptySlot.style.display = "flex";
+      emptySlot.style.flexDirection = "column";
+      emptySlot.style.alignItems = "center";
+      emptySlot.style.justifyContent = "center";
+      emptySlot.innerHTML = `
+        <div style="font-size: 1.5rem; color: #64748b; line-height: 1;">➕</div>
+        <div style="font-size: 0.62rem; font-weight: 800; color: #64748b; margin-top: 0.35rem; font-family: var(--font-clash);">SLOT ${i + 1}</div>
+      `;
+      container.appendChild(emptySlot);
+    }
+
     const avg = this.studioDeck.length > 0 ? (totalElixir / this.studioDeck.length).toFixed(1) : "0.0";
     const avgEl = document.getElementById("studio-avg-elixir");
     if (avgEl) avgEl.textContent = avg;
