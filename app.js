@@ -741,6 +741,58 @@ const App = {
     }
   },
 
+  // Centralized Bulletproof Card Image Resolver
+  resolveCardIcon: function(card, preferEvo = false, preferHero = false) {
+    if (!card) return "assets/cards/knight.png";
+    const cName = (card.name || "").toLowerCase().trim();
+    const cId = card.id;
+    const cKey = card.key || cName.replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+
+    // 1. Look up in CLASH_CARDS (canonical verified database)
+    const match = (typeof CLASH_CARDS !== "undefined" ? CLASH_CARDS : []).find(c => 
+      c.name.toLowerCase() === cName || (cId && c.id === cId) || c.key === cKey
+    );
+
+    if (match) {
+      if (preferHero && match.heroIcon) return match.heroIcon;
+      if (preferEvo && match.evoIcon) return match.evoIcon;
+      if (match.icon) return match.icon;
+    }
+
+    // 2. Check iconUrls on the card object
+    if (card.iconUrls) {
+      if (preferHero && card.iconUrls.heroMedium) return card.iconUrls.heroMedium;
+      if (preferEvo && card.iconUrls.evolutionMedium) return card.iconUrls.evolutionMedium;
+      if (card.iconUrls.medium) return card.iconUrls.medium;
+    }
+
+    // 3. Fallback to local asset
+    return `assets/cards/${cKey}.png`;
+  },
+
+  // Centralized Card Image Error Fallback Handler
+  handleCardImgError: function(imgEl, cardName) {
+    if (!imgEl) return;
+    imgEl.onerror = null;
+    imgEl.style.opacity = "1";
+    const slug = (cardName || "").toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+    
+    // First fallback: local assets/cards/
+    imgEl.src = `assets/cards/${slug}.png`;
+    
+    // Second fallback: RoyaleAPI static CDN
+    imgEl.onerror = function() {
+      imgEl.onerror = null;
+      imgEl.src = `https://cdn.royaleapi.com/static/img/cards-150/${slug}.png`;
+      
+      // Third fallback: neutral Knight card
+      imgEl.onerror = function() {
+        imgEl.onerror = null;
+        imgEl.src = "https://api-assets.clashroyale.com/cards/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png";
+      };
+    };
+  },
+
   updateNavButtons: function(activeTab) {
     document.querySelectorAll(".nav-btn").forEach(b => {
       const isActive = (b.getAttribute("data-tab") === activeTab);
@@ -1187,7 +1239,7 @@ const App = {
         const item = document.createElement("div");
         item.className = "deck-modal-card-item";
         item.innerHTML = `
-          <img src="${c.icon || (c.iconUrls && c.iconUrls.medium) || 'https://api-assets.clashroyale.com/cards/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png'}" alt="${c.name}">
+          <img src="${App.resolveCardIcon(c)}" alt="${c.name}" onerror="App.handleCardImgError(this, '${c.name}')">
           <span class="mini-caption">${c.name}</span>
         `;
         gridEl.appendChild(item);
@@ -1612,17 +1664,17 @@ const App = {
         challengeMaxWins: 12,
         challengeCardsWon: 12000,
         currentDeck: [
-          { id: 26000004, name: "P.E.K.K.A", elixirCost: 7, level: 15, iconUrls: { evolutionMedium: "https://api-assets.clashroyale.com/cardevolutions/300/Pekka.png" } },
-          { id: 26000023, name: "Ice Wizard", elixirCost: 3, level: 15, iconUrls: { heroMedium: "https://api-assets.clashroyale.com/cardheroes/300/W3dkw0HTw9n1jB-zbknY2w3wHuyuLxSRIAV5fUT1SEY.png" } },
-          { id: 26000000, name: "Knight", elixirCost: 3, level: 15, iconUrls: { heroMedium: "https://api-assets.clashroyale.com/cardheroes/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png" } },
-          { id: 28000008, name: "Zap", elixirCost: 2, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/7dxh2232Ncgu03xM5uvZ-jp444U1KEOo_P1k821Wn40.png" } },
-          { id: 28000009, name: "Poison", elixirCost: 4, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/98HDkG2189yACULBKGugstbfObOTVXiRpcYsUKmJhfA.png" } },
-          { id: 26000084, name: "Electro Spirit", elixirCost: 1, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/WKtwc24479zV5Zymr-kdRcLs4880k9h3O0hZ1I0vB_o.png" } },
-          { id: 26000046, name: "Bandit", elixirCost: 3, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/QWD6st8q-Yoa9z9b9f7a5y04Yk2vLqK0jH9A3Xg8G0U.png" } },
+          { id: 26000004, name: "P.E.K.K.A", elixirCost: 7, level: 15, iconUrls: { evolutionMedium: "https://api-assets.clashroyale.com/cardevolutions/300/MlArURKhn_zWAZY-Xj1qIRKLVKquarG25BXDjUQajNs.png", medium: "https://api-assets.clashroyale.com/cards/300/MlArURKhn_zWAZY-Xj1qIRKLVKquarG25BXDjUQajNs.png" } },
+          { id: 26000023, name: "Ice Wizard", elixirCost: 3, level: 15, iconUrls: { heroMedium: "https://api-assets.clashroyale.com/cardheroes/300/W3dkw0HTw9n1jB-zbknY2w3wHuyuLxSRIAV5fUT1SEY.png", medium: "https://api-assets.clashroyale.com/cards/300/W3dkw0HTw9n1jB-zbknY2w3wHuyuLxSRIAV5fUT1SEY.png" } },
+          { id: 26000000, name: "Knight", elixirCost: 3, level: 15, iconUrls: { heroMedium: "https://api-assets.clashroyale.com/cardheroes/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png", medium: "https://api-assets.clashroyale.com/cards/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png" } },
+          { id: 28000008, name: "Zap", elixirCost: 2, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/7dxh2-yCBy1x44GrBaL29vjqnEEeJXHEAlsi5g6D1eY.png", evolutionMedium: "https://api-assets.clashroyale.com/cardevolutions/300/7dxh2-yCBy1x44GrBaL29vjqnEEeJXHEAlsi5g6D1eY.png" } },
+          { id: 28000009, name: "Poison", elixirCost: 4, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/98HDkG2189yOULcVG9jz2QbJKtfuhH21DIrIjkOjxI8.png" } },
+          { id: 26000084, name: "Electro Spirit", elixirCost: 1, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/WKd4-IAFsgPpMo7dDi9sujmYjRhOMEWiE07OUJpvD9g.png" } },
+          { id: 26000046, name: "Bandit", elixirCost: 3, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/QWDdXMKJNpv0go-HYaWQWP6p8uIOHjqn-zX7G0p3DyM.png" } },
           { id: 26000015, name: "Baby Dragon", elixirCost: 4, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/cjC9n4AvEZJ3urkVh-rwBkJ-aRSsydIMqSAV48hAih0.png" } }
         ],
         currentDeckSupportCards: [
-          { id: 26000095, name: "Cannoneer", elixirCost: 0, level: 15, iconUrls: { medium: "https://api-assets.clashroyale.com/cards/300/cannoneer.png" } }
+          { id: 26000095, name: "Cannoneer", elixirCost: 0, level: 15, iconUrls: { medium: "assets/cards/cannoneer.png" } }
         ]
       };
       this.activeTag = raw;
@@ -1980,16 +2032,10 @@ const App = {
         cardCount++;
       }
 
-      const match = CLASH_CARDS.find(c => c.name.toLowerCase() === card.name.toLowerCase() || c.id === card.id);
+      const match = (typeof CLASH_CARDS !== "undefined" ? CLASH_CARDS : []).find(c => c.name.toLowerCase() === card.name.toLowerCase() || c.id === card.id);
       const isHero = match && match.hasHero;
 
-      let img = card.iconUrls ? (card.iconUrls.evolutionMedium || card.iconUrls.heroMedium || card.iconUrls.medium) : "";
-      if (isHero && match.heroIcon && idx === 1) {
-        img = match.heroIcon;
-      }
-      if (!img && match) {
-        img = match.icon;
-      }
+      const img = this.resolveCardIcon(card, idx === 0, isHero && idx === 1);
 
       const cardEl = document.createElement("div");
       cardEl.className = "deck-card-unit";
@@ -2004,7 +2050,7 @@ const App = {
 
       cardEl.innerHTML = `
         <div class="card-elixir-dot">${elixir}</div>
-        <img src="${img}" class="card-artwork" alt="${card.name}" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
+        <img src="${img}" class="card-artwork" alt="${card.name}" onerror="App.handleCardImgError(this, '${card.name}')">
         <div class="card-caption">${card.name}</div>
         <div class="card-lvl-tag">${badge}</div>
       `;
@@ -2093,21 +2139,16 @@ const App = {
 
   // --- 7.5 DECK AI BATTLE LOG & MATCH ANALYSIS SUITE ---
   getCardDisplayInfo: function(card) {
-    const PLACEHOLDER = '';  // neutral — triggers onerror SVG
-    if (!card) return { name: "Unknown", icon: PLACEHOLDER, elixir: 3, lvl: "Lvl 15", isEvo: false, isHero: false };
+    if (!card) return { name: "Unknown", icon: "assets/cards/knight.png", elixir: 3, lvl: "Lvl 15", isEvo: false, isHero: false };
     const cName = card.name || "";
-    const match = CLASH_CARDS.find(c => c.name.toLowerCase() === cName.toLowerCase() || c.id === card.id || c.key === card.key);
-    let icon = "";
-    if (card.iconUrls) {
-      icon = card.iconUrls.evolutionMedium || card.iconUrls.heroMedium || card.iconUrls.medium || "";
-    }
-    if (!icon && match) {
-      icon = match.icon;
-    }
-    // No fallback to Knight — let onerror handler show neutral placeholder
-    const elixir = (match && match.elixir) ? match.elixir : (card.elixirCost || 3);
+    const match = (typeof CLASH_CARDS !== "undefined" ? CLASH_CARDS : []).find(c => c.name.toLowerCase() === cName.toLowerCase() || c.id === card.id || c.key === card.key);
+    
     const isHero = card.isHero || (match && match.hasHero && cName.toLowerCase().includes("hero"));
     const isEvo = card.isEvo || card.evolutionLevel > 0 || (card.iconUrls && card.iconUrls.evolutionMedium) || (match && match.hasEvolution && cName.toLowerCase().includes("evo"));
+    
+    const icon = this.resolveCardIcon(card, isEvo, isHero);
+    const elixir = (match && match.elixir) ? match.elixir : (card.elixirCost || 3);
+    
     return {
       id: (match && match.id) ? match.id : (card.id || 0),
       name: match ? match.name : cName,
@@ -2213,7 +2254,7 @@ const App = {
               <div class="cr-matrix-slot ${c.isEvo ? "evo-slot" : ""} ${c.isHero ? "hero-slot" : ""}" title="${c.name} (${c.elixir}💧)">
                 ${c.isEvo ? '<div class="cr-evo-gem"></div>' : ''}
                 ${c.isHero ? '<div class="cr-hero-gem"></div>' : ''}
-                <img src="${c.icon}" alt="${c.name}" loading="lazy" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
+                <img src="${c.icon}" alt="${c.name}" loading="lazy" onerror="App.handleCardImgError(this, '${c.name}')">
                 <div class="cr-card-lvl-pill max">${c.lvl || "Lvl 15"}</div>
               </div>
             `).join("")}
@@ -2240,7 +2281,7 @@ const App = {
               <div class="cr-matrix-slot ${c.isEvo ? "evo-slot" : ""} ${c.isHero ? "hero-slot" : ""}" title="${c.name} (${c.elixir}💧)">
                 ${c.isEvo ? '<div class="cr-evo-gem"></div>' : ''}
                 ${c.isHero ? '<div class="cr-hero-gem"></div>' : ''}
-                <img src="${c.icon}" alt="${c.name}" loading="lazy" onerror="this.onerror=null;this.style.opacity='0.3';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22 viewBox=%220 0 100 120%22%3E%3Crect width=%22100%22 height=%22120%22 rx=%228%22 fill=%22%230d1117%22 stroke=%22%2326eceb%22 stroke-width=%221.5%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%2326eceb%22%3E%E2%9A%94%EF%B8%8F%3C/text%3E%3C/svg%3E'">
+                <img src="${c.icon}" alt="${c.name}" loading="lazy" onerror="App.handleCardImgError(this, '${c.name}')">
                 <div class="cr-card-lvl-pill max">${c.lvl || "Lvl 15"}</div>
               </div>
             `).join("")}
@@ -2496,7 +2537,7 @@ const App = {
       slot.style.borderColor = slotBorder;
       slot.innerHTML = `
         <div class="card-elixir-dot">${card.elixir || 3}</div>
-        <img src="${cardImg || ""}" class="card-artwork" alt="${card.name}">
+        <img src="${cardImg || ""}" class="card-artwork" alt="${card.name}" onerror="App.handleCardImgError(this, '${card.name}')">
         <div class="card-caption">${card.name}</div>
         <div style="font-size: 0.62rem; font-weight: 800; color: #fff; margin-top: 0.15rem;">${slotBadge}</div>
         <div class="btn-remove-card" style="font-size: 0.65rem; color: var(--loss); cursor: pointer; margin-top: 0.2rem;">✕ Remove</div>
@@ -2579,7 +2620,7 @@ const App = {
 
       item.innerHTML = `
         ${badgeText ? `<div style="position: absolute; top: 2px; left: 2px; font-size: 0.55rem; font-weight: 800; background: rgba(0,0,0,0.7); padding: 1px 4px; border-radius: 3px;">${badgeText}</div>` : ""}
-        <img src="${c.icon || ""}" style="width: 100%; aspect-ratio: 3/4; object-fit: contain;">
+        <img src="${c.icon || ""}" style="width: 100%; aspect-ratio: 3/4; object-fit: contain;" onerror="App.handleCardImgError(this, '${c.name}')">
         <div style="font-size: 0.68rem; font-weight: 700; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">${c.name}</div>
       `;
 
@@ -2624,7 +2665,7 @@ const App = {
 
         <div class="cr-modal-card-body">
           <div class="cr-modal-card-art-box">
-            <img src="${info.icon}" alt="${info.name}" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22120%22%3E%3Crect width=%22100%22 height=%22120%22 fill=%22%230d1117%22/%3E%3Ctext x=%2250%22 y=%2265%22 fill=%22%23fff%22 text-anchor=%22middle%22%3E🃏%3C/text%3E%3C/svg%3E'">
+            <img src="${info.icon}" alt="${info.name}" onerror="App.handleCardImgError(this, '${info.name}')">
             <div class="cr-card-lvl-pill max" style="position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 85%;">${info.lvl || "Lvl 15 Elite"}</div>
           </div>
 
@@ -2873,7 +2914,7 @@ const App = {
             const img = isHero && match.heroIcon ? match.heroIcon : (isEvo && match.evoIcon ? match.evoIcon : (match ? match.icon : ""));
             return `
               <div style="position: relative; text-align: center;">
-                <img src="${img}" style="width: 100%; aspect-ratio: 3/4; object-fit: contain;">
+                <img src="${img}" style="width: 100%; aspect-ratio: 3/4; object-fit: contain;" onerror="App.handleCardImgError(this, '${match ? match.name : k}')">
                 <div style="font-size: 0.62rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${match ? match.name : k}</div>
               </div>
             `;
@@ -3317,8 +3358,10 @@ const App = {
 
     if (startBtn) startBtn.addEventListener("click", startChallenge);
     if (replayBtn) replayBtn.addEventListener("click", startChallenge);
-  }
 };
+
+window.App = App;
+window.handleCardImgError = function(el, name) { App.handleCardImgError(el, name); };
 
 // Initialize App when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => App.init());
