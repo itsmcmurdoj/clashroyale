@@ -488,6 +488,305 @@ body {
   box-shadow: 0 0 10px rgba(6, 182, 212, 0.25);
 }
 
+/* =================================================== */
+/* 2.5. FIXED UNIVERSAL MENU BAR SUITE (NEVER GETS LOST) */
+/* =================================================== */
+.fixed-nav-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  max-width: 100%;
+  z-index: 10000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+.nav-spacer {
+  height: 116px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .nav-spacer {
+    height: 108px;
+  }
+}
+
+/* Sub-Navigation Horizontal Pill Track (Always fixed, swipeable, never lost) */
+.sc-subnav-strip {
+  background: #091a3c;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.45);
+  padding: 0.35rem 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sc-subnav-container {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  max-width: 1360px;
+  position: relative;
+}
+
+.sc-subnav-container .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0.15rem 0.2rem;
+  border-radius: 9999px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  flex: 1;
+}
+
+.sc-subnav-container .nav-links::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-scroll-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(13, 56, 126, 0.95);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 1.15rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.nav-scroll-btn:hover {
+  background: #1c4b9e;
+  transform: scale(1.1);
+  border-color: #fde047;
+  color: #fde047;
+}
+
+@media (max-width: 680px) {
+  .nav-scroll-btn {
+    display: none;
+  }
+}
+
+/* 3D Supercell Store Hamburger Menu Toggle Button */
+.sc-menu-toggle-btn {
+  background: linear-gradient(180deg, #fff275 0%, #fde047 30%, #eab308 70%, #ca8a04 100%);
+  color: #451a03;
+  font-family: var(--font-clash), var(--font-sans);
+  font-weight: 900;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  border: 2px solid #fef08a;
+  border-radius: 9999px;
+  padding: 0.42rem 0.85rem;
+  box-shadow: 0 3px 0 #854d0e, 0 4px 10px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.12s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.sc-menu-toggle-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.sc-menu-toggle-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #854d0e;
+}
+
+.sc-menu-toggle-btn.open {
+  background: linear-gradient(180deg, #f87171 0%, #ef4444 60%, #b91c1c 100%);
+  border-color: #fca5a5;
+  color: #fff;
+  box-shadow: 0 3px 0 #7f1d1d, 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* Supercell Store Dropdown Drawer */
+.sc-menu-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(5, 14, 36, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 10001;
+  display: none;
+  overflow-y: auto;
+  padding: 1.5rem 1.5rem 4rem;
+  animation: drawerSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sc-menu-drawer.open {
+  display: block;
+}
+
+@keyframes drawerSlideDown {
+  0% { opacity: 0; transform: translateY(-16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.drawer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.12);
+}
+
+.drawer-title {
+  font-family: var(--font-clash), var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.drawer-title small {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+.drawer-close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.drawer-close-btn:hover {
+  background: #ef4444;
+  border-color: #f87171;
+  transform: scale(1.08);
+}
+
+.drawer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.85rem;
+}
+
+.drawer-item-card {
+  background: linear-gradient(180deg, #132752 0%, #0a1836 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.drawer-item-card:hover {
+  background: linear-gradient(180deg, #1c3b7a 0%, #0e2450 100%);
+  border-color: rgba(253, 224, 71, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+.drawer-item-card.active {
+  border-color: #fde047;
+  background: linear-gradient(180deg, #1a3c7c 0%, #0e2759 100%);
+  box-shadow: 0 0 18px rgba(253, 224, 71, 0.3);
+}
+
+.drawer-card-icon {
+  font-size: 1.9rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.drawer-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.drawer-card-title {
+  font-family: var(--font-clash), var(--font-sans);
+  font-size: 0.96rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drawer-card-sub {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  line-height: 1.35;
+}
+
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
+  display: none;
+}
+
+.drawer-backdrop.open {
+  display: block;
+}
+
 .btn-install-app {
   background: linear-gradient(135deg, rgba(38, 236, 232, 0.15) 0%, rgba(216, 184, 120, 0.2) 100%);
   border: 1px solid var(--cyan);
@@ -3041,28 +3340,26 @@ html, body {
   }
 
   .top-nav {
-    height: 52px;
-    padding: 0.4rem 0.65rem !important;
+    height: 58px;
+    padding: 0.4rem 0.85rem !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100% !important;
-    max-width: 100vw !important;
     box-sizing: border-box !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    overflow: hidden !important;
+    gap: 0.5rem;
   }
 
   .brand-group {
     order: 1;
-    gap: 0.4rem;
+    gap: 0.5rem;
     min-width: 0;
     flex-shrink: 1;
     display: flex;
     align-items: center;
   }
 
-  /* Hide desktop currency pills & trophy badge on mobile screens to prevent blowout */
+  /* Hide bulky desktop currency pills on narrow mobile screens to preserve menu space */
   .cr-status-bar,
   .cr-trophy-cluster,
   .cr-util-cluster #btn-friends-nav,
@@ -3071,14 +3368,13 @@ html, body {
   }
 
   .brand-symbol {
-    width: 28px;
-    height: 28px;
-    font-size: 1rem;
+    width: 32px;
+    height: 32px;
     flex-shrink: 0;
   }
 
   .brand-text {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-weight: 900;
     white-space: nowrap;
     overflow: hidden;
@@ -3087,7 +3383,7 @@ html, body {
 
   .nav-actions {
     order: 2;
-    gap: 0.35rem;
+    gap: 0.5rem;
     display: flex;
     align-items: center;
     flex-shrink: 0;
@@ -3108,9 +3404,9 @@ html, body {
     font-size: 0.7rem;
   }
 
-  /* HIDE TOP NAV HORIZONTAL SCROLLBAR - NAVIGATION NOW IN MOBILE BOTTOM DOCK */
-  .top-nav .nav-links {
-    display: none !important;
+  /* Ensure subnav strip stays perfectly fixed and touch-scrollable on resize */
+  .sc-subnav-strip {
+    padding: 0.25rem 0.5rem;
   }
 
   /* 2. Persistent Mobile Bottom App Dock (Clash Royale Style) */

@@ -363,7 +363,7 @@ const App = {
       });
     }
 
-    // 4. Navigation tabs (Top Nav & Mobile Bottom Dock)
+    // 4. Navigation tabs (Top Nav Pill Track, Drawer Cards & Bottom Dock)
     document.querySelectorAll(".nav-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         WebAudioFX.playClick();
@@ -375,11 +375,59 @@ const App = {
           this.updateNavButtons("");
           this.showView("gateway");
           this.showToast("👑 Please connect your player tag to view your profile!");
+          this.closeMenuDrawer();
           return;
         }
         this.updateNavButtons(tab);
         this.showView(tab);
+        this.closeMenuDrawer();
       });
+    });
+
+    // 4.1. 3D Supercell Store Hamburger Drawer & Backdrop
+    const menuToggle = document.getElementById("btn-menu-toggle");
+    if (menuToggle) {
+      menuToggle.addEventListener("click", () => this.toggleMenuDrawer());
+    }
+    const drawerClose = document.getElementById("btn-drawer-close");
+    if (drawerClose) {
+      drawerClose.addEventListener("click", () => this.closeMenuDrawer());
+    }
+    const drawerBackdrop = document.getElementById("sc-drawer-backdrop");
+    if (drawerBackdrop) {
+      drawerBackdrop.addEventListener("click", () => this.closeMenuDrawer());
+    }
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") this.closeMenuDrawer();
+    });
+
+    // 4.2. Subnav Scroll Left / Right buttons
+    const scrollLeft = document.getElementById("btn-nav-scroll-left");
+    const scrollRight = document.getElementById("btn-nav-scroll-right");
+    const navLinks = document.getElementById("main-nav-links");
+    if (scrollLeft && navLinks) {
+      scrollLeft.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        navLinks.scrollBy({ left: -220, behavior: "smooth" });
+      });
+    }
+    if (scrollRight && navLinks) {
+      scrollRight.addEventListener("click", () => {
+        WebAudioFX.playClick();
+        navLinks.scrollBy({ left: 220, behavior: "smooth" });
+      });
+    }
+
+    // 4.3. Responsive Window Resize Handler for Menu Bar
+    this.syncNavSpacer();
+    window.addEventListener("resize", () => {
+      this.syncNavSpacer();
+      if (window.innerWidth > 1180) {
+        this.closeMenuDrawer();
+      }
+    });
+    window.addEventListener("orientationchange", () => {
+      setTimeout(() => this.syncNavSpacer(), 100);
     });
 
     // 4.5. VIP 1-Click Instant Login (Muk #Y0JJY80)
@@ -650,12 +698,55 @@ const App = {
     }
   },
 
+  toggleMenuDrawer: function() {
+    const drawer = document.getElementById("sc-menu-drawer");
+    const backdrop = document.getElementById("sc-drawer-backdrop");
+    const toggleBtn = document.getElementById("btn-menu-toggle");
+    const symbol = document.getElementById("menu-icon-symbol");
+    if (!drawer) return;
+    const isOpen = drawer.classList.contains("open");
+    if (isOpen) {
+      this.closeMenuDrawer();
+    } else {
+      drawer.classList.add("open");
+      if (backdrop) backdrop.classList.add("open");
+      if (toggleBtn) toggleBtn.classList.add("open");
+      if (symbol) symbol.textContent = "✕";
+      drawer.setAttribute("aria-hidden", "false");
+      WebAudioFX.playClick();
+    }
+  },
+
+  closeMenuDrawer: function() {
+    const drawer = document.getElementById("sc-menu-drawer");
+    const backdrop = document.getElementById("sc-drawer-backdrop");
+    const toggleBtn = document.getElementById("btn-menu-toggle");
+    const symbol = document.getElementById("menu-icon-symbol");
+    if (!drawer) return;
+    drawer.classList.remove("open");
+    if (backdrop) backdrop.classList.remove("open");
+    if (toggleBtn) toggleBtn.classList.remove("open");
+    if (symbol) symbol.textContent = "☰";
+    drawer.setAttribute("aria-hidden", "true");
+  },
+
+  syncNavSpacer: function() {
+    const navWrapper = document.getElementById("fixed-nav-wrapper");
+    const spacer = document.getElementById("nav-spacer");
+    if (navWrapper && spacer) {
+      const h = navWrapper.offsetHeight;
+      if (h > 0) {
+        spacer.style.height = `${h}px`;
+      }
+    }
+  },
+
   updateNavButtons: function(activeTab) {
     document.querySelectorAll(".nav-btn").forEach(b => {
       const isActive = (b.getAttribute("data-tab") === activeTab);
       b.classList.toggle("active", isActive);
-      // Only scroll into view if it's in the top nav scrollable bar, not the fixed bottom dock
-      if (isActive && !b.classList.contains("dock-btn")) {
+      // Only scroll into view if it's in the top nav scrollable bar, not the fixed bottom dock or drawer cards
+      if (isActive && !b.classList.contains("dock-btn") && !b.classList.contains("drawer-item-card")) {
         b.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
       }
     });

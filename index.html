@@ -139,87 +139,198 @@
   <!-- Background Particle Canvas for Floating Elixir Droplets & Spark FX -->
   <canvas id="particles-canvas"></canvas>
 
-  <!-- 1. Creator Code Monetization Banner -->
-  <div class="creator-code-bar" id="creator-code-banner">
-    <div class="creator-code-text">
-      <span>💎 Road to Creator Code <span class="creator-highlight">NEXUS</span>: Goal 5,000 Followers on IG</span>
-    </div>
-    <button type="button" class="btn-copy-code" id="btn-copy-creator-code" title="View Creator Code Goal & Status">
-      <span>SUPPORT CODE</span>
-      <strong>NEXUS</strong>
-    </button>
-  </div>
-
-  <!-- 2. Authentic Clash Royale Supercell Store Top Navigation Bar -->
-  <header class="top-nav cr-in-game-bar">
-    <div class="brand-group" id="btn-brand">
-      <div class="sc-store-flag" title="Clash Royale Supercell Store & Telemetry">
-        <span class="sc-flag-crown">👑</span>
-        <div class="sc-flag-text-col">
-          <span class="sc-flag-sub">SUPERCELL STORE</span>
-          <span class="sc-flag-brand">CLASH ROYALE</span>
-        </div>
+  <!-- ======================================================== -->
+  <!-- FIXED UNIVERSAL MENU BAR SUITE (NEVER GETS LOST ON RESIZE) -->
+  <!-- ======================================================== -->
+  <div class="fixed-nav-wrapper" id="fixed-nav-wrapper">
+    
+    <!-- 1. Creator Code Monetization Banner -->
+    <div class="creator-code-bar" id="creator-code-banner">
+      <div class="creator-code-text">
+        <span>💎 Support Creator Code <span class="creator-highlight">NEXUS</span> in Clash Royale</span>
       </div>
-      <div class="brand-symbol">
-        <img src="nexus_crest_cyber.jpg" alt="Nexus Royale Crest" class="brand-crest-img">
-      </div>
-      <div class="brand-text">
-        <span>NEXUS</span>
-        <span class="brand-version">STORE</span>
-      </div>
-    </div>
-
-    <!-- Navigation Tabs -->
-    <nav class="nav-links" id="main-nav-links">
-      <a href="radar.html" target="_blank" class="nav-btn live-radar-top-btn" style="background: linear-gradient(180deg, #fff275 0%, #fde047 30%, #eab308 70%, #ca8a04 100%); color: #451a03; border: 1.5px solid #fff; box-shadow: 0 0 10px rgba(253, 224, 71, 0.5); text-decoration: none; font-weight: 900; display: inline-flex; align-items: center; gap: 0.35rem;">⚡ LIVE RADAR <span class="hot-tag">CO-PILOT</span></a>
-      <button class="nav-btn" data-tab="battles" id="nav-btn-battles">⚔️ BATTLE LOG <span class="hot-tag">AI COACH</span></button>
-      <button class="nav-btn" data-tab="heroes">⚡ HEROES 2026 <span class="hot-tag">SEASON 87</span></button>
-      <button class="nav-btn" data-tab="radar" id="nav-btn-radar">🏆 EVENTS & RADAR <span class="hot-tag" style="background: #ff2a70; color: #fff;">LIVE</span></button>
-      <button class="nav-btn" data-tab="recall">🧠 DECK RECALL</button>
-      <button class="nav-btn" data-tab="meta">PRO META</button>
-      <button class="nav-btn" data-tab="studio">DECK STUDIO</button>
-      <button class="nav-btn" data-tab="simulator">SIMULATOR</button>
-      <button class="nav-btn" data-tab="videos">🎬 CLASH TV <span class="hot-tag">NEW</span></button>
-      <button class="nav-btn active" data-tab="account" id="nav-btn-account" style="display: none;">MY PROFILE</button>
-    </nav>
-
-    <!-- Supercell Store Action Cluster & Auth -->
-    <div class="nav-actions">
-      <!-- Supercell ID Pill Button -->
-      <button type="button" class="sc-id-pill" id="btn-nav-sc-id" title="Log In with Supercell ID" onclick="App.loginVerifiedPlayer('Y0JJY80');">
-        <span class="sc-id-logo-box">ID</span>
-        <span id="nav-sc-id-text">SUPERCELL ID</span>
+      <button type="button" class="btn-copy-code" id="btn-copy-creator-code" title="Copy Support Code NEXUS">
+        <span>CODE</span>
+        <strong>NEXUS</strong>
       </button>
+    </div>
 
-      <!-- Currency Status Pills -->
-      <div class="cr-status-bar" id="cr-status-bar">
-        <div class="cr-currency-pill gold" title="Live Gold Reserve">
-          🪙 <span id="top-gold-count">140 999</span>
-          <span class="cr-blue-plus">+</span>
+    <!-- 2. Primary Supercell Store Header Bar -->
+    <header class="top-nav cr-in-game-bar" id="main-top-nav">
+      <!-- Left: Supercell Store Hanging Banner Ribbon + Crest + Brand -->
+      <div class="brand-group" id="btn-brand" title="Nexus Royale Home & Overview">
+        <div class="sc-store-flag" title="Clash Royale Supercell Store & Telemetry">
+          <span class="sc-flag-crown">👑</span>
+          <div class="sc-flag-text-col">
+            <span class="sc-flag-sub">SUPERCELL STORE</span>
+            <span class="sc-flag-brand">CLASH ROYALE</span>
+          </div>
         </div>
-        <div class="cr-currency-pill gem" title="Clash Gems">
-          💎 <span id="top-gem-count">295</span>
-          <span class="cr-blue-plus">+</span>
+        <div class="brand-symbol">
+          <img src="nexus_crest_cyber.jpg" alt="Nexus Royale Crest" class="brand-crest-img">
+        </div>
+        <div class="brand-text">
+          <span>NEXUS</span>
+          <span class="brand-version">STORE</span>
         </div>
       </div>
 
-      <!-- In-Game Utility Buttons Cluster -->
-      <div class="cr-util-cluster">
-        <button type="button" class="cr-square-btn" id="btn-friends-nav" title="Social & Clan Radar" onclick="App.showView('radar'); App.updateNavButtons('radar');">
-          👥<span class="badge-counter">2</span>
+      <!-- Right: Supercell ID + Currencies + Audio + Hamburger Toggle -->
+      <div class="nav-actions">
+        <!-- Supercell ID Pill Button -->
+        <button type="button" class="sc-id-pill" id="btn-nav-sc-id" title="Log In with Supercell ID" onclick="App.loginVerifiedPlayer('Y0JJY80');">
+          <span class="sc-id-logo-box">ID</span>
+          <span id="nav-sc-id-text">SUPERCELL ID</span>
         </button>
+
+        <!-- Live Currencies -->
+        <div class="cr-status-bar" id="cr-status-bar">
+          <div class="cr-currency-pill gold" title="Live Gold Reserve">
+            🪙 <span id="top-gold-count">140 999</span>
+          </div>
+          <div class="cr-currency-pill gem" title="Clash Gems">
+            💎 <span id="top-gem-count">295</span>
+          </div>
+        </div>
+
+        <!-- Audio Toggle Button -->
         <button type="button" class="audio-toggle-btn on" id="btn-toggle-audio" title="Toggle Web Audio SFX" style="border-radius: 9999px; padding: 0.4rem 0.6rem;">
           <span id="audio-icon">🔊</span>
         </button>
-      </div>
 
-      <div class="player-status-chip" id="user-status-chip" style="display: none;">
-        <span class="status-dot"></span>
-        <span id="chip-player-name">Muk</span>
-        <button class="btn-switch-user" id="btn-switch-account" title="Switch Account">✕</button>
+        <!-- 3D Supercell Store Hamburger Menu Toggle Button (Never gets lost on resize) -->
+        <button type="button" class="sc-menu-toggle-btn" id="btn-menu-toggle" title="Toggle Full Navigation Menu" aria-label="Toggle Navigation Menu">
+          <span id="menu-icon-symbol">☰</span>
+          <span class="menu-btn-label">MENU</span>
+        </button>
+
+        <div class="player-status-chip" id="user-status-chip" style="display: none;">
+          <span class="status-dot"></span>
+          <span id="chip-player-name">Muk</span>
+          <button class="btn-switch-user" id="btn-switch-account" title="Switch Account">✕</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 3. Sub-Navigation Horizontal Pill Track (Always fixed, swipeable, never lost) -->
+    <div class="sc-subnav-strip" id="sc-subnav-strip">
+      <div class="sc-subnav-container">
+        <button type="button" class="nav-scroll-btn left" id="btn-nav-scroll-left" aria-label="Scroll Tabs Left" title="Scroll Tabs Left">‹</button>
+        <nav class="nav-links" id="main-nav-links">
+          <a href="radar.html" target="_blank" class="nav-btn live-radar-top-btn" style="background: linear-gradient(180deg, #fff275 0%, #fde047 30%, #eab308 70%, #ca8a04 100%); color: #451a03; border: 1.5px solid #fff; box-shadow: 0 0 10px rgba(253, 224, 71, 0.5); text-decoration: none; font-weight: 900; display: inline-flex; align-items: center; gap: 0.35rem;">⚡ LIVE RADAR <span class="hot-tag">CO-PILOT</span></a>
+          <button class="nav-btn" data-tab="battles" id="nav-btn-battles">⚔️ BATTLE LOG <span class="hot-tag">AI COACH</span></button>
+          <button class="nav-btn" data-tab="heroes">⚡ HEROES 2026 <span class="hot-tag">SEASON 87</span></button>
+          <button class="nav-btn" data-tab="radar" id="nav-btn-radar">🏆 EVENTS & RADAR <span class="hot-tag" style="background: #ff2a70; color: #fff;">LIVE</span></button>
+          <button class="nav-btn" data-tab="recall">🧠 DECK RECALL</button>
+          <button class="nav-btn" data-tab="meta">PRO META</button>
+          <button class="nav-btn" data-tab="studio">DECK STUDIO</button>
+          <button class="nav-btn" data-tab="simulator">SIMULATOR</button>
+          <button class="nav-btn" data-tab="videos">🎬 CLASH TV <span class="hot-tag">NEW</span></button>
+          <button class="nav-btn active" data-tab="account" id="nav-btn-account" style="display: none;">MY PROFILE</button>
+        </nav>
+        <button type="button" class="nav-scroll-btn right" id="btn-nav-scroll-right" aria-label="Scroll Tabs Right" title="Scroll Tabs Right">›</button>
       </div>
     </div>
-  </header>
+
+    <!-- 4. Supercell Store Fullscreen Dropdown Drawer Overlay -->
+    <div class="sc-menu-drawer" id="sc-menu-drawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <div class="drawer-header">
+          <div class="drawer-title">
+            <span>⚔️ EXPLORE NEXUS ROYALE</span>
+            <small>Direct Supercell Telemetry & Pro Esports Suite</small>
+          </div>
+          <button type="button" class="drawer-close-btn" id="btn-drawer-close" aria-label="Close Menu">✕</button>
+        </div>
+
+        <div class="drawer-grid">
+          <button type="button" class="drawer-item-card nav-btn" data-tab="account">
+            <div class="drawer-card-icon">👑</div>
+            <div class="drawer-card-info">
+              <div class="drawer-card-title">My Career Profile <span class="hot-tag">LIVE</span></div>
+              <div class="drawer-card-sub">Supercell telemetry, trophies, evolution & hero slots</div>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-item-card nav-btn" data-tab="battles">
+            <div class="drawer-card-icon">⚔️</div>
+            <div class="drawer-card-info">
+              <div class="drawer-card-title">Battle Log & AI Coach</div>
+              <div class="drawer-card-sub">Post-match breakdown, elixir mistakes, replay intel</div>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-item-card nav-btn" data-tab="heroes">
+            <div class="drawer-card-icon">⚡</div>
+            <div class="drawer-card-info">
+              <div class="drawer-card-title">2026 Heroes & Evolutions <span class="hot-tag">SEASON 87</span></div>
+              <div class="drawer-card-sub">Hero Ice Wizard, Hero Knight, Hero Valkyrie meta</div>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-item-card nav-btn" data-tab="radar">
+            <div class="drawer-card-icon">🏆</div>
+            <div class="drawer-card-info">
+              <div class="drawer-card-title">Events & Tournaments <span class="hot-tag" style="background:#ff2a70;color:#fff;">LIVE</span></div>
+              <div class="drawer-card-sub">Princess Gambit, Sudden Death, Royale Shuffle</div>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-item-card nav-btn" data-tab="meta">
+            <div class="drawer-card-icon">📊</div>
+            <div class="drawer-card-info">
+              <div class="drawer-card-title">Pro Meta Leaderboards</div>
+              <div class="drawer-card-sub">Mohamed Light, Top 200 Ultimate Champion decks</div>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-item-card nav-btn" data-tab="recall">
+            <div class="drawer-card-icon">🧠</div>
+            <div class="drawer-card-info">
+              <div class="drawer-card-title">Deck Recall Trainer</div>
+              <div class="drawer-card-sub">Pro card rotation memory practice & test mode</div>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-item-card nav-btn" data-tab="studio">
+            <div class="drawer-card-icon">🛠️</div>
+            <div class="drawer-card-info">
+              <div class="drawer-card-title">Deck Studio & 1-Tap Export</div>
+              <div class="drawer-card-sub">Build 3-slot hero decks & copy direct into Clash Royale</div>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-item-card nav-btn" data-tab="simulator">
+            <div class="drawer-card-icon">🎮</div>
+            <div class="drawer-card-info">
+              <div class="drawer-card-title">Battle Match Simulator</div>
+              <div class="drawer-card-sub">Matchup win-rate predictions & counter matchups</div>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-item-card nav-btn" data-tab="videos">
+            <div class="drawer-card-icon">🎬</div>
+            <div class="drawer-card-info">
+              <div class="drawer-card-title">Clash TV & Esports Replays <span class="hot-tag">NEW</span></div>
+              <div class="drawer-card-sub">Official CRL Championship tournaments & highlights</div>
+            </div>
+          </button>
+
+          <a href="radar.html" target="_blank" class="drawer-item-card live-radar-card" style="text-decoration:none;">
+            <div class="drawer-card-icon">⚡</div>
+            <div class="drawer-card-info">
+              <div class="drawer-card-title" style="color: #fde047;">Live Co-Pilot Radar <span class="hot-tag" style="background:#ff2a70;color:#fff;">POP-OUT</span></div>
+              <div class="drawer-card-sub">Second-screen live opponent cycle & elixir tracker</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-backdrop" id="sc-drawer-backdrop"></div>
+  </div>
+
+  <!-- Dynamic Nav Spacer so page content never slips behind fixed header -->
+  <div class="nav-spacer" id="nav-spacer"></div>
 
   <!-- Top Esports Programmatic Ad Slot (NitroPay / Playwire 728x90) -->
   <div class="ad-slot-leaderboard">
