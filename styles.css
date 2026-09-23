@@ -2721,6 +2721,72 @@ body {
 /* =================================================== */
 /* 2V2 LEAGUE RADAR & DECK RECALL MINIGAME STYLES     */
 /* =================================================== */
+.live-radar-callout-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  background: linear-gradient(135deg, rgba(13, 56, 126, 0.45) 0%, rgba(255, 42, 112, 0.15) 100%), rgba(10, 16, 35, 0.85);
+  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+.live-radar-callout-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 32px rgba(253, 224, 71, 0.25);
+}
+.live-radar-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+.live-radar-callout-title {
+  font-family: var(--font-clash);
+  font-size: 1.35rem;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+}
+.live-radar-callout-sub {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  line-height: 1.4;
+  max-width: 720px;
+}
+.live-radar-callout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(180deg, #fff275 0%, #fde047 30%, #eab308 70%, #ca8a04 100%);
+  color: #451a03;
+  font-family: var(--font-clash);
+  font-size: 0.92rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 9999px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(253, 224, 71, 0.4);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  .live-radar-callout-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .live-radar-callout-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .radar-interactive-box {
   background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(13, 15, 22, 0.95) 100%);
   border: 1px solid rgba(6, 182, 212, 0.35);
