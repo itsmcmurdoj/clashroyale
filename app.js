@@ -3324,92 +3324,300 @@ const App = {
 document.addEventListener("DOMContentLoaded", () => App.init());
 
 // ============================================================
-// NEXUS ROYALE TV — Curated Video Engine
+// NEXUS ROYALE TV — Curated Verified Video Engine
 // ============================================================
 const NR_VIDEOS = [
-  // ── Tournaments & Live Events ───────────────────────────────
-  { id: "kJECto7LMNY", title: "Princess Gambit Sudden Death Tournament Guide (Easy 15 Wins)", channel: "Surgical Goblin", cat: "tournament", thumb: "https://img.youtube.com/vi/kJECto7LMNY/mqdefault.jpg" },
-  { id: "Hn_VnD8C9Gw", title: "Royale Shuffle Mode: How to Win with ANY Random Deck", channel: "Orange Juice Gaming", cat: "tournament", thumb: "https://img.youtube.com/vi/Hn_VnD8C9Gw/mqdefault.jpg" },
-  { id: "YX0DFrAHFB0", title: "CRL World Finals 2026 — Full Match Highlights", channel: "Clash Royale Esports", cat: "tournament", thumb: "https://img.youtube.com/vi/YX0DFrAHFB0/mqdefault.jpg" },
-  // ── Meta Decks ──────────────────────────────────────────────
-  { id: "rEHFbf5DVKQ", title: "Sept 16 Emergency Balance Update: Hero Ice Wizard Nerfed!", channel: "Surgical Goblin", cat: "meta", thumb: "https://img.youtube.com/vi/rEHFbf5DVKQ/mqdefault.jpg" },
-  { id: "3MNGNqbXqZI", title: "HERO ICE WIZARD Post-Patch Guide — Still S-Tier?", channel: "Morten", cat: "meta", thumb: "https://img.youtube.com/vi/3MNGNqbXqZI/mqdefault.jpg" },
-  { id: "OlYdOqyeVUE", title: "Top 5 Sudden Death Decks for Princess Gambit", channel: "PropenYT", cat: "meta", thumb: "https://img.youtube.com/vi/OlYdOqyeVUE/mqdefault.jpg" },
-  { id: "Xt67JUU03U8", title: "Base Wizard BUFFED! Giant Sparky Destroys Ladder", channel: "SirTagCR", cat: "meta", thumb: "https://img.youtube.com/vi/Xt67JUU03U8/mqdefault.jpg" },
-  { id: "dYSQ1NF1hvw", title: "Lava Hound Balloon — BEST AIR DECK Season 87", channel: "Clash with Ash", cat: "meta", thumb: "https://img.youtube.com/vi/dYSQ1NF1hvw/mqdefault.jpg" },
-  // ── Guides ──────────────────────────────────────────────────
-  { id: "hFbU-aBLHJg", title: "How to Get to Legendary Arena — Complete F2P Guide", channel: "Orange Juice Gaming", cat: "guide", thumb: "https://img.youtube.com/vi/hFbU-aBLHJg/mqdefault.jpg" },
-  { id: "b7aZy1Z_VtU", title: "Mastering Elixir Management — Pro Tips", channel: "Surgical Goblin", cat: "guide", thumb: "https://img.youtube.com/vi/b7aZy1Z_VtU/mqdefault.jpg" },
-  { id: "qz-IfCUHOFo", title: "Season 87 2v2 Recap & Lessons for Sudden Death", channel: "Morten", cat: "guide", thumb: "https://img.youtube.com/vi/qz-IfCUHOFo/mqdefault.jpg" },
-  { id: "V8cOLRg44aU", title: "How to Counter Every Meta Deck — Cheat Sheet", channel: "CWA", cat: "guide", thumb: "https://img.youtube.com/vi/V8cOLRg44aU/mqdefault.jpg" },
-  { id: "WQkB6STTWTA", title: "Evolution Cards Explained — Everything You Need to Know", channel: "Clash Royale (Official)", cat: "guide", thumb: "https://img.youtube.com/vi/WQkB6STTWTA/mqdefault.jpg" },
-  // ── Fun ─────────────────────────────────────────────────────
-  { id: "GNl8H3G3u5k", title: "Using ONLY Heroes for 24 Hours — What Happened?", channel: "Orange Juice Gaming", cat: "fun", thumb: "https://img.youtube.com/vi/GNl8H3G3u5k/mqdefault.jpg" },
-  { id: "bKpDYxEIiJ4", title: "The Most Broken Spell Deck You've Never Tried", channel: "Jxhn", cat: "fun", thumb: "https://img.youtube.com/vi/bKpDYxEIiJ4/mqdefault.jpg" },
-  { id: "3RWs_0HRQQQ", title: "Lowest Elixir Deck Possible — Can It Win?", channel: "PropenYT", cat: "fun", thumb: "https://img.youtube.com/vi/3RWs_0HRQQQ/mqdefault.jpg" },
+  {
+    "id": "hnigxQsfr2g",
+    "title": "Clash Royale Overtime: Card Design and Balance! #podcast",
+    "channel": "Clash Royale",
+    "cat": "tournament",
+    "thumb": "https://i.ytimg.com/vi/hnigxQsfr2g/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=hnigxQsfr2g"
+  },
+  {
+    "id": "7pGOMeXJgFw",
+    "title": "Science Royale! 🧪",
+    "channel": "Clash Royale",
+    "cat": "tournament",
+    "thumb": "https://i.ytimg.com/vi/7pGOMeXJgFw/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=7pGOMeXJgFw"
+  },
+  {
+    "id": "WY2YYeLm1C0",
+    "title": "TV Royale | Minion Giant, Hero Ice Wizard & MORE!",
+    "channel": "Clash Royale",
+    "cat": "tournament",
+    "thumb": "https://i.ytimg.com/vi/WY2YYeLm1C0/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=WY2YYeLm1C0"
+  },
+  {
+    "id": "Ev8dLWPSq_4",
+    "title": "The Making of Viking Season",
+    "channel": "Clash Royale",
+    "cat": "tournament",
+    "thumb": "https://i.ytimg.com/vi/Ev8dLWPSq_4/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=Ev8dLWPSq_4"
+  },
+  {
+    "id": "07z9sXFnEUw",
+    "title": "How to get the Secret Badge",
+    "channel": "Orange Juice Gaming",
+    "cat": "guide",
+    "thumb": "https://i.ytimg.com/vi/07z9sXFnEUw/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=07z9sXFnEUw"
+  },
+  {
+    "id": "Y90330QfIFY",
+    "title": "this new emote shop came outta nowhere",
+    "channel": "Orange Juice Gaming",
+    "cat": "guide",
+    "thumb": "https://i.ytimg.com/vi/Y90330QfIFY/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=Y90330QfIFY"
+  },
+  {
+    "id": "3w5zwe4S0QE",
+    "title": "New Champion is coming in December 2026...",
+    "channel": "Orange Juice Gaming",
+    "cat": "guide",
+    "thumb": "https://i.ytimg.com/vi/3w5zwe4S0QE/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=3w5zwe4S0QE"
+  },
+  {
+    "id": "f_O_aGjJtyA",
+    "title": "The Fastest Owl Time",
+    "channel": "Orange Juice Gaming",
+    "cat": "guide",
+    "thumb": "https://i.ytimg.com/vi/f_O_aGjJtyA/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=f_O_aGjJtyA"
+  },
+  {
+    "id": "PvcJ9tDtKN8",
+    "title": "Clash Royale REALLY Messed Up...",
+    "channel": "SirTagCR - Clash Royale",
+    "cat": "meta",
+    "thumb": "https://i.ytimg.com/vi/PvcJ9tDtKN8/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=PvcJ9tDtKN8"
+  },
+  {
+    "id": "n7RxzrSDmLw",
+    "title": "Spirit Empress is BROKEN...",
+    "channel": "SirTagCR - Clash Royale",
+    "cat": "meta",
+    "thumb": "https://i.ytimg.com/vi/n7RxzrSDmLw/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=n7RxzrSDmLw"
+  },
+  {
+    "id": "jIok87t4tc4",
+    "title": "Ronin is WAY Better Than You Think",
+    "channel": "SirTagCR - Clash Royale",
+    "cat": "meta",
+    "thumb": "https://i.ytimg.com/vi/jIok87t4tc4/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=jIok87t4tc4"
+  },
+  {
+    "id": "xE5uDgNkFnU",
+    "title": "NOTHING counters Mohamed Light's New Deck!",
+    "channel": "SirTagCR - Clash Royale",
+    "cat": "meta",
+    "thumb": "https://i.ytimg.com/vi/xE5uDgNkFnU/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=xE5uDgNkFnU"
+  },
+  {
+    "id": "yJh13csErDs",
+    "title": "This Graveyard Deck has UNBREAKABLE Defense! 💀",
+    "channel": "mortenroyale[ENG]",
+    "cat": "guide",
+    "thumb": "https://i.ytimg.com/vi/yJh13csErDs/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=yJh13csErDs"
+  },
+  {
+    "id": "A1UA9Y2yotg",
+    "title": "This NEW Log Bait Deck is UNSTOPPABLE!",
+    "channel": "mortenroyale[ENG]",
+    "cat": "guide",
+    "thumb": "https://i.ytimg.com/vi/A1UA9Y2yotg/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=A1UA9Y2yotg"
+  },
+  {
+    "id": "2cCaTonf4ac",
+    "title": "I am #1 in the World with the BEST Deck!",
+    "channel": "mortenroyale[ENG]",
+    "cat": "guide",
+    "thumb": "https://i.ytimg.com/vi/2cCaTonf4ac/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=2cCaTonf4ac"
+  },
+  {
+    "id": "YniT1rPMQEg",
+    "title": "Ice Bow is BACK and Stronger than ever! 😈",
+    "channel": "mortenroyale[ENG]",
+    "cat": "guide",
+    "thumb": "https://i.ytimg.com/vi/YniT1rPMQEg/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=YniT1rPMQEg"
+  },
+  {
+    "id": "u4y8Ck8KZ8Y",
+    "title": "TOP 5 MEJORES MAZOS DEL MUNDO EN CLASH ROYALE!",
+    "channel": "Surgical Goblin",
+    "cat": "tournament",
+    "thumb": "https://i.ytimg.com/vi/u4y8Ck8KZ8Y/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=u4y8Ck8KZ8Y"
+  },
+  {
+    "id": "8_dpxpd5XPg",
+    "title": "#1 DEL MUNDO CON EL MEJOR MAZO DE LOG BAIT!",
+    "channel": "Surgical Goblin",
+    "cat": "tournament",
+    "thumb": "https://i.ytimg.com/vi/8_dpxpd5XPg/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=8_dpxpd5XPg"
+  },
+  {
+    "id": "41V1LMZoA4A",
+    "title": "2.6 MONTA PERO EL ESBIRRO GIGANTE ES MUCHO MEJOR",
+    "channel": "Surgical Goblin",
+    "cat": "tournament",
+    "thumb": "https://i.ytimg.com/vi/41V1LMZoA4A/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=41V1LMZoA4A"
+  },
+  {
+    "id": "6or14qMMy84",
+    "title": "EL UNICO MAZO DE GOLEM QUE GANA EN CLASH ROYALE!",
+    "channel": "Surgical Goblin",
+    "cat": "tournament",
+    "thumb": "https://i.ytimg.com/vi/6or14qMMy84/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=6or14qMMy84"
+  },
+  {
+    "id": "G8WORvyeIAA",
+    "title": "Addressing the Recent Backlash",
+    "channel": "Boss_CR",
+    "cat": "meta",
+    "thumb": "https://i.ytimg.com/vi/G8WORvyeIAA/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=G8WORvyeIAA"
+  },
+  {
+    "id": "QPyRYyjqre0",
+    "title": "Can AI Replace the Clash Royale Balance Team?",
+    "channel": "Boss_CR",
+    "cat": "meta",
+    "thumb": "https://i.ytimg.com/vi/QPyRYyjqre0/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=QPyRYyjqre0"
+  },
+  {
+    "id": "3-QEKUzG3-E",
+    "title": "Ranking ALL 123 Cards in Clash Royale!",
+    "channel": "Boss_CR",
+    "cat": "meta",
+    "thumb": "https://i.ytimg.com/vi/3-QEKUzG3-E/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=3-QEKUzG3-E"
+  },
+  {
+    "id": "WjhICrIPrvQ",
+    "title": "New Champion, Tower Troop Rework, and More!",
+    "channel": "Boss_CR",
+    "cat": "meta",
+    "thumb": "https://i.ytimg.com/vi/WjhICrIPrvQ/hqdefault.jpg",
+    "url": "https://www.youtube.com/watch?v=WjhICrIPrvQ"
+  }
 ];
 
 (function initVideos() {
   let activeFilter = "all";
-  let activeVideo  = null;  // currently expanded iframe
+  let activeVideo = null;
+  let visibleLimit = 12;
+
+  const catLabels = {
+    meta: "⚔️ META DECK",
+    guide: "📖 GUIDE",
+    tournament: "🏆 TOURNAMENT",
+    fun: "⚡ STRATEGY"
+  };
 
   function buildCard(v) {
     const div = document.createElement("div");
     div.className = "video-card";
     div.dataset.cat = v.cat;
-    div.style.cssText = `
-      background: rgba(13,18,31,0.95);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.2s;
-      display: flex;
-      flex-direction: column;
-    `;
+    div.id = `video-card-${v.id}`;
+
     div.innerHTML = `
-      <div class="vc-thumb" style="position:relative; background:#000; aspect-ratio:16/9; overflow:hidden;">
-        <img src="${v.thumb}" alt="${v.title}" loading="lazy"
-          style="width:100%;height:100%;object-fit:cover;display:block;"
-          onerror="this.style.opacity='0.3'">
-        <div class="vc-play" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);">
-          <div style="width:48px;height:48px;background:rgba(255,0,0,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;">▶</div>
+      <div class="vc-thumb" title="Click to play ${v.title}">
+        <img class="vc-thumb-img" src="${v.thumb}" alt="${v.title}" loading="lazy"
+          onerror="this.src='https://img.youtube.com/vi/${v.id}/mqdefault.jpg'">
+        <div class="vc-cat-tag">${catLabels[v.cat] || "CLASH TV"}</div>
+        <div class="vc-play-overlay">
+          <div class="vc-play-btn">▶</div>
         </div>
       </div>
-      <div style="padding:0.85rem;">
-        <div style="font-size:0.84rem;font-weight:700;color:#fff;margin-bottom:0.3rem;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${v.title}</div>
-        <div style="font-size:0.73rem;color:var(--text-muted);">📺 ${v.channel}</div>
+      <div class="vc-info">
+        <div>
+          <h4 class="vc-title" title="${v.title}">${v.title}</h4>
+          <div class="vc-channel">📺 ${v.channel}</div>
+        </div>
+        <div class="vc-btn-row">
+          <button type="button" class="vc-watch-here-btn" title="Watch in page">
+            <span>▶ Play Here</span>
+          </button>
+          <a href="${v.url}" target="_blank" rel="noopener noreferrer" class="vc-youtube-btn" title="Open directly on YouTube">
+            <span>Watch on YouTube ↗</span>
+          </a>
+        </div>
       </div>
     `;
-    div.addEventListener("click", () => expandVideo(div, v));
-    div.addEventListener("mouseenter", () => { div.style.borderColor = "rgba(0,200,220,0.5)"; div.style.transform = "translateY(-2px)"; });
-    div.addEventListener("mouseleave", () => { div.style.borderColor = "rgba(255,255,255,0.08)"; div.style.transform = ""; });
+
+    const thumb = div.querySelector(".vc-thumb");
+    const playBtn = div.querySelector(".vc-watch-here-btn");
+
+    const togglePlay = () => {
+      WebAudioFX.playClick();
+      expandVideo(div, v);
+    };
+
+    thumb.addEventListener("click", togglePlay);
+    playBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      togglePlay();
+    });
+
     return div;
   }
 
   function expandVideo(div, v) {
-    // collapse any open iframe
-    if (activeVideo && activeVideo !== div) {
-      const old = activeVideo.querySelector(".vc-embed");
-      if (old) old.remove();
-      const oldPlay = activeVideo.querySelector(".vc-play");
-      if (oldPlay) oldPlay.style.display = "flex";
-    }
-    activeVideo = div;
     const existing = div.querySelector(".vc-embed");
-    if (existing) { existing.remove(); activeVideo = null; const p = div.querySelector(".vc-play"); if (p) p.style.display = "flex"; return; }
+    if (existing) {
+      existing.remove();
+      const playOverlay = div.querySelector(".vc-play-overlay");
+      if (playOverlay) playOverlay.style.display = "flex";
+      const playBtnText = div.querySelector(".vc-watch-here-btn span");
+      if (playBtnText) playBtnText.textContent = "▶ Play Here";
+      activeVideo = null;
+      return;
+    }
+
+    // Collapse any previously expanded iframe
+    if (activeVideo && activeVideo !== div) {
+      const oldEmbed = activeVideo.querySelector(".vc-embed");
+      if (oldEmbed) oldEmbed.remove();
+      const oldOverlay = activeVideo.querySelector(".vc-play-overlay");
+      if (oldOverlay) oldOverlay.style.display = "flex";
+      const oldBtnText = activeVideo.querySelector(".vc-watch-here-btn span");
+      if (oldBtnText) oldBtnText.textContent = "▶ Play Here";
+    }
+
+    activeVideo = div;
     const thumbDiv = div.querySelector(".vc-thumb");
-    const playBtn  = div.querySelector(".vc-play");
-    if (playBtn) playBtn.style.display = "none";
+    const playOverlay = div.querySelector(".vc-play-overlay");
+    if (playOverlay) playOverlay.style.display = "none";
+    const playBtnText = div.querySelector(".vc-watch-here-btn span");
+    if (playBtnText) playBtnText.textContent = "⏹ Close Player";
+
     const iframe = document.createElement("iframe");
     iframe.className = "vc-embed";
-    iframe.setAttribute("src", `https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0`);
+    iframe.setAttribute("src", `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1`);
     iframe.setAttribute("frameborder", "0");
     iframe.setAttribute("allowfullscreen", "");
-    iframe.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
-    iframe.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:none;";
+    iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+    iframe.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:none;z-index:3;";
     thumbDiv.appendChild(iframe);
-    div.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   App.renderVideos = function(filter) {
@@ -3423,8 +3631,19 @@ const NR_VIDEOS = [
       btn.classList.toggle("active", btn.dataset.vcat === activeFilter);
     });
 
-    const filtered = activeFilter === "all" ? NR_VIDEOS : NR_VIDEOS.filter(v => v.cat === activeFilter);
-    filtered.forEach(v => grid.appendChild(buildCard(v)));
+    const filtered = (activeFilter === "all") ? NR_VIDEOS : NR_VIDEOS.filter(v => v.cat === activeFilter);
+    const toShow = filtered.slice(0, visibleLimit);
+    toShow.forEach(v => grid.appendChild(buildCard(v)));
+
+    const loadMore = document.getElementById("btn-load-more-videos");
+    if (loadMore) {
+      if (toShow.length >= filtered.length) {
+        loadMore.style.display = "none";
+      } else {
+        loadMore.style.display = "inline-flex";
+        loadMore.textContent = `⬇️ Load More Videos (${filtered.length - toShow.length} remaining)`;
+      }
+    }
   };
 
   // wire category filter buttons
@@ -3432,13 +3651,18 @@ const NR_VIDEOS = [
     document.addEventListener("click", e => {
       const btn = e.target.closest("#video-filters .filter-btn-hero");
       if (btn) {
+        WebAudioFX.playClick();
+        visibleLimit = 12;
         App.renderVideos(btn.dataset.vcat);
       }
     });
+
     const loadMore = document.getElementById("btn-load-more-videos");
     if (loadMore) {
       loadMore.addEventListener("click", () => {
-        App.showToast("🎬 All available videos are loaded — more coming soon!");
+        WebAudioFX.playClick();
+        visibleLimit += 12;
+        App.renderVideos(activeFilter);
       });
     }
   });
