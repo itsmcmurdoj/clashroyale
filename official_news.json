@@ -1,9 +1,39 @@
 {
-  "lastChecked": "2026-09-23T10:23:11.546385+00:00",
+  "lastChecked": "2026-09-23T15:41:06.548567+00:00",
   "source": "https://supercell.com/en/games/clashroyale/blog/",
-  "latestUpdateTitle": "Merge Tactics: Season 11 Balance Changes",
-  "latestPublishDate": "2026-09-08T08:41:08.193Z",
+  "latestUpdateTitle": "September Balance Changes",
+  "latestPublishDate": "2026-09-23T13:25:14.012Z",
   "articles": [
+    {
+      "title": "September Balance Changes",
+      "publishDate": "2026-09-23T13:25:14.012Z",
+      "category": "Clash Royale",
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/september-balance-changes-2027",
+      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/IdkNVn2cZNvkUBtF2K8cg/969b345deb0fd1be52f054ae28d22676/720x405.jpg",
+      "isSmallNews": true,
+      "highlights": [
+        {
+          "title": "",
+          "text": "Balance Update \\u2013 September 16th NERFS \\u2b07\\ufe0f"
+        },
+        {
+          "title": "Hero Ice Wizard",
+          "text": "Freeze Duration : 7s \\u2192 5s (-29%)"
+        },
+        {
+          "title": "Goblinstein",
+          "text": "Ability Duration : 4s \\u2192 3.5s (-13%)"
+        },
+        {
+          "title": "Minion Giant",
+          "text": "Damage : 189 \\u2192 168 (-11%)"
+        },
+        {
+          "title": "",
+          "text": "BUFF \\u2b06\\ufe0f"
+        }
+      ]
+    },
     {
       "title": "Merge Tactics: Season 11 Balance Changes",
       "publishDate": "2026-09-08T08:41:08.193Z",
@@ -31,36 +61,6 @@
         {
           "title": "",
           "text": "Royale King has been underperforming since his quest pays out too late. We now expect him to stabilize earlier after losing streaks."
-        }
-      ]
-    },
-    {
-      "title": "September Balance Changes",
-      "publishDate": "2026-09-08T08:37:32.361Z",
-      "category": "Clash Royale",
-      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/september-balance-changes-2026",
-      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/IdkNVn2cZNvkUBtF2K8cg/969b345deb0fd1be52f054ae28d22676/720x405.jpg",
-      "isSmallNews": false,
-      "highlights": [
-        {
-          "title": "",
-          "text": "Balance Update \\u2013 September 16th NERFS \\u2b07\\ufe0f"
-        },
-        {
-          "title": "Hero Ice Wizard",
-          "text": "Freeze Duration : 7s \\u2192 5s (-29%)"
-        },
-        {
-          "title": "Goblinstein",
-          "text": "Ability Duration : 4s \\u2192 3.5s (-13%)"
-        },
-        {
-          "title": "Minion Giant",
-          "text": "Damage : 189 \\u2192 168 (-11%)"
-        },
-        {
-          "title": "",
-          "text": "BUFF \\u2b06\\ufe0f"
         }
       ]
     },
