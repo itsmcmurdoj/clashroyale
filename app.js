@@ -252,6 +252,7 @@ const App = {
     this.renderMetaRankings();
     this.setupDefaultStudioDeck();
     this.setupMatchupArena();
+    this.setupGambitRadar();
     this.setup2v2Radar();
     this.setupDeckRecallMinigame();
 
@@ -2821,7 +2822,124 @@ const App = {
     });
   },
 
-  // --- 12. 2V2 COMPETITIVE LEAGUE GLOBAL RANK PREDICTOR ---
+  // --- 12. COMPETITIVE EVENTS & RADAR TELEMETRY ---
+  switchEventTab: function(tab) {
+    if (typeof WebAudioFX !== "undefined" && WebAudioFX.playClick) WebAudioFX.playClick();
+    const tabs = ["gambit", "2v2", "shuffle"];
+    tabs.forEach(t => {
+      const btn = document.getElementById(`btn-subtab-${t}`);
+      const panel = document.getElementById(`event-panel-${t}`);
+      if (btn) btn.classList.toggle("active", t === tab);
+      if (panel) panel.style.display = t === tab ? "block" : "none";
+    });
+  },
+
+  setupGambitRadar: function() {
+    const input = document.getElementById("gambit-wins-input");
+    const slider = document.getElementById("gambit-wins-slider");
+    const presetBtns = document.querySelectorAll(".gambit-preset-btn");
+
+    const updateGambit = (wins) => {
+      wins = parseInt(wins, 10);
+      if (isNaN(wins)) wins = 12;
+      wins = Math.max(0, Math.min(20, wins));
+
+      if (input && input.value != wins) input.value = wins;
+      if (slider && slider.value != wins) slider.value = wins;
+
+      const rankEl = document.getElementById("gambit-out-rank");
+      const tierEl = document.getElementById("gambit-out-tier");
+      const neededEl = document.getElementById("gambit-out-needed");
+      const subNeededEl = document.getElementById("gambit-out-subneeded");
+      const badgeEl = document.getElementById("gambit-out-safety-badge");
+      const safetySub = document.getElementById("gambit-out-safety-sub");
+      const barFill = document.getElementById("gambit-out-bar-fill");
+      const pctText = document.getElementById("gambit-out-pct-text");
+      const badgeUnlockedState = document.getElementById("gambit-badge-unlocked-state");
+
+      const cutoffWins = 15;
+      let projectedRank = 12500;
+      let tier = "Contender";
+
+      if (wins >= 18) {
+        projectedRank = Math.max(1, Math.round(1000 - ((wins - 18) * 450)));
+        tier = "Elite Top 1,000";
+      } else if (wins >= 15) {
+        projectedRank = Math.round(10000 - ((wins - 15) * 3000));
+        tier = "Top 10,000 Safe";
+      } else if (wins >= 12) {
+        projectedRank = Math.round(10000 + ((15 - wins) * 1500));
+        tier = "Bubble Zone";
+      } else if (wins >= 8) {
+        projectedRank = Math.round(20000 + ((12 - wins) * 5000));
+        tier = "Challenger Tier";
+      } else {
+        projectedRank = Math.round(50000 + ((8 - wins) * 12000));
+        tier = "Novice Bracket";
+      }
+
+      if (rankEl) rankEl.textContent = `#${projectedRank.toLocaleString()}`;
+      if (tierEl) tierEl.textContent = tier;
+
+      if (wins >= cutoffWins) {
+        if (neededEl) {
+          neededEl.style.color = "var(--win)";
+          neededEl.textContent = `+${wins - cutoffWins} Buffer`;
+        }
+        if (subNeededEl) subNeededEl.textContent = "🏆 Inside Top 10,000 (Safe Finish)";
+        if (badgeEl) {
+          badgeEl.innerHTML = wins >= 18
+            ? `<span class="radar-zone-pill radar-zone-elite">🟣 ELITE TOP 1,000 (#${projectedRank.toLocaleString()})</span>`
+            : `<span class="radar-zone-pill radar-zone-safe">🟢 SAFE TOP 10,000 (#${projectedRank.toLocaleString()})</span>`;
+        }
+        if (safetySub) safetySub.textContent = "Official Tournament Finisher Badge Verified!";
+        if (badgeUnlockedState) {
+          badgeUnlockedState.style.color = "var(--win)";
+          badgeUnlockedState.textContent = "✓ UNLOCKED";
+        }
+      } else {
+        const needed = cutoffWins - wins;
+        if (neededEl) {
+          neededEl.style.color = "var(--gold)";
+          neededEl.textContent = `+${needed} Wins`;
+        }
+        if (subNeededEl) subNeededEl.textContent = `~${needed} More Wins Required Before 3 Strikes`;
+        if (badgeEl) {
+          if (needed <= 3) {
+            badgeEl.innerHTML = `<span class="radar-zone-pill radar-zone-bubble">🟡 BUBBLE ZONE (#${projectedRank.toLocaleString()})</span>`;
+            if (safetySub) safetySub.textContent = `Striking distance: only ${needed} wins to Top 10k badge!`;
+          } else {
+            badgeEl.innerHTML = `<span class="radar-zone-pill radar-zone-danger">🔴 CLIMBING (#${projectedRank.toLocaleString()})</span>`;
+            if (safetySub) safetySub.textContent = `Needs ${needed} more wins to enter Top 10k bracket`;
+          }
+        }
+        if (badgeUnlockedState) {
+          badgeUnlockedState.style.color = "var(--gold)";
+          badgeUnlockedState.textContent = `⏳ ${needed} Wins Remaining`;
+        }
+      }
+
+      const pct = Math.min(100, Math.max(5, (wins / cutoffWins) * 100));
+      if (barFill) barFill.style.width = `${pct.toFixed(0)}%`;
+      if (pctText) pctText.textContent = `${pct.toFixed(0)}% of Top 10k Threshold (${wins}/${cutoffWins} Wins)`;
+    };
+
+    if (input) input.addEventListener("input", (e) => updateGambit(e.target.value));
+    if (slider) slider.addEventListener("input", (e) => updateGambit(e.target.value));
+
+    presetBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (typeof WebAudioFX !== "undefined" && WebAudioFX.playClick) WebAudioFX.playClick();
+        presetBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        updateGambit(btn.getAttribute("data-val"));
+      });
+    });
+
+    updateGambit(12);
+  },
+
+  // --- 13. 2V2 COMPETITIVE LEAGUE GLOBAL RANK PREDICTOR ---
   setup2v2Radar: function() {
     const input = document.getElementById("radar-trophies-input");
     const slider = document.getElementById("radar-trophies-slider");
@@ -3118,22 +3236,22 @@ document.addEventListener("DOMContentLoaded", () => App.init());
 // NEXUS ROYALE TV — Curated Video Engine
 // ============================================================
 const NR_VIDEOS = [
+  // ── Tournaments & Live Events ───────────────────────────────
+  { id: "kJECto7LMNY", title: "Princess Gambit Sudden Death Tournament Guide (Easy 15 Wins)", channel: "Surgical Goblin", cat: "tournament", thumb: "https://img.youtube.com/vi/kJECto7LMNY/mqdefault.jpg" },
+  { id: "Hn_VnD8C9Gw", title: "Royale Shuffle Mode: How to Win with ANY Random Deck", channel: "Orange Juice Gaming", cat: "tournament", thumb: "https://img.youtube.com/vi/Hn_VnD8C9Gw/mqdefault.jpg" },
+  { id: "YX0DFrAHFB0", title: "CRL World Finals 2026 — Full Match Highlights", channel: "Clash Royale Esports", cat: "tournament", thumb: "https://img.youtube.com/vi/YX0DFrAHFB0/mqdefault.jpg" },
   // ── Meta Decks ──────────────────────────────────────────────
-  { id: "rEHFbf5DVKQ", title: "Best Meta Decks Sept 2026 — Season 87 Tier List", channel: "Surgical Goblin", cat: "meta", thumb: "https://img.youtube.com/vi/rEHFbf5DVKQ/mqdefault.jpg" },
-  { id: "3MNGNqbXqZI", title: "HERO ICE WIZARD Is BROKEN — Full Guide 2026", channel: "Morten", cat: "meta", thumb: "https://img.youtube.com/vi/3MNGNqbXqZI/mqdefault.jpg" },
-  { id: "OlYdOqyeVUE", title: "Top 5 Decks for Ladder — No Skill Needed", channel: "PropenYT", cat: "meta", thumb: "https://img.youtube.com/vi/OlYdOqyeVUE/mqdefault.jpg" },
-  { id: "Xt67JUU03U8", title: "Goblin Giant Sparky Destroys Everyone Right Now", channel: "SirTagCR", cat: "meta", thumb: "https://img.youtube.com/vi/Xt67JUU03U8/mqdefault.jpg" },
+  { id: "rEHFbf5DVKQ", title: "Sept 16 Emergency Balance Update: Hero Ice Wizard Nerfed!", channel: "Surgical Goblin", cat: "meta", thumb: "https://img.youtube.com/vi/rEHFbf5DVKQ/mqdefault.jpg" },
+  { id: "3MNGNqbXqZI", title: "HERO ICE WIZARD Post-Patch Guide — Still S-Tier?", channel: "Morten", cat: "meta", thumb: "https://img.youtube.com/vi/3MNGNqbXqZI/mqdefault.jpg" },
+  { id: "OlYdOqyeVUE", title: "Top 5 Sudden Death Decks for Princess Gambit", channel: "PropenYT", cat: "meta", thumb: "https://img.youtube.com/vi/OlYdOqyeVUE/mqdefault.jpg" },
+  { id: "Xt67JUU03U8", title: "Base Wizard BUFFED! Giant Sparky Destroys Ladder", channel: "SirTagCR", cat: "meta", thumb: "https://img.youtube.com/vi/Xt67JUU03U8/mqdefault.jpg" },
   { id: "dYSQ1NF1hvw", title: "Lava Hound Balloon — BEST AIR DECK Season 87", channel: "Clash with Ash", cat: "meta", thumb: "https://img.youtube.com/vi/dYSQ1NF1hvw/mqdefault.jpg" },
   // ── Guides ──────────────────────────────────────────────────
   { id: "hFbU-aBLHJg", title: "How to Get to Legendary Arena — Complete F2P Guide", channel: "Orange Juice Gaming", cat: "guide", thumb: "https://img.youtube.com/vi/hFbU-aBLHJg/mqdefault.jpg" },
   { id: "b7aZy1Z_VtU", title: "Mastering Elixir Management — Pro Tips", channel: "Surgical Goblin", cat: "guide", thumb: "https://img.youtube.com/vi/b7aZy1Z_VtU/mqdefault.jpg" },
-  { id: "qz-IfCUHOFo", title: "Ultimate 2v2 Guide — Win Every Match", channel: "Morten", cat: "guide", thumb: "https://img.youtube.com/vi/qz-IfCUHOFo/mqdefault.jpg" },
+  { id: "qz-IfCUHOFo", title: "Season 87 2v2 Recap & Lessons for Sudden Death", channel: "Morten", cat: "guide", thumb: "https://img.youtube.com/vi/qz-IfCUHOFo/mqdefault.jpg" },
   { id: "V8cOLRg44aU", title: "How to Counter Every Meta Deck — Cheat Sheet", channel: "CWA", cat: "guide", thumb: "https://img.youtube.com/vi/V8cOLRg44aU/mqdefault.jpg" },
   { id: "WQkB6STTWTA", title: "Evolution Cards Explained — Everything You Need to Know", channel: "Clash Royale (Official)", cat: "guide", thumb: "https://img.youtube.com/vi/WQkB6STTWTA/mqdefault.jpg" },
-  // ── Tournaments ─────────────────────────────────────────────
-  { id: "YX0DFrAHFB0", title: "CRL World Finals 2026 — Full Match Highlights", channel: "Clash Royale Esports", cat: "tournament", thumb: "https://img.youtube.com/vi/YX0DFrAHFB0/mqdefault.jpg" },
-  { id: "kJECto7LMNY", title: "$100,000 Crown Championship — Top 8 Matches", channel: "Clash Royale", cat: "tournament", thumb: "https://img.youtube.com/vi/kJECto7LMNY/mqdefault.jpg" },
-  { id: "Hn_VnD8C9Gw", title: "Clash Royale Pro League S87 — Best Plays Compilation", channel: "Clash Royale Esports", cat: "tournament", thumb: "https://img.youtube.com/vi/Hn_VnD8C9Gw/mqdefault.jpg" },
   // ── Fun ─────────────────────────────────────────────────────
   { id: "GNl8H3G3u5k", title: "Using ONLY Heroes for 24 Hours — What Happened?", channel: "Orange Juice Gaming", cat: "fun", thumb: "https://img.youtube.com/vi/GNl8H3G3u5k/mqdefault.jpg" },
   { id: "bKpDYxEIiJ4", title: "The Most Broken Spell Deck You've Never Tried", channel: "Jxhn", cat: "fun", thumb: "https://img.youtube.com/vi/bKpDYxEIiJ4/mqdefault.jpg" },

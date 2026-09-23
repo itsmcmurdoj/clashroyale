@@ -35,8 +35,9 @@ const CLASH_MECHANICS_2026 = {
     }
   ],
   "balancePatch": {
-    "date": "August 26, 2026",
-    "rule": "All Hero & Champion abilities are single-use per deployment. (Boss Bandit remains the single exception with multi-use cooldown)."
+    "date": "September 16, 2026",
+    "title": "Emergency Balance Update & Princess Gambit Meta",
+    "rule": "Hero Ice Wizard freeze reduced from 7s to 5s. Fireball crown tower damage nerfed (-8%). Base Wizard receives +8% damage buff. Poison tick damage fixed. Boss Bandit remains the single multi-use cooldown exception."
   }
 };
 
@@ -2409,12 +2410,12 @@ const HEROES_CATALOG = [
 const PRO_META_DECKS = [
   {
     "id": "deck_hero_icewiz_pekka",
-    "name": "Season 87 Hero Ice Wizard PEKKA Control",
+    "name": "Season 87 Hero Ice Wizard PEKKA Control (Post-Nerf)",
     "archetype": "Control / Anti-Meta",
     "tier": "S+",
-    "winRate": 58.6,
-    "useRate": 11.4,
-    "threeCrownRate": 22.8,
+    "winRate": 58.2,
+    "useRate": 12.1,
+    "threeCrownRate": 21.4,
     "avgElixir": 3.6,
     "proPlayer": "Mohamed Light",
     "rank": "#1 World Champion",
@@ -2433,44 +2434,128 @@ const PRO_META_DECKS = [
       "bandit",
       "baby-dragon"
     ],
-    "description": "The undisputed Season 87 ladder king. Features the brand-new Hero Ice Wizard utilizing 1-Elixir Frost Surge to freeze counters, paired with Evo PEKKA and Wild Slot Hero Knight for impassable defense."
+    "description": "Remains S+ tier after the Sept 16 emergency balance update. Despite Frost Surge freeze reduced to 5s, the 1-Elixir cost still provides unparalleled shutdown against beatdown, paired with Evo PEKKA and Wild Slot Hero Knight."
   },
   {
-    "id": "deck_hero_knight_bait",
-    "name": "Hero Knight 2.8 Log Bait Evolution",
-    "archetype": "Spell Bait / Cycle",
+    "id": "deck_miner_poison_control",
+    "name": "Miner Poison Cycle (Poison Fix Surge)",
+    "archetype": "Control / Chip Siege",
     "tier": "S",
-    "winRate": 57.1,
-    "useRate": 10.2,
-    "threeCrownRate": 11.5,
-    "avgElixir": 2.8,
-    "proPlayer": "Ryley",
-    "rank": "#1 Global Bait",
+    "winRate": 57.8,
+    "useRate": 11.5,
+    "threeCrownRate": 12.2,
+    "avgElixir": 2.9,
+    "proPlayer": "LucasX-Gamer",
+    "rank": "#2 Global Ultimate Champion",
     "specialSlots": {
       "heroSlot": "knight",
-      "evoSlot": "goblin-barrel",
+      "evoSlot": "skeletons",
       "wildSlot": "valkyrie"
     },
     "cards": [
+      "miner",
+      "poison",
       "knight",
-      "goblin-barrel",
-      "valkyrie",
-      "princess",
+      "skeletons",
+      "musketeer",
       "the-log",
-      "rocket",
-      "ice-spirit",
-      "goblin-gang"
+      "electro-spirit",
+      "inferno-tower"
     ],
-    "description": "Utilizes Hero Knight's Iron Bulwark (70% damage reduction + taunt) to soak spell and tower damage while Evo Goblin Barrel chips down towers."
+    "description": "Surged into the top ladder rankings following the Supercell bug fix ensuring Poison deals 100% intended tick damage. Grinds down crown towers while impenetrable ground defense handles beatdown."
+  },
+  {
+    "id": "deck_princess_gambit_lumberloon",
+    "name": "Princess Gambit Sudden Death LumberLoon Freeze",
+    "archetype": "Sudden Death / Fast Punish",
+    "tier": "S",
+    "winRate": 59.4,
+    "useRate": 14.8,
+    "threeCrownRate": 92.0,
+    "avgElixir": 3.8,
+    "proPlayer": "Surgical Goblin",
+    "rank": "Tournament Specialist",
+    "specialSlots": {
+      "heroSlot": "valkyrie",
+      "evoSlot": "skeletons",
+      "wildSlot": "ice-golem"
+    },
+    "cards": [
+      "lumberjack",
+      "balloon",
+      "freeze",
+      "bowler",
+      "tornado",
+      "electro-dragon",
+      "barbarian-barrel",
+      "ice-golem"
+    ],
+    "description": "The premier deck dominating the Princess Gambit Global Tournament (Sept 21–26). In Sudden Death format without a King Tower, a single Lumberjack + Balloon + Freeze drop cleanly secures the 1-tower victory."
+  },
+  {
+    "id": "deck_giant_sparky_wizard",
+    "name": "Giant Sparky Wizard Beatdown (Post-Buff)",
+    "archetype": "Heavy Beatdown / Splash Overload",
+    "tier": "S",
+    "winRate": 56.9,
+    "useRate": 8.7,
+    "threeCrownRate": 34.5,
+    "avgElixir": 3.9,
+    "proPlayer": "Tobi SpiritHawk",
+    "rank": "#5 Ultimate Champion",
+    "specialSlots": {
+      "heroSlot": "wizard",
+      "evoSlot": "zap",
+      "wildSlot": "dark-prince"
+    },
+    "cards": [
+      "giant",
+      "sparky",
+      "wizard",
+      "minion-giant",
+      "zap",
+      "tornado",
+      "dark-prince",
+      "mega-minion"
+    ],
+    "description": "Elevated directly by the September 16 patch granting Base Wizard +8% splash damage, shredding swarm defense while Sparky and the new Minion Giant melt defensive towers."
+  },
+  {
+    "id": "deck_hog_26_postbalance",
+    "name": "Hog 2.6 Cycle (Post-Balance Tuning)",
+    "archetype": "Fast Cycle / Precision Defense",
+    "tier": "S",
+    "winRate": 56.4,
+    "useRate": 13.2,
+    "threeCrownRate": 10.1,
+    "avgElixir": 2.6,
+    "proPlayer": "Oyassuu",
+    "rank": "#1 Global 2.6 Master",
+    "specialSlots": {
+      "heroSlot": "musketeer",
+      "evoSlot": "skeletons",
+      "wildSlot": "ice-golem"
+    },
+    "cards": [
+      "hog-rider",
+      "musketeer",
+      "ice-golem",
+      "cannon",
+      "fireball",
+      "the-log",
+      "skeletons",
+      "ice-spirit"
+    ],
+    "description": "The timeless standard remains resilient. Post-patch tactics utilize Ice Spirit strictly for defensive stalls rather than raw chip, offsetting the Fireball crown tower damage adjustment."
   },
   {
     "id": "deck_boss_bandit_bridge",
     "name": "Boss Bandit Overdrive Bridge Spam",
     "archetype": "Bridge Spam / Dual Lane",
     "tier": "S",
-    "winRate": 56.5,
-    "useRate": 8.9,
-    "threeCrownRate": 24.1,
+    "winRate": 56.1,
+    "useRate": 9.3,
+    "threeCrownRate": 23.5,
     "avgElixir": 3.5,
     "proPlayer": "Viper",
     "rank": "#3 Ultimate Champion",
@@ -2489,35 +2574,7 @@ const PRO_META_DECKS = [
       "the-log",
       "poison"
     ],
-    "description": "Dominates the post-August 2026 balance meta by capitalizing on Boss Bandit being the only card retaining multi-use Dash cooldowns, supported by Hero Mega Minion."
-  },
-  {
-    "id": "deck_hero_valk_hog",
-    "name": "Hero Valkyrie Hog EQ 2.9",
-    "archetype": "Fast Pressure / Beatdown Defense",
-    "tier": "S",
-    "winRate": 55.8,
-    "useRate": 9.5,
-    "threeCrownRate": 16.3,
-    "avgElixir": 2.9,
-    "proPlayer": "Ian77",
-    "rank": "#4 Ladder",
-    "specialSlots": {
-      "heroSlot": "valkyrie",
-      "evoSlot": "skeletons",
-      "wildSlot": "ice-golem"
-    },
-    "cards": [
-      "valkyrie",
-      "hog-rider",
-      "skeletons",
-      "ice-golem",
-      "earthquake",
-      "the-log",
-      "musketeer",
-      "cannon"
-    ],
-    "description": "Hero Valkyrie's Cyclone Vortex vacuums defense units away from the Hog Rider, granting guaranteed hammer hits while destroying graveyard pushes."
+    "description": "Continues strong performance in competitive dual-lane pressure, relying on Boss Bandit's multi-use Dash cooldown to punish opponents after defending."
   }
 ];
 

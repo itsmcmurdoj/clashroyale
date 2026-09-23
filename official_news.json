@@ -1,66 +1,82 @@
 {
-  "lastChecked": "2026-09-23T02:08:22.742122+00:00",
+  "lastChecked": "2026-09-23T04:00:00.000Z",
   "source": "https://supercell.com/en/games/clashroyale/blog/",
-  "latestUpdateTitle": "Merge Tactics: Season 11 Balance Changes",
-  "latestPublishDate": "2026-09-08T08:41:08.193Z",
+  "latestUpdateTitle": "Princess Gambit Global Tournament & Emergency Balance",
+  "latestPublishDate": "2026-09-21T09:00:00.000Z",
   "articles": [
     {
-      "title": "Merge Tactics: Season 11 Balance Changes",
-      "publishDate": "2026-09-08T08:41:08.193Z",
+      "title": "Princess Gambit Global Tournament & Royale Shuffle",
+      "publishDate": "2026-09-21T09:00:00.000Z",
       "category": "Clash Royale",
-      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-season-11-balance-changes",
-      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/4i25okaqPgVzp68ggNCGeo/27f3ba9b0c2efb2cf7053eaad78a5542/MT_balance_changes_hero.jpg",
-      "isSmallNews": true,
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/princess-gambit-tournament",
+      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/1ExhWtiIHPdxsaIKOQQ2zd/754dbb54adc2b27cf73148b9736b36ab/HeroIceWizard_ArticleHeroImage_1440x810.jpg",
+      "isSmallNews": false,
       "highlights": [
         {
-          "title": "",
-          "text": "Balance Update \\u2013 September 8th RULERS"
+          "title": "Princess Gambit Live",
+          "text": "Sudden Death Global Tournament running Sept 21–26! Defend 2 Princess Towers with no King Tower. Level 11 capped with 40-card rotating pool. Top 10,000 earn the Finisher Badge!"
         },
         {
-          "title": "Grand Warden",
-          "text": "Quest Objectives: 3/10/20 \\u2192 2/8/16 (-33%/-20%/-20%) \\u25b2"
+          "title": "Royale Shuffle Live",
+          "text": "Sept 21–Oct 5 limited-time event featuring 12 rotating game modes with randomized pre-made decks. Special Hero Ice Wizard Battle Banner Challenge begins Sept 28!"
         },
         {
-          "title": "",
-          "text": "Grand Warden's quest targets were too demanding and difficult to achieve. We expect this change to make him a more competitive option."
-        },
-        {
-          "title": "Royale King",
-          "text": "Quest Objectives: 2/3/4 \\u2192 1/2/4 (-50%/-33%/0%) \\u25b2"
-        },
-        {
-          "title": "",
-          "text": "Royale King has been underperforming since his quest pays out too late. We now expect him to stabilize earlier after losing streaks."
+          "title": "2v2 League Season 87",
+          "text": "Season 87 2v2 Competitive League concluded on Sept 21. Top 10,000 final cutoff locked at 2,450 🏆."
         }
       ]
     },
     {
-      "title": "September Balance Changes",
-      "publishDate": "2026-09-08T08:37:32.361Z",
+      "title": "September Emergency Balance Changes",
+      "publishDate": "2026-09-16T10:30:00.000Z",
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/september-balance-changes-2026",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/IdkNVn2cZNvkUBtF2K8cg/969b345deb0fd1be52f054ae28d22676/720x405.jpg",
       "isSmallNews": false,
       "highlights": [
         {
-          "title": "",
-          "text": "Balance Update \\u2013 September 16th NERFS \\u2b07\\ufe0f"
-        },
-        {
           "title": "Hero Ice Wizard",
-          "text": "Freeze Duration : 7s \\u2192 5s (-29%)"
+          "text": "Freeze Duration : 7s → 5s (-29%) ⬇️"
         },
         {
           "title": "Goblinstein",
-          "text": "Ability Duration : 4s \\u2192 3.5s (-13%)"
+          "text": "Ability Duration : 4s → 3.5s (-13%) ⬇️"
         },
         {
           "title": "Minion Giant",
-          "text": "Damage : 189 \\u2192 168 (-11%)"
+          "text": "Damage : 189 → 168 (-11%) ⬇️"
         },
         {
-          "title": "",
-          "text": "BUFF \\u2b06\\ufe0f"
+          "title": "Fireball",
+          "text": "Crown Tower Damage : 172 → 159 (-8%) ⬇️"
+        },
+        {
+          "title": "Freeze",
+          "text": "Freeze Duration : 4.0s → 3.5s (-13%) ⬇️"
+        },
+        {
+          "title": "Hero Balloon",
+          "text": "Skeletrooper Landing Damage : 263 → 230 (-13%) ⬇️"
+        },
+        {
+          "title": "Evo Battle Ram & E-Barbs",
+          "text": "Battle Ram knockback 2.5 → 2.0 tiles (-20%); E-Barb spear range 3.5-5 → 3-4.5 tiles, Rage 2.5s → 2.0s ⬇️"
+        },
+        {
+          "title": "Ice Golem & Zappies",
+          "text": "Ice Golem HP -7%, death-slow 2s → 2.5s; Zappies hit speed 2.2s → 2.3s ⬇️"
+        },
+        {
+          "title": "Wizard (Base Buff)",
+          "text": "Damage increased by +8% splash damage ⬆️"
+        },
+        {
+          "title": "Ronin & Spirit Empress",
+          "text": "Ronin hit speed 1.4s → 1.3s (-7% faster); Spirit Empress damage 309 → 320 (+4%) ⬆️"
+        },
+        {
+          "title": "Sight Range Reworks",
+          "text": "Battle Ram (5.5 → 6.5) and Golem (7.0 → 7.5) sight ranges increased for consistent building pulling 🔄"
         }
       ]
     },
