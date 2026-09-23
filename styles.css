@@ -75,6 +75,7 @@ html {
   touch-action: manipulation;
   width: 100% !important;
   max-width: 100% !important;
+  overflow-x: clip !important;
   overflow-x: hidden !important;
 }
 
@@ -103,6 +104,7 @@ html {
 body {
   width: 100% !important;
   max-width: 100% !important;
+  overflow-x: clip !important;
   overflow-x: hidden !important;
   position: relative;
   background-color: #071530;
@@ -496,8 +498,9 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  width: 100vw;
+  width: 100%;
   max-width: 100%;
+  box-sizing: border-box;
   z-index: 10000;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
 }
@@ -534,6 +537,7 @@ body {
   width: 100%;
   max-width: 1360px;
   position: relative;
+  overflow: hidden;
 }
 
 .sc-subnav-container .nav-links {
@@ -549,7 +553,8 @@ body {
   background: transparent;
   border: none;
   box-shadow: none;
-  flex: 1;
+  flex: 1 1 0%;
+  min-width: 0;
 }
 
 .sc-subnav-container .nav-links::-webkit-scrollbar {
@@ -3050,7 +3055,9 @@ main > section {
 /* 8. COMPREHENSIVE MOBILE & APP RESPONSIVE ENGINE     */
 /* =================================================== */
 html, body {
-  max-width: 100vw;
+  max-width: 100%;
+  width: 100%;
+  overflow-x: clip;
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
   touch-action: manipulation;
@@ -3492,7 +3499,7 @@ html, body {
   margin-top: 2px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1120px) {
   /* 1. Header & Mobile App Top Bar */
   .creator-code-bar {
     padding: 0.25rem 0.75rem;

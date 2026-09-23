@@ -425,10 +425,23 @@ const App = {
       if (window.innerWidth > 1180) {
         this.closeMenuDrawer();
       }
+      if (window.scrollX !== 0) {
+        window.scrollTo({ left: 0, top: window.scrollY, behavior: "instant" });
+      }
     });
     window.addEventListener("orientationchange", () => {
-      setTimeout(() => this.syncNavSpacer(), 100);
+      setTimeout(() => {
+        this.syncNavSpacer();
+        if (window.scrollX !== 0) {
+          window.scrollTo({ left: 0, top: window.scrollY, behavior: "instant" });
+        }
+      }, 100);
     });
+    window.addEventListener("scroll", () => {
+      if (window.scrollX !== 0) {
+        window.scrollTo({ left: 0, top: window.scrollY, behavior: "instant" });
+      }
+    }, { passive: true });
 
     // 4.5. VIP 1-Click Instant Login (Muk #Y0JJY80)
     const vipLoginBtn = document.getElementById("btn-quick-login-muk");
@@ -797,11 +810,26 @@ const App = {
     document.querySelectorAll(".nav-btn").forEach(b => {
       const isActive = (b.getAttribute("data-tab") === activeTab);
       b.classList.toggle("active", isActive);
-      // Only scroll into view if it's in the top nav scrollable bar, not the fixed bottom dock or drawer cards
-      if (isActive && !b.classList.contains("dock-btn") && !b.classList.contains("drawer-item-card")) {
-        b.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-      }
     });
+
+    // Safely scroll ONLY the subnav horizontal track container without moving the browser viewport/window
+    const navLinks = document.getElementById("main-nav-links");
+    if (navLinks) {
+      if (!activeTab) {
+        navLinks.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        const activeBtn = navLinks.querySelector(`.nav-btn[data-tab="${activeTab}"]`);
+        if (activeBtn) {
+          const targetLeft = activeBtn.offsetLeft - (navLinks.clientWidth / 2) + (activeBtn.clientWidth / 2);
+          navLinks.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
+        }
+      }
+    }
+
+    // Strictly ensure browser window scrollX never gets pulled horizontally
+    if (window.scrollX !== 0) {
+      window.scrollTo({ left: 0, top: window.scrollY, behavior: "instant" });
+    }
   },
 
   initPwa: function() {
@@ -1132,7 +1160,7 @@ const App = {
     if (viewId === "videos") {
       this.renderVideos("all");
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   },
 
   showToast: function(msg, actionHtml = null, duration = 3500) {
@@ -1497,6 +1525,15 @@ const App = {
       revCard.textContent = `$${rev}`;
     }
     if (codeCard) codeCard.textContent = this.ceoMetrics.creatorCodeUses.toLocaleString();
+  },
+
+  // 1-Click Instant Login Entrypoint
+  loginVerifiedPlayer: function(tag) {
+    WebAudioFX.playClick();
+    const clean = (tag || "Y0JJY80").replace(/^#/, "").trim().toUpperCase();
+    const tagInput = document.getElementById("input-tag");
+    if (tagInput) tagInput.value = clean;
+    this.fetchPlayerData(clean);
   },
 
   // --- 6. SUPERCELL API FETCH & ROBUST DATA INGESTION ---
