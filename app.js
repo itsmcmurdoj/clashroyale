@@ -2597,16 +2597,16 @@ const App = {
     for (let i = this.studioDeck.length; i < 8; i++) {
       const emptySlot = document.createElement("div");
       emptySlot.className = "deck-card-unit empty-slot";
-      emptySlot.style.border = "2px dashed #475569";
-      emptySlot.style.background = "rgba(15, 23, 42, 0.5)";
+      emptySlot.style.border = "2px dashed rgba(255, 255, 255, 0.22)";
+      emptySlot.style.background = "rgba(255, 255, 255, 0.03)";
       emptySlot.style.minHeight = "110px";
       emptySlot.style.display = "flex";
       emptySlot.style.flexDirection = "column";
       emptySlot.style.alignItems = "center";
       emptySlot.style.justifyContent = "center";
       emptySlot.innerHTML = `
-        <div style="font-size: 1.5rem; color: #64748b; line-height: 1;">➕</div>
-        <div style="font-size: 0.62rem; font-weight: 800; color: #64748b; margin-top: 0.35rem; font-family: var(--font-clash);">SLOT ${i + 1}</div>
+        <div style="font-size: 1.5rem; color: #94a3b8; line-height: 1;">➕</div>
+        <div style="font-size: 0.78rem; font-weight: 900; color: #cbd5e1; margin-top: 0.35rem; font-family: var(--font-clash);">SLOT ${i + 1}</div>
       `;
       container.appendChild(emptySlot);
     }
@@ -2657,8 +2657,8 @@ const App = {
 
       item.innerHTML = `
         ${badgeText ? `<div style="position: absolute; top: 2px; left: 2px; font-size: 0.55rem; font-weight: 800; background: rgba(0,0,0,0.7); padding: 1px 4px; border-radius: 3px;">${badgeText}</div>` : ""}
-        <img src="${c.icon || ""}" style="width: 100%; aspect-ratio: 3/4; object-fit: contain;" onerror="App.handleCardImgError(this, '${c.name}')">
-        <div style="font-size: 0.68rem; font-weight: 700; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">${c.name}</div>
+        <img src="${c.icon || ""}" style="width: 100%; aspect-ratio: 3/4; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));" onerror="App.handleCardImgError(this, '${c.name}')">
+        <div style="font-size: 0.85rem; font-weight: 900; font-family: var(--font-clash), var(--font-sans); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; margin-top: 0.25rem;">${c.name}</div>
       `;
 
       item.onclick = () => {
@@ -2951,8 +2951,8 @@ const App = {
             const img = isHero && match.heroIcon ? match.heroIcon : (isEvo && match.evoIcon ? match.evoIcon : (match ? match.icon : ""));
             return `
               <div style="position: relative; text-align: center;">
-                <img src="${img}" style="width: 100%; aspect-ratio: 3/4; object-fit: contain;" onerror="App.handleCardImgError(this, '${match ? match.name : k}')">
-                <div style="font-size: 0.62rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${match ? match.name : k}</div>
+                <img src="${img}" style="width: 100%; aspect-ratio: 3/4; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.65));" onerror="App.handleCardImgError(this, '${match ? match.name : k}')">
+                <div style="font-family: var(--font-clash), var(--font-sans); font-size: 0.82rem; font-weight: 900; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 0.25rem;">${match ? match.name : k}</div>
               </div>
             `;
           }).join("")}
