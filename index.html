@@ -150,22 +150,28 @@
     </button>
   </div>
 
-  <!-- 2. Authentic Clash Royale In-Game Top Navigation Bar (1:1 with Client) -->
+  <!-- 2. Authentic Clash Royale Supercell Store Top Navigation Bar -->
   <header class="top-nav cr-in-game-bar">
     <div class="brand-group" id="btn-brand">
-      <div class="cr-trophy-cluster" id="top-trophy-btn" title="Seasonal Trophy Road & Rank">
-        <div class="cr-ribbon-badge">👑</div>
-        <div class="cr-trophy-number-pill" id="top-trophy-count">14,030</div>
+      <div class="sc-store-flag" title="Clash Royale Supercell Store & Telemetry">
+        <span class="sc-flag-crown">👑</span>
+        <div class="sc-flag-text-col">
+          <span class="sc-flag-sub">SUPERCELL STORE</span>
+          <span class="sc-flag-brand">CLASH ROYALE</span>
+        </div>
       </div>
       <div class="brand-symbol">
         <img src="nexus_crest_cyber.jpg" alt="Nexus Royale Crest" class="brand-crest-img">
       </div>
-      <div class="brand-text">NEXUS ROYALE</div>
+      <div class="brand-text">
+        <span>NEXUS</span>
+        <span class="brand-version">STORE</span>
+      </div>
     </div>
 
     <!-- Navigation Tabs -->
     <nav class="nav-links" id="main-nav-links">
-      <a href="radar.html" target="_blank" class="nav-btn live-radar-top-btn" style="background: linear-gradient(180deg, #fde047 0%, #ca8a04 100%); color: #451a03; border: 1.5px solid #fff; box-shadow: 0 0 10px rgba(253, 224, 71, 0.5); text-decoration: none; font-weight: 900; display: inline-flex; align-items: center; gap: 0.35rem;">⚡ LIVE CO-PILOT <span class="hot-tag" style="background: #ff2a70; color: #fff;">RADAR</span></a>
+      <a href="radar.html" target="_blank" class="nav-btn live-radar-top-btn" style="background: linear-gradient(180deg, #fff275 0%, #fde047 30%, #eab308 70%, #ca8a04 100%); color: #451a03; border: 1.5px solid #fff; box-shadow: 0 0 10px rgba(253, 224, 71, 0.5); text-decoration: none; font-weight: 900; display: inline-flex; align-items: center; gap: 0.35rem;">⚡ LIVE RADAR <span class="hot-tag">CO-PILOT</span></a>
       <button class="nav-btn" data-tab="battles" id="nav-btn-battles">⚔️ BATTLE LOG <span class="hot-tag">AI COACH</span></button>
       <button class="nav-btn" data-tab="heroes">⚡ HEROES 2026 <span class="hot-tag">SEASON 87</span></button>
       <button class="nav-btn" data-tab="radar" id="nav-btn-radar">🏆 EVENTS & RADAR <span class="hot-tag" style="background: #ff2a70; color: #fff;">LIVE</span></button>
@@ -177,12 +183,13 @@
       <button class="nav-btn active" data-tab="account" id="nav-btn-account" style="display: none;">MY PROFILE</button>
     </nav>
 
-    <!-- In-Game Currency Status Bar & Nav Actions (1:1 with Game Screenshots) -->
+    <!-- Supercell Store Action Cluster & Auth -->
     <div class="nav-actions">
-      <!-- Mobile Quick Access Live Co-Pilot Radar Button -->
-      <a href="radar.html" class="cr-mobile-radar-btn" title="Open Live Second-Screen Co-Pilot Radar">
-        ⚡ RADAR
-      </a>
+      <!-- Supercell ID Pill Button -->
+      <button type="button" class="sc-id-pill" id="btn-nav-sc-id" title="Log In with Supercell ID" onclick="App.loginVerifiedPlayer('Y0JJY80');">
+        <span class="sc-id-logo-box">ID</span>
+        <span id="nav-sc-id-text">SUPERCELL ID</span>
+      </button>
 
       <!-- Currency Status Pills -->
       <div class="cr-status-bar" id="cr-status-bar">
@@ -196,15 +203,12 @@
         </div>
       </div>
 
-      <!-- In-Game Utility Buttons Cluster (Screenshot 2: Friends, News, Menu) -->
+      <!-- In-Game Utility Buttons Cluster -->
       <div class="cr-util-cluster">
         <button type="button" class="cr-square-btn" id="btn-friends-nav" title="Social & Clan Radar" onclick="App.showView('radar'); App.updateNavButtons('radar');">
           👥<span class="badge-counter">2</span>
         </button>
-        <button type="button" class="cr-square-btn" id="btn-news-nav" title="Clash TV & News" onclick="App.showView('videos'); App.updateNavButtons('videos');">
-          📰
-        </button>
-        <button type="button" class="audio-toggle-btn on" id="btn-toggle-audio" title="Toggle Web Audio SFX" style="border-radius: 9px; padding: 0.4rem 0.6rem;">
+        <button type="button" class="audio-toggle-btn on" id="btn-toggle-audio" title="Toggle Web Audio SFX" style="border-radius: 9999px; padding: 0.4rem 0.6rem;">
           <span id="audio-icon">🔊</span>
         </button>
       </div>
@@ -241,38 +245,30 @@
         
         <!-- Left Hero Input Column -->
         <div class="gateway-hero-left">
-          <div class="hero-pill-badge">⚡ OFFICIALLY LAUNCHED • Supercell Telemetry Gateway Live</div>
-          <h1 class="hero-title">SYNC YOUR ROYALE IDENTITY.</h1>
+          <div class="hero-pill-badge">👑 OFFICIAL SUPERCELL STORE • TELEMETRY GATEWAY</div>
+          <h1 class="hero-title">CONNECT WITH SUPERCELL ID.</h1>
           <p class="hero-sub">
-            Direct real-time telemetry link into Supercell live servers. Inspect your actual career records, 2026 Hero & Evolution slots, active battle deck, 2v2 League ratings, and match history.
+            Direct real-time telemetry link into Supercell live servers. Inspect your actual career records, 2026 Season 87 Hero & Evolution slots, active battle deck, 2v2 League ratings, and match history.
           </p>
 
-          <!-- VIP Instant 1-Click Login -->
-          <div class="vip-quick-connect-banner">
-            <div class="vip-avatar">
-              <img src="nexus_crest_cyber.jpg" alt="Nexus Royale Crest" class="vip-crest-img">
-            </div>
-            <div class="vip-info">
-              <div class="vip-tag-row">
-                <span class="vip-badge">VERIFIED CEO</span>
-                <span class="vip-tag-text">#Y0JJY80</span>
-              </div>
-              <div class="vip-name">Muk • 14,000 🏆 <span class="vip-clan">(The Darkness)</span></div>
-            </div>
-            <button type="button" class="btn-vip-login" id="btn-quick-login-muk">
-              <span>⚡ 1-Click Instant Login</span>
+          <!-- VIP Supercell ID 1-Click Authentication -->
+          <div class="hero-sc-id-box">
+            <button type="button" class="sc-id-pill hero-sc-id-cta" id="btn-quick-login-muk" title="Authenticate with Supercell ID">
+              <span class="sc-id-logo-box">ID</span>
+              <span>LOG IN WITH SUPERCELL ID (MUK #Y0JJY80)</span>
             </button>
+            <span class="hero-sc-id-hint">⚡ 1-Tap Instant Authentication & Telemetry Sync • Verified Player</span>
           </div>
 
-          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;">
-            Or Connect Any Custom Player Tag:
+          <div class="hero-divider-or">
+            <span>OR ENTER CUSTOM PLAYER TAG</span>
           </div>
 
           <form id="search-form" class="tag-search-form">
             <span class="tag-prefix">#</span>
             <input type="text" id="input-tag" class="tag-input" placeholder="Y0JJY80" maxlength="12" required autofocus>
-            <button type="submit" class="btn-primary-action" id="btn-sync">
-              <span id="btn-sync-text">Sync Account</span>
+            <button type="submit" class="sc-store-btn-yellow" id="btn-sync">
+              <span id="btn-sync-text">SYNC TAG</span>
             </button>
           </form>
           <div id="search-error" class="search-feedback-msg"></div>

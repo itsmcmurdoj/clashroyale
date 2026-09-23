@@ -50,12 +50,12 @@
       --cyber-cyan: #22d3ee;
       --cyber-cyan-glow: rgba(34, 211, 238, 0.5);
 
-      --bg-midnight: #130d24;
-      --bg-quilt-1: #17112b;
-      --bg-quilt-2: #201338;
-      --panel-stone-1: #2b3040;
-      --panel-stone-2: #1a1e2b;
-      --panel-border: #475569;
+      --bg-midnight: #071530;
+      --bg-quilt-1: #0a1c42;
+      --bg-quilt-2: #0e275c;
+      --panel-stone-1: #132752;
+      --panel-stone-2: #0a1836;
+      --panel-border: rgba(255, 255, 255, 0.16);
     }
 
     * {
@@ -86,8 +86,8 @@
       position: relative;
       background-color: var(--bg-midnight);
       background-image: 
-        radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.1) 0%, transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(225, 29, 72, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(225, 29, 72, 0.1) 0%, transparent 50%),
         repeating-linear-gradient(45deg, var(--bg-quilt-1) 0, var(--bg-quilt-1) 28px, var(--bg-quilt-2) 28px, var(--bg-quilt-2) 56px);
       background-attachment: fixed;
       color: #ffffff;
@@ -104,9 +104,9 @@
 
     /* Top Cockpit Header */
     .cockpit-header {
-      background: linear-gradient(180deg, #2b3040 0%, #151822 100%);
-      border-bottom: 3.5px solid var(--panel-border);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.8), 0 4px 0 #0f172a;
+      background: #0d387e;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
       padding: 0.65rem 1.5rem;
       display: flex;
       justify-content: space-between;

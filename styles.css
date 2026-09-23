@@ -5,53 +5,60 @@
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap");
 
 :root {
-  /* Nexus Cyber Crest Palette + Clash Royale In-Game Royal Palette */
-  --bg-black: #060913;
-  --bg-surface: #0a1122;
-  --bg-surface-elevated: #101c36;
-  --bg-card: #0d172e;
+  /* Official Clash Royale Supercell Store Palette (store.supercell.com/clashroyale) */
+  --bg-black: #050e20;
+  --bg-surface: #0a1c42;
+  --bg-surface-elevated: #112654;
+  --bg-card: #0d1e44;
+
+  --sc-store-blue: #0d387e;
+  --sc-store-blue-deep: #082454;
+  --sc-store-canvas: #0a1c42;
+  --sc-store-card: #132752;
+  --sc-store-card-deep: #0a1836;
+  --sc-store-border: rgba(255, 255, 255, 0.14);
   
-  --cr-royal-blue: #1e3a8a;
-  --cr-dark-blue: #0f172a;
-  --cr-gold: #facc15;
+  --cr-royal-blue: #0d387e;
+  --cr-dark-blue: #07132b;
+  --cr-gold: #fde047;
   --cr-gold-shadow: #854d0e;
   --cr-green: #22c55e;
   --cr-green-shadow: #14532d;
-  --cr-blue: #3b82f6;
-  --cr-blue-shadow: #1e3a8a;
+  --cr-blue: #38bdf8;
+  --cr-blue-shadow: #0284c7;
   --cr-red: #ef4444;
   --cr-red-shadow: #991b1b;
-  --cr-elixir: #e11d48;
+  --cr-elixir: #ff2a70;
   --cr-wood: #2d1810;
   
-  --border-subtle: #1e293b;
-  --border-hover: #334155;
-  --border-focus: #facc15;
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-hover: rgba(56, 189, 248, 0.4);
+  --border-focus: #fde047;
   
-  --text-main: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-main: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
   
-  --gold: #facc15;
+  --gold: #fde047;
   --gold-light: #fef08a;
-  --gold-glow: rgba(250, 204, 21, 0.35);
-  --gold-subtle: rgba(250, 204, 21, 0.12);
+  --gold-glow: rgba(253, 224, 71, 0.4);
+  --gold-subtle: rgba(253, 224, 71, 0.15);
   
   --cyan: #38bdf8;
   --cyan-bright: #7dd3fc;
-  --cyan-glow: rgba(56, 189, 248, 0.35);
-  --cyan-subtle: rgba(56, 189, 248, 0.12);
+  --cyan-glow: rgba(56, 189, 248, 0.4);
+  --cyan-subtle: rgba(56, 189, 248, 0.15);
 
-  --elixir: #e11d48;
-  --elixir-subtle: rgba(225, 29, 72, 0.14);
+  --elixir: #ff2a70;
+  --elixir-subtle: rgba(255, 42, 112, 0.18);
   --win: #22c55e;
   --loss: #ef4444;
-  --blue: #3b82f6;
-  --purple: #a855f7;
+  --blue: #38bdf8;
+  --purple: #c084fc;
   
   --radius-sm: 8px;
   --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-lg: 22px;
   --radius-full: 9999px;
   
   --font-clash: "Lilita One", "Plus Jakarta Sans", sans-serif;
@@ -98,15 +105,9 @@ body {
   max-width: 100% !important;
   overflow-x: hidden !important;
   position: relative;
-  background-color: #17112b;
+  background-color: #071530;
   background-image: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.025) 25%, transparent 25%),
-    linear-gradient(225deg, rgba(255, 255, 255, 0.025) 25%, transparent 25%),
-    linear-gradient(45deg, rgba(255, 255, 255, 0.025) 25%, transparent 25%),
-    linear-gradient(315deg, rgba(255, 255, 255, 0.025) 25%, transparent 25%),
-    radial-gradient(circle at 50% 20%, #261645 0%, #16102a 60%, #0c0817 100%);
-  background-position: 28px 0, 28px 0, 0 0, 0 0, 0 0;
-  background-size: 56px 56px, 56px 56px, 56px 56px, 56px 56px, 100% 100%;
+    radial-gradient(circle at 50% 0%, #1c4b9e 0%, #0d2859 40%, #071530 100%);
   background-attachment: fixed;
   color: var(--text-main);
   font-family: var(--font-sans);
@@ -236,15 +237,70 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(7, 8, 11, 0.9);
+  background: var(--sc-store-blue, #0d387e) !important;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border-subtle);
-  height: 64px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.25) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45) !important;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
+}
+
+/* Authentic Supercell Store Hanging Banner Ribbon */
+.sc-store-flag {
+  position: relative;
+  background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+  border: 2px solid #fde047;
+  border-top: none;
+  padding: 0.4rem 0.9rem 0.75rem;
+  border-radius: 0 0 4px 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 50% 100%, 0 86%);
+  transition: transform 0.15s ease, filter 0.15s ease;
+  cursor: pointer;
+  margin-top: -4px;
+  text-decoration: none;
+}
+
+.sc-store-flag:hover {
+  transform: translateY(2px);
+  filter: brightness(1.1);
+}
+
+.sc-flag-crown {
+  font-size: 1.4rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+}
+
+.sc-flag-text-col {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.sc-flag-brand {
+  font-family: var(--font-clash);
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+}
+
+.sc-flag-sub {
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #fef08a;
+  text-transform: uppercase;
 }
 
 .brand-group {
@@ -255,8 +311,8 @@ body {
 }
 
 .brand-symbol {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   background: transparent;
   border: none;
   border-radius: var(--radius-sm);
@@ -274,81 +330,143 @@ body {
 }
 
 .brand-text {
-  font-size: 0.98rem;
+  font-size: 1rem;
   font-weight: 900;
   letter-spacing: -0.01em;
   color: #fff;
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  font-family: var(--font-clash), var(--font-sans);
 }
 
 .brand-version {
   font-size: 0.62rem;
   font-family: var(--font-mono);
   color: var(--gold);
-  background: var(--gold-subtle);
-  border: 1px solid rgba(229, 169, 60, 0.3);
+  background: rgba(229, 169, 60, 0.18);
+  border: 1px solid rgba(229, 169, 60, 0.35);
   padding: 0.1rem 0.45rem;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   font-weight: 800;
 }
 
+/* Supercell Store Segmented Navigation Capsule */
 .nav-links {
   display: flex;
-  gap: 0.25rem;
-  background: var(--bg-surface);
-  padding: 0.25rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
+  gap: 0.3rem;
+  background: rgba(5, 14, 36, 0.78);
+  padding: 0.3rem 0.45rem;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+  max-width: 100%;
 }
 
 .nav-btn {
   background: transparent;
   border: none;
-  color: var(--text-secondary);
+  color: #cbd5e1;
   font-family: var(--font-sans);
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.76rem;
+  font-weight: 800;
   padding: 0.45rem 0.95rem;
-  border-radius: var(--radius-sm);
+  border-radius: 9999px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
 }
 
-.nav-btn:hover { color: #fff; }
+.nav-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
 .nav-btn.active {
-  background: var(--bg-surface-elevated);
-  color: #fff;
-  border: 1px solid var(--border-hover);
+  background: linear-gradient(180deg, #fff275 0%, #fde047 30%, #eab308 70%, #ca8a04 100%) !important;
+  color: #451a03 !important;
+  box-shadow: 0 2px 0 #854d0e, 0 4px 12px rgba(234, 179, 8, 0.45) !important;
+  font-weight: 900 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .hot-tag {
-  background: linear-gradient(135deg, #eab308, #f97316);
-  color: #000;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #ffffff;
   font-size: 0.58rem;
   font-weight: 900;
-  padding: 0.12rem 0.4rem;
+  padding: 0.12rem 0.45rem;
   border-radius: var(--radius-full);
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
+}
+
+/* Authentic White Supercell ID Pill Button */
+.sc-id-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: #ffffff !important;
+  color: #050e20 !important;
+  border-radius: 9999px !important;
+  padding: 0.45rem 1.15rem !important;
+  font-family: var(--font-sans);
+  font-weight: 900 !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase !important;
+  border: 2px solid #e2e8f0 !important;
+  box-shadow: 0 4px 0 #94a3b8, 0 6px 16px rgba(0, 0, 0, 0.25) !important;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sc-id-pill:hover {
+  background: #f8fafc !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #64748b, 0 10px 22px rgba(0, 0, 0, 0.3) !important;
+}
+
+.sc-id-pill:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #64748b !important;
+}
+
+.sc-id-logo-box {
+  width: 22px;
+  height: 22px;
+  background: #000000;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 0.65rem;
+  letter-spacing: -0.05em;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 .audio-toggle-btn {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
+  background: rgba(5, 14, 36, 0.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
   padding: 0.35rem 0.65rem;
-  border-radius: var(--radius-sm);
+  border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
@@ -359,13 +477,15 @@ body {
 }
 
 .audio-toggle-btn:hover {
-  border-color: var(--border-hover);
+  border-color: rgba(255, 255, 255, 0.35);
   color: #fff;
+  transform: translateY(-1px);
 }
 
 .audio-toggle-btn.on {
   color: var(--cyan);
-  border-color: rgba(6, 182, 212, 0.4);
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.25);
 }
 
 .btn-install-app {
@@ -446,9 +566,27 @@ body {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
-  gap: 3.5rem;
-  margin: 2.5rem auto 4rem;
-  max-width: 1200px;
+  gap: 3rem;
+  margin: 1.5rem auto 3.5rem;
+  max-width: 1260px;
+  background: linear-gradient(180deg, #132752 0%, #0a1836 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.gateway-hero-layout::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 @media (max-width: 950px) {
@@ -456,6 +594,7 @@ body {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 2.5rem;
+    padding: 2rem 1.5rem;
   }
 }
 
@@ -463,57 +602,109 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  padding: 0.4rem 1rem;
+  background: rgba(13, 56, 126, 0.85);
+  border: 1.5px solid rgba(253, 224, 71, 0.4);
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 0.04em;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #fef08a;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .hero-title {
-  font-size: 3.1rem;
+  font-family: var(--font-clash), var(--font-sans);
+  font-size: 3rem;
   font-weight: 900;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   color: #fff;
-  line-height: 1.12;
+  line-height: 1.08;
   margin-bottom: 1rem;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
 }
 
 .hero-sub {
   font-size: 1.05rem;
-  color: var(--text-secondary);
+  color: #cbd5e1;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
+  max-width: 580px;
+}
+
+/* Supercell Store Hero SC-ID Connect Callout */
+.hero-sc-id-box {
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hero-sc-id-cta {
+  padding: 0.75rem 1.75rem !important;
+  font-size: 0.88rem !important;
+  border-radius: 9999px !important;
+  align-self: flex-start;
+  box-shadow: 0 5px 0 #94a3b8, 0 10px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+@media (max-width: 950px) {
+  .hero-sc-id-cta {
+    align-self: center;
+  }
+}
+
+.hero-sc-id-hint {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.hero-divider-or {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0 1.25rem;
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-divider-or::before,
+.hero-divider-or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .tag-search-form {
   position: relative;
   display: flex;
   align-items: center;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-hover);
-  border-radius: var(--radius-lg);
-  padding: 0.4rem;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  background: rgba(5, 14, 36, 0.85);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  padding: 0.35rem 0.5rem 0.35rem 1rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.5);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  max-width: 520px;
 }
 
 .tag-search-form:focus-within {
-  border-color: var(--gold);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--gold-glow);
+  border-color: #fde047;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(253, 224, 71, 0.3);
 }
 
 .tag-prefix {
   font-family: var(--font-mono);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  color: var(--gold);
-  padding-left: 1.25rem;
+  color: #fde047;
   padding-right: 0.4rem;
 }
 
@@ -532,30 +723,73 @@ body {
 }
 
 .tag-input::placeholder {
-  color: var(--text-muted);
+  color: #64748b;
   font-weight: 500;
 }
 
-.btn-primary-action {
-  background: linear-gradient(135deg, #fff 0%, #d4d4d8 100%);
-  color: #000;
-  border: none;
-  padding: 0.75rem 1.6rem;
-  border-radius: var(--radius-md);
-  font-family: var(--font-sans);
-  font-size: 0.88rem;
-  font-weight: 800;
+/* Supercell Store 3D Pill Button Styles */
+.sc-store-btn-yellow {
+  background: linear-gradient(180deg, #fff275 0%, #fde047 30%, #eab308 70%, #ca8a04 100%) !important;
+  color: #451a03 !important;
+  font-family: var(--font-clash), var(--font-sans) !important;
+  font-weight: 900 !important;
+  font-size: 0.88rem !important;
+  letter-spacing: 0.03em !important;
+  border: 2px solid #fef08a !important;
+  border-radius: 9999px !important;
+  padding: 0.65rem 1.4rem !important;
+  box-shadow: 0 4px 0 #854d0e, 0 8px 16px rgba(0, 0, 0, 0.35) !important;
   cursor: pointer;
-  transition: all 0.15s ease;
-  display: flex;
+  transition: all 0.12s ease;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 0.4rem;
+  text-decoration: none;
   white-space: nowrap;
 }
 
-.btn-primary-action:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+.sc-store-btn-yellow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #854d0e, 0 12px 20px rgba(234, 179, 8, 0.4) !important;
+  filter: brightness(1.05);
+}
+
+.sc-store-btn-yellow:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #854d0e !important;
+}
+
+.sc-store-btn-green {
+  background: linear-gradient(180deg, #86efac 0%, #4ade80 30%, #22c55e 65%, #16a34a 100%) !important;
+  color: #052e16 !important;
+  font-family: var(--font-clash), var(--font-sans) !important;
+  font-weight: 900 !important;
+  font-size: 0.88rem !important;
+  letter-spacing: 0.03em !important;
+  border: 2px solid #bbf7d0 !important;
+  border-radius: 9999px !important;
+  padding: 0.65rem 1.4rem !important;
+  box-shadow: 0 4px 0 #14532d, 0 8px 16px rgba(0, 0, 0, 0.35) !important;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sc-store-btn-green:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #14532d, 0 12px 20px rgba(34, 197, 94, 0.4) !important;
+  filter: brightness(1.05);
+}
+
+.sc-store-btn-green:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #14532d !important;
 }
 
 .search-feedback-msg {
@@ -751,9 +985,9 @@ body {
 /* 4. PLAYER PROFILE & TELEMETRY DASHBOARD             */
 /* =================================================== */
 .player-hero-card {
-  background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, #152d5e 0%, #0c1c3f 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 22px;
   padding: 2.25rem;
   margin-bottom: 2rem;
   display: flex;
@@ -763,6 +997,7 @@ body {
   gap: 2rem;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
 
 .player-hero-card::before {
@@ -915,11 +1150,12 @@ body {
 
 /* Sections */
 .section-panel {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 1.75rem;
+  background: linear-gradient(180deg, #132752 0%, #0a1836 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 22px;
+  padding: 1.85rem;
   margin-bottom: 2rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .section-head {
@@ -3509,11 +3745,11 @@ html, body {
   box-shadow: 0 1px 0 #1e3a8a !important;
 }
 
-/* --- 3. In-Game Clash Top Bar & Currency Status Pills --- */
+/* --- 3. Supercell Store Top Bar & Currency Status Pills --- */
 .top-nav {
-  background: linear-gradient(180deg, #132240 0%, #0d172e 100%) !important;
-  border-bottom: 2px solid #ca8a04 !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+  background: var(--sc-store-blue, #0d387e) !important;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.25) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45) !important;
 }
 
 .cr-status-bar {
