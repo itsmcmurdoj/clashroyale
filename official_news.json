@@ -1,9 +1,39 @@
 {
-  "lastChecked": "2026-10-05T02:43:16.873980+00:00",
+  "lastChecked": "2026-10-05T12:52:01.871673+00:00",
   "source": "https://supercell.com/en/games/clashroyale/blog/",
-  "latestUpdateTitle": "Merge Tactics: Season 11 (October Changes)",
-  "latestPublishDate": "2026-09-30T14:37:11.499Z",
+  "latestUpdateTitle": "New Season: Shocktober!",
+  "latestPublishDate": "2026-10-05T08:28:43.758Z",
   "articles": [
+    {
+      "title": "New Season: Shocktober!",
+      "publishDate": "2026-10-05T08:28:43.758Z",
+      "category": "Clash Royale",
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/new-season-shocktober",
+      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/5uVxnmkg6ijzOVFl8cd9b0/1ce8c865928f89c695c6140f9597f8b5/HeroElectroWizard_ArticleHeroImage_1440x810.jpg",
+      "isSmallNews": true,
+      "highlights": [
+        {
+          "title": "",
+          "text": "Get ready for the most shocking season of the year\\u2026 literally. In this article, you\\u2019ll find everything you need to know to get you amped up for the new season: New Hero: Electro Wizard New Evolution Electro Giant Shocktober: The Movie! Album Event\\u00a0 C.H.A.O.S modes Spooky Chess League "
+        },
+        {
+          "title": "Hero Electro Wizard",
+          "text": "Ability: Surging Strikes The most ELECTRIFYING Hero yet!"
+        },
+        {
+          "title": "",
+          "text": "Activate Hero Electro Wizard\\u2019s ability to stun two nearby enemies at once for a few seconds! You can find this electrifying new Hero in the Upgraded Pass Royale. NEW EVOLUTION"
+        },
+        {
+          "title": "Electro Giant Evolution",
+          "text": "Zap Pack 2.0: New & improved!"
+        },
+        {
+          "title": "",
+          "text": "This device helps Evolved Electro Giant unleash an expanding electric pulse that shrinks and de-levels enemies in range. Those entering his field will need to amp it up a notch for watt happens next! You can unlock this new Evolution for FREE by completing the Album Event! ALBUM EVENT Shocktober: Th"
+        }
+      ]
+    },
     {
       "title": "Merge Tactics: Season 11 (October Changes)",
       "publishDate": "2026-09-30T14:37:11.499Z",
@@ -40,29 +70,7 @@
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/september-balance-changes-2027",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/IdkNVn2cZNvkUBtF2K8cg/969b345deb0fd1be52f054ae28d22676/720x405.jpg",
-      "isSmallNews": true,
-      "highlights": [
-        {
-          "title": "",
-          "text": "Balance Update \\u2013 September 16th NERFS \\u2b07\\ufe0f"
-        },
-        {
-          "title": "Hero Ice Wizard",
-          "text": "Freeze Duration : 7s \\u2192 5s (-29%)"
-        },
-        {
-          "title": "Goblinstein",
-          "text": "Ability Duration : 4s \\u2192 3.5s (-13%)"
-        },
-        {
-          "title": "Minion Giant",
-          "text": "Damage : 189 \\u2192 168 (-11%)"
-        },
-        {
-          "title": "",
-          "text": "BUFF \\u2b06\\ufe0f"
-        }
-      ]
+      "isSmallNews": true
     },
     {
       "title": "Merge Tactics: Season 11 Balance Changes",
@@ -86,14 +94,6 @@
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-season-11",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/5qyLz1ejf3K4k2ZpUK1hfm/2a51c02650f8454e331654fd321dfdbd/small_thumbnail.jpg",
-      "isSmallNews": true
-    },
-    {
-      "title": "Merge Tactics Mid-Season 10 Balance Changes",
-      "publishDate": "2026-08-05T10:00:00.000+03:00",
-      "category": "Clash Royale",
-      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-mid-season-10-balance-changes",
-      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/43lUkhOlG45k0hK71m21wN/f90303c477864713be30c5ef81d89ec0/small_thumb_Mt.png",
       "isSmallNews": true
     }
   ]
