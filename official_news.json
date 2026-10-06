@@ -1,9 +1,39 @@
 {
-  "lastChecked": "2026-10-06T03:35:27.192975+00:00",
+  "lastChecked": "2026-10-06T12:19:49.069958+00:00",
   "source": "https://supercell.com/en/games/clashroyale/blog/",
-  "latestUpdateTitle": "New Season: Shocktober!",
-  "latestPublishDate": "2026-10-05T08:28:43.758Z",
+  "latestUpdateTitle": "October Balance Changes",
+  "latestPublishDate": "2026-10-06T06:15:39.011Z",
   "articles": [
+    {
+      "title": "October Balance Changes",
+      "publishDate": "2026-10-06T06:15:39.011Z",
+      "category": "Clash Royale",
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/october-balance-changes-2026",
+      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/4Xz3JUEqeNXfNTPFkl5v2e/c30088f42089534946ecf29d30578cb0/720x405.jpg",
+      "isSmallNews": true,
+      "highlights": [
+        {
+          "title": "",
+          "text": "Balance Update \\u2013 October 6th NERFS \\u2b07\\ufe0f"
+        },
+        {
+          "title": "Hero Ice Wizard",
+          "text": "Freeze Damage: 89 \\u2192 46 (-49%)"
+        },
+        {
+          "title": "",
+          "text": "Hero Ice Wizard claims his icy little buddy is all frost and no bite, but we're not buying it. Frosty Fella will no longer take out Skeletons and Bats with his freeze effect."
+        },
+        {
+          "title": "Cannon Evolution",
+          "text": "Barrage Damage: 281 \\u2192 261 (-7%)"
+        },
+        {
+          "title": "",
+          "text": "It's Minion Giant's world now and Evolved Cannon is just liv-... still the best building in the meta? Its barrage will still take out Dart Goblin, but be slightly less effective against big pushes."
+        }
+      ]
+    },
     {
       "title": "New Season: Shocktober!",
       "publishDate": "2026-10-05T08:28:43.758Z",
@@ -40,29 +70,7 @@
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-season-11-october-changes",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/2y4ptr3nW03itSQk4MECy6/4bcca8300aaa7a3ac6d6e7f1624c2f9e/small_thumbnail.jpg",
-      "isSmallNews": true,
-      "highlights": [
-        {
-          "title": "",
-          "text": "A new round of changes is coming to Merge Tactics Season 11 in October! After listening to your feedback, we found that some of the new content wasn\\u2019t hitting as hard as we hoped it would. Monthly Supers made certain strategies too dominant, the gap between high and low-cost troops left fewer v"
-        },
-        {
-          "title": "October Modifiers",
-          "text": "League Modifier Bronze I Merge Training Trait Training Bronze II Trade Training Equipment Training Bronze III Tile Training Building Training Silver I Merge Bonus Domination Silver II Star Advantage Merge Mini Silver III Orb Galore 3-Star Fantasy Silver IV Battle Royale Goblin's Treasure Gold I Roya"
-        },
-        {
-          "title": "",
-          "text": "\\u00a0NEW SKINS"
-        },
-        {
-          "title": "",
-          "text": "Battle Machine and Dagger Duchess are getting new Level 5 skins! "
-        },
-        {
-          "title": "",
-          "text": "Players who\\u2019ve already upgraded these Rulers to Level 5 will automatically receive these skins when the update drops. UPDATE TO BADGES The badge distribution for Merge Tactics is changing when Season 11 ends on November 30. Going forward, Merge Tactics badges will work in line with the other Cl"
-        }
-      ]
+      "isSmallNews": true
     },
     {
       "title": "September Balance Changes",
@@ -86,14 +94,6 @@
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/new-season-minion-academy",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/1ExhWtiIHPdxsaIKOQQ2zd/754dbb54adc2b27cf73148b9736b36ab/HeroIceWizard_ArticleHeroImage_1440x810.jpg",
-      "isSmallNews": true
-    },
-    {
-      "title": "Merge Tactics: Season 11",
-      "publishDate": "2026-08-28T14:15:34.263Z",
-      "category": "Clash Royale",
-      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-season-11",
-      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/5qyLz1ejf3K4k2ZpUK1hfm/2a51c02650f8454e331654fd321dfdbd/small_thumbnail.jpg",
       "isSmallNews": true
     }
   ]
