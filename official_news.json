@@ -1,5 +1,5 @@
 {
-  "lastChecked": "2026-10-19T02:07:44.554001+00:00",
+  "lastChecked": "2026-10-19T11:25:33.705289+00:00",
   "source": "https://supercell.com/en/games/clashroyale/blog/",
   "latestUpdateTitle": "October Balance Changes",
   "latestPublishDate": "2026-10-06T06:15:39.011Z",
@@ -9,28 +9,28 @@
       "publishDate": "2026-10-06T06:15:39.011Z",
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/october-balance-changes-2026",
-      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/4Xz3JUEqeNXfNTPFkl5v2e/c30088f42089534946ecf29d30578cb0/720x405.jpg",
+      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/1ki2XGCEa3wGnjdbO5VS3v/81e0d15a5bcd79ae3dc7b9792e26c941/720x405.jpg",
       "isSmallNews": true,
       "highlights": [
         {
           "title": "",
-          "text": "Balance Update \\u2013 October 6th NERFS \\u2b07\\ufe0f"
+          "text": "Balance Update \\u2013 October 19th With the Clash Royale League World Finals coming early November, we are implementing the seasonal November balance changes earlier, in mid-October, to allow time for players to adapt before the biggest competition of the year! NERFS \\u2b07\\ufe0f"
         },
         {
-          "title": "Hero Ice Wizard",
-          "text": "Freeze Damage: 89 \\u2192 46 (-49%)"
-        },
-        {
-          "title": "",
-          "text": "Hero Ice Wizard claims his icy little buddy is all frost and no bite, but we're not buying it. Frosty Fella will no longer take out Skeletons and Bats with his freeze effect."
-        },
-        {
-          "title": "Cannon Evolution",
-          "text": "Barrage Damage: 281 \\u2192 261 (-7%)"
+          "title": "Cannon Cart",
+          "text": "Damage: 212 \\u2192 202 (-5%) Mass: 3 \\u2192 6 (+100%)"
         },
         {
           "title": "",
-          "text": "It's Minion Giant's world now and Evolved Cannon is just liv-... still the best building in the meta? Its barrage will still take out Dart Goblin, but be slightly less effective against big pushes."
+          "text": "Mortar decks are often impossible to break through, so we're targeting Cannon Cart to reduce the archetype's defensive potential. Cannon Cart will also no longer be pushed around by Goblins!"
+        },
+        {
+          "title": "Dart Goblin",
+          "text": "Damage: 151 \\u2192 143 (-5%)"
+        },
+        {
+          "title": "",
+          "text": "Dart Goblin is the common denominator among the stronger spell bait decks, so we're reducing his damage output and reducing the amount of Double Trouble gum allowed on him!"
         }
       ]
     },
