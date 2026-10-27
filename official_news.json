@@ -1,38 +1,80 @@
 {
-  "lastChecked": "2026-10-27T02:40:35.064996+00:00",
+  "lastChecked": "2026-10-27T11:11:15.839135+00:00",
   "source": "https://supercell.com/en/games/clashroyale/blog/",
-  "latestUpdateTitle": "October Balance Changes",
-  "latestPublishDate": "2026-10-06T06:15:39.011Z",
+  "latestUpdateTitle": "New Season: King vs. King!",
+  "latestPublishDate": "2026-10-27T07:49:59.899Z",
   "articles": [
+    {
+      "title": "New Season: King vs. King!",
+      "publishDate": "2026-10-27T07:49:59.899Z",
+      "category": "Clash Royale",
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/new-season-king-vs-king",
+      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/2I6fhXFvGzXdsqYFgImRYS/acd3cad0cc7bfe554b0605c6bfb9eb20/Evolution-Giant_ArticleHeroImage_1440x810.jpg",
+      "isSmallNews": true,
+      "highlights": [
+        {
+          "title": "",
+          "text": "Playtime is OVER! This season is all about competition, giving you new ways to compete, with new tournament features, challenges, and\\u2026 maybe something more? Here\\u2019s what's coming: New Evolutions: Giant and Mirror\\u00a0 Win Condition Mastery Event Daily Puzzles Royal Market Deck Wizard New C"
+        },
+        {
+          "title": "Giant Evolution",
+          "text": "Aura so strong he enrages all around him!"
+        },
+        {
+          "title": "",
+          "text": "This big lug still targets buildings, and is great as the front liner of a push, but let him take enough damage and the gentle Giant is no more! Giant becomes enraged, leaving a trail of Rage that boosts all troops who follow it. Plus, each of his attacks make that Rage trail bigger, and BIGGER. The"
+        },
+        {
+          "title": "Mirror Evolution",
+          "text": "Troops rate its reflection 10/10!"
+        },
+        {
+          "title": "",
+          "text": "Evolved Mirror copies the last card you played, but evolved, with 1 extra level! Of course, the card must have an Evolution, but the card you mirror doesn\\u2019t have to be in an Evo Slot or in your Collection! If the Evolution exists, Evolved Mirror will make it happen. If the card you mirror has n"
+        }
+      ]
+    },
+    {
+      "title": "  Merge Tactics: Season 11 (November Changes)",
+      "publishDate": "2026-10-27T09:32:00.000+02:00",
+      "category": "Clash Royale",
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-season-11-november-changes",
+      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/2UnOaFiN54EN1PfNgxx1Mz/66877eab3a183d43de98cadf45005aa3/small_thumbnail.jpg",
+      "isSmallNews": true,
+      "highlights": [
+        {
+          "title": "",
+          "text": "Even though Season 11 has been a big one, with no Starsteel reset, each month has had its own troop pool, as well a fresh modifier rotation, and November is no different! Starting October 27, a new rotation will start and you can read all about it in this article! Ruler Quests A couple of changes ar"
+        },
+        {
+          "title": "",
+          "text": "2 Boss Supers are stepping away to make room for Super Hog Rider and Super Dark Prince, bringing back the Rider trait! In addition to this, a bigger balance update for troops, Rulers, Traits, and Equipment is also coming this month. Find out all about it in THIS article."
+        },
+        {
+          "title": "November Modifiers",
+          "text": "League Modifier Bronze I Merge Training Trait Training Bronze II Trade Training Equipment Training Bronze III Tile Training Building Training Silver I Royale River Ascension Silver II Merge Mini Elixir Festival Silver III Clear Mind Damage Tile Silver IV Orb Galore Four Stars Gold I Battle Royale Go"
+        },
+        {
+          "title": "",
+          "text": "Other Changes & Bug Fixes Elixir per Round We heard your feedback loud and clear! 4 Elixir per round is too little, making the early game too slow. The amount of Elixir earned per round is going back to 5. Shared Pool With Supers now being part of the shared pool, 2- and 3-Star Troops were not as ea"
+        }
+      ]
+    },
+    {
+      "title": "Merge Tactics: Season 11 Balance Changes",
+      "publishDate": "2026-10-27T09:30:00.000+02:00",
+      "category": "Clash Royale",
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-season-11-balance-changes",
+      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/6i6Hs1VQYMHLsnyLny8epm/b59991703c556135ed7ad1c4bb6692a9/MT_balance_changes_hero.jpg",
+      "isSmallNews": true
+    },
     {
       "title": "October Balance Changes",
       "publishDate": "2026-10-06T06:15:39.011Z",
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/october-balance-changes-2026",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/1ki2XGCEa3wGnjdbO5VS3v/81e0d15a5bcd79ae3dc7b9792e26c941/720x405.jpg",
-      "isSmallNews": true,
-      "highlights": [
-        {
-          "title": "",
-          "text": "Balance Update \\u2013 October 19th With the Clash Royale League World Finals coming early November, we are implementing the seasonal November balance changes earlier, in mid-October, to allow time for players to adapt before the biggest competition of the year! NERFS \\u2b07\\ufe0f"
-        },
-        {
-          "title": "Cannon Cart",
-          "text": "Damage: 212 \\u2192 202 (-5%) Mass: 3 \\u2192 6 (+100%)"
-        },
-        {
-          "title": "",
-          "text": "Mortar decks are often impossible to break through, so we're targeting Cannon Cart to reduce the archetype's defensive potential. Cannon Cart will also no longer be pushed around by Goblins!"
-        },
-        {
-          "title": "Dart Goblin",
-          "text": "Damage: 151 \\u2192 143 (-5%)"
-        },
-        {
-          "title": "",
-          "text": "Dart Goblin is the common denominator among the stronger spell bait decks, so we're reducing his damage output and reducing the amount of Double Trouble gum allowed on him!"
-        }
-      ]
+      "isSmallNews": true
     },
     {
       "title": "New Season: Shocktober!",
@@ -40,29 +82,7 @@
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/new-season-shocktober",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/5uVxnmkg6ijzOVFl8cd9b0/1ce8c865928f89c695c6140f9597f8b5/HeroElectroWizard_ArticleHeroImage_1440x810.jpg",
-      "isSmallNews": true,
-      "highlights": [
-        {
-          "title": "",
-          "text": "Get ready for the most shocking season of the year\\u2026 literally. In this article, you\\u2019ll find everything you need to know to get you amped up for the new season: New Hero: Electro Wizard New Evolution Electro Giant Shocktober: The Movie! Album Event\\u00a0 C.H.A.O.S modes Spooky Chess League "
-        },
-        {
-          "title": "Hero Electro Wizard",
-          "text": "Ability: Surging Strikes The most ELECTRIFYING Hero yet!"
-        },
-        {
-          "title": "",
-          "text": "Activate Hero Electro Wizard\\u2019s ability to stun two nearby enemies at once for a few seconds! You can find this electrifying new Hero in the Upgraded Pass Royale. NEW EVOLUTION"
-        },
-        {
-          "title": "Electro Giant Evolution",
-          "text": "Zap Pack 2.0: New & improved!"
-        },
-        {
-          "title": "",
-          "text": "This device helps Evolved Electro Giant unleash an expanding electric pulse that shrinks and de-levels enemies in range. Those entering his field will need to amp it up a notch for watt happens next! You can unlock this new Evolution for FREE by completing the Album Event! ALBUM EVENT Shocktober: Th"
-        }
-      ]
+      "isSmallNews": true
     },
     {
       "title": "Merge Tactics: Season 11 (October Changes)",
@@ -70,30 +90,6 @@
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-season-11-october-changes",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/2y4ptr3nW03itSQk4MECy6/4bcca8300aaa7a3ac6d6e7f1624c2f9e/small_thumbnail.jpg",
-      "isSmallNews": true
-    },
-    {
-      "title": "September Balance Changes",
-      "publishDate": "2026-09-23T13:25:14.012Z",
-      "category": "Clash Royale",
-      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/september-balance-changes-2027",
-      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/IdkNVn2cZNvkUBtF2K8cg/969b345deb0fd1be52f054ae28d22676/720x405.jpg",
-      "isSmallNews": true
-    },
-    {
-      "title": "Merge Tactics: Season 11 Balance Changes",
-      "publishDate": "2026-09-08T08:41:08.193Z",
-      "category": "Clash Royale",
-      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-season-11-balance-changes",
-      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/6uvV1twu9BONm26w7WcbG7/c8f1bf4a3e725a6d4221e102a7a75d74/MT_balance_changes_hero.jpg",
-      "isSmallNews": true
-    },
-    {
-      "title": "New Season: Minion Academy!",
-      "publishDate": "2026-09-07T12:00:00.000+03:00",
-      "category": "Clash Royale",
-      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/new-season-minion-academy",
-      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/1ExhWtiIHPdxsaIKOQQ2zd/754dbb54adc2b27cf73148b9736b36ab/HeroIceWizard_ArticleHeroImage_1440x810.jpg",
       "isSmallNews": true
     }
   ]
