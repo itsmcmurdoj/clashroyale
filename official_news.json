@@ -1,9 +1,17 @@
 {
-  "lastChecked": "2026-11-08T02:59:26.671062+00:00",
+  "lastChecked": "2026-11-08T12:20:10.602291+00:00",
   "source": "https://supercell.com/en/games/clashroyale/blog/",
-  "latestUpdateTitle": "New Season: King vs. King!",
-  "latestPublishDate": "2026-10-27T07:49:59.899Z",
+  "latestUpdateTitle": "Crown Series!",
+  "latestPublishDate": "2026-11-08T03:22:05.576Z",
   "articles": [
+    {
+      "title": "Crown Series!",
+      "publishDate": "2026-11-08T03:22:05.576Z",
+      "category": "Clash Royale",
+      "url": "https://supercell.com/en/games/clashroyale/blog/news/crown-series",
+      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/18zKzB7IE7siWnVqTgdlFy/6eac624578a6e25da7ff9abe4d120e27/small_thumbnail.jpg",
+      "isSmallNews": true
+    },
     {
       "title": "New Season: King vs. King!",
       "publishDate": "2026-10-27T07:49:59.899Z",
@@ -40,25 +48,7 @@
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-season-11-november-changes",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/2UnOaFiN54EN1PfNgxx1Mz/66877eab3a183d43de98cadf45005aa3/small_thumbnail.jpg",
-      "isSmallNews": true,
-      "highlights": [
-        {
-          "title": "",
-          "text": "Even though Season 11 has been a big one, with no Starsteel reset, each month has had its own troop pool, as well a fresh modifier rotation, and November is no different! Starting October 27, a new rotation will start and you can read all about it in this article! Ruler Quests A couple of changes ar"
-        },
-        {
-          "title": "",
-          "text": "2 Boss Supers are stepping away to make room for Super Hog Rider and Super Dark Prince, bringing back the Rider trait! In addition to this, a bigger balance update for troops, Rulers, Traits, and Equipment is also coming this month. Find out all about it in THIS article."
-        },
-        {
-          "title": "November Modifiers",
-          "text": "League Modifier Bronze I Merge Training Trait Training Bronze II Trade Training Equipment Training Bronze III Tile Training Building Training Silver I Royale River Ascension Silver II Merge Mini Elixir Festival Silver III Clear Mind Damage Tile Silver IV Orb Galore Four Stars Gold I Battle Royale Go"
-        },
-        {
-          "title": "",
-          "text": "Other Changes & Bug Fixes Elixir per Round We heard your feedback loud and clear! 4 Elixir per round is too little, making the early game too slow. The amount of Elixir earned per round is going back to 5. Shared Pool With Supers now being part of the shared pool, 2- and 3-Star Troops were not as ea"
-        }
-      ]
+      "isSmallNews": true
     },
     {
       "title": "Merge Tactics: Season 11 Balance Changes",
@@ -82,14 +72,6 @@
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/new-season-shocktober",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/5uVxnmkg6ijzOVFl8cd9b0/1ce8c865928f89c695c6140f9597f8b5/HeroElectroWizard_ArticleHeroImage_1440x810.jpg",
-      "isSmallNews": true
-    },
-    {
-      "title": "Merge Tactics: Season 11 (October Changes)",
-      "publishDate": "2026-09-30T14:37:11.499Z",
-      "category": "Clash Royale",
-      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/merge-tactics-season-11-october-changes",
-      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/2y4ptr3nW03itSQk4MECy6/4bcca8300aaa7a3ac6d6e7f1624c2f9e/small_thumbnail.jpg",
       "isSmallNews": true
     }
   ]
