@@ -1,9 +1,17 @@
 {
-  "lastChecked": "2026-11-26T01:14:58.035448+00:00",
+  "lastChecked": "2026-11-26T15:55:16.112140+00:00",
   "source": "https://supercell.com/en/games/clashroyale/blog/",
-  "latestUpdateTitle": "Crown Series!",
-  "latestPublishDate": "2026-11-25T14:00:00.000+02:00",
+  "latestUpdateTitle": "End of Support for Older Devices",
+  "latestPublishDate": "2026-11-26T12:08:34.093Z",
   "articles": [
+    {
+      "title": "End of Support for Older Devices",
+      "publishDate": "2026-11-26T12:08:34.093Z",
+      "category": "Clash Royale",
+      "url": "https://supercell.com/en/games/clashroyale/blog/news/end-of-support-ios-14-and-android-7",
+      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/650UlgEsqtI3nZcV0lAUaU/3cb9a7c2abf8546b4fa5fdc671b5ab1e/hero.jpg",
+      "isSmallNews": true
+    },
     {
       "title": "Crown Series!",
       "publishDate": "2026-11-25T14:00:00.000+02:00",
@@ -18,29 +26,7 @@
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/new-season-king-vs-king",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/2I6fhXFvGzXdsqYFgImRYS/acd3cad0cc7bfe554b0605c6bfb9eb20/Evolution-Giant_ArticleHeroImage_1440x810.jpg",
-      "isSmallNews": true,
-      "highlights": [
-        {
-          "title": "",
-          "text": "Playtime is OVER! This season is all about competition, giving you new ways to compete, with new tournament features, challenges, and\\u2026 maybe something more? Here\\u2019s what's coming: New Evolutions: Giant and Mirror\\u00a0 Win Condition Mastery Event Daily Puzzles Royal Market Deck Wizard New C"
-        },
-        {
-          "title": "Giant Evolution",
-          "text": "Aura so strong he enrages all around him!"
-        },
-        {
-          "title": "",
-          "text": "This big lug still targets buildings, and is great as the front liner of a push, but let him take enough damage and the gentle Giant is no more! Giant becomes enraged, leaving a trail of Rage that boosts all troops who follow it. Plus, each of his attacks make that Rage trail bigger, and BIGGER. The"
-        },
-        {
-          "title": "Mirror Evolution",
-          "text": "Troops rate its reflection 10/10!"
-        },
-        {
-          "title": "",
-          "text": "Evolved Mirror copies the last card you played, but evolved, with 1 extra level! Of course, the card must have an Evolution, but the card you mirror doesn\\u2019t have to be in an Evo Slot or in your Collection! If the Evolution exists, Evolved Mirror will make it happen. If the card you mirror has n"
-        }
-      ]
+      "isSmallNews": true
     },
     {
       "title": "  Merge Tactics: Season 11 (November Changes)",
@@ -64,14 +50,6 @@
       "category": "Clash Royale",
       "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/october-balance-changes-2026",
       "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/1ki2XGCEa3wGnjdbO5VS3v/81e0d15a5bcd79ae3dc7b9792e26c941/720x405.jpg",
-      "isSmallNews": true
-    },
-    {
-      "title": "New Season: Shocktober!",
-      "publishDate": "2026-10-05T08:28:43.758Z",
-      "category": "Clash Royale",
-      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/new-season-shocktober",
-      "thumbnail": "https://clashroyale.inbox.supercell.com/9jtsgmsiuthj/5uVxnmkg6ijzOVFl8cd9b0/1ce8c865928f89c695c6140f9597f8b5/HeroElectroWizard_ArticleHeroImage_1440x810.jpg",
       "isSmallNews": true
     }
   ]
